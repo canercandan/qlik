@@ -1,0 +1,197 @@
+<ui version="4.0" >
+ <class>Account</class>
+ <widget class="QWidget" name="Account" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>291</width>
+    <height>239</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Account</string>
+  </property>
+  <widget class="QWidget" name="verticalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>271</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <item>
+     <widget class="QGroupBox" name="groupBox" >
+      <property name="title" >
+       <string>Server Settings</string>
+      </property>
+      <layout class="QVBoxLayout" >
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <widget class="QLabel" name="label_5" >
+           <property name="text" >
+            <string>Address :</string>
+           </property>
+           <property name="buddy" >
+            <cstring>comboBox</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox" >
+           <item>
+            <property name="text" >
+             <string>91.121.102.113:4242</string>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>91.121.35.26:4242</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QGridLayout" >
+         <item row="0" column="0" >
+          <widget class="QLabel" name="label" >
+           <property name="text" >
+            <string>Address :</string>
+           </property>
+           <property name="buddy" >
+            <cstring>address</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" >
+          <widget class="QLineEdit" name="address" >
+           <property name="text" >
+            <string>91.121.102.113</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2" >
+          <widget class="QLabel" name="label_2" >
+           <property name="text" >
+            <string>Port :</string>
+           </property>
+           <property name="buddy" >
+            <cstring>port</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3" >
+          <widget class="QLineEdit" name="port" >
+           <property name="text" >
+            <string>4242</string>
+           </property>
+           <property name="maxLength" >
+            <number>5</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox_2" >
+      <property name="title" >
+       <string>Account Settings</string>
+      </property>
+      <widget class="QWidget" name="gridLayout_2" >
+       <property name="geometry" >
+        <rect>
+         <x>9</x>
+         <y>19</y>
+         <width>251</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" >
+        <item row="0" column="0" >
+         <widget class="QLabel" name="label_3" >
+          <property name="text" >
+           <string>Username :</string>
+          </property>
+          <property name="buddy" >
+           <cstring>username</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" >
+         <widget class="QLineEdit" name="username" />
+        </item>
+        <item row="1" column="0" >
+         <widget class="QLabel" name="label_4" >
+          <property name="text" >
+           <string>Password :</string>
+          </property>
+          <property name="buddy" >
+           <cstring>password</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" >
+         <widget class="QLineEdit" name="password" >
+          <property name="echoMode" >
+           <enum>QLineEdit::Password</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" >
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonOk" >
+        <property name="text" >
+         <string>Ok</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonCancel" >
+        <property name="text" >
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>username</tabstop>
+  <tabstop>password</tabstop>
+  <tabstop>pushButtonOk</tabstop>
+  <tabstop>pushButtonCancel</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>address</tabstop>
+  <tabstop>port</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

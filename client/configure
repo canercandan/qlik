@@ -1,0 +1,23 @@
+#!/bin/sh
+## configure for client in /home/candan_c/rendu/ekzay/client
+## 
+## Made by caner candan
+## Login   <candan_c@epitech.net>
+## 
+## Started on  Tue Jul 15 15:03:31 2008 caner candan
+## Last update Tue Jul 15 15:05:00 2008 caner candan
+##
+
+NAME="client"
+RM="rm -f"
+QMAKE="qmake-qt4"
+MAKE="make"
+
+# QMAKE SETTING
+export QTDIR="/usr/local/share/qt4"
+export QMAKESPEC=$QTDIR"/mkspecs/freebsd-g++"
+# !QMAKE SETTING
+
+$RM $NAME;
+$QMAKE && \
+$MAKE;

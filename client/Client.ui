@@ -1,0 +1,55 @@
+<ui version="4.0" >
+ <class>Client</class>
+ <widget class="QMainWindow" name="Client" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>401</width>
+    <height>328</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Client</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" />
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>401</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuConnection" >
+    <property name="title" >
+     <string>Actions</string>
+    </property>
+    <addaction name="actionSignIn" />
+    <addaction name="actionSignOut" />
+    <addaction name="separator" />
+    <addaction name="actionQuit" />
+   </widget>
+   <addaction name="menuConnection" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <action name="actionSignIn" >
+   <property name="text" >
+    <string>Sign in</string>
+   </property>
+  </action>
+  <action name="actionSignOut" >
+   <property name="text" >
+    <string>Sign out</string>
+   </property>
+  </action>
+  <action name="actionQuit" >
+   <property name="text" >
+    <string>Quit</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
