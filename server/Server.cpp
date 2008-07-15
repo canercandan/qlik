@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Tue Jul 15 00:10:22 2008 caner candan
+// Last update Tue Jul 15 14:52:01 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -90,7 +90,7 @@ void		Server::addClient(Client *server)
   sc = new SocketClient(server->getSocket()->getSocket(), true);
   client = new Client(sc, Client::CLIENT);
   this->_clients.push_back(client);
-  client->setBufWrite("WELCOME\n");
+  client->setBufWrite(MESG_WELCOME);
 }
 
 void	Server::setFd(fd_set& fdRead, fd_set& fdWrite, int& fdMax)
@@ -347,11 +347,11 @@ void	Server::actClients(Server *server, Client *client)
 
   if (notConnected(client))
     return;
-  client->setBufWrite("CLIENTS BEGIN\n");
+  client->setBufWrite(MESG_BEGIN);
   for (it = server->getListClients().begin(); it != end; ++it)
     if ((*it)->isConnected())
       client->setBufWrite((*it)->getLogin() + '\n');
-  client->setBufWrite("CLIENTS END\n");
+  client->setBufWrite(MESG_END);
 }
 
 void	Server::actAccounts(Server*, Client *client)
@@ -364,7 +364,7 @@ void	Server::actAccounts(Server*, Client *client)
 
   if (notConnected(client))
     return;
-  client->setBufWrite("ACCOUNTS BEGIN\n");
+  client->setBufWrite(MESG_BEGIN);
   while (!file.eof())
     {
       file >> loginFile >> passwdFile >> creditFile;
@@ -378,7 +378,7 @@ void	Server::actAccounts(Server*, Client *client)
       ss.str(MESG_EMPTY);
     }
   file.close();
-  client->setBufWrite("ACCOUNTS END\n");
+  client->setBufWrite(MESG_END);
 }
 
 void	Server::actMessage(Server *server, Client *client)
@@ -412,18 +412,32 @@ void	Server::actServices(Server*, Client *client)
 {
   Client::listServices::const_iterator	it;
   Client::listServices::const_iterator	end = client->getListServices().end();
+  std::stringstream			ss;
 
   if (notConnected(client))
     return;
-  client->setBufWrite("SERVICES BEGIN\n");
+  client->setBufWrite(MESG_BEGIN);
   for (it = client->getListServices().begin(); it != end; ++it)
     {
       if ((*it)->getType() == Service::WEB)
-	client->setBufWrite("Web\n");
+	ss << "WEB"
+	   << ' ' << ((ServiceWeb*)(*it))->getOffer().space
+	   << ' ' << ((ServiceWeb*)(*it))->getOffer().nbDb
+	   << ' ' << (*it)->getName()
+	   << ' ' << (*it)->getPasswd()
+	   << ' ' << ((ServiceWeb*)(*it))->getDomain()
+	   << '\n';
       else
-	client->setBufWrite("Stream\n");
+	ss << "STREAM"
+	   << ' ' << ((ServiceStream*)(*it))->getOffer().slots
+	   << ' ' << ((ServiceStream*)(*it))->getOffer().nbBits
+	   << ' ' << (*it)->getName()
+	   << ' ' << (*it)->getPasswd()
+	   << '\n';
+      client->setBufWrite(ss.str());
+      ss.str(MESG_EMPTY);
     }
-  client->setBufWrite("SERVICES END\n");
+  client->setBufWrite(MESG_END);
 }
 
 void	Server::actCreateService(Server*, Client *client)
@@ -431,10 +445,15 @@ void	Server::actCreateService(Server*, Client *client)
   std::stringstream	ss(client->getBufRead());
   std::string		action;
   int			service;
+  int			offerId;
+  std::string		name;
+  std::string		passwd;
+  std::string		domain;
 
   if (notConnected(client))
     return;
-  ss >> action >> service;
+  offerId = 0;
+  ss >> action >> service >> offerId >> name >> passwd;
   if (service != Service::WEB &&
       service != Service::STREAM)
     {
@@ -442,9 +461,14 @@ void	Server::actCreateService(Server*, Client *client)
       return;
     }
   if (service == Service::WEB)
-    client->addService(new ServiceWeb);
+    {
+      ss >> domain;
+      client->addService(new ServiceWeb(name, passwd, domain,
+					(ServiceWeb::OfferId)offerId));
+    }
   else
-    client->addService(new ServiceStream);
+    client->addService(new ServiceStream(name, passwd,
+					 (ServiceStream::OfferId)offerId));
   client->setBufWrite(MESG_OK);
 }
 

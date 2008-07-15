@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Mon Jul 14 23:44:49 2008 caner candan
+// Last update Tue Jul 15 13:27:57 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -20,6 +20,9 @@
 # define MESG_OK	"OK\n"
 # define MESG_KO	"KO\n"
 # define MESG_EMPTY	""
+# define MESG_BEGIN	"BEGIN\n"
+# define MESG_END	"END\n"
+# define MESG_WELCOME	"WELCOME\n"
 
 # define ACCOUNT_FILE	"account.cfg"
 

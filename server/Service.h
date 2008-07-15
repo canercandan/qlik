@@ -5,11 +5,13 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Jul 13 09:57:53 2008 caner candan
-// Last update Mon Jul 14 22:49:24 2008 caner candan
+// Last update Tue Jul 15 13:34:46 2008 caner candan
 //
 
 #ifndef __SERVICE_H__
 # define __SERVICE_H__
+
+# include <string>
 
 class	Service
 {
@@ -20,14 +22,20 @@ public:
       STREAM
     };
 public:
-  Service(Type type = WEB);
+  Service(const std::string& name,
+	  const std::string& passwd,
+	  Type type = WEB);
   Service(const Service&);
   ~Service();
   Service&	operator=(const Service&);
 
-  const Type&	getType(void) const;
+  const std::string&	getName(void) const;
+  const std::string&	getPasswd(void) const;
+  const Type&		getType(void) const;
 private:
-  Type	_type;
+  std::string	_name;
+  std::string	_passwd;
+  Type		_type;
 };
 
 #endif // !__SERVICE_H__
