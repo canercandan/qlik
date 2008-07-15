@@ -5,11 +5,12 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Tue Jul 15 18:56:14 2008 caner candan
+// Last update Tue Jul 15 20:53:23 2008 caner candan
 //
 
 #include "Client.h"
-#include "Account.h"
+#include "Connect.h"
+#include "Create.h"
 
 Client::Client(QWidget *parent /*= NULL*/)
   : QMainWindow(parent)
@@ -21,12 +22,21 @@ Client::Client(QWidget *parent /*= NULL*/)
 Client::~Client()
 {}
 
+void	Client::on_actionSignUp_triggered()
+{
+  Create	create(this);
+
+  if (create.exec() != QDialog::Accepted)
+    return;
+}
+
 void	Client::on_actionSignIn_triggered()
 {
-  Account	account(this);
+  Connect	connect(this);
 
-  if (account.exec() != QDialog::Accepted)
+  if (connect.exec() != QDialog::Accepted)
     return;
+  this->actionSignUp->setEnabled(false);
   this->actionSignIn->setEnabled(false);
   this->actionSignOut->setEnabled(true);
 }

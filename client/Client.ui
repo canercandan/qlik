@@ -26,6 +26,7 @@
     <property name="title" >
      <string>Actions</string>
     </property>
+    <addaction name="actionSignUp" />
     <addaction name="actionSignIn" />
     <addaction name="actionSignOut" />
     <addaction name="separator" />
@@ -47,6 +48,11 @@
   <action name="actionQuit" >
    <property name="text" >
     <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionSignUp" >
+   <property name="text" >
+    <string>Sign up</string>
    </property>
   </action>
  </widget>
