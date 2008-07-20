@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Sun Jul 20 19:30:51 2008 caner candan
+// Last update Sun Jul 20 22:56:05 2008 caner candan
 //
 
 #include "Client.h"
@@ -25,13 +25,19 @@ Client::Client(QWidget *parent /*= NULL*/)
   : QMainWindow(parent), _socket(new QTcpSocket)
 {
   setupUi(this);
+  actionSignUp->setEnabled(false);
+  actionSignIn->setEnabled(false);
   actionSignOut->setEnabled(false);
+  toolBox->setEnabled(false);
+  connect(_socket, SIGNAL(connected()),
+	  this, SLOT(connectedToServer()));
   connect(_socket, SIGNAL(readyRead()),
 	  this, SLOT(readAction()));
   connect(_socket, SIGNAL(bytesWritten(qint64)),
 	  this, SLOT(sendAction()));
   connect(_socket, SIGNAL(error(QAbstractSocket::SocketError)),
 	  this, SLOT(displayError(QAbstractSocket::SocketError)));
+  _socket->connectToHost(HOST, PORT);
 }
 
 Client::~Client()
@@ -50,37 +56,54 @@ void	Client::closeSocket()
 void	Client::on_actionSignUp_triggered()
 {
   Create	create(this);
+  QTextStream	stream(this->_socket);
 
   if (create.exec() != QDialog::Accepted)
     return;
+  stream << CREATE
+	 << ' ' << create.username->text()
+	 << ' ' << create.password->text()
+	 << endl;
 }
 
 void	Client::on_actionSignIn_triggered()
 {
   Connect	connect(this);
+  QTextStream	stream(this->_socket);
 
   if (connect.exec() != QDialog::Accepted)
     return;
-  this->closeSocket();
-  this->_socket->connectToHost(connect.address->text(),
-			       connect.port->text().toInt());
-  this->_username = connect.username->text();
-  this->_password = connect.password->text();
-  this->connect(this->_socket, SIGNAL(connected()),
-		this, SLOT(signIn()));
+  stream << LOGIN
+	 << ' ' << connect.username->text()
+	 << ' ' << connect.password->text()
+	 << endl;
+  this->infoAccount->setText(connect.username->text());
 }
 
 void	Client::on_actionSignOut_triggered()
 {
-  this->signOut();
-  this->actionSignUp->setEnabled(true);
-  this->actionSignIn->setEnabled(true);
-  this->actionSignOut->setEnabled(false);
+  QTextStream	stream(this->_socket);
+
+  stream << LOGOUT << endl;
+}
+
+void	Client::on_actionInformation_triggered()
+{
+  QMessageBox::information(this,
+			   tr("Information"),
+			   tr("Information about this program"));
 }
 
 void	Client::on_actionQuit_triggered()
 {
   this->close();
+}
+
+void	Client::connectedToServer()
+{
+  this->statusbar->showMessage("Connected to server");
+  actionSignUp->setEnabled(true);
+  actionSignIn->setEnabled(true);
 }
 
 void	Client::readAction()
@@ -97,7 +120,7 @@ void	Client::readAction()
 	return;
       action = resList.at(0).toInt();
       if (action == 42)
-	qDebug() << "welcome";
+	this->statusbar->showMessage("Welcome");
       if (action >= 0 && action < NB_ACTIONS)
 	{
 	  qDebug() << "action found" << action;
@@ -108,34 +131,6 @@ void	Client::readAction()
 
 void	Client::sendAction()
 {}
-
-void	Client::signIn()
-{
-  QTextStream	stream(this->_socket);
-
-  stream << LOGIN
-	 << ' ' << this->_username
-	 << ' ' << this->_password
-	 << endl;
-  this->_socket->waitForBytesWritten(1000);
-}
-
-void	Client::signUp()
-{
-  QTextStream	stream(this->_socket);
-
-  stream << CREATE
-	 << ' ' << this->_username
-	 << ' ' << this->_password
-	 << endl;
-}
-
-void	Client::signOut()
-{
-  QTextStream	stream(this->_socket);
-
-  stream << LOGOUT << endl;
-}
 
 void	Client::displayError(QAbstractSocket::SocketError)
 {
@@ -151,14 +146,15 @@ void	Client::actLogin(Client* client, const QStringList& resList)
       QMessageBox::critical(client,
 			    tr("Login incorrect"),
 			    tr("Username or password incorrect"));
+      client->infoAccount->setText("guest");
+      client->infoStatus->setText("Offline");
       return;
     }
-  QMessageBox::information(client,
-			   tr("Connected"),
-			   tr("You're connected in your account."));
   client->actionSignUp->setEnabled(false);
   client->actionSignIn->setEnabled(false);
   client->actionSignOut->setEnabled(true);
+  client->toolBox->setEnabled(true);
+  client->infoStatus->setText("Online");
   client->statusbar->showMessage("I'm sign in ...");
 }
 
@@ -171,9 +167,12 @@ void	Client::actLogout(Client* client, const QStringList& resList)
 			    tr("Logout error"));
       return;
     }
-  QMessageBox::information(client,
-			   tr("Logout"),
-			   tr("You're logout now"));
+  client->actionSignUp->setEnabled(true);
+  client->actionSignIn->setEnabled(true);
+  client->actionSignOut->setEnabled(false);
+  client->toolBox->setEnabled(false);
+  client->infoAccount->setText("guest");
+  client->infoStatus->setText("Offline");
   client->statusbar->showMessage("I'm sign out ...");
 }
 

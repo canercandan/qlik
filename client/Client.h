@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Sun Jul 20 19:32:20 2008 caner candan
+// Last update Sun Jul 20 20:51:58 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -14,6 +14,9 @@
 # include <QMainWindow>
 # include <QtNetwork>
 # include "ui_Client.h"
+
+# define HOST	"localhost"
+# define PORT	4242
 
 # define NB_ACTIONS	9
 
@@ -64,11 +67,9 @@ private slots:
   void	on_actionSignIn_triggered();
   void	on_actionSignOut_triggered();
   void	on_actionQuit_triggered();
+  void	on_actionInformation_triggered();
 
-  void	signIn();
-  void	signUp();
-  void	signOut();
-
+  void	connectedToServer();
   void	readAction();
   void	sendAction();
   void	displayError(QAbstractSocket::SocketError);

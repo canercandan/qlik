@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:46:22 2008 caner candan
-// Last update Tue Jul 15 19:31:41 2008 caner candan
+// Last update Sun Jul 20 20:27:44 2008 caner candan
 //
 
 #include <QWidget>
@@ -23,21 +23,7 @@ Connect::~Connect()
 
 void	Connect::on_pushButtonOk_clicked()
 {
-  if (this->address->text().isEmpty())
-    {
-      QMessageBox::information(this,
-			       tr("No address"),
-			       tr("Please insert an address to connect"));
-      this->address->setFocus();
-    }
-  else if (this->port->text().isEmpty())
-    {
-      QMessageBox::information(this,
-			       tr("No port"),
-			       tr("Please insert a port to connect"));
-      this->port->setFocus();
-    }
-  else if (this->username->text().isEmpty())
+  if (this->username->text().isEmpty())
     {
       QMessageBox::information(this,
 			       tr("No username"),

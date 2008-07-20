@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>292</width>
-    <height>278</height>
+    <width>290</width>
+    <height>158</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -18,91 +18,10 @@
      <x>10</x>
      <y>10</y>
      <width>271</width>
-     <height>261</height>
+     <height>141</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" >
-    <item>
-     <widget class="QGroupBox" name="groupBox" >
-      <property name="title" >
-       <string>Server Settings</string>
-      </property>
-      <layout class="QVBoxLayout" >
-       <item>
-        <layout class="QHBoxLayout" >
-         <item>
-          <widget class="QLabel" name="label_5" >
-           <property name="text" >
-            <string>Address :</string>
-           </property>
-           <property name="buddy" >
-            <cstring>comboBox</cstring>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="comboBox" >
-           <item>
-            <property name="text" >
-             <string>91.121.102.113:4242</string>
-            </property>
-           </item>
-           <item>
-            <property name="text" >
-             <string>91.121.35.26:4242</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QGridLayout" >
-         <item row="0" column="0" >
-          <widget class="QLabel" name="label" >
-           <property name="text" >
-            <string>Address :</string>
-           </property>
-           <property name="buddy" >
-            <cstring>address</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1" >
-          <widget class="QLineEdit" name="address" >
-           <property name="text" >
-            <string>localhost</string>
-           </property>
-           <property name="maxLength" >
-            <number>15</number>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2" >
-          <widget class="QLabel" name="label_2" >
-           <property name="text" >
-            <string>Port :</string>
-           </property>
-           <property name="buddy" >
-            <cstring>port</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3" >
-          <widget class="QLineEdit" name="port" >
-           <property name="text" >
-            <string>4242</string>
-           </property>
-           <property name="maxLength" >
-            <number>5</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item>
      <widget class="QGroupBox" name="groupBox_2" >
       <property name="title" >
@@ -219,9 +138,6 @@
   <tabstop>repassword</tabstop>
   <tabstop>pushButtonOk</tabstop>
   <tabstop>pushButtonCancel</tabstop>
-  <tabstop>comboBox</tabstop>
-  <tabstop>address</tabstop>
-  <tabstop>port</tabstop>
  </tabstops>
  <resources/>
  <connections/>
