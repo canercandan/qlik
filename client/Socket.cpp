@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul 16 23:22:27 2008 caner candan
-// Last update Sun Jul 20 13:22:45 2008 caner candan
+// Last update Sun Jul 20 18:50:01 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -72,21 +72,25 @@ void	Socket::signIn()
   stream << LOGIN
 	 << ' ' << this->_username
 	 << ' ' << this->_password
-	 << '\n';
+	 << endl;
+  this->_socket->waitForBytesWritten(1000);
 }
 
 void	Socket::signUp()
 {
   QTextStream	stream(this->_socket);
 
-  qDebug() << CREATE
-	   << ' ' << this->_username
-	   << ' ' << this->_password
-	   << '\n';
   stream << CREATE
 	 << ' ' << this->_username
 	 << ' ' << this->_password
-	 << '\n';
+	 << endl;
+}
+
+void	Socket::signOut()
+{
+  QTextStream	stream(this->_socket);
+
+  stream << LOGOUT << endl;
 }
 
 QTcpSocket	*Socket::getSocket(void)
@@ -126,7 +130,6 @@ void	Socket::displayError(QAbstractSocket::SocketError)
 
 void	Socket::actLogin(Socket* socket, const QStringList& resList)
 {
-  qDebug() << "actLogin" << resList.at(1);
   if (resList.at(1) != "OK")
     {
       QMessageBox::critical(socket->_parent,
@@ -134,20 +137,44 @@ void	Socket::actLogin(Socket* socket, const QStringList& resList)
 			    tr("Username or password incorrect"));
       return;
     }
-  else
-    QMessageBox::information(socket->_parent,
-			     tr("Connected"),
-			     tr("You're connected in your account."));
+  QMessageBox::information(socket->_parent,
+			   tr("Connected"),
+			   tr("You're connected in your account."));
   ((Client*)socket->_parent)->actionSignUp->setEnabled(false);
   ((Client*)socket->_parent)->actionSignIn->setEnabled(false);
   ((Client*)socket->_parent)->actionSignOut->setEnabled(true);
+  ((Client*)socket->_parent)->statusbar->showMessage("I'm sign in ...");
 }
 
-void	Socket::actLogout(Socket*, const QStringList&)
-{}
+void	Socket::actLogout(Socket* socket, const QStringList& resList)
+{
+  if (resList.at(1) != "OK")
+    {
+      QMessageBox::critical(socket->_parent,
+			    tr("Logout error"),
+			    tr("Logout error"));
+      return;
+    }
+  QMessageBox::information(socket->_parent,
+			   tr("Logout"),
+			   tr("You're logout now"));
+  ((Client*)socket->_parent)->statusbar->showMessage("I'm sign out ...");
+}
 
-void	Socket::actCreate(Socket*, const QStringList&)
-{}
+void	Socket::actCreate(Socket* socket, const QStringList& resList)
+{
+  if (resList.at(1) != "OK")
+    {
+      QMessageBox::critical(socket->_parent,
+			    tr("Creation incorrect"),
+			    tr("Username or password already used"));
+      return;
+    }
+  QMessageBox::information(socket->_parent,
+			   tr("Created"),
+			   tr("Your account has been created."));
+  ((Client*)socket->_parent)->statusbar->showMessage("Accout created ...");
+}
 
 void	Socket::actStatus(Socket*, const QStringList&)
 {}

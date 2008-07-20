@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul 16 23:15:46 2008 caner candan
-// Last update Sun Jul 20 12:38:56 2008 caner candan
+// Last update Sun Jul 20 17:20:22 2008 caner candan
 //
 
 #ifndef __SOCKET_H__
@@ -61,6 +61,8 @@ public:
   void	connectToServer(const Connect& connect);
   void	createToServer(const Create& create);
   void	close(void);
+
+  void	signOut();
 
   QTcpSocket	*getSocket(void);
 private slots:
