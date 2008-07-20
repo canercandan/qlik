@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:36:03 2008 caner candan
-// Last update Tue Jul 15 19:32:03 2008 caner candan
+// Last update Tue Jul 15 23:19:58 2008 caner candan
 //
 
 #ifndef __CONNECT_H__
@@ -14,7 +14,7 @@
 # include <QDialog>
 # include "ui_Connect.h"
 
-class	Connect : public QDialog, private Ui::Connect
+class	Connect : public QDialog, public Ui::Connect
 {
   Q_OBJECT
 

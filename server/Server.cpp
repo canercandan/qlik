@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Tue Jul 15 14:52:01 2008 caner candan
+// Last update Thu Jul 17 20:12:49 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -23,15 +23,15 @@
 #include "ServiceStream.h"
 
 Server::Actions	Server::actions[NB_ACTIONS] = {
-  {"__LOGIN__", actLogin, MESG_EMPTY},
-  {"__LOGOUT__", actLogout, MESG_OK},
-  {"__CREATE__", actCreate, MESG_EMPTY},
-  {"__STATUS__", actStatus, MESG_EMPTY},
-  {"__CLIENTS__", actClients, MESG_EMPTY},
-  {"__ACCOUNTS__", actAccounts, MESG_EMPTY},
-  {"__MESSAGE__", actMessage, MESG_EMPTY},
-  {"__SERVICES__", actServices, MESG_EMPTY},
-  {"__CREATE_SERVICE__", actCreateService, MESG_EMPTY}
+  {actLogin, MESG_EMPTY},
+  {actLogout, MESG_OK},
+  {actCreate, MESG_EMPTY},
+  {actStatus, MESG_EMPTY},
+  {actClients, MESG_EMPTY},
+  {actAccounts, MESG_EMPTY},
+  {actMessage, MESG_EMPTY},
+  {actServices, MESG_EMPTY},
+  {actCreateService, MESG_EMPTY}
 };
 
 Server::Server(bool verbose /*= false*/)
@@ -193,19 +193,20 @@ void	Server::clientWrite(Client *client)
 void	Server::executeAction(Client *client)
 {
   std::stringstream	ss(client->getBufRead());
-  std::string		action;
-  int			i;
-
+  int			action;
+  
   ss >> action;
-  for (i = 0; i < NB_ACTIONS; i++)
-    if (action == actions[i].keyword)
-      if (actions[i].func)
-	{
-	  actions[i].func(this, client);
-	  if (!actions[i].retMesg.empty())
-	    client->setBufWrite(actions[i].retMesg);
-	  return;
-	}
+  if (action >= 0 && action < NB_ACTIONS)
+    if (actions[action].func)
+      {
+	ss.str(MESG_EMPTY);
+	ss << action << ' ';
+	client->setBufWrite(ss.str());
+	actions[action].func(this, client);
+	if (!actions[action].retMesg.empty())
+	  client->setBufWrite(actions[action].retMesg);
+	return;
+      }
   client->setBufWrite(MESG_KO);
 }
 

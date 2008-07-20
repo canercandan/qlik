@@ -5,22 +5,27 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Tue Jul 15 20:53:23 2008 caner candan
+// Last update Sun Jul 20 13:21:36 2008 caner candan
 //
 
 #include "Client.h"
 #include "Connect.h"
 #include "Create.h"
+#include <QtNetwork>
+#include <QMessageBox>
+#include <QTextStream>
 
 Client::Client(QWidget *parent /*= NULL*/)
-  : QMainWindow(parent)
+  : QMainWindow(parent), _socket(new Socket(this))
 {
   setupUi(this);
   actionSignOut->setEnabled(false);
 }
 
 Client::~Client()
-{}
+{
+  delete _socket;
+}
 
 void	Client::on_actionSignUp_triggered()
 {
@@ -28,6 +33,7 @@ void	Client::on_actionSignUp_triggered()
 
   if (create.exec() != QDialog::Accepted)
     return;
+  this->_socket->createToServer(create);
 }
 
 void	Client::on_actionSignIn_triggered()
@@ -36,13 +42,12 @@ void	Client::on_actionSignIn_triggered()
 
   if (connect.exec() != QDialog::Accepted)
     return;
-  this->actionSignUp->setEnabled(false);
-  this->actionSignIn->setEnabled(false);
-  this->actionSignOut->setEnabled(true);
+  this->_socket->connectToServer(connect);
 }
 
 void	Client::on_actionSignOut_triggered()
 {
+  this->actionSignUp->setEnabled(true);
   this->actionSignIn->setEnabled(true);
   this->actionSignOut->setEnabled(false);
 }

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Tue Jul 15 13:27:57 2008 caner candan
+// Last update Thu Jul 17 20:13:24 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -22,7 +22,7 @@
 # define MESG_EMPTY	""
 # define MESG_BEGIN	"BEGIN\n"
 # define MESG_END	"END\n"
-# define MESG_WELCOME	"WELCOME\n"
+# define MESG_WELCOME	"42\n"
 
 # define ACCOUNT_FILE	"account.cfg"
 
@@ -32,9 +32,21 @@ public:
   typedef std::list<Client*>	listClients;
   typedef void	(*fct)(Server*, Client*);
 
+  enum	ActionId
+    {
+      LOGIN,
+      LOGOUT,
+      CREATE,
+      STATUS,
+      CLIENTS,
+      ACCOUNTS,
+      MESSAGE,
+      SERVICES,
+      CREATE_SERVICE
+    };
+
   struct	Actions
   {
-    std::string	keyword;
     fct		func;
     std::string	retMesg;
   };

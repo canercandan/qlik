@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 13:26:53 2008 caner candan
-// Last update Sun Jul 13 06:51:27 2008 caner candan
+// Last update Sun Jul 20 11:37:22 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -56,16 +56,25 @@ void	Socket::closeSocket(void)
 void	Socket::send(const std::string& s,
 		     bool verbose /*= false*/)
 {
+  std::string	str(s);
+  std::string	toSend;
+  size_t	pos;
+
   try
     {
       if (!this->isConnected())
 	throw 1;
-      if (::send(this->_socket, s.c_str(), s.size(), 0) < 0)
-	throw 2;
-      if (this->_verbose || verbose)
-	std::cout << this->head()
-		  << "send [" << s << ']'
-		  << std::endl;
+      while ((pos = str.find('\n')) != std::string::npos)
+	{
+	  toSend = str.substr(0, pos + 1);
+	  if (::send(this->_socket, toSend.c_str(), toSend.size(), 0) < 0)
+	    throw 2;
+	  if (this->_verbose || verbose)
+	    std::cout << this->head()
+		      << "send [" << toSend << ']'
+		      << std::endl;
+	  str = str.substr(pos + 1);
+	}
     }
   catch (int e)
     {

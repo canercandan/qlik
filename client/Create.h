@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:36:03 2008 caner candan
-// Last update Tue Jul 15 19:53:04 2008 caner candan
+// Last update Tue Jul 15 23:20:06 2008 caner candan
 //
 
 #ifndef __CREATE_H__
@@ -14,7 +14,7 @@
 # include <QDialog>
 # include "ui_Create.h"
 
-class	Create : public QDialog, private Ui::Create
+class	Create : public QDialog, public Ui::Create
 {
   Q_OBJECT
 

@@ -5,16 +5,18 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Tue Jul 15 19:59:46 2008 caner candan
+// Last update Sat Jul 19 14:43:42 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
 # define __CLIENT_H__
 
 # include <QMainWindow>
+# include <QtNetwork>
 # include "ui_Client.h"
+# include "Socket.h"
 
-class	Client : public QMainWindow, private Ui::Client
+class	Client : public QMainWindow, public Ui::Client
 {
   Q_OBJECT
 
@@ -27,6 +29,7 @@ private slots:
   void	on_actionSignOut_triggered();
   void	on_actionQuit_triggered();
 private:
+  Socket	*_socket;
 };
 
 #endif // !__CLIENT_H__

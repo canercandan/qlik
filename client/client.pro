@@ -10,7 +10,8 @@ INCLUDEPATH	+=	.
 # Input
 HEADERS		+=	Client.h	\
 			Connect.h	\
-			Create.h
+			Create.h	\
+			Socket.h
 
 FORMS		+=	Client.ui	\
 			Connect.ui	\
@@ -19,6 +20,9 @@ FORMS		+=	Client.ui	\
 SOURCES		+=	main.cpp	\
 			Client.cpp	\
 			Connect.cpp	\
-			Create.cpp
+			Create.cpp	\
+			Socket.cpp
 
-QT		+=
+CONFIG		+=	debug
+
+QT		+=	network
