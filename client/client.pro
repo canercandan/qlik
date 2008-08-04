@@ -10,16 +10,19 @@ INCLUDEPATH	+=	.
 # Input
 HEADERS		+=	Client.h	\
 			Connect.h	\
-			Create.h
+			Create.h	\
+			Service.h
 
 FORMS		+=	Client.ui	\
 			Connect.ui	\
-			Create.ui
+			Create.ui	\
+			Service.ui
 
 SOURCES		+=	main.cpp	\
 			Client.cpp	\
 			Connect.cpp	\
-			Create.cpp
+			Create.cpp	\
+			Service.cpp
 
 CONFIG		+=	debug
 

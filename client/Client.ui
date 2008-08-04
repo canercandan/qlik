@@ -5,50 +5,148 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>238</width>
-    <height>398</height>
+    <width>246</width>
+    <height>433</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Client</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <widget class="QToolBox" name="toolBox" >
+   <widget class="QToolBox" name="pageBox" >
     <property name="geometry" >
      <rect>
       <x>0</x>
       <y>30</y>
-      <width>241</width>
-      <height>281</height>
+      <width>251</width>
+      <height>321</height>
      </rect>
     </property>
     <property name="currentIndex" >
      <number>0</number>
     </property>
-    <widget class="QWidget" name="services" >
+    <widget class="QWidget" name="news" >
      <property name="geometry" >
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>241</width>
-       <height>197</height>
+       <width>251</width>
+       <height>201</height>
       </rect>
      </property>
      <attribute name="label" >
-      <string>Services</string>
+      <string>News</string>
      </attribute>
-     <widget class="QWidget" name="verticalLayout" >
+     <attribute name="icon" >
+      <iconset>images/newspaper.png</iconset>
+     </attribute>
+     <widget class="QWidget" name="verticalLayout_3" >
       <property name="geometry" >
        <rect>
-        <x>10</x>
-        <y>10</y>
+        <x>9</x>
+        <y>9</y>
         <width>211</width>
         <height>181</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" >
        <item>
-        <widget class="QListWidget" name="listWidget" />
+        <widget class="QListWidget" name="newsList" >
+         <item>
+          <property name="text" >
+           <string>EMPTY</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <widget class="QPushButton" name="readNews" >
+           <property name="text" >
+            <string>Read</string>
+           </property>
+           <property name="icon" >
+            <iconset>images/newspaper_go.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="refreshNews" >
+           <property name="text" >
+            <string>Refresh</string>
+           </property>
+           <property name="icon" >
+            <iconset>images/database_refresh.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="services" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>241</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <attribute name="label" >
+      <string>Services</string>
+     </attribute>
+     <attribute name="icon" >
+      <iconset>images/bricks.png</iconset>
+     </attribute>
+     <widget class="QWidget" name="verticalLayout" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>221</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QTabWidget" name="serviceBox" >
+         <property name="currentIndex" >
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tab" >
+          <attribute name="title" >
+           <string>WEB</string>
+          </attribute>
+          <widget class="QListWidget" name="serviceWebList" >
+           <property name="geometry" >
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>211</width>
+             <height>101</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="tab_2" >
+          <attribute name="title" >
+           <string>STREAM</string>
+          </attribute>
+          <widget class="QListWidget" name="serviceStreamList" >
+           <property name="geometry" >
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>211</width>
+             <height>101</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" >
@@ -57,6 +155,9 @@
            <property name="text" >
             <string>Manage</string>
            </property>
+           <property name="icon" >
+            <iconset>images/brick_edit.png</iconset>
+           </property>
           </widget>
          </item>
          <item>
@@ -64,14 +165,20 @@
            <property name="text" >
             <string>Credit</string>
            </property>
+           <property name="icon" >
+            <iconset>images/coins_add.png</iconset>
+           </property>
           </widget>
          </item>
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2" >
+        <widget class="QPushButton" name="addService" >
          <property name="text" >
           <string>Add a new service</string>
+         </property>
+         <property name="icon" >
+          <iconset>images/brick_add.png</iconset>
          </property>
         </widget>
        </item>
@@ -83,12 +190,15 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>241</width>
-       <height>197</height>
+       <width>96</width>
+       <height>26</height>
       </rect>
      </property>
      <attribute name="label" >
       <string>Credit</string>
+     </attribute>
+     <attribute name="icon" >
+      <iconset>images/coins.png</iconset>
      </attribute>
     </widget>
     <widget class="QWidget" name="inbox" >
@@ -96,13 +206,54 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>241</width>
-       <height>197</height>
+       <width>251</width>
+       <height>201</height>
       </rect>
      </property>
      <attribute name="label" >
       <string>Inbox</string>
      </attribute>
+     <attribute name="icon" >
+      <iconset>images/email.png</iconset>
+     </attribute>
+     <widget class="QWidget" name="verticalLayout_2" >
+      <property name="geometry" >
+       <rect>
+        <x>9</x>
+        <y>9</y>
+        <width>221</width>
+        <height>181</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QComboBox" name="inboxTo" />
+       </item>
+       <item>
+        <widget class="QListWidget" name="inboxMessage" >
+         <item>
+          <property name="text" >
+           <string>EMPTY</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <widget class="QLineEdit" name="inboxText" />
+         </item>
+         <item>
+          <widget class="QPushButton" name="inboxSend" >
+           <property name="text" >
+            <string>Send</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="horizontalLayout" >
@@ -157,7 +308,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>238</width>
+     <width>246</width>
      <height>26</height>
     </rect>
    </property>
@@ -176,6 +327,7 @@
      <string>About</string>
     </property>
     <addaction name="actionInformation" />
+    <addaction name="actionHelp" />
    </widget>
    <addaction name="menuConnection" />
    <addaction name="menuAbout" />
@@ -208,6 +360,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionInformation" />
+   <addaction name="actionHelp" />
   </widget>
   <action name="actionSignIn" >
    <property name="icon" >
@@ -249,7 +402,48 @@
     <string>Information</string>
    </property>
   </action>
+  <action name="actionHelp" >
+   <property name="icon" >
+    <iconset>images/help.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Help</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>newsList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>readNews</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>62</x>
+     <y>213</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>60</x>
+     <y>301</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>inboxText</sender>
+   <signal>editingFinished()</signal>
+   <receiver>inboxSend</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>113</x>
+     <y>394</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>194</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
