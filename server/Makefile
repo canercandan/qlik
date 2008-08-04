@@ -5,7 +5,7 @@
 ## Login   <candan_c@epitech.net>
 ## 
 ## Started on  Wed Jul  9 21:31:38 2008 caner candan
-## Last update Mon Jul 14 22:48:49 2008 caner candan
+## Last update Sun Aug  3 13:50:28 2008 caner candan
 ##
 
 NAME		=	server
@@ -16,9 +16,7 @@ SRCS		=	main.cpp		\
 			Socket.cpp		\
 			SocketServer.cpp	\
 			SocketClient.cpp	\
-			Service.cpp		\
-			ServiceWeb.cpp		\
-			ServiceStream.cpp
+			SQLiteWrapper.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
@@ -28,8 +26,11 @@ RM		=	rm -f
 DEBUG_42	=	-g
 CHKERR		=	-W -Wall -Werror
 
-INCLUDES	=	-I.
-LIBRARY		=	-L.
+INCLUDES_SQL	=	`pkg-config sqlite3 --cflags`
+LIBRARY_SQL	=	`pkg-config sqlite3 --libs`
+
+INCLUDES	=	-I. $(INCLUDES_SQL)
+LIBRARY		=	-L. $(LIBRARY_SQL)
 
 CFLAGS		+=	$(INCLUDES) $(CHKERR) $(DEBUG_$(DEBUG))
 LDFLAGS		+=	$(LIBRARY)

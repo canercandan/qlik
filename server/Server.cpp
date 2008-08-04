@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Thu Jul 17 20:12:49 2008 caner candan
+// Last update Sun Aug  3 14:03:08 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -18,25 +18,31 @@
 #include "Client.h"
 #include "SocketServer.h"
 #include "SocketClient.h"
-#include "Service.h"
-#include "ServiceWeb.h"
-#include "ServiceStream.h"
 
-Server::Actions	Server::actions[NB_ACTIONS] = {
-  {actLogin, MESG_EMPTY},
-  {actLogout, MESG_OK},
-  {actCreate, MESG_EMPTY},
-  {actStatus, MESG_EMPTY},
-  {actClients, MESG_EMPTY},
-  {actAccounts, MESG_EMPTY},
-  {actMessage, MESG_EMPTY},
-  {actServices, MESG_EMPTY},
-  {actCreateService, MESG_EMPTY}
+Server::Actions	Server::actions[] = {
+  {LOGIN, actLogin, MESG_EMPTY},
+  {LOGOUT, actLogout, MESG_OK},
+  {CREATE, actCreate, MESG_EMPTY},
+  {STATUS, actStatus, MESG_EMPTY},
+  {CLIENTS, actClients, MESG_EMPTY},
+  {ACCOUNTS, actAccounts, MESG_EMPTY},
+  {MESSAGE, actMessage, MESG_EMPTY},
+  {SERVICES_WEB, actServicesWeb, MESG_EMPTY},
+  {SERVICES_STREAM, actServicesStream, MESG_EMPTY},
+  {OFFER_WEB, actOfferWeb, MESG_EMPTY},
+  {OFFER_STREAM, actOfferStream, MESG_EMPTY},
+  {CREATE_WEB, actCreateWeb, MESG_EMPTY},
+  {CREATE_STREAM, actCreateStream, MESG_EMPTY},
+  {NEWS, actNews, MESG_EMPTY},
+  {NEWS_DETAIL, actNewsDetail, MESG_EMPTY},
+  {MESG_EMPTY, NULL, MESG_EMPTY}
 };
 
 Server::Server(bool verbose /*= false*/)
   : _verbose(verbose)
-{}
+{
+  _sql.Open("db/server.db");
+}
 
 Server::Server(const Server& s)
 {*this = s;}
@@ -90,7 +96,7 @@ void		Server::addClient(Client *server)
   sc = new SocketClient(server->getSocket()->getSocket(), true);
   client = new Client(sc, Client::CLIENT);
   this->_clients.push_back(client);
-  client->setBufWrite(MESG_WELCOME);
+  client->setBufWrite(WELCOME);
 }
 
 void	Server::setFd(fd_set& fdRead, fd_set& fdWrite, int& fdMax)
@@ -193,18 +199,19 @@ void	Server::clientWrite(Client *client)
 void	Server::executeAction(Client *client)
 {
   std::stringstream	ss(client->getBufRead());
-  int			action;
+  std::string		action;
+  int			i;
   
   ss >> action;
-  if (action >= 0 && action < NB_ACTIONS)
-    if (actions[action].func)
+  for (i = 0; actions[i].func; i++)
+    if (actions[i].keyword == action)
       {
 	ss.str(MESG_EMPTY);
 	ss << action << ' ';
 	client->setBufWrite(ss.str());
-	actions[action].func(this, client);
-	if (!actions[action].retMesg.empty())
-	  client->setBufWrite(actions[action].retMesg);
+	actions[i].func(this, client);
+	if (!actions[i].retMesg.empty())
+	  client->setBufWrite(actions[i].retMesg);
 	return;
       }
   client->setBufWrite(MESG_KO);
@@ -212,65 +219,61 @@ void	Server::executeAction(Client *client)
 
 bool	Server::existLogin(const std::string& login)
 {
-  std::fstream	file(ACCOUNT_FILE);
-  std::string	loginFile;
-  std::string	passwdFile;
+  SQLiteStatement	*stmt;
 
-  while (!file.eof())
+  stmt = this->_sql.Statement("select 1 "
+			      "from users "
+			      "where username = ? "
+			      "limit 1;");
+  stmt->Bind(0, login);
+  while (stmt->NextRow())
     {
-      file >> loginFile >> passwdFile;
-      if (loginFile == login)
-	{
-	  file.close();
-	  return (true);
-	}
+      delete stmt;
+      return (true);
     }
-  file.close();
+  delete stmt;
   return (false);
 }
 
 bool	Server::existLoginPasswd(const std::string& login,
-				 const std::string& passwd,
-				 int& creditFile)
+				 const std::string& passwd)
 {
-  std::fstream	file(ACCOUNT_FILE);
-  std::string	loginFile;
-  std::string	passwdFile;
+  SQLiteStatement	*stmt;
 
-  while (!file.eof())
+  stmt = this->_sql.Statement("select 1 "
+			      "from users "
+			      "where username = ? "
+			      "and password = ? "
+			      "limit 1;");
+  stmt->Bind(0, login);
+  stmt->Bind(1, passwd);
+  while (stmt->NextRow())
     {
-      file >> loginFile >> passwdFile >> creditFile;
-      if (loginFile == login &&
-	  passwdFile == passwd)
-	{
-	  file.close();
-	  return (true);
-	}
+      delete stmt;
+      return (true);
     }
-  file.close();
+  delete stmt;
   return (false);
 }
 
-bool	Server::alreadyConnected(const std::string& login,
-				 Server *server)
+bool	Server::alreadyConnected(const std::string& login)
 {
   listClients::const_iterator	it;
-  listClients::const_iterator	end = server->getListClients().end();
+  listClients::const_iterator	end = this->getListClients().end();
 
-  for (it = server->getListClients().begin(); it != end; ++it)
+  for (it = this->getListClients().begin(); it != end; ++it)
     if ((*it)->isConnected())
       if ((*it)->getLogin() == login)
 	return (true);
   return (false);
 }
 
-Client	*Server::findClient(const std::string& login,
-			    Server *server)
+Client	*Server::findClient(const std::string& login)
 {
   listClients::const_iterator	it;
-  listClients::const_iterator	end = server->getListClients().end();
+  listClients::const_iterator	end = this->getListClients().end();
 
-  for (it = server->getListClients().begin(); it != end; ++it)
+  for (it = this->getListClients().begin(); it != end; ++it)
     if ((*it)->isConnected())
       if ((*it)->getLogin() == login)
 	return (*it);
@@ -289,24 +292,35 @@ bool	Server::notConnected(Client *client)
 
 void	Server::actLogin(Server *server, Client *client)
 {
+  SQLiteStatement	*stmt;
   std::stringstream	ss(client->getBufRead());
   std::string		action;
   std::string		login;
   std::string		passwd;
-  int			credit;
 
   ss >> action >> login >> passwd;
-  credit = 0;
   if (login.empty() || passwd.empty() ||
-      !existLoginPasswd(login, passwd, credit) ||
-      alreadyConnected(login, server))
+      !server->existLoginPasswd(login, passwd) ||
+      server->alreadyConnected(login))
     {
       client->setBufWrite(MESG_KO);
       return;
     }
-  client->setLogin(login);
-  client->setCredit(credit);
+  stmt = server->_sql.Statement("select users.id, users.username, "
+				"credit.value " 
+				"from users, credit "
+				"where users.id = credit.id_user "
+				"and username = ? "
+				"limit 1;");
+  stmt->Bind(0, login);
+  while (stmt->NextRow())
+    {
+      client->setId(stmt->ValueInt(0));
+      client->setLogin(stmt->ValueString(1));
+      client->setCredit(stmt->ValueInt(2));
+    }
   client->setBufWrite(MESG_OK);
+  delete stmt;
 }
 
 void	Server::actLogout(Server*, Client *client)
@@ -314,30 +328,37 @@ void	Server::actLogout(Server*, Client *client)
   client->setLogin(MESG_EMPTY);
 }
 
-void	Server::actCreate(Server*, Client *client)
+void	Server::actCreate(Server* server, Client *client)
 {
+  SQLiteStatement	*stmt;
   std::stringstream	ss(client->getBufRead());
   std::string		action;
   std::string		login;
   std::string		passwd;
-  std::fstream		file;
 
   ss >> action >> login >> passwd;
   if (login.empty() || passwd.empty() ||
-      existLogin(login))
+      server->existLogin(login))
     {
       client->setBufWrite(MESG_KO);
       return;
     }
-  file.open(ACCOUNT_FILE, std::fstream::out | std::fstream::app);
-  file << login << '\t' << passwd << '\t' << 0 << '\n';
-  file.close();
+  stmt = server->_sql.Statement("insert into users "
+				"values(NULL, ?, ?);");
+  stmt->Bind(0, login);
+  stmt->Bind(1, passwd);
+  stmt->Execute();
+  delete stmt;
+  stmt = server->_sql.Statement("insert into credit "
+				"values(last_insert_rowid(), 0);");
+  stmt->Execute();
   client->setBufWrite(MESG_OK);
+  delete stmt;
 }
 
-void	Server::actStatus(Server*, Client *client)
+void	Server::actStatus(Server* server, Client *client)
 {
-  if (!notConnected(client))
+  if (!server->notConnected(client))
     client->setBufWrite(MESG_OK);
 }
 
@@ -346,7 +367,7 @@ void	Server::actClients(Server *server, Client *client)
   listClients::const_iterator	it;
   listClients::const_iterator	end = server->getListClients().end();
 
-  if (notConnected(client))
+  if (server->notConnected(client))
     return;
   client->setBufWrite(MESG_BEGIN);
   for (it = server->getListClients().begin(); it != end; ++it)
@@ -355,31 +376,24 @@ void	Server::actClients(Server *server, Client *client)
   client->setBufWrite(MESG_END);
 }
 
-void	Server::actAccounts(Server*, Client *client)
+void	Server::actAccounts(Server *server, Client *client)
 {
-  std::fstream		file(ACCOUNT_FILE);
+  SQLiteStatement	*stmt;
   std::stringstream	ss;
-  std::string		loginFile;
-  std::string		passwdFile;
-  std::string		creditFile;
 
-  if (notConnected(client))
+  if (server->notConnected(client))
     return;
   client->setBufWrite(MESG_BEGIN);
-  while (!file.eof())
+  stmt = server->_sql.Statement("select username "
+				"from users;");
+  while (stmt->NextRow())
     {
-      file >> loginFile >> passwdFile >> creditFile;
-      if (loginFile.empty())
-	continue;
-      ss << loginFile << ' ' << creditFile << '\n';
-      client->setBufWrite(ss.str());
-      loginFile.clear();
-      passwdFile.clear();
-      creditFile.clear();
       ss.str(MESG_EMPTY);
+      ss << stmt->ValueString(0) << std::endl;
+      client->setBufWrite(ss.str());
     }
-  file.close();
   client->setBufWrite(MESG_END);
+  delete stmt;
 }
 
 void	Server::actMessage(Server *server, Client *client)
@@ -391,7 +405,7 @@ void	Server::actMessage(Server *server, Client *client)
   size_t	separator;
   Client	*to;
 
-  if (notConnected(client))
+  if (server->notConnected(client))
     return;
   separator = str.find(' ');
   action = str.substr(0, separator);
@@ -400,7 +414,7 @@ void	Server::actMessage(Server *server, Client *client)
   login = str.substr(0, separator);
   message = str.substr(separator + 1);
   if (login.empty() || message.empty() ||
-      !(to = findClient(login, server)))
+      !(to = server->findClient(login)))
     {
       client->setBufWrite(MESG_KO);
       return;
@@ -409,68 +423,191 @@ void	Server::actMessage(Server *server, Client *client)
   client->setBufWrite(MESG_OK);
 }
 
-void	Server::actServices(Server*, Client *client)
+void	Server::actServicesWeb(Server* server, Client *client)
 {
-  Client::listServices::const_iterator	it;
-  Client::listServices::const_iterator	end = client->getListServices().end();
-  std::stringstream			ss;
+  SQLiteStatement	*stmt;
+  std::stringstream	ss;
 
-  if (notConnected(client))
+  if (server->notConnected(client))
     return;
   client->setBufWrite(MESG_BEGIN);
-  for (it = client->getListServices().begin(); it != end; ++it)
+  stmt = server->_sql.Statement("select name "
+				"from services_web;");
+  while (stmt->NextRow())
     {
-      if ((*it)->getType() == Service::WEB)
-	ss << "WEB"
-	   << ' ' << ((ServiceWeb*)(*it))->getOffer().space
-	   << ' ' << ((ServiceWeb*)(*it))->getOffer().nbDb
-	   << ' ' << (*it)->getName()
-	   << ' ' << (*it)->getPasswd()
-	   << ' ' << ((ServiceWeb*)(*it))->getDomain()
-	   << '\n';
-      else
-	ss << "STREAM"
-	   << ' ' << ((ServiceStream*)(*it))->getOffer().slots
-	   << ' ' << ((ServiceStream*)(*it))->getOffer().nbBits
-	   << ' ' << (*it)->getName()
-	   << ' ' << (*it)->getPasswd()
-	   << '\n';
-      client->setBufWrite(ss.str());
       ss.str(MESG_EMPTY);
+      ss << stmt->ValueString(0) << std::endl;
+      client->setBufWrite(ss.str());
     }
   client->setBufWrite(MESG_END);
+  delete stmt;
 }
 
-void	Server::actCreateService(Server*, Client *client)
+void	Server::actServicesStream(Server* server, Client *client)
 {
+  SQLiteStatement	*stmt;
+  std::stringstream	ss;
+
+  if (server->notConnected(client))
+    return;
+  client->setBufWrite(MESG_BEGIN);
+  stmt = server->_sql.Statement("select name "
+				"from services_stream;");
+  while (stmt->NextRow())
+    {
+      ss.str(MESG_EMPTY);
+      ss << stmt->ValueString(0) << std::endl;
+      client->setBufWrite(ss.str());
+    }
+  client->setBufWrite(MESG_END);
+  delete stmt;
+}
+
+void	Server::actOfferWeb(Server* server, Client* client)
+{
+  SQLiteStatement	*stmt;
+  std::stringstream	ss;
+
+  if (server->notConnected(client))
+    return;
+  client->setBufWrite(MESG_BEGIN);
+  stmt = server->_sql.Statement("select name "
+				"from offer_web;");
+  while (stmt->NextRow())
+    {
+      ss.str(MESG_EMPTY);
+      ss << stmt->ValueString(0) << std::endl;
+      client->setBufWrite(ss.str());
+    }
+  client->setBufWrite(MESG_END);
+  delete stmt;
+}
+
+void	Server::actOfferStream(Server* server, Client* client)
+{
+  SQLiteStatement	*stmt;
+  std::stringstream	ss;
+
+  if (server->notConnected(client))
+    return;
+  client->setBufWrite(MESG_BEGIN);
+  stmt = server->_sql.Statement("select name "
+				"from offer_stream;");
+  while (stmt->NextRow())
+    {
+      ss.str(MESG_EMPTY);
+      ss << stmt->ValueString(0) << std::endl;
+      client->setBufWrite(ss.str());
+    }
+  client->setBufWrite(MESG_END);
+  delete stmt;
+}
+
+void	Server::actCreateWeb(Server* server, Client* client)
+{
+  SQLiteStatement	*stmt;
   std::stringstream	ss(client->getBufRead());
   std::string		action;
-  int			service;
-  int			offerId;
   std::string		name;
-  std::string		passwd;
+  int			space;
+  int			nbDb;
   std::string		domain;
 
-  if (notConnected(client))
+  if (server->notConnected(client))
     return;
-  offerId = 0;
-  ss >> action >> service >> offerId >> name >> passwd;
-  if (service != Service::WEB &&
-      service != Service::STREAM)
+  space = 0;
+  nbDb = 0;
+  ss >> action >> name >> space >> nbDb >> domain;
+  if (name.empty() || !space || !nbDb || domain.empty())
     {
       client->setBufWrite(MESG_KO);
       return;
     }
-  if (service == Service::WEB)
+  stmt = server->_sql.Statement("insert into services_web "
+				"values(NULL, ?, ?, ?, ?, ?, ?, ?);");
+  stmt->Bind(0, client->getId());
+  stmt->Bind(1, name);
+  stmt->Bind(2, space);
+  stmt->Bind(3, nbDb);
+  stmt->Bind(4, domain);
+  stmt->Bind(5, 1);
+  stmt->Bind(6, 1);
+  stmt->Execute();
+  client->setBufWrite(MESG_OK);
+  delete stmt;
+}
+
+void	Server::actCreateStream(Server* server, Client* client)
+{
+  SQLiteStatement	*stmt;
+  std::stringstream	ss(client->getBufRead());
+  std::string		action;
+  std::string		name;
+  int			slots;
+  int			bits;
+
+  if (server->notConnected(client))
+    return;
+  ss >> action >> name >> slots >> bits;
+  stmt = server->_sql.Statement("insert into services_stream "
+				"values(NULL, ?, ?, ?, ?, ?, ?)");
+  stmt->Bind(0, client->getId());
+  stmt->Bind(1, name);
+  stmt->Bind(2, slots);
+  stmt->Bind(3, bits);
+  stmt->Bind(4, -1);
+  stmt->Bind(5, -1);
+  stmt->Execute();
+  client->setBufWrite(MESG_OK);
+  delete stmt;
+}
+
+void	Server::actNews(Server* server, Client* client)
+{
+  SQLiteStatement	*stmt;
+  std::stringstream	ss;
+
+  if (server->notConnected(client))
+    return;
+  client->setBufWrite(MESG_BEGIN);
+  stmt = server->_sql.Statement("select subject, date "
+				"from news "
+				"order by date desc;");
+  while (stmt->NextRow())
     {
-      ss >> domain;
-      client->addService(new ServiceWeb(name, passwd, domain,
-					(ServiceWeb::OfferId)offerId));
+      ss.str(MESG_EMPTY);
+      ss << stmt->ValueString(0) << ' '
+	 << stmt->ValueString(1) << std::endl;
+      client->setBufWrite(ss.str());
+    }
+  client->setBufWrite(MESG_END);
+  delete stmt;
+}
+
+void	Server::actNewsDetail(Server* server, Client* client)
+{
+  SQLiteStatement	*stmt;
+  std::stringstream	ss(client->getBufRead());
+  std::string		action;
+  int			id;
+
+  if (server->notConnected(client))
+    return;
+  ss >> action >> id;
+  stmt = server->_sql.Statement("select body "
+				"from news "
+				"order by date desc "
+				"limit ?, 1;");
+  stmt->Bind(0, id);
+  if (stmt->NextRow())
+    {
+      ss.str(MESG_EMPTY);
+      ss << stmt->ValueString(0) << std::endl;
+      client->setBufWrite(ss.str());
     }
   else
-    client->addService(new ServiceStream(name, passwd,
-					 (ServiceStream::OfferId)offerId));
-  client->setBufWrite(MESG_OK);
+    client->setBufWrite(MESG_KO);
+  delete stmt;
 }
 
 std::string	Server::head(void)
