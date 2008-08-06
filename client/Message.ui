@@ -1,0 +1,106 @@
+<ui version="4.0" >
+ <class>Message</class>
+ <widget class="QDialog" name="Message" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>345</width>
+    <height>253</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Message</string>
+  </property>
+  <widget class="QWidget" name="verticalLayout" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>321</width>
+     <height>231</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" >
+    <item>
+     <layout class="QHBoxLayout" >
+      <item>
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string>From</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="messageFrom" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>To</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="messageTo" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QListWidget" name="listMessage" />
+    </item>
+    <item>
+     <layout class="QHBoxLayout" >
+      <item>
+       <widget class="QLineEdit" name="messageEdit" />
+      </item>
+      <item>
+       <widget class="QPushButton" name="messageSend" >
+        <property name="text" >
+         <string>Send</string>
+        </property>
+        <property name="icon" >
+         <iconset>images/email_go.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>messageEdit</tabstop>
+  <tabstop>messageSend</tabstop>
+  <tabstop>messageFrom</tabstop>
+  <tabstop>messageTo</tabstop>
+  <tabstop>listMessage</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>messageEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>messageSend</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>220</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>276</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
