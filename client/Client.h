@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Sun Aug  3 19:03:07 2008 caner candan
+// Last update Tue Aug  5 19:09:48 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -15,6 +15,7 @@
 # include <QtNetwork>
 # include "ui_Client.h"
 # include "Service.h"
+# include "Message.h"
 
 # define HOST	"localhost"
 # define PORT	4243
@@ -39,7 +40,9 @@ class	Client : public QMainWindow, public Ui::Client
 {
   Q_OBJECT
 
-  public:
+  typedef QMap<QString, Message*>	MessageMap;
+
+public:
   typedef void	(*fct)(Client*, const QStringList&);
 
   struct	Actions
@@ -69,6 +72,12 @@ public:
   Client(QWidget *parent = NULL);
   ~Client();
 
+  void	openMessage(const QString& sName);
+  void	destroyMessages();
+  void	sendMessage(Message*);
+  void	appendMessage(const QString& sName,
+		      const QString& body);
+
   void	closeSocket();
   void	login();
   void	logout();
@@ -85,6 +94,8 @@ private slots:
   void	on_refreshNews_clicked();
   void	on_readNews_clicked();
 
+  void	on_talkOpen_clicked();
+
   void	connectedToServer();
   void	readAction();
   void	sendAction();
@@ -96,8 +107,7 @@ private slots:
 private:
   QTcpSocket	*_socket;
   Service	*_service;
-  QString	_username;
-  QString	_password;
+  MessageMap	_mm;
 };
 
 #endif // !__CLIENT_H__

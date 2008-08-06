@@ -5,16 +5,16 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Sun Aug  3 19:05:53 2008 caner candan
+// Last update Tue Aug  5 20:57:57 2008 caner candan
 //
 
 #include <QtNetwork>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QTime>
 #include "Client.h"
 #include "Connect.h"
 #include "Create.h"
-#include "Service.h"
 
 Client::Actions	Client::actions[] = {
   {WELCOME, actWelcome},
@@ -62,6 +62,61 @@ Client::~Client()
 {
   closeSocket();
   delete _socket;
+  destroyMessages();
+}
+
+void	Client::openMessage(const QString& sName)
+{
+  if (!this->_mm.contains(sName) ||
+      !this->_mm[sName])
+    this->_mm[sName] = new Message(this);
+  this->_mm[sName]->messageFrom->setText(this->infoAccount->text());
+  this->_mm[sName]->messageTo->setText(sName);
+  this->_mm[sName]->show();
+}
+
+void	Client::destroyMessages()
+{
+  MessageMap::iterator	it;
+  MessageMap::iterator	end = this->_mm.end();
+
+  for (it = this->_mm.begin(); it != end; ++it)
+    {
+      if (it.value())
+	{
+	  it.value()->close();
+	  delete it.value();
+	}
+      this->_mm[it.key()] = NULL;
+    }
+}
+
+void	Client::sendMessage(Message* mesg)
+{
+  QTextStream		stream(this->_socket);
+  const QString&	to = mesg->messageTo->text();
+  const QString&	from = mesg->messageTo->text();
+  const QString&	edit = mesg->messageEdit->text();
+
+  qDebug() << to << from << edit;
+  if (edit.isEmpty() || to.isEmpty() || from.isEmpty())
+    return;
+  stream << MESSAGE << ' ' << to << ' ' << edit << endl;
+  this->appendMessage(from, edit);
+  mesg->messageEdit->clear();
+  mesg->messageEdit->setFocus();
+}
+
+void	Client::appendMessage(const QString& sName,
+			      const QString& body)
+{
+  QListWidgetItem	*item;
+  QString		date;
+
+  QTime::fromString(date);
+  qDebug() << date;
+  item = new QListWidgetItem(sName + "> " + body);
+  this->_mm[sName]->listMessage->addItem(item);
 }
 
 void	Client::closeSocket()
@@ -91,6 +146,8 @@ void	Client::logout()
   this->infoAccount->setText("guest");
   this->infoStatus->setText("Offline");
   this->statusbar->showMessage("I'm sign out ...");
+  this->pageBox->setCurrentIndex(0);
+  this->destroyMessages();
 }
 
 void	Client::on_actionSignUp_triggered()
@@ -176,6 +233,17 @@ void	Client::on_readNews_clicked()
     stream << NEWS_DETAIL
 	   << ' ' << this->newsList->currentRow()
 	   << endl;
+}
+
+void		Client::on_talkOpen_clicked()
+{
+  QString	sName;
+  int		row;
+
+  if ((row = this->talkList->currentRow()) < 0)
+    return;
+  sName = this->talkList->item(row)->text();
+  this->openMessage(sName);
 }
 
 void	Client::connectedToServer()
@@ -288,8 +356,7 @@ void	Client::actLogin(Client* client, const QStringList& resList)
       QMessageBox::critical(client,
 			    tr("Login incorrect"),
 			    tr("Username or password incorrect"));
-      client->infoAccount->setText("guest");
-      client->infoStatus->setText("Offline");
+      client->logout();
       return;
     }
   client->login();
@@ -331,8 +398,26 @@ void	Client::actClients(Client*, const QStringList&)
 void	Client::actAccounts(Client*, const QStringList&)
 {}
 
-void	Client::actMessage(Client*, const QStringList&)
-{}
+void	Client::actMessage(Client* client, const QStringList& resList)
+{
+  const QString&	to = resList.at(0);
+
+  if (to == "KO")
+    {
+      QMessageBox::critical(client,
+			    tr("Message error"),
+			    tr("Message error"));
+      return;
+    }
+  if (to == "OK")
+    return;
+  client->openMessage(to);
+
+  QStringList	resMessage = resList;
+
+  resMessage.erase(resMessage.begin());
+  client->appendMessage(to, resMessage.join(" "));
+}
 
 void	Client::actServicesWeb(Client* client, const QStringList& resList)
 {

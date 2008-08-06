@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Sun Aug  3 14:03:08 2008 caner candan
+// Last update Tue Aug  5 12:36:44 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -419,6 +419,7 @@ void	Server::actMessage(Server *server, Client *client)
       client->setBufWrite(MESG_KO);
       return;
     }
+  to->setBufWrite(std::string(MESSAGE) + ' ');
   to->setBufWrite(client->getLogin() + ' ' + message);
   client->setBufWrite(MESG_OK);
 }

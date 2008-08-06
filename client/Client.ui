@@ -23,7 +23,7 @@
      </rect>
     </property>
     <property name="currentIndex" >
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="news" >
      <property name="geometry" >
@@ -201,7 +201,7 @@
       <iconset>images/coins.png</iconset>
      </attribute>
     </widget>
-    <widget class="QWidget" name="inbox" >
+    <widget class="QWidget" name="talk" >
      <property name="geometry" >
       <rect>
        <x>0</x>
@@ -211,10 +211,10 @@
       </rect>
      </property>
      <attribute name="label" >
-      <string>Inbox</string>
+      <string>Talk</string>
      </attribute>
      <attribute name="icon" >
-      <iconset>images/email.png</iconset>
+      <iconset>images/user_comment.png</iconset>
      </attribute>
      <widget class="QWidget" name="verticalLayout_2" >
       <property name="geometry" >
@@ -227,13 +227,21 @@
       </property>
       <layout class="QVBoxLayout" >
        <item>
-        <widget class="QComboBox" name="inboxTo" />
-       </item>
-       <item>
-        <widget class="QListWidget" name="inboxMessage" >
+        <widget class="QListWidget" name="talkList" >
          <item>
           <property name="text" >
-           <string>EMPTY</string>
+           <string>Admin</string>
+          </property>
+          <property name="icon" >
+           <iconset>images/user.png</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Moderator</string>
+          </property>
+          <property name="icon" >
+           <iconset>images/user_gray.png</iconset>
           </property>
          </item>
         </widget>
@@ -241,12 +249,12 @@
        <item>
         <layout class="QHBoxLayout" >
          <item>
-          <widget class="QLineEdit" name="inboxText" />
-         </item>
-         <item>
-          <widget class="QPushButton" name="inboxSend" >
+          <widget class="QPushButton" name="talkOpen" >
            <property name="text" >
-            <string>Send</string>
+            <string>Talk</string>
+           </property>
+           <property name="icon" >
+            <iconset>images/comment_edit.png</iconset>
            </property>
           </widget>
          </item>
@@ -430,18 +438,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>inboxText</sender>
-   <signal>editingFinished()</signal>
-   <receiver>inboxSend</receiver>
+   <sender>talkList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>talkOpen</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>113</x>
-     <y>394</y>
+     <x>76</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>194</x>
-     <y>387</y>
+     <x>155</x>
+     <y>394</y>
     </hint>
    </hints>
   </connection>

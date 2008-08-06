@@ -11,18 +11,21 @@ INCLUDEPATH	+=	.
 HEADERS		+=	Client.h	\
 			Connect.h	\
 			Create.h	\
-			Service.h
+			Service.h	\
+			Message.h
 
 FORMS		+=	Client.ui	\
 			Connect.ui	\
 			Create.ui	\
-			Service.ui
+			Service.ui	\
+			Message.ui
 
 SOURCES		+=	main.cpp	\
 			Client.cpp	\
 			Connect.cpp	\
 			Create.cpp	\
-			Service.cpp
+			Service.cpp	\
+			Message.cpp
 
 CONFIG		+=	debug
 
