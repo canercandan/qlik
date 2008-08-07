@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Tue Aug  5 20:57:57 2008 caner candan
+// Last update Wed Aug  6 00:10:33 2008 caner candan
 //
 
 #include <QtNetwork>
@@ -70,8 +70,8 @@ void	Client::openMessage(const QString& sName)
   if (!this->_mm.contains(sName) ||
       !this->_mm[sName])
     this->_mm[sName] = new Message(this);
-  this->_mm[sName]->messageFrom->setText(this->infoAccount->text());
-  this->_mm[sName]->messageTo->setText(sName);
+  this->_mm[sName]->from->setText(this->infoAccount->text());
+  this->_mm[sName]->to->setText(sName);
   this->_mm[sName]->show();
 }
 
@@ -94,29 +94,26 @@ void	Client::destroyMessages()
 void	Client::sendMessage(Message* mesg)
 {
   QTextStream		stream(this->_socket);
-  const QString&	to = mesg->messageTo->text();
-  const QString&	from = mesg->messageTo->text();
-  const QString&	edit = mesg->messageEdit->text();
+  const QString&	from = mesg->from->text();
+  const QString&	to = mesg->to->text();
+  const QString&	edit = mesg->edit->text();
 
-  qDebug() << to << from << edit;
-  if (edit.isEmpty() || to.isEmpty() || from.isEmpty())
+  if (edit.isEmpty())
     return;
   stream << MESSAGE << ' ' << to << ' ' << edit << endl;
-  this->appendMessage(from, edit);
-  mesg->messageEdit->clear();
-  mesg->messageEdit->setFocus();
+  this->appendMessage(to, from, edit);
+  mesg->edit->clear();
+  mesg->edit->setFocus();
 }
 
 void	Client::appendMessage(const QString& sName,
+			      const QString& from,
 			      const QString& body)
 {
-  QListWidgetItem	*item;
-  QString		date;
+  const QString&	time = QTime::currentTime().toString();
+  QTextEdit		*list = this->_mm[sName]->list;
 
-  QTime::fromString(date);
-  qDebug() << date;
-  item = new QListWidgetItem(sName + "> " + body);
-  this->_mm[sName]->listMessage->addItem(item);
+  list->append('[' + time + "] " + from + "> " + body);
 }
 
 void	Client::closeSocket()
@@ -205,16 +202,12 @@ void	Client::on_actionQuit_triggered()
 
 void	Client::on_addService_clicked()
 {
-  this->_service = new Service(this);
+  if (!this->_service)
+    this->_service = new Service(this);
   connect(this->_service->serviceBox, SIGNAL(currentChanged(int)),
 	  this, SLOT(loadOffers(int)));
   this->loadOffers(0);
-  if (this->_service->exec() != QDialog::Accepted)
-    {
-      delete this->_service;
-      return;
-    }
-  delete this->_service;
+  this->_service->show();
 }
 
 void	Client::on_refreshNews_clicked()
@@ -312,12 +305,14 @@ void	Client::loadOffers(int idx)
   QTextStream	stream(this->_socket);
 
   if (!idx)
-    {
-      this->_service->offerWebList->clear();
+    {      
+      if (this->_service->offerWebList->count())
+	return;
       stream << OFFER_WEB << endl;
       return;
     }
-  this->_service->offerStreamList->clear();
+  if (this->_service->offerStreamList->count())
+    return;
   stream << OFFER_STREAM << endl;
 }
 
@@ -327,6 +322,8 @@ void	Client::loadPages(int idx)
 
   if (idx == 1)
     loadServices(0);
+  else if (idx == 3)
+    loadClients();
 }
 
 void	Client::loadServices(int idx)
@@ -335,13 +332,21 @@ void	Client::loadServices(int idx)
 
   if (!idx)
     {
-      this->serviceWebList->clear();
+      if (this->serviceWebList->count())
+	return;
       stream << SERVICES_WEB << endl;
       return;
     }
-  this->serviceStreamList->clear();
-  this->serviceStreamList->clear();
+  if (this->serviceStreamList->count())
+    return;
   stream << SERVICES_STREAM << endl;
+}
+
+void	Client::loadClients()
+{
+  QTextStream	stream(this->_socket);
+
+  stream << CLIENTS << endl;
 }
 
 void	Client::actWelcome(Client* client, const QStringList&)
@@ -392,8 +397,21 @@ void	Client::actCreate(Client* client, const QStringList& resList)
 void	Client::actStatus(Client*, const QStringList&)
 {}
 
-void	Client::actClients(Client*, const QStringList&)
-{}
+void	Client::actClients(Client* client, const QStringList& resList)
+{
+  if (resList.count() < 1)
+    return;
+
+  const QString&	name = resList.at(0);
+  QListWidgetItem*	item;
+
+  if (name == client->infoAccount->text())
+    return;
+  qDebug() << "add client" << name;
+  item = new QListWidgetItem(QIcon("images/user.png"),
+			     name);
+  client->talkList->addItem(item);
+}
 
 void	Client::actAccounts(Client*, const QStringList&)
 {}
@@ -416,7 +434,7 @@ void	Client::actMessage(Client* client, const QStringList& resList)
   QStringList	resMessage = resList;
 
   resMessage.erase(resMessage.begin());
-  client->appendMessage(to, resMessage.join(" "));
+  client->appendMessage(to, to, resMessage.join(" "));
 }
 
 void	Client::actServicesWeb(Client* client, const QStringList& resList)

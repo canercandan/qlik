@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Tue Aug  5 12:36:44 2008 caner candan
+// Last update Thu Aug  7 13:18:49 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -31,6 +31,8 @@ Server::Actions	Server::actions[] = {
   {SERVICES_STREAM, actServicesStream, MESG_EMPTY},
   {OFFER_WEB, actOfferWeb, MESG_EMPTY},
   {OFFER_STREAM, actOfferStream, MESG_EMPTY},
+  {CREATE_OFFER_WEB, actCreateOfferWeb, MESG_EMPTY},
+  {CREATE_OFFER_STREAM, actCreateOfferStream, MESG_EMPTY},
   {CREATE_WEB, actCreateWeb, MESG_EMPTY},
   {CREATE_STREAM, actCreateStream, MESG_EMPTY},
   {NEWS, actNews, MESG_EMPTY},
@@ -501,6 +503,88 @@ void	Server::actOfferStream(Server* server, Client* client)
       client->setBufWrite(ss.str());
     }
   client->setBufWrite(MESG_END);
+  delete stmt;
+}
+
+void	Server::actCreateOfferWeb(Server* server, Client* client)
+{
+  SQLiteStatement	*stmt;
+  std::stringstream	ss(client->getBufRead());
+  std::string		action;
+  std::string		name;
+  int			row;
+  std::string		domain;
+  int			space;
+  int			nbDb;
+
+  if (server->notConnected(client))
+    return;
+  row = 0;
+  ss >> action >> name >> row >> domain;
+  stmt = server->_sql.Statement("select space, nb_db "
+				"from offer_web "
+				"limit ?, 1;");
+  stmt->Bind(0, row);
+  if (stmt->NextRow())
+    {
+      space = stmt->ValueInt(0);
+      nbDb = stmt->ValueInt(1);
+      delete stmt;
+      stmt = server->_sql.Statement("insert into services_web "
+				    "values(NULL, ?, ?, ?, ?, ?, ?, ?);");
+      stmt->Bind(0, client->getId());
+      stmt->Bind(1, name);
+      stmt->Bind(2, space);
+      stmt->Bind(3, nbDb);
+      stmt->Bind(4, domain);
+      stmt->Bind(5, 1);
+      stmt->Bind(6, 1);
+      stmt->Execute();
+      client->setBufWrite(MESG_OK);
+    }
+  else
+    client->setBufWrite(MESG_KO);
+  delete stmt;
+}
+
+void	Server::actCreateOfferStream(Server* server, Client* client)
+{
+  SQLiteStatement	*stmt;
+  std::stringstream	ss(client->getBufRead());
+  std::string		action;
+  std::string		name;
+  int			row;
+  std::string		title;
+  int			slots;
+  int			bits;
+
+  if (server->notConnected(client))
+    return;
+  row = 0;
+  ss >> action >> name >> row >> title;
+  stmt = server->_sql.Statement("select slots, bits "
+				"from offer_stream "
+				"limit ?, 1;");
+  stmt->Bind(0, row);
+  if (stmt->NextRow())
+    {
+      slots = stmt->ValueInt(0);
+      bits = stmt->ValueInt(1);
+      delete stmt;
+      stmt = server->_sql.Statement("insert into services_stream "
+				    "values(NULL, ?, ?, ?, ?, ?, ?, ?);");
+      stmt->Bind(0, client->getId());
+      stmt->Bind(1, name);
+      stmt->Bind(2, slots);
+      stmt->Bind(3, bits);
+      stmt->Bind(4, title);
+      stmt->Bind(5, 1);
+      stmt->Bind(6, 1);
+      stmt->Execute();
+      client->setBufWrite(MESG_OK);
+    }
+  else
+    client->setBufWrite(MESG_KO);
   delete stmt;
 }
 

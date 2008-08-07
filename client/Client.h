@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Tue Aug  5 19:09:48 2008 caner candan
+// Last update Wed Aug  6 00:07:40 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -76,7 +76,10 @@ public:
   void	destroyMessages();
   void	sendMessage(Message*);
   void	appendMessage(const QString& sName,
+		      const QString& from,
 		      const QString& body);
+
+  void	loadClients();
 
   void	closeSocket();
   void	login();

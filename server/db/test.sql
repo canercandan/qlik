@@ -8,7 +8,7 @@ insert into history values(NULL, 1, 1, -1);
 
 insert into services_web values(NULL, 1, "COOL WEB", 100, 2, "coco.com", -1, -1);
 
-insert into services_stream values(NULL, 2, "Streamminnngg", 12, 24, -1, -1);
+insert into services_stream values(NULL, 2, "Streamminnngg", 12, 24, "title", -1, -1);
 
 insert into offer_web values(NULL, "Web 100", 100, 1);
 insert into offer_web values(NULL, "Web 200", 200, 2);

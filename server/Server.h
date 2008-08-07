@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Sun Aug  3 13:52:44 2008 caner candan
+// Last update Thu Aug  7 10:38:15 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -23,21 +23,75 @@
 # define MESG_END	"END\n"
 
 # define WELCOME		"welcome\n"
+
 # define LOGIN			"login"
+// login USERNAME PASSWORD
+// -> login (OK|KO)
+
 # define LOGOUT			"logout"
+// logout
+// -> logout OK
+
 # define CREATE			"create"
+// create USERNAME PASSWORD
+// -> create (OK|KO)
+
 # define STATUS			"status"
+// status
+// -> status (OK|KO)
+
 # define CLIENTS		"clients"
+// clients
+// -> clients (BEGIN\n*(USERNAME)\nEND|KO)
+
 # define ACCOUNTS		"accounts"
+// accounts
+// -> accounts (BEGIN\n*(USERNAME)\nEND|KO)
+
 # define MESSAGE		"message"
+// message USERNAME MESSAGE
+// -> message (OK|KO)
+// -> message FROM MESSAGE
+
 # define SERVICES_WEB		"services_web"
+// services_web
+// -> services_web (BEGIN\n*(NAME)\nEND|KO)
+
 # define SERVICES_STREAM	"services_stream"
+// services_stream
+// -> services_stream (BEGIN\n*(NAME)\nEND|KO)
+
 # define OFFER_WEB		"offer_web"
+// offer_web
+// -> offer_web (BEGIN\n*(NAME)\nEND|KO)
+
 # define OFFER_STREAM		"offer_stream"
+// offer_stream
+// -> offer_stream (BEGIN\n*(NAME)\nEND|KO)
+
+# define CREATE_OFFER_WEB	"create_offer_web"
+// create_offer_web NAME ROW DOMAIN
+// -> create_offer_web (OK|KO)
+
+# define CREATE_OFFER_STREAM	"create_offer_stream"
+// create_offer_stream NAME ROW TITLE
+// -> create_offer_stream (OK|KO)
+
 # define CREATE_WEB		"create_web"
+// create_web NAME SPACE NB_DB DOMAIN
+// -> create_web (OK|KO)
+
 # define CREATE_STREAM		"create_stream"
+// create_stream NAME SLOTS BITS TITLE
+// -> create_stream (OK|KO)
+
 # define NEWS			"news"
+// news
+// -> news (BEGIN\n*(SUBJECT)\nEND|KO)
+
 # define NEWS_DETAIL		"news_detail"
+// news_detail ROW
+// -> news_detail (BODY|KO)
 
 class	Server
 {
@@ -65,6 +119,8 @@ public:
   static void	actServicesStream(Server*, Client*);
   static void	actOfferWeb(Server*, Client*);
   static void	actOfferStream(Server*, Client*);
+  static void	actCreateOfferWeb(Server*, Client*);
+  static void	actCreateOfferStream(Server*, Client*);
   static void	actCreateWeb(Server*, Client*);
   static void	actCreateStream(Server*, Client*);
   static void	actNews(Server*, Client*);
@@ -103,9 +159,9 @@ public:
 
   std::string	head(void);
 private:
-  SQLiteWrapper		_sql;
-  listClients		_clients;
-  bool			_verbose;
+  SQLiteWrapper	_sql;
+  listClients	_clients;
+  bool		_verbose;
 };
 
 #endif // !__SERVER_H__

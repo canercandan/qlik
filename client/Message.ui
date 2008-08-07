@@ -32,7 +32,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="messageFrom" >
+       <widget class="QLineEdit" name="from" >
         <property name="enabled" >
          <bool>false</bool>
         </property>
@@ -46,7 +46,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="messageTo" >
+       <widget class="QLineEdit" name="to" >
         <property name="enabled" >
          <bool>false</bool>
         </property>
@@ -55,15 +55,22 @@
      </layout>
     </item>
     <item>
-     <widget class="QListWidget" name="listMessage" />
+     <widget class="QTextEdit" name="list" >
+      <property name="autoFormatting" >
+       <set>QTextEdit::AutoAll</set>
+      </property>
+      <property name="readOnly" >
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" >
       <item>
-       <widget class="QLineEdit" name="messageEdit" />
+       <widget class="QLineEdit" name="edit" />
       </item>
       <item>
-       <widget class="QPushButton" name="messageSend" >
+       <widget class="QPushButton" name="send" >
         <property name="text" >
          <string>Send</string>
         </property>
@@ -78,18 +85,18 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>messageEdit</tabstop>
-  <tabstop>messageSend</tabstop>
-  <tabstop>messageFrom</tabstop>
-  <tabstop>messageTo</tabstop>
-  <tabstop>listMessage</tabstop>
+  <tabstop>edit</tabstop>
+  <tabstop>send</tabstop>
+  <tabstop>from</tabstop>
+  <tabstop>to</tabstop>
+  <tabstop>list</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>messageEdit</sender>
+   <sender>edit</sender>
    <signal>returnPressed()</signal>
-   <receiver>messageSend</receiver>
+   <receiver>send</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel" >

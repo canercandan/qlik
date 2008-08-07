@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug  4 06:09:17 2008 caner candan
-// Last update Tue Aug  5 18:51:26 2008 caner candan
+// Last update Tue Aug  5 21:29:01 2008 caner candan
 //
 
 #ifndef __MESSAGE_H__
@@ -22,7 +22,7 @@ class	Message : public QDialog, public Ui::Message
   Message(QWidget* parent = NULL);
   ~Message();
 private slots:
-  void	on_messageSend_clicked();
+  void	on_send_clicked();
 };
 
 #endif // !__MESSAGE_H__

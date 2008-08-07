@@ -38,6 +38,7 @@ create table services_stream
 	name text,
 	slots integer,
 	bits integer,
+	title text,
 	created integer,
 	expire integer
 );
