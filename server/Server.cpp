@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Thu Aug  7 13:18:49 2008 caner candan
+// Last update Fri Aug  8 08:33:13 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -387,7 +387,8 @@ void	Server::actAccounts(Server *server, Client *client)
     return;
   client->setBufWrite(MESG_BEGIN);
   stmt = server->_sql.Statement("select username "
-				"from users;");
+				"from users "
+				"order by username;");
   while (stmt->NextRow())
     {
       ss.str(MESG_EMPTY);
@@ -435,7 +436,10 @@ void	Server::actServicesWeb(Server* server, Client *client)
     return;
   client->setBufWrite(MESG_BEGIN);
   stmt = server->_sql.Statement("select name "
-				"from services_web;");
+				"from services_web "
+				"where id_user = ? "
+				"order by name;");
+  stmt->Bind(0, client->getId());
   while (stmt->NextRow())
     {
       ss.str(MESG_EMPTY);
@@ -455,7 +459,10 @@ void	Server::actServicesStream(Server* server, Client *client)
     return;
   client->setBufWrite(MESG_BEGIN);
   stmt = server->_sql.Statement("select name "
-				"from services_stream;");
+				"from services_stream "
+				"where id_user = ? "
+				"order by name;");
+  stmt->Bind(0, client->getId());
   while (stmt->NextRow())
     {
       ss.str(MESG_EMPTY);
@@ -475,7 +482,8 @@ void	Server::actOfferWeb(Server* server, Client* client)
     return;
   client->setBufWrite(MESG_BEGIN);
   stmt = server->_sql.Statement("select name "
-				"from offer_web;");
+				"from offer_web "
+				"order by name;");
   while (stmt->NextRow())
     {
       ss.str(MESG_EMPTY);
@@ -495,7 +503,8 @@ void	Server::actOfferStream(Server* server, Client* client)
     return;
   client->setBufWrite(MESG_BEGIN);
   stmt = server->_sql.Statement("select name "
-				"from offer_stream;");
+				"from offer_stream "
+				"order by name;");
   while (stmt->NextRow())
     {
       ss.str(MESG_EMPTY);
@@ -523,6 +532,7 @@ void	Server::actCreateOfferWeb(Server* server, Client* client)
   ss >> action >> name >> row >> domain;
   stmt = server->_sql.Statement("select space, nb_db "
 				"from offer_web "
+				"order by name "
 				"limit ?, 1;");
   stmt->Bind(0, row);
   if (stmt->NextRow())
@@ -564,6 +574,7 @@ void	Server::actCreateOfferStream(Server* server, Client* client)
   ss >> action >> name >> row >> title;
   stmt = server->_sql.Statement("select slots, bits "
 				"from offer_stream "
+				"order by name "
 				"limit ?, 1;");
   stmt->Bind(0, row);
   if (stmt->NextRow())

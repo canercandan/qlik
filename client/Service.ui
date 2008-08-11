@@ -27,7 +27,7 @@
       <property name="currentIndex" >
        <number>0</number>
       </property>
-      <widget class="QWidget" name="tab" >
+      <widget class="QWidget" name="web" >
        <attribute name="title" >
         <string>WEB</string>
        </attribute>
@@ -42,11 +42,11 @@
         </property>
         <layout class="QVBoxLayout" >
          <item>
-          <widget class="QTabWidget" name="tabWidget_2" >
+          <widget class="QTabWidget" name="webType" >
            <property name="currentIndex" >
             <number>0</number>
            </property>
-           <widget class="QWidget" name="tab_3" >
+           <widget class="QWidget" name="webOffer" >
             <attribute name="title" >
              <string>Pre-offer</string>
             </attribute>
@@ -70,7 +70,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_5" >
+                 <widget class="QLineEdit" name="offerWebName" >
                   <property name="maxLength" >
                    <number>20</number>
                   </property>
@@ -91,7 +91,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_6" >
+                 <widget class="QLineEdit" name="offerWebDomain" >
                   <property name="maxLength" >
                    <number>100</number>
                   </property>
@@ -102,7 +102,7 @@
              </layout>
             </widget>
            </widget>
-           <widget class="QWidget" name="tab_4" >
+           <widget class="QWidget" name="webMore" >
             <attribute name="title" >
              <string>More</string>
             </attribute>
@@ -150,19 +150,19 @@
                     <string>Domain</string>
                    </property>
                    <property name="buddy" >
-                    <cstring>repassword</cstring>
+                    <cstring>webDomain</cstring>
                    </property>
                   </widget>
                  </item>
                  <item row="3" column="1" >
-                  <widget class="QLineEdit" name="repassword" >
+                  <widget class="QLineEdit" name="webDomain" >
                    <property name="maxLength" >
                     <number>100</number>
                    </property>
                   </widget>
                  </item>
                  <item row="1" column="1" >
-                  <widget class="QComboBox" name="comboBox" >
+                  <widget class="QComboBox" name="webSpace" >
                    <item>
                     <property name="text" >
                      <string>100</string>
@@ -261,7 +261,7 @@
                   </widget>
                  </item>
                  <item row="2" column="1" >
-                  <widget class="QComboBox" name="comboBox_2" >
+                  <widget class="QComboBox" name="webNbDb" >
                    <item>
                     <property name="text" >
                      <string>1</string>
@@ -315,7 +315,7 @@
                   </widget>
                  </item>
                  <item row="0" column="1" >
-                  <widget class="QLineEdit" name="lineEdit" >
+                  <widget class="QLineEdit" name="webName" >
                    <property name="maxLength" >
                     <number>20</number>
                    </property>
@@ -339,7 +339,7 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab_2" >
+      <widget class="QWidget" name="stream" >
        <attribute name="title" >
         <string>STREAM</string>
        </attribute>
@@ -354,11 +354,11 @@
         </property>
         <layout class="QVBoxLayout" >
          <item>
-          <widget class="QTabWidget" name="tabWidget_3" >
+          <widget class="QTabWidget" name="streamType" >
            <property name="currentIndex" >
             <number>0</number>
            </property>
-           <widget class="QWidget" name="tab_7" >
+           <widget class="QWidget" name="streamOffer" >
             <attribute name="title" >
              <string>Pre-offer</string>
             </attribute>
@@ -382,7 +382,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_3" >
+                 <widget class="QLineEdit" name="offerStreamName" >
                   <property name="maxLength" >
                    <number>20</number>
                   </property>
@@ -403,14 +403,18 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_4" />
+                 <widget class="QLineEdit" name="offerStreamTitle" >
+                  <property name="maxLength" >
+                   <number>20</number>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </item>
              </layout>
             </widget>
            </widget>
-           <widget class="QWidget" name="tab_8" >
+           <widget class="QWidget" name="streamMore" >
             <attribute name="title" >
              <string>More</string>
             </attribute>
@@ -458,19 +462,19 @@
                     <string>Title</string>
                    </property>
                    <property name="buddy" >
-                    <cstring>repassword</cstring>
+                    <cstring>webDomain</cstring>
                    </property>
                   </widget>
                  </item>
                  <item row="3" column="1" >
-                  <widget class="QLineEdit" name="repassword_3" >
+                  <widget class="QLineEdit" name="streamTitle" >
                    <property name="maxLength" >
                     <number>20</number>
                    </property>
                   </widget>
                  </item>
                  <item row="1" column="1" >
-                  <widget class="QComboBox" name="comboBox_5" >
+                  <widget class="QComboBox" name="streamSlots" >
                    <item>
                     <property name="text" >
                      <string>5</string>
@@ -594,7 +598,7 @@
                   </widget>
                  </item>
                  <item row="2" column="1" >
-                  <widget class="QComboBox" name="comboBox_6" >
+                  <widget class="QComboBox" name="streamBits" >
                    <item>
                     <property name="text" >
                      <string>24</string>
@@ -628,7 +632,7 @@
                   </widget>
                  </item>
                  <item row="0" column="1" >
-                  <widget class="QLineEdit" name="lineEdit_2" >
+                  <widget class="QLineEdit" name="streamName" >
                    <property name="maxLength" >
                     <number>20</number>
                    </property>
@@ -670,21 +674,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton" >
-        <property name="text" >
-         <string>More</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButtonOk_3" >
+       <widget class="QPushButton" name="ok" >
         <property name="text" >
          <string>Ok</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonCancel_3" >
+       <widget class="QPushButton" name="cancel" >
         <property name="text" >
          <string>Cancel</string>
         </property>
@@ -697,32 +694,31 @@
  </widget>
  <tabstops>
   <tabstop>serviceBox</tabstop>
-  <tabstop>tabWidget_2</tabstop>
-  <tabstop>lineEdit_5</tabstop>
+  <tabstop>webType</tabstop>
+  <tabstop>offerWebName</tabstop>
   <tabstop>offerWebList</tabstop>
-  <tabstop>lineEdit_6</tabstop>
-  <tabstop>pushButton</tabstop>
-  <tabstop>pushButtonOk_3</tabstop>
-  <tabstop>pushButtonCancel_3</tabstop>
-  <tabstop>lineEdit</tabstop>
-  <tabstop>comboBox</tabstop>
-  <tabstop>comboBox_2</tabstop>
-  <tabstop>repassword</tabstop>
-  <tabstop>tabWidget_3</tabstop>
-  <tabstop>lineEdit_2</tabstop>
-  <tabstop>comboBox_5</tabstop>
-  <tabstop>comboBox_6</tabstop>
-  <tabstop>repassword_3</tabstop>
-  <tabstop>lineEdit_3</tabstop>
+  <tabstop>offerWebDomain</tabstop>
+  <tabstop>ok</tabstop>
+  <tabstop>cancel</tabstop>
+  <tabstop>webName</tabstop>
+  <tabstop>webSpace</tabstop>
+  <tabstop>webNbDb</tabstop>
+  <tabstop>webDomain</tabstop>
+  <tabstop>streamType</tabstop>
+  <tabstop>streamName</tabstop>
+  <tabstop>streamSlots</tabstop>
+  <tabstop>streamBits</tabstop>
+  <tabstop>streamTitle</tabstop>
+  <tabstop>offerStreamName</tabstop>
   <tabstop>offerStreamList</tabstop>
-  <tabstop>lineEdit_4</tabstop>
+  <tabstop>offerStreamTitle</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
    <sender>offerWebList</sender>
    <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>pushButtonOk_3</receiver>
+   <receiver>ok</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -738,7 +734,7 @@
   <connection>
    <sender>offerStreamList</sender>
    <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>pushButtonOk_3</receiver>
+   <receiver>ok</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel" >

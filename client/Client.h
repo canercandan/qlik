@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Wed Aug  6 00:07:40 2008 caner candan
+// Last update Fri Aug  8 13:06:02 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -32,7 +32,10 @@
 # define SERVICES_STREAM	"services_stream"
 # define OFFER_WEB		"offer_web"
 # define OFFER_STREAM		"offer_stream"
-# define CREATE_SERVICE		"create_service"
+# define CREATE_OFFER_WEB	"create_offer_web"
+# define CREATE_OFFER_STREAM	"create_offer_stream"
+# define CREATE_WEB		"create_web"
+# define CREATE_STREAM		"create_stream"
 # define NEWS			"news"
 # define NEWS_DETAIL		"news_detail"
 
@@ -65,7 +68,10 @@ public:
   static void	actServicesStream(Client*, const QStringList&);
   static void	actOfferWeb(Client*, const QStringList&);
   static void	actOfferStream(Client*, const QStringList&);
-  static void	actCreateService(Client*, const QStringList&);
+  static void	actCreateOfferWeb(Client*, const QStringList&);
+  static void	actCreateOfferStream(Client*, const QStringList&);
+  static void	actCreateWeb(Client*, const QStringList&);
+  static void	actCreateStream(Client*, const QStringList&);
   static void	actNews(Client*, const QStringList&);
   static void	actNewsDetail(Client*, const QStringList&);
 public:
@@ -81,6 +87,11 @@ public:
 
   void	loadClients();
 
+  void	createOfferWeb();
+  void	createOfferStream();
+  void	createWeb();
+  void	createStream();
+
   void	closeSocket();
   void	login();
   void	logout();
@@ -88,15 +99,16 @@ private slots:
   void	on_actionSignUp_triggered();
   void	on_actionSignIn_triggered();
   void	on_actionSignOut_triggered();
+  void	on_actionRefresh_triggered();
   void	on_actionQuit_triggered();
   void	on_actionInformation_triggered();
   void	on_actionHelp_triggered();
 
-  void	on_addService_clicked();
+  void	on_serviceAdd_clicked();
+  void	on_serviceManage_clicked();
+  void	on_serviceCredit_clicked();
 
-  void	on_refreshNews_clicked();
-  void	on_readNews_clicked();
-
+  void	on_newsRead_clicked();
   void	on_talkOpen_clicked();
 
   void	connectedToServer();

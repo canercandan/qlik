@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Wed Aug  6 00:10:33 2008 caner candan
+// Last update Fri Aug  8 13:08:36 2008 caner candan
 //
 
 #include <QtNetwork>
@@ -25,11 +25,14 @@ Client::Actions	Client::actions[] = {
   {CLIENTS, actClients},
   {ACCOUNTS, actAccounts},
   {MESSAGE, actMessage},
-  {OFFER_WEB, actOfferWeb},
-  {OFFER_STREAM, actOfferStream},
   {SERVICES_WEB, actServicesWeb},
   {SERVICES_STREAM, actServicesStream},
-  {CREATE_SERVICE, actCreateService},
+  {OFFER_WEB, actOfferWeb},
+  {OFFER_STREAM, actOfferStream},
+  {CREATE_OFFER_WEB, actCreateOfferWeb},
+  {CREATE_OFFER_STREAM, actCreateOfferStream},
+  {CREATE_WEB, actCreateWeb},
+  {CREATE_STREAM, actCreateStream},
   {NEWS, actNews},
   {NEWS_DETAIL, actNewsDetail},
   {NULL, NULL}
@@ -42,6 +45,7 @@ Client::Client(QWidget *parent /*= NULL*/)
   actionSignUp->setEnabled(false);
   actionSignIn->setEnabled(false);
   actionSignOut->setEnabled(false);
+  actionRefresh->setEnabled(false);
   pageBox->setEnabled(false);
   connect(_socket, SIGNAL(connected()),
 	  this, SLOT(connectedToServer()));
@@ -128,10 +132,11 @@ void	Client::login()
   this->actionSignUp->setEnabled(false);
   this->actionSignIn->setEnabled(false);
   this->actionSignOut->setEnabled(true);
+  this->actionRefresh->setEnabled(true);
   this->pageBox->setEnabled(true);
   this->infoStatus->setText("Online");
   this->statusbar->showMessage("I'm sign in ...");
-  this->on_refreshNews_clicked();
+  this->on_actionRefresh_triggered();
 }
 
 void	Client::logout()
@@ -139,12 +144,23 @@ void	Client::logout()
   this->actionSignUp->setEnabled(true);
   this->actionSignIn->setEnabled(true);
   this->actionSignOut->setEnabled(false);
+  this->actionRefresh->setEnabled(false);
   this->pageBox->setEnabled(false);
   this->infoAccount->setText("guest");
   this->infoStatus->setText("Offline");
   this->statusbar->showMessage("I'm sign out ...");
   this->pageBox->setCurrentIndex(0);
   this->destroyMessages();
+  this->newsList->clear();
+  this->serviceBox->setCurrentIndex(0);
+  this->serviceWebList->clear();
+  this->serviceStreamList->clear();
+  this->talkList->clear();
+  if (this->_service)
+    {
+      this->_service->offerWebList->clear();
+      this->_service->offerStreamList->clear();
+    }
 }
 
 void	Client::on_actionSignUp_triggered()
@@ -181,6 +197,37 @@ void	Client::on_actionSignOut_triggered()
   stream << LOGOUT << endl;
 }
 
+void	Client::on_actionRefresh_triggered()
+{
+  QTextStream	stream(this->_socket);
+  int		idx;
+
+  idx = this->pageBox->currentIndex();
+  if (!idx)
+    {
+      this->newsList->clear();
+      stream << NEWS << endl;
+    }
+  else if (idx == 1)
+    {
+      if (!this->serviceBox->currentIndex())
+	{
+	  this->serviceWebList->clear();
+	  this->loadServices(0);
+	}
+      else
+	{
+	  this->serviceStreamList->clear();
+	  this->loadServices(1);
+	}
+    }
+  else if (idx == 3)
+    {
+      this->talkList->clear();
+      this->loadClients();
+    }
+}
+
 void	Client::on_actionInformation_triggered()
 {
   QMessageBox::information(this,
@@ -200,25 +247,32 @@ void	Client::on_actionQuit_triggered()
   this->close();
 }
 
-void	Client::on_addService_clicked()
+void	Client::on_serviceAdd_clicked()
 {
   if (!this->_service)
     this->_service = new Service(this);
   connect(this->_service->serviceBox, SIGNAL(currentChanged(int)),
 	  this, SLOT(loadOffers(int)));
-  this->loadOffers(0);
+  if (!this->serviceBox->currentIndex())
+    {
+      this->loadOffers(0);
+      this->_service->serviceBox->setCurrentIndex(0);
+    }
+  else
+    {
+      this->loadOffers(1);
+      this->_service->serviceBox->setCurrentIndex(1);
+    }
   this->_service->show();
 }
 
-void	Client::on_refreshNews_clicked()
-{
-  QTextStream	stream(this->_socket);
+void	Client::on_serviceManage_clicked()
+{}
 
-  this->newsList->clear();
-  stream << NEWS << endl;
-}
+void	Client::on_serviceCredit_clicked()
+{}
 
-void	Client::on_readNews_clicked()
+void	Client::on_newsRead_clicked()
 {
   QTextStream	stream(this->_socket);
 
@@ -228,7 +282,7 @@ void	Client::on_readNews_clicked()
 	   << endl;
 }
 
-void		Client::on_talkOpen_clicked()
+void	Client::on_talkOpen_clicked()
 {
   QString	sName;
   int		row;
@@ -349,6 +403,52 @@ void	Client::loadClients()
   stream << CLIENTS << endl;
 }
 
+void	Client::createOfferWeb()
+{
+  QTextStream	stream(this->_socket);
+
+  stream << CREATE_OFFER_WEB
+	 << ' ' << this->_service->offerWebName->text()
+	 << ' ' << this->_service->offerWebList->currentRow()
+	 << ' ' << this->_service->offerWebDomain->text()
+	 << endl;
+}
+
+void	Client::createOfferStream()
+{
+  QTextStream	stream(this->_socket);
+
+  stream << CREATE_OFFER_STREAM
+	 << ' ' << this->_service->offerStreamName->text()
+	 << ' ' << this->_service->offerStreamList->currentRow()
+	 << ' ' << this->_service->offerStreamTitle->text()
+	 << endl;
+}
+
+void	Client::createWeb()
+{
+  QTextStream	stream(this->_socket);
+
+  stream << CREATE_WEB
+	 << ' ' << this->_service->webName->text()
+	 << ' ' << this->_service->webSpace->currentText()
+	 << ' ' << this->_service->webNbDb->currentText()
+	 << ' ' << this->_service->webDomain->text()
+	 << endl;
+}
+
+void	Client::createStream()
+{
+  QTextStream	stream(this->_socket);
+
+  stream << CREATE_STREAM
+	 << ' ' << this->_service->streamName->text()
+	 << ' ' << this->_service->streamSlots->currentText()
+	 << ' ' << this->_service->streamBits->currentText()
+	 << ' ' << this->_service->streamTitle->text()
+	 << endl;
+}
+
 void	Client::actWelcome(Client* client, const QStringList&)
 {
   client->statusbar->showMessage("Welcome");
@@ -408,8 +508,7 @@ void	Client::actClients(Client* client, const QStringList& resList)
   if (name == client->infoAccount->text())
     return;
   qDebug() << "add client" << name;
-  item = new QListWidgetItem(QIcon("images/user.png"),
-			     name);
+  item = new QListWidgetItem(QIcon("images/user.png"), name);
   client->talkList->addItem(item);
 }
 
@@ -485,8 +584,69 @@ void	Client::actOfferStream(Client* client, const QStringList& resList)
 					     (QIcon("images/bricks.png"), name));
 }
 
-void	Client::actCreateService(Client*, const QStringList&)
-{}
+void	Client::actCreateOfferWeb(Client* client, const QStringList& resList)
+{
+  if (resList.at(0) == "KO")
+    {
+      QMessageBox::critical(client,
+			    tr("Error"),
+			    tr("Impossible to create a web offer"));
+      return;
+    }
+  QMessageBox::information(client,
+			   tr("Created"),
+			   tr("Your web offer has been created"));
+  client->on_actionRefresh_triggered();
+  client->_service->hide();
+}
+
+void	Client::actCreateOfferStream(Client* client, const QStringList& resList)
+{
+  if (resList.at(0) == "KO")
+    {
+      QMessageBox::critical(client,
+			    tr("Error"),
+			    tr("Impossible to create a stream offer"));
+      return;
+    }
+  QMessageBox::information(client,
+			   tr("Created"),
+			   tr("Your stream offer has been created"));
+  client->on_actionRefresh_triggered();
+  client->_service->hide();
+}
+
+void	Client::actCreateWeb(Client* client, const QStringList& resList)
+{
+  if (resList.at(0) == "KO")
+    {
+      QMessageBox::critical(client,
+			    tr("Error"),
+			    tr("Impossible to create a web"));
+      return;
+    }
+  QMessageBox::information(client,
+			   tr("Created"),
+			   tr("Your web has been created"));
+  client->on_actionRefresh_triggered();
+  client->_service->hide();
+}
+
+void	Client::actCreateStream(Client* client, const QStringList& resList)
+{
+  if (resList.at(0) == "KO")
+    {
+      QMessageBox::critical(client,
+			    tr("Error"),
+			    tr("Impossible to create a stream"));
+      return;
+    }
+  QMessageBox::information(client,
+			   tr("Created"),
+			   tr("Your stream has been created"));
+  client->on_actionRefresh_triggered();
+  client->_service->hide();
+}
 
 void	Client::actNews(Client* client, const QStringList& resList)
 {

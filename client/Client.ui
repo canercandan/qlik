@@ -56,22 +56,12 @@
        <item>
         <layout class="QHBoxLayout" >
          <item>
-          <widget class="QPushButton" name="readNews" >
+          <widget class="QPushButton" name="newsRead" >
            <property name="text" >
             <string>Read</string>
            </property>
            <property name="icon" >
             <iconset>images/newspaper_go.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="refreshNews" >
-           <property name="text" >
-            <string>Refresh</string>
-           </property>
-           <property name="icon" >
-            <iconset>images/database_refresh.png</iconset>
            </property>
           </widget>
          </item>
@@ -145,7 +135,7 @@
        <item>
         <layout class="QHBoxLayout" >
          <item>
-          <widget class="QPushButton" name="pushButton" >
+          <widget class="QPushButton" name="serviceManage" >
            <property name="text" >
             <string>Manage</string>
            </property>
@@ -155,7 +145,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_3" >
+          <widget class="QPushButton" name="serviceCredit" >
            <property name="text" >
             <string>Credit</string>
            </property>
@@ -167,7 +157,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="addService" >
+        <widget class="QPushButton" name="serviceAdd" >
          <property name="text" >
           <string>Add a new service</string>
          </property>
@@ -304,6 +294,7 @@
     <addaction name="actionSignUp" />
     <addaction name="actionSignIn" />
     <addaction name="actionSignOut" />
+    <addaction name="actionRefresh" />
     <addaction name="separator" />
     <addaction name="actionQuit" />
    </widget>
@@ -331,6 +322,7 @@
    <addaction name="actionSignUp" />
    <addaction name="actionSignIn" />
    <addaction name="actionSignOut" />
+   <addaction name="actionRefresh" />
    <addaction name="separator" />
    <addaction name="actionQuit" />
   </widget>
@@ -344,7 +336,6 @@
    <attribute name="toolBarBreak" >
     <bool>false</bool>
    </attribute>
-   <addaction name="actionInformation" />
    <addaction name="actionHelp" />
   </widget>
   <action name="actionSignIn" >
@@ -395,13 +386,21 @@
     <string>Help</string>
    </property>
   </action>
+  <action name="actionRefresh" >
+   <property name="icon" >
+    <iconset>images/database_refresh.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Refresh</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
   <connection>
    <sender>newsList</sender>
    <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>readNews</receiver>
+   <receiver>newsRead</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -427,6 +426,22 @@
     <hint type="destinationlabel" >
      <x>155</x>
      <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>serviceWebList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>serviceManage</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>86</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>71</x>
+     <y>306</y>
     </hint>
    </hints>
   </connection>
