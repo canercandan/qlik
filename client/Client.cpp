@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Fri Aug  8 13:08:36 2008 caner candan
+// Last update Mon Aug 11 22:02:13 2008 caner candan
 //
 
 #include <QtNetwork>
@@ -27,6 +27,8 @@ Client::Actions	Client::actions[] = {
   {MESSAGE, actMessage},
   {SERVICES_WEB, actServicesWeb},
   {SERVICES_STREAM, actServicesStream},
+  {SERVICES_WEB_DETAIL, actServicesWebDetail},
+  {SERVICES_STREAM_DETAIL, actServicesStreamDetail},
   {OFFER_WEB, actOfferWeb},
   {OFFER_STREAM, actOfferStream},
   {CREATE_OFFER_WEB, actCreateOfferWeb},
@@ -39,7 +41,8 @@ Client::Actions	Client::actions[] = {
 };
 
 Client::Client(QWidget *parent /*= NULL*/)
-  : QMainWindow(parent), _socket(new QTcpSocket), _service(NULL)
+  : QMainWindow(parent), _socket(new QTcpSocket),
+    _service(NULL), _web(NULL), _stream(NULL)
 {
   setupUi(this);
   actionSignUp->setEnabled(false);
@@ -66,6 +69,12 @@ Client::~Client()
 {
   closeSocket();
   delete _socket;
+  if (_service)
+    delete _service;
+  if (_web)
+    delete _web;
+  if (_stream)
+    delete _stream;
   destroyMessages();
 }
 
@@ -267,7 +276,33 @@ void	Client::on_serviceAdd_clicked()
 }
 
 void	Client::on_serviceManage_clicked()
-{}
+{
+  QTextStream	stream(this->_socket);
+  int		row;
+
+  if (!this->serviceBox->currentIndex())
+    {
+      if ((row = this->serviceWebList->currentRow()) < 0)
+	return;
+      if (!this->_web)
+	this->_web = new Web(this);
+      stream << SERVICES_WEB_DETAIL
+	     << ' ' << row
+	     << endl;
+      this->_web->show();
+    }
+  else
+    {
+      if ((row = this->serviceStreamList->currentRow()) < 0)
+	return;
+      if (!this->_stream)
+	this->_stream = new Stream(this);
+      stream << SERVICES_STREAM_DETAIL
+	     << ' ' << row
+	     << endl;
+      this->_stream->show();
+    }
+}
 
 void	Client::on_serviceCredit_clicked()
 {}
@@ -352,6 +387,7 @@ void	Client::displayError(QAbstractSocket::SocketError)
 			tr("Not connected"),
 			tr("This address isn't a server"));
   this->logout();
+  this->close();
 }
 
 void	Client::loadOffers(int idx)
@@ -558,6 +594,36 @@ void	Client::actServicesStream(Client* client, const QStringList& resList)
   qDebug() << "add service stream" << name;
   client->serviceStreamList->addItem(new QListWidgetItem
 				     (QIcon("images/bricks.png"), name));
+}
+
+void	Client::actServicesWebDetail(Client* client, const QStringList& resList)
+{
+  if (resList.at(0) == "KO")
+    {
+      QMessageBox::critical(client,
+			    tr("incorrect web service"),
+			    tr("incorrect web service"));
+      return;
+    }
+  client->_web->name->setText(resList.at(0));
+  client->_web->space->setText(resList.at(1));
+  client->_web->nbDb->setText(resList.at(2));
+  client->_web->domain->setText(resList.at(3));
+}
+
+void	Client::actServicesStreamDetail(Client* client, const QStringList& resList)
+{
+  if (resList.at(0) == "KO")
+    {
+      QMessageBox::critical(client,
+			    tr("incorrect stream service"),
+			    tr("incorrect stream service"));
+      return;
+    }
+  client->_stream->name->setText(resList.at(0));
+  client->_stream->slotss->setText(resList.at(1));
+  client->_stream->bits->setText(resList.at(2));
+  client->_stream->title->setText(resList.at(3));
 }
 
 void	Client::actOfferWeb(Client* client, const QStringList& resList)

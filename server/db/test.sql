@@ -1,5 +1,5 @@
 insert into users values(1, "Caner", "caca");
-insert into users values(2, "Lulu", "lol");
+insert into users values(2, "Lulu", "caca");
 
 insert into credit values(1, 100);
 insert into credit values(2, 2);

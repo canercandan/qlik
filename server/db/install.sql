@@ -28,7 +28,7 @@ create table services_web
 	nb_db integer,
 	domain text,
 	created integer,
-	expire integer
+	expired integer
 );
 
 create table services_stream
@@ -40,7 +40,7 @@ create table services_stream
 	bits integer,
 	title text,
 	created integer,
-	expire integer
+	expired integer
 );
 
 create table offer_web

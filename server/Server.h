@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Thu Aug  7 10:38:15 2008 caner candan
+// Last update Mon Aug 11 17:33:39 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -60,6 +60,16 @@
 # define SERVICES_STREAM	"services_stream"
 // services_stream
 // -> services_stream (BEGIN\n*(NAME)\nEND|KO)
+
+# define SERVICES_WEB_DETAIL	"services_web_detail"
+// services_web_detail ROW
+// -> services_web_detail (NAME SPACE NB_DB DOMAIN
+// CREATED EXPIRED|KO)
+
+# define SERVICES_STREAM_DETAIL	"services_stream_detail"
+// services_stream_detail ROW
+// -> services_stream_detail (NAME SLOTS BITS TITLE
+// CREATED EXPIRED|KO)
 
 # define OFFER_WEB		"offer_web"
 // offer_web
@@ -117,6 +127,8 @@ public:
   static void	actMessage(Server*, Client*);
   static void	actServicesWeb(Server*, Client*);
   static void	actServicesStream(Server*, Client*);
+  static void	actServicesWebDetail(Server*, Client*);
+  static void	actServicesStreamDetail(Server*, Client*);
   static void	actOfferWeb(Server*, Client*);
   static void	actOfferStream(Server*, Client*);
   static void	actCreateOfferWeb(Server*, Client*);

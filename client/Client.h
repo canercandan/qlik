@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Fri Aug  8 13:06:02 2008 caner candan
+// Last update Mon Aug 11 21:22:49 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -15,6 +15,8 @@
 # include <QtNetwork>
 # include "ui_Client.h"
 # include "Service.h"
+# include "Web.h"
+# include "Stream.h"
 # include "Message.h"
 
 # define HOST	"localhost"
@@ -30,6 +32,8 @@
 # define MESSAGE		"message"
 # define SERVICES_WEB		"services_web"
 # define SERVICES_STREAM	"services_stream"
+# define SERVICES_WEB_DETAIL	"services_web_detail"
+# define SERVICES_STREAM_DETAIL	"services_stream_detail"
 # define OFFER_WEB		"offer_web"
 # define OFFER_STREAM		"offer_stream"
 # define CREATE_OFFER_WEB	"create_offer_web"
@@ -66,6 +70,8 @@ public:
   static void	actMessage(Client*, const QStringList&);
   static void	actServicesWeb(Client*, const QStringList&);
   static void	actServicesStream(Client*, const QStringList&);
+  static void	actServicesWebDetail(Client*, const QStringList&);
+  static void	actServicesStreamDetail(Client*, const QStringList&);
   static void	actOfferWeb(Client*, const QStringList&);
   static void	actOfferStream(Client*, const QStringList&);
   static void	actCreateOfferWeb(Client*, const QStringList&);
@@ -122,6 +128,8 @@ private slots:
 private:
   QTcpSocket	*_socket;
   Service	*_service;
+  Web		*_web;
+  Stream	*_stream;
   MessageMap	_mm;
 };
 

@@ -12,20 +12,26 @@ HEADERS		+=	Client.h	\
 			Connect.h	\
 			Create.h	\
 			Service.h	\
-			Message.h
+			Message.h	\
+			Web.h		\
+			Stream.h
 
 FORMS		+=	Client.ui	\
 			Connect.ui	\
 			Create.ui	\
 			Service.ui	\
-			Message.ui
+			Message.ui	\
+			Web.ui		\
+			Stream.ui
 
 SOURCES		+=	main.cpp	\
 			Client.cpp	\
 			Connect.cpp	\
 			Create.cpp	\
 			Service.cpp	\
-			Message.cpp
+			Message.cpp	\
+			Web.cpp		\
+			Stream.cpp
 
 CONFIG		+=	debug
 

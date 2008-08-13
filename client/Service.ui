@@ -738,8 +738,8 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>141</x>
-     <y>158</y>
+     <x>131</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel" >
      <x>191</x>

@@ -174,8 +174,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>251</width>
-       <height>201</height>
+       <width>96</width>
+       <height>26</height>
       </rect>
      </property>
      <attribute name="label" >
@@ -190,8 +190,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>251</width>
-       <height>201</height>
+       <width>96</width>
+       <height>26</height>
       </rect>
      </property>
      <attribute name="label" >
@@ -420,12 +420,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>76</x>
-     <y>244</y>
+     <x>74</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>155</x>
-     <y>394</y>
+     <x>108</x>
+     <y>133</y>
     </hint>
    </hints>
   </connection>
@@ -442,6 +442,22 @@
     <hint type="destinationlabel" >
      <x>71</x>
      <y>306</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>serviceStreamList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>serviceManage</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>91</x>
+     <y>253</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>82</x>
+     <y>312</y>
     </hint>
    </hints>
   </connection>

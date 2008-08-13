@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Fri Aug  8 08:33:13 2008 caner candan
+// Last update Wed Aug 13 07:03:29 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -29,6 +29,8 @@ Server::Actions	Server::actions[] = {
   {MESSAGE, actMessage, MESG_EMPTY},
   {SERVICES_WEB, actServicesWeb, MESG_EMPTY},
   {SERVICES_STREAM, actServicesStream, MESG_EMPTY},
+  {SERVICES_WEB_DETAIL, actServicesWebDetail, MESG_EMPTY},
+  {SERVICES_STREAM_DETAIL, actServicesStreamDetail, MESG_EMPTY},
   {OFFER_WEB, actOfferWeb, MESG_EMPTY},
   {OFFER_STREAM, actOfferStream, MESG_EMPTY},
   {CREATE_OFFER_WEB, actCreateOfferWeb, MESG_EMPTY},
@@ -473,6 +475,78 @@ void	Server::actServicesStream(Server* server, Client *client)
   delete stmt;
 }
 
+void	Server::actServicesWebDetail(Server* server, Client* client)
+{
+  SQLiteStatement	*stmt;
+  std::stringstream	ss(client->getBufRead());
+  std::string		action;
+  int			row;
+
+  if (server->notConnected(client))
+    return;
+  row = 0;
+  ss >> action >> row;
+  stmt = server->_sql.Statement("select name, space, nb_db, "
+				"domain, created, expired "
+				"from services_web "
+				"where id_user = ? "
+				"order by name "
+				"limit ?, 1;");
+  stmt->Bind(0, client->getId());
+  stmt->Bind(1, row);
+  if (stmt->NextRow())
+    {
+      ss.str(MESG_EMPTY);
+      ss << stmt->ValueString(0)
+	 << ' ' << stmt->ValueString(1)
+	 << ' ' << stmt->ValueString(2)
+	 << ' ' << stmt->ValueString(3)
+	 << ' ' << stmt->ValueString(4)
+	 << ' ' << stmt->ValueString(5)
+	 << std::endl;
+      client->setBufWrite(ss.str());
+    }
+  else
+    client->setBufWrite(MESG_KO);
+  delete stmt;
+}
+
+void	Server::actServicesStreamDetail(Server* server, Client* client)
+{
+  SQLiteStatement	*stmt;
+  std::stringstream	ss(client->getBufRead());
+  std::string		action;
+  int			row;
+
+  if (server->notConnected(client))
+    return;
+  row = 0;
+  ss >> action >> row;
+  stmt = server->_sql.Statement("select name, slots, bits, "
+				"title, created, expired "
+				"from services_stream "
+				"where id_user = ? "
+				"order by name "
+				"limit ?, 1;");
+  stmt->Bind(0, client->getId());
+  stmt->Bind(1, row);
+  if (stmt->NextRow())
+    {
+      ss.str(MESG_EMPTY);
+      ss << stmt->ValueString(0)
+	 << ' ' << stmt->ValueString(1)
+	 << ' ' << stmt->ValueString(2)
+	 << ' ' << stmt->ValueString(3)
+	 << ' ' << stmt->ValueString(4)
+	 << ' ' << stmt->ValueString(5)
+	 << std::endl;
+      client->setBufWrite(ss.str());
+    }
+  else
+    client->setBufWrite(MESG_KO);
+  delete stmt;
+}
+
 void	Server::actOfferWeb(Server* server, Client* client)
 {
   SQLiteStatement	*stmt;
@@ -641,18 +715,25 @@ void	Server::actCreateStream(Server* server, Client* client)
   std::string		name;
   int			slots;
   int			bits;
+  std::string		title;
 
   if (server->notConnected(client))
     return;
-  ss >> action >> name >> slots >> bits;
+  ss >> action >> name >> slots >> bits >> title;
+  if (name.empty() || !slots || !bits || title.empty())
+    {
+      client->setBufWrite(MESG_KO);
+      return;
+    }
   stmt = server->_sql.Statement("insert into services_stream "
-				"values(NULL, ?, ?, ?, ?, ?, ?)");
+				"values(NULL, ?, ?, ?, ?, ?, ?, ?);");
   stmt->Bind(0, client->getId());
   stmt->Bind(1, name);
   stmt->Bind(2, slots);
   stmt->Bind(3, bits);
-  stmt->Bind(4, -1);
-  stmt->Bind(5, -1);
+  stmt->Bind(4, title);
+  stmt->Bind(5, 1);
+  stmt->Bind(6, 1);
   stmt->Execute();
   client->setBufWrite(MESG_OK);
   delete stmt;
