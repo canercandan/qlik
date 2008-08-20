@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 08:50:46 2008 caner candan
-// Last update Sun Aug  3 14:04:25 2008 caner candan
+// Last update Sun Aug 17 09:46:10 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -45,11 +45,15 @@ public:
 
   bool	isConnected() const;
 
-  void	setBufRead(const std::string& bufRead);
-  void	setBufWrite(const std::string& bufWrite);
-  void	setLogin(const std::string& login);
-  void	setId(int id);
-  void	setCredit(int credit);
+  void	appendBufRead(const std::string&);
+  void	appendBufRead(const int&);
+
+  void	appendBufWrite(const std::string&);
+  void	appendBufWrite(const int&);
+
+  void	setLogin(const std::string&);
+  void	setId(const int&);
+  void	setCredit(const int&);
 
   void	clearBufRead(void);
   void	clearBufWrite(void);

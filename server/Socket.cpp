@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 13:26:53 2008 caner candan
-// Last update Sun Jul 20 11:37:22 2008 caner candan
+// Last update Sun Aug 17 01:02:03 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -17,8 +17,8 @@
 #include <sstream>
 #include "Socket.h"
 
-Socket::Socket(bool verbose /*= false*/)
-  : _socket(-1), _verbose(verbose), _status(true)
+Socket::Socket()
+  : _socket(-1), _status(true)
 {}
 
 Socket::Socket(const Socket& s)
@@ -34,7 +34,6 @@ Socket&	Socket::operator=(const Socket& s)
   if (this != &s)
     {
       this->_socket = s._socket;
-      this->_verbose = s._verbose;
       this->_status = s._status;
     }
   return (*this);
@@ -46,15 +45,15 @@ void	Socket::closeSocket(void)
     {
       this->setStatus(false);
       ::close(this->_socket);
-      if (this->_verbose)
-	std::cout << this->head()
-		  << "socket closed"
-		  << std::endl;
+#ifdef DEBUG
+      std::cout << this->head()
+		<< "socket closed"
+		<< std::endl;
+#endif // !DEBUG
     }
 }
 
-void	Socket::send(const std::string& s,
-		     bool verbose /*= false*/)
+void	Socket::send(const std::string& s)
 {
   std::string	str(s);
   std::string	toSend;
@@ -69,25 +68,28 @@ void	Socket::send(const std::string& s,
 	  toSend = str.substr(0, pos + 1);
 	  if (::send(this->_socket, toSend.c_str(), toSend.size(), 0) < 0)
 	    throw 2;
-	  if (this->_verbose || verbose)
-	    std::cout << this->head()
-		      << "send [" << toSend << ']'
-		      << std::endl;
+#ifdef DEBUG
+	  std::cout << this->head()
+		    << "send [" << toSend << ']'
+		    << std::endl;
+#endif // !DEBUG
 	  str = str.substr(pos + 1);
 	}
     }
   catch (int e)
     {
+#ifdef DEBUG
       std::cout << this->head();
       if (e == 1)
 	std::cout << "send error, not connected";
       else if (e == 2)
 	std::cout << "send error";
       std::cout << std::endl;
+#endif // !DEBUG
     }
 }
 
-std::string	Socket::recv(bool verbose /*= false*/)
+std::string	Socket::recv()
 {
   char		buf[1024];
   int		size;
@@ -102,14 +104,16 @@ std::string	Socket::recv(bool verbose /*= false*/)
       if (!size)
 	throw 3;
       buf[size] = 0;
-      if (this->_verbose || verbose)
-	std::cout << this->head()
-		  << "recv [" << buf << ']'
-		  << std::endl;
+#ifdef DEBUG
+      std::cout << this->head()
+		<< "recv [" << buf << ']'
+		<< std::endl;
+#endif // !DEBUG
       return (std::string(buf));
     }
   catch (int e)
     {
+#ifdef DEBUG
       std::cout << this->head() << "error recv, ";
       if (e == 1)
 	std::cout << "not connected";
@@ -118,16 +122,16 @@ std::string	Socket::recv(bool verbose /*= false*/)
       else if (e == 3)
 	std::cout << "trame size incorrect";
       std::cout << std::endl;
+#endif // !DEBUG
       this->closeSocket();
     }
   return ("");
 }
 
-std::string	Socket::sendRecv(const std::string& s,
-				 bool verbose /*= false*/)
+std::string	Socket::sendRecv(const std::string& s)
 {
-  this->send(s, verbose);
-  return (this->recv(verbose));
+  this->send(s);
+  return (this->recv());
 }
 
 bool	Socket::isConnected(void) const

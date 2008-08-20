@@ -5,7 +5,7 @@
 ## Login   <candan_c@epitech.net>
 ## 
 ## Started on  Wed Jul  9 21:31:38 2008 caner candan
-## Last update Sun Aug  3 13:50:28 2008 caner candan
+## Last update Sun Aug 17 00:36:03 2008 caner candan
 ##
 
 NAME		=	server
@@ -16,14 +16,15 @@ SRCS		=	main.cpp		\
 			Socket.cpp		\
 			SocketServer.cpp	\
 			SocketClient.cpp	\
-			SQLiteWrapper.cpp
+			SQLiteWrapper.cpp	\
+			State.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
 CC		=	g++
 RM		=	rm -f
 
-DEBUG_42	=	-g
+DEBUG_42	=	-g -DDEBUG
 CHKERR		=	-W -Wall -Werror
 
 INCLUDES_SQL	=	`pkg-config sqlite3 --cflags`

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:29:14 2008 caner candan
-// Last update Sun Jul 13 06:53:12 2008 caner candan
+// Last update Sun Aug 17 01:02:53 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -17,16 +17,15 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include "Socket.h"
 #include "SocketServer.h"
+#include "State.h"
 
-SocketServer::SocketServer(bool verbose /*= false*/)
-  : Socket(verbose)
+SocketServer::SocketServer()
+  : Socket()
 {}
 
-SocketServer::SocketServer(int port,
-			   bool verbose /*= false*/)
-  : Socket(verbose)
+SocketServer::SocketServer(int port)
+  : Socket()
 {
   createSocket(port);
 }
@@ -41,10 +40,7 @@ SocketServer::~SocketServer()
 SocketServer&	SocketServer::operator=(const SocketServer& ss)
 {
   if (this != &ss)
-    {
-      this->_socket = ss._socket;
-      this->_verbose = ss._verbose;
-    }
+    this->_socket = ss._socket;
   return (*this);
 }
 
@@ -67,14 +63,16 @@ void	SocketServer::createSocket(int port /*= 12345*/)
 	throw 2;
       if (listen(this->_socket, MAX_LISTEN) < 0)
 	throw 3;
-      if (this->_verbose)
-	std::cout << this->head()
-		  << "Socket created in "
-		  << "localhost : " << port
-		  << std::endl;
+#ifdef DEBUG
+      std::cout << this->head()
+		<< "Socket created in "
+		<< "localhost : " << port
+		<< std::endl;
+#endif // !DEBUG
     }
   catch (int e)
     {
+#ifdef DEBUG
       std::cout << this->head();
       if (e == 1)
 	std::cout << "socket error";
@@ -83,6 +81,8 @@ void	SocketServer::createSocket(int port /*= 12345*/)
       else if (e == 3)
 	std::cout << "listen error";
       std::cout << std::endl;
+#endif // !DEBUG
+      State::getInstance()->setState(State::ERROR);
       this->closeSocket();
     }
 }

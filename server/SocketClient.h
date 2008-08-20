@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 21:57:02 2008 caner candan
-// Last update Thu Jul 10 22:00:52 2008 caner candan
+// Last update Sat Aug 16 22:19:45 2008 caner candan
 //
 
 #ifndef __SOCKETCLIENT_H__
@@ -17,8 +17,8 @@
 class	SocketClient : public Socket
 {
 public:
-  SocketClient(bool verbose = false);
-  SocketClient(int socketServer, bool verbose = false);
+  SocketClient();
+  SocketClient(int socketServer);
   SocketClient(const SocketClient&);
   ~SocketClient();
   SocketClient	&operator=(const SocketClient&);

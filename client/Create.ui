@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>290</width>
-    <height>158</height>
+    <height>120</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -18,7 +18,7 @@
      <x>10</x>
      <y>10</y>
      <width>271</width>
-     <height>141</height>
+     <height>101</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" >
@@ -27,23 +27,20 @@
       <property name="title" >
        <string>Account Settings</string>
       </property>
-      <widget class="QWidget" name="gridLayout_2" >
+      <widget class="QWidget" name="gridLayout" >
        <property name="geometry" >
         <rect>
          <x>9</x>
-         <y>19</y>
+         <y>20</y>
          <width>251</width>
-         <height>76</height>
+         <height>31</height>
         </rect>
        </property>
        <layout class="QGridLayout" >
         <item row="0" column="0" >
-         <widget class="QLabel" name="label_3" >
+         <widget class="QLabel" name="label" >
           <property name="text" >
            <string>Username</string>
-          </property>
-          <property name="buddy" >
-           <cstring>username</cstring>
           </property>
          </widget>
         </item>
@@ -51,46 +48,6 @@
          <widget class="QLineEdit" name="username" >
           <property name="maxLength" >
            <number>20</number>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="label_4" >
-          <property name="text" >
-           <string>Password</string>
-          </property>
-          <property name="buddy" >
-           <cstring>password</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" >
-         <widget class="QLineEdit" name="password" >
-          <property name="maxLength" >
-           <number>20</number>
-          </property>
-          <property name="echoMode" >
-           <enum>QLineEdit::Password</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" >
-         <widget class="QLabel" name="label_6" >
-          <property name="text" >
-           <string>Repeat password</string>
-          </property>
-          <property name="buddy" >
-           <cstring>repassword</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" >
-         <widget class="QLineEdit" name="repassword" >
-          <property name="maxLength" >
-           <number>20</number>
-          </property>
-          <property name="echoMode" >
-           <enum>QLineEdit::Password</enum>
           </property>
          </widget>
         </item>
@@ -133,9 +90,6 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>username</tabstop>
-  <tabstop>password</tabstop>
-  <tabstop>repassword</tabstop>
   <tabstop>pushButtonOk</tabstop>
   <tabstop>pushButtonCancel</tabstop>
  </tabstops>

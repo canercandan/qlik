@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:46:22 2008 caner candan
-// Last update Fri Aug  8 09:03:52 2008 caner candan
+// Last update Sun Aug 17 10:06:16 2008 caner candan
 //
 
 #include <QWidget>
@@ -23,8 +23,6 @@ Connect::~Connect()
 
 void	Connect::on_pushButtonOk_clicked()
 {
-  QRegExp	rx;
-
   if (this->username->text().isEmpty())
     {
       QMessageBox::information(this,
@@ -33,7 +31,9 @@ void	Connect::on_pushButtonOk_clicked()
       this->username->setFocus();
       return;
     }
-  rx.setPattern("^[a-zA-Z0-9-_]{4,20}$");
+  QRegExp	rx;
+
+  rx.setPattern("^[a-zA-Z][a-zA-Z0-9-_]{3,19}$");
   if (rx.indexIn(this->username->text()) < 0)
     {
       QMessageBox::information(this,
@@ -50,7 +50,7 @@ void	Connect::on_pushButtonOk_clicked()
       this->password->setFocus();
       return;
     }
-  rx.setPattern("^[a-zA-Z0-9-_$/()&%^#]{4,20}$");
+  rx.setPattern("^[a-zA-Z0-9!\"#$%&'()*+,-./:;<=>?[\\]^_`{|}~]{4,20}$");
   if (rx.indexIn(this->password->text()) < 0)
     {
       QMessageBox::information(this,

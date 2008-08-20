@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:29:14 2008 caner candan
-// Last update Sun Jul 13 06:55:26 2008 caner candan
+// Last update Sun Aug 17 01:04:03 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -13,16 +13,15 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include "Socket.h"
 #include "SocketClient.h"
+#include "State.h"
 
-SocketClient::SocketClient(bool verbose /*= false*/)
-  : Socket(verbose)
+SocketClient::SocketClient()
+  : Socket()
 {}
 
-SocketClient::SocketClient(int socketServer,
-			   bool verbose /*= false*/)
-  : Socket(verbose)
+SocketClient::SocketClient(int socketServer)
+  : Socket()
 {
   acceptClient(socketServer);
 }
@@ -37,10 +36,7 @@ SocketClient::~SocketClient()
 SocketClient&	SocketClient::operator=(const SocketClient& sc)
 {
   if (this != &sc)
-    {
-      this->_socket = sc._socket;
-      this->_verbose = sc._verbose;
-    }
+    this->_socket = sc._socket;
   return (*this);
 }
 
@@ -53,9 +49,12 @@ void	SocketClient::acceptClient(int socketServer)
     }
   catch (bool)
     {
+#ifdef DEBUG
       std::cout << this->head()
 		<< "accept error"
 		<< std::endl;
+#endif // !DEBUG
+      State::getInstance()->setState(State::ERROR);
       this->closeSocket();
     }
 }

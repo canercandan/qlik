@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Wed Aug 13 07:03:29 2008 caner candan
+// Last update Mon Aug 18 10:29:54 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -18,6 +18,7 @@
 #include "Client.h"
 #include "SocketServer.h"
 #include "SocketClient.h"
+#include "State.h"
 
 Server::Actions	Server::actions[] = {
   {LOGIN, actLogin, MESG_EMPTY},
@@ -42,10 +43,9 @@ Server::Actions	Server::actions[] = {
   {MESG_EMPTY, NULL, MESG_EMPTY}
 };
 
-Server::Server(bool verbose /*= false*/)
-  : _verbose(verbose)
+Server::Server()
 {
-  _sql.Open("db/server.db");
+  _sql.Open(DBFILE);
 }
 
 Server::Server(const Server& s)
@@ -59,27 +59,21 @@ Server::~Server()
 Server&	Server::operator=(const Server& s)
 {
   if (this != &s)
-    {
-      this->_clients = s._clients;
-      this->_verbose = s._verbose;
-    }
+    this->_clients = s._clients;
   return (*this);
 }
 
 void	Server::destroyListClients()
 {
-  listClients::iterator	it = this->_clients.begin();
+  listClients::iterator	it;
   listClients::iterator	end = this->_clients.end();
 
-  while (it != end)
-    {
-      if (*it != NULL)
-	{
-	  ::free(*it);
-	  *it = NULL;
-	}
-      ++it;
-    }
+  for (it = this->_clients.begin(); it != end; ++it)
+    if (*it)
+      {
+	delete *it;
+	*it = NULL;
+      }
 }
 
 void		Server::addServer(int port)
@@ -87,7 +81,7 @@ void		Server::addServer(int port)
   Client	*client;
   SocketServer	*ss;
 
-  ss = new SocketServer(port, this->_verbose);
+  ss = new SocketServer(port);
   client = new Client(ss, Client::SERVER);
   this->_clients.push_back(client);
 }
@@ -97,21 +91,25 @@ void		Server::addClient(Client *server)
   Client	*client;
   SocketClient	*sc;
 
-  sc = new SocketClient(server->getSocket()->getSocket(), true);
+  sc = new SocketClient(server->getSocket()->getSocket());
   client = new Client(sc, Client::CLIENT);
   this->_clients.push_back(client);
-  client->setBufWrite(WELCOME);
+  client->appendBufWrite(WELCOME);
 }
 
 void	Server::setFd(fd_set& fdRead, fd_set& fdWrite, int& fdMax)
 {
-  listClients::const_iterator	it;
-  listClients::const_iterator	end = this->_clients.end();
+  listClients::iterator	it;
+  listClients::iterator	end = this->_clients.end();
 
   for (it = this->_clients.begin(); it != end; ++it)
     {
       if (!(*it)->getSocket()->getStatus())
-	continue;
+	{
+	  delete *it;
+	  this->_clients.erase(it);
+	  continue;
+	}
       FD_SET((*it)->getSocket()->getSocket(), &fdRead);
       if (!(*it)->getBufWrite().empty())
 	FD_SET((*it)->getSocket()->getSocket(), &fdWrite);
@@ -149,10 +147,11 @@ void		Server::loopServer(void)
   fd_set	fdRead;
   fd_set	fdWrite;
   int		fdMax;
+  State*	state = State::getInstance();
 
   try
     {
-      while (42)
+      while (state->getState() == State::START)
 	{
 	  FD_ZERO(&fdRead);
 	  FD_ZERO(&fdWrite);
@@ -166,36 +165,41 @@ void		Server::loopServer(void)
     }
   catch (bool)
     {
+#ifdef DEBUG
       std::cout << this->head()
 		<< "select error" << std::endl;
+#endif // !DEBUG
     }
 }
 
 void	Server::serverRead(Client *server)
 {
-  if (this->_verbose)
-    std::cout << this->head()
-	      << "server read" << std::endl;
+#ifdef DEBUG
+  std::cout << this->head()
+	    << "server read" << std::endl;
+#endif // !DEBUG
   addClient(server);
 }
 
 void	Server::clientRead(Client *client)
 {
-  if (this->_verbose)
-    std::cout << this->head() << " ["
-	      << client->getSocket()->getSocket()
-	      << "] client read" << std::endl;
+#ifdef DEBUG
+  std::cout << this->head() << " ["
+	    << client->getSocket()->getSocket()
+	    << "] client read" << std::endl;
+#endif // !DEBUG
   client->clearBufRead();
-  client->setBufRead(client->getSocket()->recv());
+  client->appendBufRead(client->getSocket()->recv());
   this->executeAction(client);
 }
 
 void	Server::clientWrite(Client *client)
 {
-  if (this->_verbose)
-    std::cout << this->head() << " ["
-	      << client->getSocket()->getSocket()
-	      << "] client write" << std::endl;
+#ifdef DEBUG
+  std::cout << this->head() << " ["
+	    << client->getSocket()->getSocket()
+	    << "] client write" << std::endl;
+#endif // !DEBUG
   client->getSocket()->send(client->getBufWrite());
   client->clearBufWrite();
 }
@@ -212,13 +216,13 @@ void	Server::executeAction(Client *client)
       {
 	ss.str(MESG_EMPTY);
 	ss << action << ' ';
-	client->setBufWrite(ss.str());
+	client->appendBufWrite(ss.str());
 	actions[i].func(this, client);
 	if (!actions[i].retMesg.empty())
-	  client->setBufWrite(actions[i].retMesg);
+	  client->appendBufWrite(actions[i].retMesg);
 	return;
       }
-  client->setBufWrite(MESG_KO);
+  client->appendBufWrite(MESG_KO);
 }
 
 bool	Server::existLogin(const std::string& login)
@@ -288,7 +292,7 @@ bool	Server::notConnected(Client *client)
 {
   if (!client->isConnected())
     {
-      client->setBufWrite(MESG_KO);
+      client->appendBufWrite(MESG_KO);
       return (true);
     }
   return (false);
@@ -307,7 +311,7 @@ void	Server::actLogin(Server *server, Client *client)
       !server->existLoginPasswd(login, passwd) ||
       server->alreadyConnected(login))
     {
-      client->setBufWrite(MESG_KO);
+      client->appendBufWrite(MESG_KO);
       return;
     }
   stmt = server->_sql.Statement("select users.id, users.username, "
@@ -323,7 +327,8 @@ void	Server::actLogin(Server *server, Client *client)
       client->setLogin(stmt->ValueString(1));
       client->setCredit(stmt->ValueInt(2));
     }
-  client->setBufWrite(MESG_OK);
+  client->appendBufWrite(client->getCredit());
+  client->appendBufWrite("\n");
   delete stmt;
 }
 
@@ -340,13 +345,13 @@ void	Server::actCreate(Server* server, Client *client)
   std::string		login;
   std::string		passwd;
 
-  ss >> action >> login >> passwd;
-  if (login.empty() || passwd.empty() ||
-      server->existLogin(login))
+  ss >> action >> login;
+  if (login.empty() || server->existLogin(login))
     {
-      client->setBufWrite(MESG_KO);
+      client->appendBufWrite(MESG_KO);
       return;
     }
+  passwd = generatePasswd();
   stmt = server->_sql.Statement("insert into users "
 				"values(NULL, ?, ?);");
   stmt->Bind(0, login);
@@ -356,14 +361,14 @@ void	Server::actCreate(Server* server, Client *client)
   stmt = server->_sql.Statement("insert into credit "
 				"values(last_insert_rowid(), 0);");
   stmt->Execute();
-  client->setBufWrite(MESG_OK);
+  client->appendBufWrite(passwd + '\n');
   delete stmt;
 }
 
 void	Server::actStatus(Server* server, Client *client)
 {
   if (!server->notConnected(client))
-    client->setBufWrite(MESG_OK);
+    client->appendBufWrite(MESG_OK);
 }
 
 void	Server::actClients(Server *server, Client *client)
@@ -373,11 +378,11 @@ void	Server::actClients(Server *server, Client *client)
 
   if (server->notConnected(client))
     return;
-  client->setBufWrite(MESG_BEGIN);
+  client->appendBufWrite(MESG_BEGIN);
   for (it = server->getListClients().begin(); it != end; ++it)
     if ((*it)->isConnected())
-      client->setBufWrite((*it)->getLogin() + '\n');
-  client->setBufWrite(MESG_END);
+      client->appendBufWrite((*it)->getLogin() + '\n');
+  client->appendBufWrite(MESG_END);
 }
 
 void	Server::actAccounts(Server *server, Client *client)
@@ -387,7 +392,7 @@ void	Server::actAccounts(Server *server, Client *client)
 
   if (server->notConnected(client))
     return;
-  client->setBufWrite(MESG_BEGIN);
+  client->appendBufWrite(MESG_BEGIN);
   stmt = server->_sql.Statement("select username "
 				"from users "
 				"order by username;");
@@ -395,9 +400,9 @@ void	Server::actAccounts(Server *server, Client *client)
     {
       ss.str(MESG_EMPTY);
       ss << stmt->ValueString(0) << std::endl;
-      client->setBufWrite(ss.str());
+      client->appendBufWrite(ss.str());
     }
-  client->setBufWrite(MESG_END);
+  client->appendBufWrite(MESG_END);
   delete stmt;
 }
 
@@ -421,12 +426,12 @@ void	Server::actMessage(Server *server, Client *client)
   if (login.empty() || message.empty() ||
       !(to = server->findClient(login)))
     {
-      client->setBufWrite(MESG_KO);
+      client->appendBufWrite(MESG_KO);
       return;
     }
-  to->setBufWrite(std::string(MESSAGE) + ' ');
-  to->setBufWrite(client->getLogin() + ' ' + message);
-  client->setBufWrite(MESG_OK);
+  to->appendBufWrite(std::string(MESSAGE) + ' ');
+  to->appendBufWrite(client->getLogin() + ' ' + message);
+  client->appendBufWrite(MESG_OK);
 }
 
 void	Server::actServicesWeb(Server* server, Client *client)
@@ -436,7 +441,7 @@ void	Server::actServicesWeb(Server* server, Client *client)
 
   if (server->notConnected(client))
     return;
-  client->setBufWrite(MESG_BEGIN);
+  client->appendBufWrite(MESG_BEGIN);
   stmt = server->_sql.Statement("select name "
 				"from services_web "
 				"where id_user = ? "
@@ -446,9 +451,9 @@ void	Server::actServicesWeb(Server* server, Client *client)
     {
       ss.str(MESG_EMPTY);
       ss << stmt->ValueString(0) << std::endl;
-      client->setBufWrite(ss.str());
+      client->appendBufWrite(ss.str());
     }
-  client->setBufWrite(MESG_END);
+  client->appendBufWrite(MESG_END);
   delete stmt;
 }
 
@@ -459,7 +464,7 @@ void	Server::actServicesStream(Server* server, Client *client)
 
   if (server->notConnected(client))
     return;
-  client->setBufWrite(MESG_BEGIN);
+  client->appendBufWrite(MESG_BEGIN);
   stmt = server->_sql.Statement("select name "
 				"from services_stream "
 				"where id_user = ? "
@@ -469,9 +474,9 @@ void	Server::actServicesStream(Server* server, Client *client)
     {
       ss.str(MESG_EMPTY);
       ss << stmt->ValueString(0) << std::endl;
-      client->setBufWrite(ss.str());
+      client->appendBufWrite(ss.str());
     }
-  client->setBufWrite(MESG_END);
+  client->appendBufWrite(MESG_END);
   delete stmt;
 }
 
@@ -504,10 +509,10 @@ void	Server::actServicesWebDetail(Server* server, Client* client)
 	 << ' ' << stmt->ValueString(4)
 	 << ' ' << stmt->ValueString(5)
 	 << std::endl;
-      client->setBufWrite(ss.str());
+      client->appendBufWrite(ss.str());
     }
   else
-    client->setBufWrite(MESG_KO);
+    client->appendBufWrite(MESG_KO);
   delete stmt;
 }
 
@@ -540,10 +545,10 @@ void	Server::actServicesStreamDetail(Server* server, Client* client)
 	 << ' ' << stmt->ValueString(4)
 	 << ' ' << stmt->ValueString(5)
 	 << std::endl;
-      client->setBufWrite(ss.str());
+      client->appendBufWrite(ss.str());
     }
   else
-    client->setBufWrite(MESG_KO);
+    client->appendBufWrite(MESG_KO);
   delete stmt;
 }
 
@@ -554,7 +559,7 @@ void	Server::actOfferWeb(Server* server, Client* client)
 
   if (server->notConnected(client))
     return;
-  client->setBufWrite(MESG_BEGIN);
+  client->appendBufWrite(MESG_BEGIN);
   stmt = server->_sql.Statement("select name "
 				"from offer_web "
 				"order by name;");
@@ -562,9 +567,9 @@ void	Server::actOfferWeb(Server* server, Client* client)
     {
       ss.str(MESG_EMPTY);
       ss << stmt->ValueString(0) << std::endl;
-      client->setBufWrite(ss.str());
+      client->appendBufWrite(ss.str());
     }
-  client->setBufWrite(MESG_END);
+  client->appendBufWrite(MESG_END);
   delete stmt;
 }
 
@@ -575,7 +580,7 @@ void	Server::actOfferStream(Server* server, Client* client)
 
   if (server->notConnected(client))
     return;
-  client->setBufWrite(MESG_BEGIN);
+  client->appendBufWrite(MESG_BEGIN);
   stmt = server->_sql.Statement("select name "
 				"from offer_stream "
 				"order by name;");
@@ -583,9 +588,9 @@ void	Server::actOfferStream(Server* server, Client* client)
     {
       ss.str(MESG_EMPTY);
       ss << stmt->ValueString(0) << std::endl;
-      client->setBufWrite(ss.str());
+      client->appendBufWrite(ss.str());
     }
-  client->setBufWrite(MESG_END);
+  client->appendBufWrite(MESG_END);
   delete stmt;
 }
 
@@ -624,10 +629,10 @@ void	Server::actCreateOfferWeb(Server* server, Client* client)
       stmt->Bind(5, 1);
       stmt->Bind(6, 1);
       stmt->Execute();
-      client->setBufWrite(MESG_OK);
+      client->appendBufWrite(MESG_OK);
     }
   else
-    client->setBufWrite(MESG_KO);
+    client->appendBufWrite(MESG_KO);
   delete stmt;
 }
 
@@ -666,10 +671,10 @@ void	Server::actCreateOfferStream(Server* server, Client* client)
       stmt->Bind(5, 1);
       stmt->Bind(6, 1);
       stmt->Execute();
-      client->setBufWrite(MESG_OK);
+      client->appendBufWrite(MESG_OK);
     }
   else
-    client->setBufWrite(MESG_KO);
+    client->appendBufWrite(MESG_KO);
   delete stmt;
 }
 
@@ -690,7 +695,7 @@ void	Server::actCreateWeb(Server* server, Client* client)
   ss >> action >> name >> space >> nbDb >> domain;
   if (name.empty() || !space || !nbDb || domain.empty())
     {
-      client->setBufWrite(MESG_KO);
+      client->appendBufWrite(MESG_KO);
       return;
     }
   stmt = server->_sql.Statement("insert into services_web "
@@ -703,7 +708,7 @@ void	Server::actCreateWeb(Server* server, Client* client)
   stmt->Bind(5, 1);
   stmt->Bind(6, 1);
   stmt->Execute();
-  client->setBufWrite(MESG_OK);
+  client->appendBufWrite(MESG_OK);
   delete stmt;
 }
 
@@ -722,7 +727,7 @@ void	Server::actCreateStream(Server* server, Client* client)
   ss >> action >> name >> slots >> bits >> title;
   if (name.empty() || !slots || !bits || title.empty())
     {
-      client->setBufWrite(MESG_KO);
+      client->appendBufWrite(MESG_KO);
       return;
     }
   stmt = server->_sql.Statement("insert into services_stream "
@@ -735,7 +740,7 @@ void	Server::actCreateStream(Server* server, Client* client)
   stmt->Bind(5, 1);
   stmt->Bind(6, 1);
   stmt->Execute();
-  client->setBufWrite(MESG_OK);
+  client->appendBufWrite(MESG_OK);
   delete stmt;
 }
 
@@ -746,8 +751,8 @@ void	Server::actNews(Server* server, Client* client)
 
   if (server->notConnected(client))
     return;
-  client->setBufWrite(MESG_BEGIN);
-  stmt = server->_sql.Statement("select subject, date "
+  client->appendBufWrite(MESG_BEGIN);
+  stmt = server->_sql.Statement("select date, subject "
 				"from news "
 				"order by date desc;");
   while (stmt->NextRow())
@@ -755,9 +760,9 @@ void	Server::actNews(Server* server, Client* client)
       ss.str(MESG_EMPTY);
       ss << stmt->ValueString(0) << ' '
 	 << stmt->ValueString(1) << std::endl;
-      client->setBufWrite(ss.str());
+      client->appendBufWrite(ss.str());
     }
-  client->setBufWrite(MESG_END);
+  client->appendBufWrite(MESG_END);
   delete stmt;
 }
 
@@ -780,11 +785,24 @@ void	Server::actNewsDetail(Server* server, Client* client)
     {
       ss.str(MESG_EMPTY);
       ss << stmt->ValueString(0) << std::endl;
-      client->setBufWrite(ss.str());
+      client->appendBufWrite(ss.str());
     }
   else
-    client->setBufWrite(MESG_KO);
+    client->appendBufWrite(MESG_KO);
   delete stmt;
+}
+
+std::string	Server::generatePasswd()
+{
+  std::string	s;
+  size_t	size;
+  int		i;
+
+  size = std::string(PASSWD_CHARACTERS).size();
+  srand((unsigned int)time(0));
+  for (i = 0; i < PASSWD_SIZE; i++)
+    s += PASSWD_CHARACTERS[rand() % size];
+  return (s);
 }
 
 std::string	Server::head(void)

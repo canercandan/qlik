@@ -23,7 +23,7 @@
      </rect>
     </property>
     <property name="currentIndex" >
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="news" >
      <property name="geometry" >
@@ -174,8 +174,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>96</width>
-       <height>26</height>
+       <width>251</width>
+       <height>201</height>
       </rect>
      </property>
      <attribute name="label" >
@@ -184,6 +184,55 @@
      <attribute name="icon" >
       <iconset>images/coins.png</iconset>
      </attribute>
+     <widget class="QWidget" name="verticalLayout_4" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>231</width>
+        <height>181</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QTabWidget" name="creditBox" >
+         <property name="currentIndex" >
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="web" >
+          <attribute name="title" >
+           <string>WEB</string>
+          </attribute>
+          <widget class="QListWidget" name="creditWebList" >
+           <property name="geometry" >
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>221</width>
+             <height>151</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="stream" >
+          <attribute name="title" >
+           <string>STREAM</string>
+          </attribute>
+          <widget class="QListWidget" name="creditStreamList" >
+           <property name="geometry" >
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>221</width>
+             <height>151</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
     <widget class="QWidget" name="talk" >
      <property name="geometry" >

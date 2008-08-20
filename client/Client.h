@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Mon Aug 11 21:22:49 2008 caner candan
+// Last update Mon Aug 18 09:50:32 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -13,12 +13,17 @@
 
 # include <QMainWindow>
 # include <QtNetwork>
+# include <QtSql>
 # include "ui_Client.h"
 # include "Service.h"
 # include "Web.h"
 # include "Stream.h"
+# include "Credit.h"
 # include "Message.h"
 
+# define DBFILE	"db/client.db"
+
+//# define HOST	"91.121.102.113"
 # define HOST	"localhost"
 # define PORT	4243
 
@@ -58,6 +63,12 @@ public:
     fct		func;
   };
 
+  enum	ServiceType
+    {
+      WEB,
+      STREAM
+    };
+
   static Actions	actions[];
 
   static void	actWelcome(Client*, const QStringList&);
@@ -84,6 +95,8 @@ public:
   Client(QWidget *parent = NULL);
   ~Client();
 
+  bool	connectToDatabase();
+
   void	openMessage(const QString& sName);
   void	destroyMessages();
   void	sendMessage(Message*);
@@ -101,6 +114,16 @@ public:
   void	closeSocket();
   void	login();
   void	logout();
+
+  const int&	getId() const;
+  void		setId(const int&);
+
+  const int&	getCredit() const;
+  void		setCredit(const int&);
+
+  void	addHistory(const ServiceType& type,
+		   const QString& desribe,
+		   const int& price);
 private slots:
   void	on_actionSignUp_triggered();
   void	on_actionSignIn_triggered();
@@ -125,12 +148,13 @@ private slots:
   void	loadOffers(int);
   void	loadPages(int);
   void	loadServices(int);
+  void	loadHistory(int);
 private:
   QTcpSocket	*_socket;
-  Service	*_service;
-  Web		*_web;
-  Stream	*_stream;
   MessageMap	_mm;
+  QSqlDatabase	_db;
+  int		_id;
+  int		_credit;
 };
 
 #endif // !__CLIENT_H__

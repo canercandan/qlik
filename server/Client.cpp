@@ -5,9 +5,10 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 08:52:06 2008 caner candan
-// Last update Sun Aug  3 14:05:04 2008 caner candan
+// Last update Sun Aug 17 09:47:08 2008 caner candan
 //
 
+#include <sstream>
 #include "Client.h"
 
 Client::Client(Socket *socket /*= NULL*/,
@@ -20,7 +21,13 @@ Client::Client(const Client& c)
 {*this = c;}
 
 Client::~Client()
-{}
+{
+  if (_socket)
+    {
+      delete _socket;
+      _socket = NULL;
+    }
+}
 
 Client&	Client::operator=(const Client& c)
 {
@@ -84,14 +91,30 @@ bool	Client::isConnected() const
 	  && this->getSocket()->getStatus());
 }
 
-void	Client::setBufRead(const std::string& bufRead)
+void	Client::appendBufRead(const std::string& bufRead)
 {
   this->_bufRead += bufRead;
 }
 
-void	Client::setBufWrite(const std::string& bufWrite)
+void	Client::appendBufRead(const int& bufRead)
+{
+  std::stringstream	ss;
+
+  ss << bufRead;
+  this->_bufRead += ss.str();
+}
+
+void	Client::appendBufWrite(const std::string& bufWrite)
 {
   this->_bufWrite += bufWrite;
+}
+
+void	Client::appendBufWrite(const int& bufWrite)
+{
+  std::stringstream	ss;
+
+  ss << bufWrite;
+  this->_bufWrite += ss.str();
 }
 
 void	Client::setLogin(const std::string& login)
@@ -99,12 +122,12 @@ void	Client::setLogin(const std::string& login)
   this->_login = login;
 }
 
-void	Client::setId(int id)
+void	Client::setId(const int& id)
 {
   this->_id = id;
 }
 
-void	Client::setCredit(int credit)
+void	Client::setCredit(const int& credit)
 {
   this->_credit = credit;
 }

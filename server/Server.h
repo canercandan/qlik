@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Mon Aug 11 17:33:39 2008 caner candan
+// Last update Sun Aug 17 09:56:48 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -15,6 +15,8 @@
 # include <string>
 # include "Client.h"
 # include "SQLiteWrapper.h"
+
+# define DBFILE	"db/server.db"
 
 # define MESG_OK	"OK\n"
 # define MESG_KO	"KO\n"
@@ -26,15 +28,15 @@
 
 # define LOGIN			"login"
 // login USERNAME PASSWORD
-// -> login (OK|KO)
+// -> login (CREDIT|KO)
 
 # define LOGOUT			"logout"
 // logout
 // -> logout OK
 
 # define CREATE			"create"
-// create USERNAME PASSWORD
-// -> create (OK|KO)
+// create USERNAME
+// -> create (PASSWORD|KO)
 
 # define STATUS			"status"
 // status
@@ -97,11 +99,19 @@
 
 # define NEWS			"news"
 // news
-// -> news (BEGIN\n*(SUBJECT)\nEND|KO)
+// -> news (BEGIN\n*(DATE SUBJECT)\nEND|KO)
 
 # define NEWS_DETAIL		"news_detail"
 // news_detail ROW
 // -> news_detail (BODY|KO)
+
+#define PASSWD_CHARACTERS			\
+  "abcdefghijklmnopqrstuvwxyz"			\
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"			\
+  "0123456789"					\
+  "!\"#$%&'()*+,-./:;<=>?[\\]^_`{|}~"
+
+#define PASSWD_SIZE	8
 
 class	Server
 {
@@ -137,8 +147,10 @@ public:
   static void	actCreateStream(Server*, Client*);
   static void	actNews(Server*, Client*);
   static void	actNewsDetail(Server*, Client*);
+
+  static std::string	generatePasswd();
 public:
-  Server(bool verbose = false);
+  Server();
   Server(const Server&);
   ~Server();
   Server&	operator=(const Server&);
@@ -173,7 +185,6 @@ public:
 private:
   SQLiteWrapper	_sql;
   listClients	_clients;
-  bool		_verbose;
 };
 
 #endif // !__SERVER_H__

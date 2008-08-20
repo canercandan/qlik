@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:27:02 2008 caner candan
-// Last update Thu Jul 10 14:06:03 2008 caner candan
+// Last update Sat Aug 16 22:17:29 2008 caner candan
 //
 
 #ifndef __SOCKETSERVER_H__
@@ -19,8 +19,8 @@
 class	SocketServer : public Socket
 {
 public:
-  SocketServer(bool verbose = false);
-  SocketServer(int port, bool verbose = false);
+  SocketServer();
+  SocketServer(int port);
   SocketServer(const SocketServer&);
   ~SocketServer();
   SocketServer	&operator=(const SocketServer&);

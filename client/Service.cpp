@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Jul 21 02:05:40 2008 caner candan
-// Last update Fri Aug  8 15:39:09 2008 caner candan
+// Last update Sun Aug 17 14:32:10 2008 caner candan
 //
 
 #include <QWidget>
@@ -18,9 +18,6 @@ Service::Service(QWidget* parent /*= NULL*/)
 {
   setupUi(this);
 }
-
-Service::~Service()
-{}
 
 void	Service::createWebOffer()
 {
@@ -68,7 +65,7 @@ void	Service::createWebOffer()
       this->offerWebDomain->setFocus();
       return;
     }
-  ((Client*)this->parentWidget())->createOfferWeb();
+  ((Client*)this->parent())->createOfferWeb();
 }
 
 void	Service::createStreamOffer()
@@ -117,7 +114,7 @@ void	Service::createStreamOffer()
       this->offerStreamTitle->setFocus();
       return;
     }
-  ((Client*)this->parentWidget())->createOfferStream();
+  ((Client*)this->parent())->createOfferStream();
 }
 
 void	Service::createWebMore()

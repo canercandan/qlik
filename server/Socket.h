@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 13:20:30 2008 caner candan
-// Last update Sun Jul 13 06:26:58 2008 caner candan
+// Last update Sat Aug 16 22:14:00 2008 caner candan
 //
 
 #ifndef __SOCKET_H__
@@ -16,17 +16,15 @@
 class	Socket
 {
 public:
-  Socket(bool verbose = false);
+  Socket();
   Socket(const Socket&);
   ~Socket();
   Socket&	operator=(const Socket&);
 
   void		closeSocket(void);
-  void		send(const std::string& s,
-		     bool verbose = false);
-  std::string	recv(bool verbose = false);
-  std::string	sendRecv(const std::string& s,
-			 bool verbose = false);
+  void		send(const std::string& s);
+  std::string	recv();
+  std::string	sendRecv(const std::string& s);
   bool		isConnected(void) const;
   bool		isGoodRecv(void) const;
 
@@ -38,7 +36,6 @@ public:
   std::string	head(void);
 protected:
   int	_socket;
-  bool	_verbose;
   bool	_status;
 };
 
