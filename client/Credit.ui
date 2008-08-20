@@ -1,0 +1,120 @@
+<ui version="4.0" >
+ <class>Credit</class>
+ <widget class="QDialog" name="Credit" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>319</width>
+    <height>121</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Credit</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>301</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Credit your account</string>
+   </property>
+   <widget class="QWidget" name="verticalLayout" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>281</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" >
+     <item>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QLabel" name="label" >
+         <property name="text" >
+          <string>Currently</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QLineEdit" name="lineEdit" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="label_2" >
+         <property name="text" >
+          <string>Add coins</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QComboBox" name="comboBox" >
+         <item>
+          <property name="text" >
+           <string>1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>5</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>10</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>20</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>50</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>100</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>200</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>500</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
