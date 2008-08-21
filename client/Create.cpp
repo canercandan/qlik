@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:46:22 2008 caner candan
-// Last update Sun Aug 17 10:04:21 2008 caner candan
+// Last update Mon Aug 18 21:36:21 2008 caner candan
 //
 
 #include <QWidget>
@@ -31,6 +31,7 @@ void	Create::on_pushButtonOk_clicked()
       this->username->setFocus();
       return;
     }
+
   QRegExp	rx("^[a-zA-Z][a-zA-Z0-9-_]{3,19}$");
 
   if (rx.indexIn(this->username->text()) < 0)

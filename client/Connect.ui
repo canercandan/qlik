@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>289</width>
-    <height>153</height>
+    <height>189</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -18,14 +18,14 @@
      <x>10</x>
      <y>10</y>
      <width>271</width>
-     <height>131</height>
+     <height>171</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" >
     <item>
      <widget class="QGroupBox" name="groupBox_2" >
       <property name="title" >
-       <string>Account Settings</string>
+       <string>Login</string>
       </property>
       <widget class="QWidget" name="gridLayout_2" >
        <property name="geometry" >
@@ -33,11 +33,11 @@
          <x>9</x>
          <y>19</y>
          <width>251</width>
-         <height>61</height>
+         <height>103</height>
         </rect>
        </property>
        <layout class="QGridLayout" >
-        <item row="0" column="0" >
+        <item row="2" column="0" >
          <widget class="QLabel" name="label_3" >
           <property name="text" >
            <string>Username</string>
@@ -47,14 +47,14 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1" >
+        <item row="2" column="1" >
          <widget class="QLineEdit" name="username" >
           <property name="maxLength" >
            <number>20</number>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" >
+        <item row="3" column="0" >
          <widget class="QLabel" name="label_4" >
           <property name="text" >
            <string>Password</string>
@@ -64,13 +64,36 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1" >
+        <item row="3" column="1" >
          <widget class="QLineEdit" name="password" >
           <property name="maxLength" >
            <number>20</number>
           </property>
           <property name="echoMode" >
            <enum>QLineEdit::Password</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" >
+         <widget class="QLabel" name="label_2" >
+          <property name="text" >
+           <string>Account</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" >
+         <widget class="QComboBox" name="comboBox" >
+          <item>
+           <property name="text" >
+            <string>No select</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="1" >
+         <widget class="QLabel" name="label" >
+          <property name="text" >
+           <string>OR</string>
           </property>
          </widget>
         </item>
