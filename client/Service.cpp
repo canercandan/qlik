@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Jul 21 02:05:40 2008 caner candan
-// Last update Sun Aug 17 14:32:10 2008 caner candan
+// Last update Mon Aug 18 16:04:16 2008 caner candan
 //
 
 #include <QWidget>
@@ -65,7 +65,7 @@ void	Service::createWebOffer()
       this->offerWebDomain->setFocus();
       return;
     }
-  ((Client*)this->parent())->createOfferWeb();
+  static_cast<Client*>(this->parent())->createOfferWeb();
 }
 
 void	Service::createStreamOffer()
@@ -114,7 +114,7 @@ void	Service::createStreamOffer()
       this->offerStreamTitle->setFocus();
       return;
     }
-  ((Client*)this->parent())->createOfferStream();
+  static_cast<Client*>(this->parent())->createOfferStream();
 }
 
 void	Service::createWebMore()
@@ -171,7 +171,7 @@ void	Service::createWebMore()
       this->webDomain->setFocus();
       return;
     }
-  ((Client*)this->parentWidget())->createWeb();
+  static_cast<Client*>(this->parent())->createWeb();
 }
 
 void	Service::createStreamMore()
@@ -228,7 +228,7 @@ void	Service::createStreamMore()
       this->streamTitle->setFocus();
       return;
     }
-  ((Client*)this->parentWidget())->createStream();
+  static_cast<Client*>(this->parent())->createStream();
 }
 
 void	Service::on_ok_clicked()

@@ -5,10 +5,9 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Mon Aug 18 10:11:35 2008 caner candan
+// Last update Mon Aug 18 20:41:46 2008 caner candan
 //
 
-#include <QtNetwork>
 #include <QMessageBox>
 #include <QTextStream>
 #include <QTime>
@@ -16,6 +15,14 @@
 #include "Connect.h"
 #include "Create.h"
 #include "State.h"
+#include "Service.h"
+#include "Web.h"
+#include "Stream.h"
+#include "Credit.h"
+#include "Options.h"
+#include "Database.h"
+#include "Socket.h"
+#include "Accounts.h"
 
 Client::Actions	Client::actions[] =
   {
@@ -43,58 +50,51 @@ Client::Actions	Client::actions[] =
   };
 
 Client::Client(QWidget *parent /*= NULL*/)
-  : QMainWindow(parent), _socket(new QTcpSocket),
-    _id(0), _credit(0)
+  : QMainWindow(parent), _id(0), _credit(0)
 {
+  Socket*	socket = Socket::getInstance();
+  Database*	database = Database::getInstance();
+
   setupUi(this);
   actionSignUp->setEnabled(false);
   actionSignIn->setEnabled(false);
   actionSignOut->setEnabled(false);
   actionRefresh->setEnabled(false);
   pageBox->setEnabled(false);
-  connect(_socket, SIGNAL(connected()),
+  connect(socket->socket(), SIGNAL(connected()),
 	  this, SLOT(connectedToServer()));
-  connect(_socket, SIGNAL(readyRead()),
+  connect(socket->socket(), SIGNAL(readyRead()),
 	  this, SLOT(readAction()));
-  connect(_socket, SIGNAL(bytesWritten(qint64)),
+  connect(socket->socket(), SIGNAL(bytesWritten(qint64)),
 	  this, SLOT(sendAction()));
-  connect(_socket, SIGNAL(error(QAbstractSocket::SocketError)),
+  connect(socket->socket(), SIGNAL(error(QAbstractSocket::SocketError)),
 	  this, SLOT(displayError(QAbstractSocket::SocketError)));
-  connect(this->pageBox, SIGNAL(currentChanged(int)),
+  connect(pageBox, SIGNAL(currentChanged(int)),
 	  this, SLOT(loadPages(int)));
-  connect(this->serviceBox, SIGNAL(currentChanged(int)),
+  connect(serviceBox, SIGNAL(currentChanged(int)),
 	  this, SLOT(loadServices(int)));
-  connect(this->creditBox, SIGNAL(currentChanged(int)),
+  connect(creditBox, SIGNAL(currentChanged(int)),
 	  this, SLOT(loadHistory(int)));
-  _socket->connectToHost(HOST, PORT);
-  if (!connectToDatabase())
-    setEnabled(false);
+  if (!database->connect())
+    {
+      QMessageBox::critical(this,
+			    tr("Unable to connect to database"),
+			    tr("An error occured: ")
+			    + database->database().lastError().text());
+      setEnabled(false);
+    }
+  Options::getInstance(this);
 }
 
 Client::~Client()
 {
-  closeSocket();
-  delete _socket;
+  Socket::kill();
+  Database::kill();
   Service::kill();
   Web::kill();
   Stream::kill();
   Credit::kill();
   destroyMessages();
-}
-
-bool	Client::connectToDatabase()
-{
-  this->_db = QSqlDatabase::addDatabase("QSQLITE");
-  this->_db.setDatabaseName(DBFILE);
-  if (!this->_db.open())
-    {
-      QMessageBox::critical(this,
-			    tr("Unable to connect to database"),
-			    tr("An error occured: ")
-			    + this->_db.lastError().text());
-      return (false);
-    }
-  return (true);
 }
 
 void	Client::openMessage(const QString& sName)
@@ -125,7 +125,7 @@ void	Client::destroyMessages()
 
 void	Client::sendMessage(Message* mesg)
 {
-  QTextStream		stream(this->_socket);
+  QTextStream		stream(Socket::getInstance()->socket());
   const QString&	from = mesg->from->text();
   const QString&	to = mesg->to->text();
   const QString&	edit = mesg->edit->text();
@@ -146,13 +146,6 @@ void	Client::appendMessage(const QString& sName,
   QTextEdit		*list = this->_mm[sName]->list;
 
   list->append('[' + time + "] " + from + "> " + body);
-}
-
-void	Client::closeSocket()
-{
-  if (this->_socket->state()
-      == QAbstractSocket::ConnectedState)
-    this->_socket->close();
 }
 
 void	Client::login()
@@ -196,7 +189,7 @@ void	Client::logout()
 void	Client::on_actionSignUp_triggered()
 {
   Create	create(this);
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
 
   if (create.exec() != QDialog::Accepted)
     return;
@@ -208,7 +201,7 @@ void	Client::on_actionSignUp_triggered()
 void	Client::on_actionSignIn_triggered()
 {
   Connect	connect(this);
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
 
   if (connect.exec() != QDialog::Accepted)
     return;
@@ -221,14 +214,14 @@ void	Client::on_actionSignIn_triggered()
 
 void	Client::on_actionSignOut_triggered()
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
 
   stream << LOGOUT << endl;
 }
 
 void	Client::on_actionRefresh_triggered()
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
   int		idx;
 
   idx = this->pageBox->currentIndex();
@@ -275,6 +268,16 @@ void	Client::on_actionQuit_triggered()
   this->close();
 }
 
+void	Client::on_actionOptions_triggered()
+{
+  Options::getInstance()->show();
+}
+
+void	Client::on_actionAccounts_triggered()
+{
+  Accounts::getInstance()->show();
+}
+
 void	Client::on_serviceAdd_clicked()
 {
   Service*	service = Service::getInstance(this);
@@ -296,7 +299,7 @@ void	Client::on_serviceAdd_clicked()
 
 void	Client::on_serviceManage_clicked()
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
   int		row;
 
   if (!this->serviceBox->currentIndex())
@@ -326,7 +329,7 @@ void	Client::on_serviceCredit_clicked()
 
 void	Client::on_newsRead_clicked()
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
 
   if (this->newsList->currentRow() >= 0)
     stream << NEWS_DETAIL
@@ -348,8 +351,9 @@ void	Client::on_talkOpen_clicked()
 void	Client::connectedToServer()
 {
   this->statusbar->showMessage("Connected to server");
-  actionSignUp->setEnabled(true);
-  actionSignIn->setEnabled(true);
+  this->setEnabled(true);
+  this->actionSignUp->setEnabled(true);
+  this->actionSignIn->setEnabled(true);
 }
 
 void	Client::readAction()
@@ -358,10 +362,11 @@ void	Client::readAction()
   QString	res;
   QStringList	resList;
   int		i;
+  Socket*	socket = Socket::getInstance();
 
-  while (this->_socket->canReadLine())
+  while (socket->socket()->canReadLine())
     {
-      res = this->_socket->readLine();
+      res = socket->socket()->readLine();
       qDebug() << "res" << res;
       resList = res.split(QRegExp("\\s+"));
       if (func)
@@ -400,17 +405,21 @@ void	Client::sendAction()
 
 void	Client::displayError(QAbstractSocket::SocketError)
 {
+  Options*	options = Options::getInstance(this);
+
   QMessageBox::critical(this,
 			tr("Not connected"),
 			tr("This address isn't a server"));
   this->logout();
-  this->close();
+  this->setEnabled(false);
+  options->setEnabled(true);
+  options->show();
 }
 
 void	Client::loadOffers(int idx)
 {
-  QTextStream	stream(this->_socket);
-  Service	*service = Service::getInstance(this);
+  QTextStream	stream(Socket::getInstance()->socket());
+  Service*	service = Service::getInstance(this);
 
   if (!idx)
     {      
@@ -426,7 +435,7 @@ void	Client::loadOffers(int idx)
 
 void	Client::loadPages(int idx)
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
 
   if (idx == 1) // services
     this->loadServices(0);
@@ -438,7 +447,7 @@ void	Client::loadPages(int idx)
 
 void	Client::loadServices(int idx)
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
   State*	state = State::getInstance();
 
   if (!idx)
@@ -459,7 +468,7 @@ void	Client::loadServices(int idx)
 
 void	Client::loadClients()
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
 
   this->talkList->clear();
   stream << CLIENTS << endl;
@@ -467,7 +476,7 @@ void	Client::loadClients()
 
 void	Client::loadHistory(int idx)
 {
-  QSqlQuery	q(this->_db);
+  QSqlQuery	q(Database::getInstance()->database());
   QListWidget*	list;
   ServiceType	type;
 
@@ -497,7 +506,7 @@ void	Client::loadHistory(int idx)
 
 void	Client::createOfferWeb()
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
   Service*	service = Service::getInstance(this);
 
   stream << CREATE_OFFER_WEB
@@ -509,7 +518,7 @@ void	Client::createOfferWeb()
 
 void	Client::createOfferStream()
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
   Service*	service = Service::getInstance(this);
 
   stream << CREATE_OFFER_STREAM
@@ -521,7 +530,7 @@ void	Client::createOfferStream()
 
 void	Client::createWeb()
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
   Service*	service = Service::getInstance(this);
 
   stream << CREATE_WEB
@@ -534,7 +543,7 @@ void	Client::createWeb()
 
 void	Client::createStream()
 {
-  QTextStream	stream(this->_socket);
+  QTextStream	stream(Socket::getInstance()->socket());
   Service*	service = Service::getInstance(this);
 
   stream << CREATE_STREAM
@@ -841,7 +850,7 @@ void	Client::addHistory(const Client::ServiceType& type,
 			   const QString& describe,
 			   const int& price)
 {
-  QSqlQuery	q(this->_db);
+  QSqlQuery	q(Database::getInstance()->database());
 
   q.prepare("insert into history values(null, ?, ?, ?, ?, ?);");
   q.addBindValue(this->getId());

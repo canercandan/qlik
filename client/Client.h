@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Mon Aug 18 09:50:32 2008 caner candan
+// Last update Mon Aug 18 18:41:53 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -13,19 +13,8 @@
 
 # include <QMainWindow>
 # include <QtNetwork>
-# include <QtSql>
 # include "ui_Client.h"
-# include "Service.h"
-# include "Web.h"
-# include "Stream.h"
-# include "Credit.h"
 # include "Message.h"
-
-# define DBFILE	"db/client.db"
-
-//# define HOST	"91.121.102.113"
-# define HOST	"localhost"
-# define PORT	4243
 
 # define WELCOME		"welcome"
 # define LOGIN			"login"
@@ -95,8 +84,6 @@ public:
   Client(QWidget *parent = NULL);
   ~Client();
 
-  bool	connectToDatabase();
-
   void	openMessage(const QString& sName);
   void	destroyMessages();
   void	sendMessage(Message*);
@@ -111,7 +98,6 @@ public:
   void	createWeb();
   void	createStream();
 
-  void	closeSocket();
   void	login();
   void	logout();
 
@@ -132,6 +118,8 @@ private slots:
   void	on_actionQuit_triggered();
   void	on_actionInformation_triggered();
   void	on_actionHelp_triggered();
+  void	on_actionOptions_triggered();
+  void	on_actionAccounts_triggered();
 
   void	on_serviceAdd_clicked();
   void	on_serviceManage_clicked();
@@ -150,9 +138,7 @@ private slots:
   void	loadServices(int);
   void	loadHistory(int);
 private:
-  QTcpSocket	*_socket;
   MessageMap	_mm;
-  QSqlDatabase	_db;
   int		_id;
   int		_credit;
 };

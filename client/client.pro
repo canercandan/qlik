@@ -19,7 +19,11 @@ HEADERS		+=	Client.h	\
 			Stream.h	\
 			Credit.h	\
 			Singleton.hpp	\
-			State.h
+			State.h		\
+			Options.h	\
+			Database.h	\
+			Socket.h	\
+			Accounts.h
 
 FORMS		+=	Client.ui	\
 			Connect.ui	\
@@ -28,7 +32,9 @@ FORMS		+=	Client.ui	\
 			Message.ui	\
 			Web.ui		\
 			Stream.ui	\
-			Credit.ui
+			Credit.ui	\
+			Options.ui	\
+			Accounts.ui
 
 SOURCES		+=	main.cpp	\
 			Client.cpp	\
@@ -39,7 +45,11 @@ SOURCES		+=	main.cpp	\
 			Web.cpp		\
 			Stream.cpp	\
 			Credit.cpp	\
-			State.cpp
+			State.cpp	\
+			Options.cpp	\
+			Database.cpp	\
+			Socket.cpp	\
+			Accounts.cpp
 
 CONFIG		+=	debug
 

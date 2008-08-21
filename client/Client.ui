@@ -455,11 +455,17 @@
    </property>
   </action>
   <action name="actionOptions" >
+   <property name="icon" >
+    <iconset>images/wrench.png</iconset>
+   </property>
    <property name="text" >
     <string>Options</string>
    </property>
   </action>
   <action name="actionAccounts" >
+   <property name="icon" >
+    <iconset>images/group_gear.png</iconset>
+   </property>
    <property name="text" >
     <string>Accounts</string>
    </property>

@@ -1,3 +1,9 @@
+create table options
+(
+	key text unique,
+	value text
+);
+
 create table users
 (
 	id integer primary key autoincrement,
