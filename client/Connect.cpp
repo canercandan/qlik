@@ -5,17 +5,19 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:46:22 2008 caner candan
-// Last update Mon Aug 18 21:36:08 2008 caner candan
+// Last update Tue Aug 19 03:18:09 2008 caner candan
 //
 
 #include <QWidget>
 #include <QMessageBox>
 #include "Connect.h"
+#include "Database.h"
 
 Connect::Connect(QWidget *parent /*= NULL*/)
   : QDialog(parent)
 {
   setupUi(this);
+  _loadAccounts();
 }
 
 Connect::~Connect()
@@ -23,6 +25,21 @@ Connect::~Connect()
 
 void	Connect::on_pushButtonOk_clicked()
 {
+  if (!this->connectBox->currentIndex()) // accounts
+    {
+      QSqlQuery	q(Database::getInstance()->database());
+
+      q.prepare("select username, password "
+		"from users "
+		"where id = ?;");
+      q.addBindValue(this->accounts->itemData(this->accounts->currentIndex()));
+      q.exec();
+      if (q.next())
+	{
+	  this->username->setText(q.value(0).toString());
+	  this->password->setText(q.value(1).toString());
+	}
+    }
   if (this->username->text().isEmpty())
     {
       QMessageBox::information(this,
@@ -66,4 +83,17 @@ void	Connect::on_pushButtonOk_clicked()
 void	Connect::on_pushButtonCancel_clicked()
 {
   this->reject();
+}
+
+void	Connect::_loadAccounts()
+{
+  QSqlQuery	q(Database::getInstance()->database());
+
+  q.prepare("select id, username "
+	    "from users;");
+  q.exec();
+  this->accounts->clear();
+  while (q.next())
+    this->accounts->addItem(q.value(1).toString(),
+			    q.value(0).toString());
 }

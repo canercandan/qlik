@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug 11 16:06:11 2008 caner candan
-// Last update Mon Aug 18 21:29:19 2008 caner candan
+// Last update Tue Aug 19 04:04:56 2008 caner candan
 //
 
 #ifndef __ACCOUNTS_H__
@@ -21,12 +21,16 @@ class	Accounts : public QDialog, public Singleton<Accounts>,
   Q_OBJECT
 
   friend class	Singleton<Accounts>;
+public:
+  void	reset();
 private slots:
   void	on_save_clicked();
   void	on_done_clicked();
   void	on_manage_clicked();
   void	on_add_clicked();
   void	on_del_clicked();
+
+  void	_modifyPassword(int);
 private:
   Accounts(QWidget* parent = NULL);
 

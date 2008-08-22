@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug 11 16:09:52 2008 caner candan
-// Last update Mon Aug 18 21:37:55 2008 caner candan
+// Last update Tue Aug 19 04:06:17 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -16,10 +16,15 @@ Accounts::Accounts(QWidget* parent /*= NULL*/)
   : QDialog(parent)
 {
   setupUi(this);
-  _loadList();
-  username->setEnabled(false);
-  password->setEnabled(false);
-  save->setEnabled(false);
+  reset();
+  connect(showPassword, SIGNAL(stateChanged(int)),
+	  this, SLOT(_modifyPassword(int)));
+}
+
+void	Accounts::reset()
+{
+  this->_loadList();
+  this->_resetAccount();
 }
 
 void	Accounts::on_save_clicked()
@@ -102,7 +107,6 @@ void	Accounts::on_del_clicked()
 {
   if (this->accountsList->currentRow() < 0)
     return;
-
   if (QMessageBox::question(this,
 			    tr("Are you sure ?"),
 			    tr("Are you sure ?"),
@@ -168,4 +172,12 @@ void	Accounts::_resetAccount()
   this->password->setText("");
   this->password->setEnabled(false);
   this->save->setEnabled(false);
+}
+
+void	Accounts::_modifyPassword(int state)
+{
+  if (state == Qt::Checked)
+    this->password->setEchoMode(QLineEdit::Normal);
+  else
+    this->password->setEchoMode(QLineEdit::Password);
 }

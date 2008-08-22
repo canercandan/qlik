@@ -79,7 +79,7 @@
       <x>10</x>
       <y>19</y>
       <width>181</width>
-      <height>61</height>
+      <height>101</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" >
@@ -97,6 +97,9 @@
          <property name="enabled" >
           <bool>false</bool>
          </property>
+         <property name="maxLength" >
+          <number>20</number>
+         </property>
         </widget>
        </item>
        <item row="1" column="0" >
@@ -110,6 +113,19 @@
         <widget class="QLineEdit" name="password" >
          <property name="enabled" >
           <bool>false</bool>
+         </property>
+         <property name="maxLength" >
+          <number>20</number>
+         </property>
+         <property name="echoMode" >
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
+        <widget class="QCheckBox" name="showPassword" >
+         <property name="text" >
+          <string>Show password</string>
          </property>
         </widget>
        </item>
@@ -168,6 +184,9 @@
   <tabstop>del</tabstop>
   <tabstop>username</tabstop>
   <tabstop>password</tabstop>
+  <tabstop>showPassword</tabstop>
+  <tabstop>save</tabstop>
+  <tabstop>done</tabstop>
  </tabstops>
  <resources/>
  <connections>
@@ -183,7 +202,7 @@
     </hint>
     <hint type="destinationlabel" >
      <x>79</x>
-     <y>129</y>
+     <y>202</y>
     </hint>
    </hints>
   </connection>

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Mon Aug 18 20:41:46 2008 caner candan
+// Last update Tue Aug 19 04:07:29 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -184,6 +184,7 @@ void	Client::logout()
       service->offerWebList->clear();
       service->offerStreamList->clear();
     }
+  State::getInstance()->reset();
 }
 
 void	Client::on_actionSignUp_triggered()
@@ -193,8 +194,9 @@ void	Client::on_actionSignUp_triggered()
 
   if (create.exec() != QDialog::Accepted)
     return;
+  this->_userCreated = create.username->text();
   stream << CREATE
-	 << ' ' << create.username->text()
+	 << ' ' << this->_userCreated
 	 << endl;
 }
 
@@ -594,10 +596,24 @@ void	Client::actCreate(Client* client, const QStringList& resList)
 			    tr("Username already used or incorrect"));
       return;
     }
-  QMessageBox::information(client,
-			   tr("Created"),
-			   tr("Your account has been created and "
-			      "your password is ") + resList.at(0));
+  if (QMessageBox::question(client,
+			    tr("Created"),
+			    tr("Your account has been created and "
+			       "your password is ") + resList.at(0)
+			    + tr("\n\nWould you like to save your "
+				 "account in the account's list ?"),
+			    QMessageBox::Yes | QMessageBox::No)
+      == QMessageBox::Yes)
+    {
+      QSqlQuery	q(Database::getInstance()->database());
+
+      q.prepare("insert into users "
+		"values(null, ?, ?);");
+      q.addBindValue(client->_userCreated);
+      q.addBindValue(resList.at(0));
+      q.exec();
+      Accounts::getInstance(client)->reset();
+    }
   client->statusbar->showMessage("Accout created ...");
 }
 

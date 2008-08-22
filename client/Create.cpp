@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:46:22 2008 caner candan
-// Last update Mon Aug 18 21:36:21 2008 caner candan
+// Last update Tue Aug 19 04:21:05 2008 caner candan
 //
 
 #include <QWidget>
@@ -42,6 +42,12 @@ void	Create::on_pushButtonOk_clicked()
       this->username->setFocus();
       return;
     }
+  if (QMessageBox::question(this,
+			    tr("Are you sure ?"),
+			    tr("Are you sure ?"),
+			    QMessageBox::Yes | QMessageBox::No)
+      != QMessageBox::Yes)
+    return;
   this->accept();
 }
 

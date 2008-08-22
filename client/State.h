@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug 17 12:23:03 2008 caner candan
-// Last update Sun Aug 17 13:55:10 2008 caner candan
+// Last update Tue Aug 19 03:23:50 2008 caner candan
 //
 
 #ifndef __STATE_H__
@@ -22,6 +22,8 @@ public:
       DONE,
       WAIT
     };
+
+  void	reset();
 
   const List&	getWebList() const;
   void		setWebList(const List&);

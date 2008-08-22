@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Mon Aug 18 18:41:53 2008 caner candan
+// Last update Tue Aug 19 03:59:34 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -141,6 +141,7 @@ private:
   MessageMap	_mm;
   int		_id;
   int		_credit;
+  QString	_userCreated;
 };
 
 #endif // !__CLIENT_H__

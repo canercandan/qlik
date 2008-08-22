@@ -5,14 +5,21 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug 17 12:27:49 2008 caner candan
-// Last update Sun Aug 17 13:55:27 2008 caner candan
+// Last update Tue Aug 19 03:24:28 2008 caner candan
 //
 
 #include "State.h"
 
 State::State()
-  : _web(WAIT), _stream(WAIT)
-{}
+{
+  reset();
+}
+
+void	State::reset()
+{
+  this->setWebList(WAIT);
+  this->setStreamList(WAIT);
+}
 
 const State::List&	State::getWebList() const
 {

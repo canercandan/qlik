@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:36:03 2008 caner candan
-// Last update Tue Jul 15 23:19:58 2008 caner candan
+// Last update Tue Aug 19 02:25:42 2008 caner candan
 //
 
 #ifndef __CONNECT_H__
@@ -25,6 +25,7 @@ private slots:
   void	on_pushButtonOk_clicked();
   void	on_pushButtonCancel_clicked();
 private:
+  void	_loadAccounts();
 };
 
 #endif // !__CONNECT_H__
