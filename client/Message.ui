@@ -72,10 +72,20 @@
       <item>
        <widget class="QPushButton" name="send" >
         <property name="text" >
-         <string>Send</string>
+         <string/>
         </property>
         <property name="icon" >
          <iconset>images/email_go.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="add" >
+        <property name="text" >
+         <string/>
+        </property>
+        <property name="icon" >
+         <iconset>images/user_add.png</iconset>
         </property>
        </widget>
       </item>

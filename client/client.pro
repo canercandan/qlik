@@ -23,7 +23,8 @@ HEADERS		+=	Client.h	\
 			Options.h	\
 			Database.h	\
 			Socket.h	\
-			Accounts.h
+			Accounts.h	\
+			Contact.h
 
 FORMS		+=	Client.ui	\
 			Connect.ui	\
@@ -34,7 +35,8 @@ FORMS		+=	Client.ui	\
 			Stream.ui	\
 			Credit.ui	\
 			Options.ui	\
-			Accounts.ui
+			Accounts.ui	\
+			Contact.ui
 
 SOURCES		+=	main.cpp	\
 			Client.cpp	\
@@ -49,9 +51,10 @@ SOURCES		+=	main.cpp	\
 			Options.cpp	\
 			Database.cpp	\
 			Socket.cpp	\
-			Accounts.cpp
+			Accounts.cpp	\
+			Contact.cpp
 
-CONFIG		+=	debug
+CONFIG		+=	#debug
 
 QT		+=	network		\
 			sql

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:46:22 2008 caner candan
-// Last update Tue Aug 19 03:18:09 2008 caner candan
+// Last update Wed Aug 20 07:38:06 2008 caner candan
 //
 
 #include <QWidget>
@@ -31,8 +31,8 @@ void	Connect::on_pushButtonOk_clicked()
 
       q.prepare("select username, password "
 		"from users "
-		"where id = ?;");
-      q.addBindValue(this->accounts->itemData(this->accounts->currentIndex()));
+		"where username = ?;");
+      q.addBindValue(this->accounts->currentText());
       q.exec();
       if (q.next())
 	{
@@ -89,11 +89,10 @@ void	Connect::_loadAccounts()
 {
   QSqlQuery	q(Database::getInstance()->database());
 
-  q.prepare("select id, username "
+  q.prepare("select username "
 	    "from users;");
   q.exec();
   this->accounts->clear();
   while (q.next())
-    this->accounts->addItem(q.value(1).toString(),
-			    q.value(0).toString());
+    this->accounts->addItem(q.value(0).toString());
 }

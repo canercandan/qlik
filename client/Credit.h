@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug 11 16:06:11 2008 caner candan
-// Last update Sun Aug 17 15:15:04 2008 caner candan
+// Last update Tue Aug 19 07:56:29 2008 caner candan
 //
 
 #ifndef __CREDIT_H__
@@ -21,7 +21,11 @@ class	Credit : public QDialog, public Singleton<Credit>,
   Q_OBJECT
 
   friend class	Singleton<Credit>;
+public:
+  void	reset();
 private slots:
+  void	on_buy_clicked();
+  void	on_cancel_clicked();
 private:
   Credit(QWidget* parent = NULL);
 };

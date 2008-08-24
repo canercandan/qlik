@@ -1,16 +1,16 @@
 <ui version="4.0" >
- <class>Credit</class>
- <widget class="QDialog" name="Credit" >
+ <class>Contact</class>
+ <widget class="QDialog" name="Contact" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
-    <height>141</height>
+    <width>322</width>
+    <height>155</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Credit</string>
+   <string>Contact</string>
   </property>
   <widget class="QGroupBox" name="groupBox" >
    <property name="geometry" >
@@ -22,7 +22,7 @@
     </rect>
    </property>
    <property name="title" >
-    <string>Credit your account</string>
+    <string>Add a contact</string>
    </property>
    <widget class="QWidget" name="verticalLayout" >
     <property name="geometry" >
@@ -39,74 +39,29 @@
        <item row="0" column="0" >
         <widget class="QLabel" name="label" >
          <property name="text" >
-          <string>Currently</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1" >
-        <widget class="QLineEdit" name="currently" >
-         <property name="enabled" >
-          <bool>false</bool>
-         </property>
-         <property name="text" >
-          <string>0</string>
+          <string>Contact's username</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0" >
         <widget class="QLabel" name="label_2" >
          <property name="text" >
-          <string>Add coins</string>
+          <string>Alias</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QLineEdit" name="username" >
+         <property name="maxLength" >
+          <number>20</number>
          </property>
         </widget>
        </item>
        <item row="1" column="1" >
-        <widget class="QComboBox" name="coins" >
-         <item>
-          <property name="text" >
-           <string>1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>5</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>10</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>20</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>50</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>100</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>200</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>500</string>
-          </property>
-         </item>
+        <widget class="QLineEdit" name="alias" >
+         <property name="maxLength" >
+          <number>20</number>
+         </property>
         </widget>
        </item>
       </layout>
@@ -127,9 +82,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="buy" >
+        <widget class="QPushButton" name="ok" >
          <property name="text" >
-          <string>Buy</string>
+          <string>Ok</string>
          </property>
         </widget>
        </item>

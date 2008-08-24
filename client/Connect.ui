@@ -36,7 +36,7 @@
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>241</width>
+          <width>250</width>
           <height>81</height>
          </rect>
         </property>
@@ -45,8 +45,8 @@
           <widget class="QLabel" name="label_2" >
            <property name="text" >
             <string>You can choose an account to be connected or 
-click to Login if you want to connect without 
-to save your account</string>
+click on Login if you want to connect yourself without 
+saving your account</string>
            </property>
           </widget>
          </item>

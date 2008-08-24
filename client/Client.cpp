@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Tue Aug 19 04:07:29 2008 caner candan
+// Last update Wed Aug 20 09:08:56 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -50,7 +50,7 @@ Client::Actions	Client::actions[] =
   };
 
 Client::Client(QWidget *parent /*= NULL*/)
-  : QMainWindow(parent), _id(0), _credit(0)
+  : QMainWindow(parent)
 {
   Socket*	socket = Socket::getInstance();
   Database*	database = Database::getInstance();
@@ -61,6 +61,7 @@ Client::Client(QWidget *parent /*= NULL*/)
   actionSignOut->setEnabled(false);
   actionRefresh->setEnabled(false);
   pageBox->setEnabled(false);
+  pageBox->setCurrentIndex(0);
   connect(socket->socket(), SIGNAL(connected()),
 	  this, SLOT(connectedToServer()));
   connect(socket->socket(), SIGNAL(readyRead()),
@@ -123,21 +124,6 @@ void	Client::destroyMessages()
     }
 }
 
-void	Client::sendMessage(Message* mesg)
-{
-  QTextStream		stream(Socket::getInstance()->socket());
-  const QString&	from = mesg->from->text();
-  const QString&	to = mesg->to->text();
-  const QString&	edit = mesg->edit->text();
-
-  if (edit.isEmpty())
-    return;
-  stream << MESSAGE << ' ' << to << ' ' << edit << endl;
-  this->appendMessage(to, from, edit);
-  mesg->edit->clear();
-  mesg->edit->setFocus();
-}
-
 void	Client::appendMessage(const QString& sName,
 			      const QString& from,
 			      const QString& body)
@@ -176,7 +162,7 @@ void	Client::logout()
   this->serviceBox->setCurrentIndex(0);
   this->serviceWebList->clear();
   this->serviceStreamList->clear();
-  this->talkList->clear();
+  this->talkAllContactsList->clear();
   if (Service::exist())
     {
       Service*	service = Service::getInstance(this);
@@ -342,12 +328,74 @@ void	Client::on_newsRead_clicked()
 void	Client::on_talkOpen_clicked()
 {
   QString	sName;
-  int		row;
 
-  if ((row = this->talkList->currentRow()) < 0)
+  if (!this->talkBox->currentIndex())
+    {
+      if (this->talkMyContactsList->currentRow() < 0)
+	return;
+      this->openMessage(this->talkMyContactsList->currentItem()->data(Qt::UserRole).toString());
+      return;
+    }
+  if (this->talkAllContactsList->currentRow() < 0)
     return;
-  sName = this->talkList->item(row)->text();
-  this->openMessage(sName);
+  this->openMessage(this->talkAllContactsList->currentItem()->text());
+}
+
+void	Client::on_talkMyContactsAdd_clicked()
+{
+  Contact	contact;
+
+  if (contact.exec() != QDialog::Accepted)
+    return;
+  this->addToContactsList(contact);
+}
+
+void	Client::on_talkMyContactsDel_clicked()
+{
+  if (this->talkMyContactsList->currentRow() < 0)
+    return;
+
+  if (QMessageBox::question(this,
+			    tr("Are you sure ?"),
+			    tr("Are you sure ?"),
+			    QMessageBox::Yes | QMessageBox::No)
+      != QMessageBox::Yes)
+    return;
+
+  QSqlQuery	q(Database::getInstance()->database());
+
+  q.prepare("delete from contacts "
+	    "where username = ? and contact = ?;");
+  q.addBindValue(this->infoAccount->text());
+  q.addBindValue(this->talkMyContactsList->currentItem()->data(Qt::UserRole));
+  q.exec();
+  this->loadClients();
+}
+
+void	Client::on_talkAllContactsAdd_clicked()
+{
+  if (this->talkAllContactsList->currentRow() < 0)
+    return;
+
+  Contact	contact;
+
+  contact.username->setText(this->talkAllContactsList->currentItem()->text());
+  if (contact.exec() != QDialog::Accepted)
+    return;
+  this->addToContactsList(contact);
+}
+
+void	Client::addToContactsList(const Contact& contact)
+{
+  QSqlQuery	q(Database::getInstance()->database());
+
+  q.prepare("insert into contacts "
+	    "values(null, ?, ?, ?);");
+  q.addBindValue(this->infoAccount->text());
+  q.addBindValue(contact.username->text());
+  q.addBindValue(contact.alias->text());
+  q.exec();
+  this->loadClients();
 }
 
 void	Client::connectedToServer()
@@ -472,8 +520,42 @@ void	Client::loadClients()
 {
   QTextStream	stream(Socket::getInstance()->socket());
 
-  this->talkList->clear();
+  this->talkAllContactsList->clear();
+  this->talkMyContactsList->clear();
   stream << CLIENTS << endl;
+}
+
+void	Client::loadMyContact(const QString& contact)
+{
+  QSqlQuery	q(Database::getInstance()->database());
+
+  q.prepare("select alias "
+	    "from contacts "
+	    "where username = ? and contact = ?;");
+  q.addBindValue(this->infoAccount->text());
+  q.addBindValue(contact);
+  q.exec();
+  if (!q.next())
+    return;
+
+  QListWidgetItem*	item = new QListWidgetItem;
+
+  item->setIcon(QIcon("images/user.png"));
+  if (q.value(0).toString().isEmpty())
+    item->setText(contact);
+  else
+    item->setText(q.value(0).toString() + " <" + contact + ">");
+  item->setData(Qt::UserRole, contact);
+  this->talkMyContactsList->addItem(item);
+}
+
+void	Client::loadAllContact(const QString& contact)
+{
+  QListWidgetItem*	item = new QListWidgetItem;
+
+  item->setIcon(QIcon("images/user.png"));
+  item->setText(contact);
+  this->talkAllContactsList->addItem(item);
 }
 
 void	Client::loadHistory(int idx)
@@ -484,7 +566,7 @@ void	Client::loadHistory(int idx)
 
   q.prepare("select describe, date "
 	    "from history "
-	    "where id_user = ? and type = ? "
+	    "where username = ? and type = ? "
 	    "order by date desc;");
   if (!idx) // web
     {
@@ -496,7 +578,7 @@ void	Client::loadHistory(int idx)
       type = STREAM;
       list = this->creditStreamList;
     }
-  q.addBindValue(this->getId());
+  q.addBindValue(this->infoAccount->text());
   q.addBindValue(type);
   q.exec();
   list->clear();
@@ -571,7 +653,7 @@ void	Client::actLogin(Client* client, const QStringList& resList)
       client->logout();
       return;
     }
-  client->setCredit(resList.at(0).toInt());
+  client->creditCurrently->setText(resList.at(0));
   client->login();
 }
 
@@ -608,7 +690,7 @@ void	Client::actCreate(Client* client, const QStringList& resList)
       QSqlQuery	q(Database::getInstance()->database());
 
       q.prepare("insert into users "
-		"values(null, ?, ?);");
+		"values(?, ?);");
       q.addBindValue(client->_userCreated);
       q.addBindValue(resList.at(0));
       q.exec();
@@ -626,13 +708,12 @@ void	Client::actClients(Client* client, const QStringList& resList)
     return;
 
   const QString&	name = resList.at(0);
-  QListWidgetItem*	item;
 
   if (name == client->infoAccount->text())
     return;
   qDebug() << "add client" << name;
-  item = new QListWidgetItem(QIcon("images/user.png"), name);
-  client->talkList->addItem(item);
+  client->loadAllContact(name);
+  client->loadMyContact(name);
 }
 
 void	Client::actAccounts(Client*, const QStringList&)
@@ -842,26 +923,6 @@ void	Client::actNewsDetail(Client* client, const QStringList& resList)
 			     resList.join(" "));
 }
 
-const int&	Client::getId() const
-{
-  return (this->_id);
-}
-
-void	Client::setId(const int& id)
-{
-  this->_id = id;
-}
-
-const int&	Client::getCredit() const
-{
-  return (this->_credit);
-}
-
-void	Client::setCredit(const int& credit)
-{
-  this->_credit = credit;
-}
-
 void	Client::addHistory(const Client::ServiceType& type,
 			   const QString& describe,
 			   const int& price)
@@ -869,7 +930,7 @@ void	Client::addHistory(const Client::ServiceType& type,
   QSqlQuery	q(Database::getInstance()->database());
 
   q.prepare("insert into history values(null, ?, ?, ?, ?, ?);");
-  q.addBindValue(this->getId());
+  q.addBindValue(this->infoAccount->text());
   q.addBindValue(type);
   q.addBindValue(describe);
   q.addBindValue(price);

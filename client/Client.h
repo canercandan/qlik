@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Tue Aug 19 03:59:34 2008 caner candan
+// Last update Wed Aug 20 09:05:49 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -15,6 +15,7 @@
 # include <QtNetwork>
 # include "ui_Client.h"
 # include "Message.h"
+# include "Contact.h"
 
 # define WELCOME		"welcome"
 # define LOGIN			"login"
@@ -86,12 +87,13 @@ public:
 
   void	openMessage(const QString& sName);
   void	destroyMessages();
-  void	sendMessage(Message*);
   void	appendMessage(const QString& sName,
 		      const QString& from,
 		      const QString& body);
 
   void	loadClients();
+  void	loadMyContact(const QString& contact);
+  void	loadAllContact(const QString& contact);
 
   void	createOfferWeb();
   void	createOfferStream();
@@ -101,15 +103,10 @@ public:
   void	login();
   void	logout();
 
-  const int&	getId() const;
-  void		setId(const int&);
-
-  const int&	getCredit() const;
-  void		setCredit(const int&);
-
   void	addHistory(const ServiceType& type,
 		   const QString& desribe,
 		   const int& price);
+  void	addToContactsList(const Contact&);
 private slots:
   void	on_actionSignUp_triggered();
   void	on_actionSignIn_triggered();
@@ -126,7 +123,11 @@ private slots:
   void	on_serviceCredit_clicked();
 
   void	on_newsRead_clicked();
+
   void	on_talkOpen_clicked();
+  void	on_talkMyContactsAdd_clicked();
+  void	on_talkMyContactsDel_clicked();
+  void	on_talkAllContactsAdd_clicked();
 
   void	connectedToServer();
   void	readAction();
@@ -139,8 +140,6 @@ private slots:
   void	loadHistory(int);
 private:
   MessageMap	_mm;
-  int		_id;
-  int		_credit;
   QString	_userCreated;
 };
 

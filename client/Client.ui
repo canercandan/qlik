@@ -23,7 +23,7 @@
      </rect>
     </property>
     <property name="currentIndex" >
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="news" >
      <property name="geometry" >
@@ -188,12 +188,33 @@
       <property name="geometry" >
        <rect>
         <x>10</x>
-        <y>0</y>
+        <y>10</y>
         <width>231</width>
-        <height>181</height>
+        <height>191</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" >
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <widget class="QLabel" name="label_3" >
+           <property name="text" >
+            <string>Currently</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="creditCurrently" >
+           <property name="enabled" >
+            <bool>false</bool>
+           </property>
+           <property name="text" >
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
        <item>
         <widget class="QTabWidget" name="creditBox" >
          <property name="currentIndex" >
@@ -209,7 +230,7 @@
              <x>0</x>
              <y>0</y>
              <width>221</width>
-             <height>151</height>
+             <height>141</height>
             </rect>
            </property>
           </widget>
@@ -239,8 +260,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>96</width>
-       <height>26</height>
+       <width>251</width>
+       <height>201</height>
       </rect>
      </property>
      <attribute name="label" >
@@ -249,32 +270,110 @@
      <attribute name="icon" >
       <iconset>images/user_comment.png</iconset>
      </attribute>
-     <widget class="QWidget" name="verticalLayout_2" >
+     <widget class="QWidget" name="verticalLayout_5" >
       <property name="geometry" >
        <rect>
-        <x>9</x>
-        <y>9</y>
+        <x>10</x>
+        <y>0</y>
         <width>221</width>
-        <height>181</height>
+        <height>191</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" >
        <item>
-        <widget class="QListWidget" name="talkList" />
+        <widget class="QTabWidget" name="talkBox" >
+         <property name="currentIndex" >
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="mycontacts" >
+          <attribute name="title" >
+           <string>My contacts</string>
+          </attribute>
+          <widget class="QWidget" name="verticalLayout_2" >
+           <property name="geometry" >
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>211</width>
+             <height>130</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QListWidget" name="talkMyContactsList" />
+            </item>
+            <item>
+             <layout class="QHBoxLayout" >
+              <item>
+               <widget class="QPushButton" name="talkMyContactsAdd" >
+                <property name="text" >
+                 <string>Add</string>
+                </property>
+                <property name="icon" >
+                 <iconset>images/user_add.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="talkMyContactsDel" >
+                <property name="text" >
+                 <string>Delete</string>
+                </property>
+                <property name="icon" >
+                 <iconset>images/user_delete.png</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+         <widget class="QWidget" name="allcontacts" >
+          <attribute name="title" >
+           <string>All online contacts</string>
+          </attribute>
+          <widget class="QWidget" name="verticalLayout_6" >
+           <property name="geometry" >
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>211</width>
+             <height>130</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QListWidget" name="talkAllContactsList" />
+            </item>
+            <item>
+             <layout class="QHBoxLayout" >
+              <item>
+               <widget class="QPushButton" name="talkAllContactsAdd" >
+                <property name="text" >
+                 <string>Add in my contact's list</string>
+                </property>
+                <property name="icon" >
+                 <iconset>images/user_add.png</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" >
-         <item>
-          <widget class="QPushButton" name="talkOpen" >
-           <property name="text" >
-            <string>Talk</string>
-           </property>
-           <property name="icon" >
-            <iconset>images/comment_edit.png</iconset>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QPushButton" name="talkOpen" >
+         <property name="text" >
+          <string>Talk</string>
+         </property>
+         <property name="icon" >
+          <iconset>images/comment_edit.png</iconset>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -490,22 +589,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>talkList</sender>
-   <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>talkOpen</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>74</x>
-     <y>133</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>108</x>
-     <y>133</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>serviceWebList</sender>
    <signal>doubleClicked(QModelIndex)</signal>
    <receiver>serviceManage</receiver>
@@ -534,6 +617,38 @@
     <hint type="destinationlabel" >
      <x>82</x>
      <y>312</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>talkMyContactsList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>talkOpen</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>73</x>
+     <y>293</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>91</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>talkAllContactsList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>talkOpen</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>137</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>131</x>
+     <y>390</y>
     </hint>
    </hints>
   </connection>

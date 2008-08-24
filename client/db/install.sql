@@ -6,15 +6,14 @@ create table options
 
 create table users
 (
-	id integer primary key autoincrement,
-	username text,
+	username text unique,
 	password text
 );
 
 create table history
 (
 	id integer primary key autoincrement,
-	id_user integer,
+	username text,
 	type integer,
 	describe text,
 	price integer,
@@ -24,9 +23,16 @@ create table history
 create table messages
 (
 	id integer primary key autoincrement,
-	id_user integer,
-	ufrom text,
-	uto text,
+	username text,
+	contact text,
 	body text,
 	date integer
+);
+
+create table contacts
+(
+	id integer primary key autoincrement,
+	username text,
+	contact text,
+	alias text
 );
