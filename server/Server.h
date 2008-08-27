@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Sun Aug 17 09:56:48 2008 caner candan
+// Last update Wed Aug 27 21:08:52 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -37,6 +37,10 @@
 # define CREATE			"create"
 // create USERNAME
 // -> create (PASSWORD|KO)
+
+# define CREDIT			"credit"
+// credit
+// -> credit CREDIT
 
 # define STATUS			"status"
 // status
@@ -75,11 +79,11 @@
 
 # define OFFER_WEB		"offer_web"
 // offer_web
-// -> offer_web (BEGIN\n*(NAME)\nEND|KO)
+// -> offer_web (BEGIN\n*(PRICE NAME)\nEND|KO)
 
 # define OFFER_STREAM		"offer_stream"
 // offer_stream
-// -> offer_stream (BEGIN\n*(NAME)\nEND|KO)
+// -> offer_stream (BEGIN\n*(PRICE NAME)\nEND|KO)
 
 # define CREATE_OFFER_WEB	"create_offer_web"
 // create_offer_web NAME ROW DOMAIN
@@ -131,6 +135,7 @@ public:
   static void	actLogin(Server*, Client*);
   static void	actLogout(Server*, Client*);
   static void	actCreate(Server*, Client*);
+  static void	actCredit(Server*, Client*);
   static void	actStatus(Server*, Client*);
   static void	actClients(Server*, Client*);
   static void	actAccounts(Server*, Client*);

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug  4 06:10:50 2008 caner candan
-// Last update Tue Aug 19 08:40:35 2008 caner candan
+// Last update Sun Aug 24 22:29:50 2008 caner candan
 //
 
 #include <QWidget>
@@ -13,6 +13,7 @@
 #include "Message.h"
 #include "Client.h"
 #include "Socket.h"
+#include "Contact.h"
 
 Message::Message(QWidget* parent /*= NULL*/)
   : QDialog(parent)
@@ -33,4 +34,15 @@ void	Message::on_send_clicked()
   static_cast<Client*>(this->parent())->appendMessage(to, from, edit);
   this->edit->clear();
   this->edit->setFocus();
+}
+
+void	Message::on_add_clicked()
+{
+  Contact	contact;
+
+  contact.username->setText(this->to->text());
+  contact.alias->setFocus();
+  if (contact.exec() != QDialog::Accepted)
+    return;
+  static_cast<Client*>(this->parent())->addToContactsList(contact);
 }

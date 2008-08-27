@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Jul 21 02:05:40 2008 caner candan
-// Last update Mon Aug 18 16:04:16 2008 caner candan
+// Last update Wed Aug 27 20:47:49 2008 caner candan
 //
 
 #include <QWidget>
@@ -114,7 +114,28 @@ void	Service::createStreamOffer()
       this->offerStreamTitle->setFocus();
       return;
     }
+  if (!this->_confirm(this->offerStreamList))
+    return;
   static_cast<Client*>(this->parent())->createOfferStream();
+}
+
+bool	Service::_confirm(QListWidget* list)
+{
+  Client*	client = static_cast<Client*>(this->parent());
+
+  if (client->creditCurrently->text().toInt()
+      < list->currentItem()->data(Qt::UserRole).toInt())
+    {
+      QMessageBox::information(this,
+			       tr("Not enough credit"),
+			       tr("Not enough credit"));
+      return (false);
+    }
+  return (QMessageBox::question(this,
+				tr("Are you sure ?"),
+				tr("Are you sure ?"),
+				QMessageBox::Yes | QMessageBox::No)
+	  == QMessageBox::Yes);
 }
 
 void	Service::createWebMore()

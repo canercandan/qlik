@@ -48,7 +48,8 @@ create table offer_web
 	id integer primary key autoincrement,
 	name text,
 	space integer,
-	nb_db integer
+	nb_db integer,
+	price integer
 );
 
 create table offer_stream
@@ -56,7 +57,8 @@ create table offer_stream
 	id integer primary key autoincrement,
 	name text,
 	slots integer,
-	bits integer
+	bits integer,
+	price integer
 );
 
 create table news

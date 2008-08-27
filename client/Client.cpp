@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Wed Aug 20 09:08:56 2008 caner candan
+// Last update Wed Aug 27 21:32:22 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -50,7 +50,7 @@ Client::Actions	Client::actions[] =
   };
 
 Client::Client(QWidget *parent /*= NULL*/)
-  : QMainWindow(parent)
+  : QMainWindow(parent), _credit(0)
 {
   Socket*	socket = Socket::getInstance();
   Database*	database = Database::getInstance();
@@ -380,6 +380,7 @@ void	Client::on_talkAllContactsAdd_clicked()
   Contact	contact;
 
   contact.username->setText(this->talkAllContactsList->currentItem()->text());
+  contact.alias->setFocus();
   if (contact.exec() != QDialog::Accepted)
     return;
   this->addToContactsList(contact);
@@ -653,7 +654,7 @@ void	Client::actLogin(Client* client, const QStringList& resList)
       client->logout();
       return;
     }
-  client->creditCurrently->setText(resList.at(0));
+  actCredit(client, resList);
   client->login();
 }
 
@@ -697,6 +698,13 @@ void	Client::actCreate(Client* client, const QStringList& resList)
       Accounts::getInstance(client)->reset();
     }
   client->statusbar->showMessage("Accout created ...");
+}
+
+void	Client::actCredit(Client* client, const QStringList& resList)
+{
+  if (resList.at(0) == "KO")
+    return;
+  client->setCredit(resList.at(0).toInt());
 }
 
 void	Client::actStatus(Client*, const QStringList&)
@@ -805,11 +813,19 @@ void	Client::actOfferWeb(Client* client, const QStringList& resList)
   if (resList.count() < 1)
     return;
 
-  const QString&	name = resList.join(" ");
+  const QString&	price = resList.at(0);
+  QStringList		resName = resList;
+
+  resName.erase(resName.begin());
+
+  const QString&	name = resName.join(" ");
+  QListWidgetItem*	item = new QListWidgetItem;
 
   qDebug() << "add offer web" << name;
-  Service::getInstance(client)->offerWebList->addItem(new QListWidgetItem
-						      (QIcon("images/bricks.png"), name));
+  item->setIcon(QIcon("images/bricks.png"));
+  item->setText(name);
+  item->setData(Qt::UserRole, price);
+  Service::getInstance(client)->offerWebList->addItem(item);
 }
 
 void	Client::actOfferStream(Client* client, const QStringList& resList)
@@ -817,11 +833,19 @@ void	Client::actOfferStream(Client* client, const QStringList& resList)
   if (resList.count() < 1)
     return;
 
-  const QString&	name = resList.join(" ");
+  const QString&	price = resList.at(0);
+  QStringList		resName = resList;
+
+  resName.erase(resName.begin());
+
+  const QString&	name = resName.join(" ");
+  QListWidgetItem*	item = new QListWidgetItem;
 
   qDebug() << "add offer stream" << name;
-  Service::getInstance(client)->offerStreamList->addItem(new QListWidgetItem
-							 (QIcon("images/bricks.png"), name));
+  item->setIcon(QIcon("images/bricks.png"));
+  item->setText(name);
+  item->setData(Qt::UserRole, price);
+  Service::getInstance(client)->offerStreamList->addItem(item);
 }
 
 void	Client::actCreateOfferWeb(Client* client, const QStringList& resList)
@@ -851,13 +875,18 @@ void	Client::actCreateOfferStream(Client* client, const QStringList& resList)
 			    tr("Impossible to create a stream offer"));
       return;
     }
+
+  Service*	service =   Service::getInstance(client);
+
   QMessageBox::information(client,
 			   tr("Created"),
 			   tr("Your stream offer has been created"));
+  client->subCredit(service->offerStreamList->currentItem()->
+		    data(Qt::UserRole).toInt());
   client->addHistory(STREAM, "create offer", -1);
   State::getInstance()->setStreamList(State::WAIT);
   client->on_actionRefresh_triggered();
-  Service::getInstance(client)->hide();
+  service->hide();
 }
 
 void	Client::actCreateWeb(Client* client, const QStringList& resList)
@@ -936,4 +965,27 @@ void	Client::addHistory(const Client::ServiceType& type,
   q.addBindValue(price);
   q.addBindValue(-1);
   q.exec();
+}
+
+const int&	Client::getCredit() const
+{
+  return (this->_credit);
+}
+
+void	Client::setCredit(const int& credit)
+{
+  this->_credit = credit;
+  this->creditCurrently->setText(QVariant(this->_credit).toString());
+}
+
+void	Client::addCredit(const int& value)
+{
+  this->_credit += value;
+  this->creditCurrently->setText(QVariant(this->_credit).toString());
+}
+
+void	Client::subCredit(const int& value)
+{
+  this->_credit -= value;
+  this->creditCurrently->setText(QVariant(this->_credit).toString());
 }

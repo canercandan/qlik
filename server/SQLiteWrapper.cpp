@@ -102,6 +102,7 @@ SQLiteStatement* SQLiteWrapper::Statement(std::string const& statement) {
     return stmt;
   }
   catch (const char* e) {
+    std::cout << "error prepare sql: [" << e << "]" << std::endl;
     return 0;
   }
 }

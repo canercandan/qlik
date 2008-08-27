@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Jul 21 02:03:48 2008 caner candan
-// Last update Sun Aug 17 14:32:14 2008 caner candan
+// Last update Wed Aug 27 20:46:45 2008 caner candan
 //
 
 #ifndef __SERVICE_H__
@@ -34,6 +34,8 @@ private slots:
   void	on_cancel_clicked();
 private:
   Service(QWidget* parent = NULL);
+
+  bool	_confirm(QListWidget*);
 };
 
 #endif // !__SERVICE_H__

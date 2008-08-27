@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Wed Aug 20 09:05:49 2008 caner candan
+// Last update Wed Aug 27 21:22:16 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -21,6 +21,7 @@
 # define LOGIN			"login"
 # define LOGOUT			"logout"
 # define CREATE			"create"
+# define CREDIT			"credit"
 # define STATUS			"status"
 # define CLIENTS		"clients"
 # define ACCOUNTS		"accounts"
@@ -65,6 +66,7 @@ public:
   static void	actLogin(Client*, const QStringList&);
   static void	actLogout(Client*, const QStringList&);
   static void	actCreate(Client*, const QStringList&);
+  static void	actCredit(Client*, const QStringList&);
   static void	actStatus(Client*, const QStringList&);
   static void	actClients(Client*, const QStringList&);
   static void	actAccounts(Client*, const QStringList&);
@@ -107,6 +109,11 @@ public:
 		   const QString& desribe,
 		   const int& price);
   void	addToContactsList(const Contact&);
+
+  const int&	getCredit() const;
+  void	setCredit(const int&);
+  void	addCredit(const int&);
+  void	subCredit(const int&);
 private slots:
   void	on_actionSignUp_triggered();
   void	on_actionSignIn_triggered();
@@ -141,6 +148,7 @@ private slots:
 private:
   MessageMap	_mm;
   QString	_userCreated;
+  int		_credit;
 };
 
 #endif // !__CLIENT_H__

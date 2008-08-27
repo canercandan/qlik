@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Mon Aug 18 10:29:54 2008 caner candan
+// Last update Wed Aug 27 21:09:09 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -228,40 +228,32 @@ void	Server::executeAction(Client *client)
 bool	Server::existLogin(const std::string& login)
 {
   SQLiteStatement	*stmt;
+  bool			res;
 
   stmt = this->_sql.Statement("select 1 "
 			      "from users "
-			      "where username = ? "
-			      "limit 1;");
+			      "where username = ?;");
   stmt->Bind(0, login);
-  while (stmt->NextRow())
-    {
-      delete stmt;
-      return (true);
-    }
+  res = stmt->NextRow();
   delete stmt;
-  return (false);
+  return (res);
 }
 
 bool	Server::existLoginPasswd(const std::string& login,
 				 const std::string& passwd)
 {
   SQLiteStatement	*stmt;
+  bool			res;
 
   stmt = this->_sql.Statement("select 1 "
 			      "from users "
 			      "where username = ? "
-			      "and password = ? "
-			      "limit 1;");
+			      "and password = ?;");
   stmt->Bind(0, login);
   stmt->Bind(1, passwd);
-  while (stmt->NextRow())
-    {
-      delete stmt;
-      return (true);
-    }
+  res = stmt->NextRow();
   delete stmt;
-  return (false);
+  return (res);
 }
 
 bool	Server::alreadyConnected(const std::string& login)
@@ -315,13 +307,12 @@ void	Server::actLogin(Server *server, Client *client)
       return;
     }
   stmt = server->_sql.Statement("select users.id, users.username, "
-				"credit.value " 
+				"credit.value "
 				"from users, credit "
 				"where users.id = credit.id_user "
-				"and username = ? "
-				"limit 1;");
+				"and username = ?;");
   stmt->Bind(0, login);
-  while (stmt->NextRow())
+  if (stmt->NextRow())
     {
       client->setId(stmt->ValueInt(0));
       client->setLogin(stmt->ValueString(1));
@@ -365,13 +356,21 @@ void	Server::actCreate(Server* server, Client *client)
   delete stmt;
 }
 
-void	Server::actStatus(Server* server, Client *client)
+void	Server::actCredit(Server* server, Client* client)
+{
+  if (server->notConnected(client))
+    return;
+  client->appendBufWrite(client->getCredit());
+  client->appendBufWrite("\n");
+}
+
+void	Server::actStatus(Server* server, Client* client)
 {
   if (!server->notConnected(client))
     client->appendBufWrite(MESG_OK);
 }
 
-void	Server::actClients(Server *server, Client *client)
+void	Server::actClients(Server* server, Client* client)
 {
   listClients::const_iterator	it;
   listClients::const_iterator	end = server->getListClients().end();
@@ -385,9 +384,9 @@ void	Server::actClients(Server *server, Client *client)
   client->appendBufWrite(MESG_END);
 }
 
-void	Server::actAccounts(Server *server, Client *client)
+void	Server::actAccounts(Server* server, Client* client)
 {
-  SQLiteStatement	*stmt;
+  SQLiteStatement*	stmt;
   std::stringstream	ss;
 
   if (server->notConnected(client))
@@ -560,13 +559,15 @@ void	Server::actOfferWeb(Server* server, Client* client)
   if (server->notConnected(client))
     return;
   client->appendBufWrite(MESG_BEGIN);
-  stmt = server->_sql.Statement("select name "
+  stmt = server->_sql.Statement("select price, name "
 				"from offer_web "
 				"order by name;");
   while (stmt->NextRow())
     {
       ss.str(MESG_EMPTY);
-      ss << stmt->ValueString(0) << std::endl;
+      ss << stmt->ValueString(0)
+	 << ' ' << stmt->ValueString(1)
+	 << std::endl;
       client->appendBufWrite(ss.str());
     }
   client->appendBufWrite(MESG_END);
@@ -581,13 +582,15 @@ void	Server::actOfferStream(Server* server, Client* client)
   if (server->notConnected(client))
     return;
   client->appendBufWrite(MESG_BEGIN);
-  stmt = server->_sql.Statement("select name "
+  stmt = server->_sql.Statement("select price, name "
 				"from offer_stream "
 				"order by name;");
   while (stmt->NextRow())
     {
       ss.str(MESG_EMPTY);
-      ss << stmt->ValueString(0) << std::endl;
+      ss << stmt->ValueString(0)
+	 << ' ' << stmt->ValueString(1)
+	 << std::endl;
       client->appendBufWrite(ss.str());
     }
   client->appendBufWrite(MESG_END);
