@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Jul 21 02:05:40 2008 caner candan
-// Last update Wed Aug 27 20:47:49 2008 caner candan
+// Last update Tue Sep  2 00:06:44 2008 caner candan
 //
 
 #include <QWidget>
@@ -65,6 +65,8 @@ void	Service::createWebOffer()
       this->offerWebDomain->setFocus();
       return;
     }
+  if (!this->_confirmOffer(this->offerWebList))
+    return;
   static_cast<Client*>(this->parent())->createOfferWeb();
 }
 
@@ -114,28 +116,9 @@ void	Service::createStreamOffer()
       this->offerStreamTitle->setFocus();
       return;
     }
-  if (!this->_confirm(this->offerStreamList))
+  if (!this->_confirmOffer(this->offerStreamList))
     return;
   static_cast<Client*>(this->parent())->createOfferStream();
-}
-
-bool	Service::_confirm(QListWidget* list)
-{
-  Client*	client = static_cast<Client*>(this->parent());
-
-  if (client->creditCurrently->text().toInt()
-      < list->currentItem()->data(Qt::UserRole).toInt())
-    {
-      QMessageBox::information(this,
-			       tr("Not enough credit"),
-			       tr("Not enough credit"));
-      return (false);
-    }
-  return (QMessageBox::question(this,
-				tr("Are you sure ?"),
-				tr("Are you sure ?"),
-				QMessageBox::Yes | QMessageBox::No)
-	  == QMessageBox::Yes);
 }
 
 void	Service::createWebMore()
@@ -192,6 +175,9 @@ void	Service::createWebMore()
       this->webDomain->setFocus();
       return;
     }
+  if (!this->_confirmMore(this->webSpace, RATIO_WEB_SPACE,
+			  this->webNbDb, RATIO_WEB_DB))
+    return;
   static_cast<Client*>(this->parent())->createWeb();
 }
 
@@ -249,6 +235,9 @@ void	Service::createStreamMore()
       this->streamTitle->setFocus();
       return;
     }
+  if (!this->_confirmMore(this->streamSlots, RATIO_STREAM_SLOT,
+			 this->streamBits, RATIO_STREAM_BITS))
+    return;
   static_cast<Client*>(this->parent())->createStream();
 }
 
@@ -269,4 +258,44 @@ void	Service::on_ok_clicked()
 void	Service::on_cancel_clicked()
 {
   this->hide();
+}
+
+bool	Service::_confirmOffer(QListWidget* list)
+{
+  Client*	client = static_cast<Client*>(this->parent());
+
+  if (client->creditCurrently->text().toInt()
+      < list->currentItem()->data(Qt::UserRole).toInt())
+    {
+      QMessageBox::information(this,
+			       tr("Not enough credit"),
+			       tr("Not enough credit"));
+      return (false);
+    }
+  return (QMessageBox::question(this,
+				tr("Are you sure ?"),
+				tr("Are you sure ?"),
+				QMessageBox::Yes | QMessageBox::No)
+	  == QMessageBox::Yes);
+}
+
+bool	Service::_confirmMore(QComboBox* list1, int ratio1,
+			      QComboBox* list2, int ratio2)
+{
+  Client*	client = static_cast<Client*>(this->parent());
+
+  if (client->creditCurrently->text().toInt()
+      < ((list1->currentText().toInt() / ratio1)
+	 + (list2->currentText().toInt() / ratio2)))
+    {
+      QMessageBox::information(this,
+			       tr("Not enough credit"),
+			       tr("Not enough credit"));
+      return (false);
+    }
+  return (QMessageBox::question(this,
+				tr("Are you sure ?"),
+				tr("Are you sure ?"),
+				QMessageBox::Yes | QMessageBox::No)
+	  == QMessageBox::Yes);
 }

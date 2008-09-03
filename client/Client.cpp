@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Wed Aug 27 21:32:22 2008 caner candan
+// Last update Tue Sep  2 01:25:23 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -857,9 +857,14 @@ void	Client::actCreateOfferWeb(Client* client, const QStringList& resList)
 			    tr("Impossible to create a web offer"));
       return;
     }
+
+  Service*	service =   Service::getInstance(client);
+
   QMessageBox::information(client,
 			   tr("Created"),
 			   tr("Your web offer has been created"));
+  client->subCredit(service->offerWebList->currentItem()->
+		    data(Qt::UserRole).toInt());
   client->addHistory(WEB, "create offer", -1);
   State::getInstance()->setWebList(State::WAIT);
   client->on_actionRefresh_triggered();
@@ -898,13 +903,20 @@ void	Client::actCreateWeb(Client* client, const QStringList& resList)
 			    tr("Impossible to create a web"));
       return;
     }
+
+  Service*	service =   Service::getInstance(client);
+
   QMessageBox::information(client,
 			   tr("Created"),
 			   tr("Your web has been created"));
+  client->subCredit((service->webSpace->currentText().toInt()
+		     / RATIO_WEB_SPACE)
+		    + (service->webNbDb->currentText().toInt()
+		       / RATIO_WEB_DB));
   client->addHistory(WEB, "create", -1);
   State::getInstance()->setWebList(State::WAIT);
   client->on_actionRefresh_triggered();
-  Service::getInstance(client)->hide();
+  service->hide();
 }
 
 void	Client::actCreateStream(Client* client, const QStringList& resList)
@@ -916,13 +928,20 @@ void	Client::actCreateStream(Client* client, const QStringList& resList)
 			    tr("Impossible to create a stream"));
       return;
     }
+
+  Service*	service =   Service::getInstance(client);
+
   QMessageBox::information(client,
 			   tr("Created"),
 			   tr("Your stream has been created"));
+  client->subCredit((service->streamSlots->currentText().toInt()
+		     / RATIO_STREAM_SLOT)
+		    + (service->streamBits->currentText().toInt()
+		       / RATIO_STREAM_BITS));
   client->addHistory(STREAM, "create", -1);
   State::getInstance()->setStreamList(State::WAIT);
   client->on_actionRefresh_triggered();
-  Service::getInstance(client)->hide();
+  service->hide();
 }
 
 void	Client::actNews(Client* client, const QStringList& resList)

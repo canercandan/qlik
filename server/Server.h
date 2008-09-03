@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Wed Aug 27 21:08:52 2008 caner candan
+// Last update Tue Sep  2 01:03:23 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -109,6 +109,12 @@
 // news_detail ROW
 // -> news_detail (BODY|KO)
 
+# define RATIO_WEB_SPACE	100
+# define RATIO_WEB_DB		1
+
+# define RATIO_STREAM_SLOT	5
+# define RATIO_STREAM_BITS	24
+
 #define PASSWD_CHARACTERS			\
   "abcdefghijklmnopqrstuvwxyz"			\
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ"			\
@@ -185,6 +191,10 @@ public:
   Client	*findClient(const std::string& login);
 
   bool	notConnected(Client*);
+
+  bool	enoughCredit(const int&, Client*);
+  void	addCredit(const int&, Client*);
+  void	subCredit(const int&, Client*);
 
   std::string	head(void);
 private:

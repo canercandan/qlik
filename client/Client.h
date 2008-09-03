@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Wed Aug 27 21:22:16 2008 caner candan
+// Last update Tue Sep  2 00:58:57 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -38,6 +38,12 @@
 # define CREATE_STREAM		"create_stream"
 # define NEWS			"news"
 # define NEWS_DETAIL		"news_detail"
+
+# define RATIO_WEB_SPACE	100
+# define RATIO_WEB_DB		1
+
+# define RATIO_STREAM_SLOT	5
+# define RATIO_STREAM_BITS	24
 
 class	Client : public QMainWindow, public Ui::Client
 {

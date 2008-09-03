@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Jul 21 02:03:48 2008 caner candan
-// Last update Wed Aug 27 20:46:45 2008 caner candan
+// Last update Tue Sep  2 00:03:54 2008 caner candan
 //
 
 #ifndef __SERVICE_H__
@@ -35,7 +35,9 @@ private slots:
 private:
   Service(QWidget* parent = NULL);
 
-  bool	_confirm(QListWidget*);
+  bool	_confirmOffer(QListWidget*);
+  bool	_confirmMore(QComboBox* list1, int ratio1,
+		     QComboBox* list2, int ratio2);
 };
 
 #endif // !__SERVICE_H__
