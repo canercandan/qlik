@@ -5,7 +5,7 @@
 ## Login   <candan_c@epitech.net>
 ## 
 ## Started on  Wed Jul  9 21:31:38 2008 caner candan
-## Last update Sun Aug 17 00:36:03 2008 caner candan
+## Last update Tue Sep  2 08:00:06 2008 caner candan
 ##
 
 NAME		=	server
@@ -17,7 +17,8 @@ SRCS		=	main.cpp		\
 			SocketServer.cpp	\
 			SocketClient.cpp	\
 			SQLiteWrapper.cpp	\
-			State.cpp
+			State.cpp		\
+			Apache.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 

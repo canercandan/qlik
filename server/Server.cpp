@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Tue Sep  2 01:19:44 2008 caner candan
+// Last update Tue Sep  2 08:48:13 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -13,13 +13,13 @@
 #include <memory>
 #include <iostream>
 #include <sstream>
-#include <fstream>
 #include <string>
 #include "Server.h"
 #include "Client.h"
 #include "SocketServer.h"
 #include "SocketClient.h"
 #include "State.h"
+#include "Apache.h"
 
 Server::Actions	Server::actions[] = {
   {LOGIN, actLogin, MESG_EMPTY},
@@ -210,7 +210,7 @@ void	Server::executeAction(Client *client)
   std::stringstream	ss(client->getBufRead());
   std::string		action;
   int			i;
-  
+
   ss >> action;
   for (i = 0; actions[i].func; i++)
     if (actions[i].keyword == action)
@@ -674,6 +674,10 @@ void	Server::actCreateOfferWeb(Server* server, Client* client)
       stmt->Bind(6, 1);
       stmt->Execute();
       server->subCredit(price, client);
+
+      std::auto_ptr<IServerWeb>	serverWeb(new Apache(client));
+
+      serverWeb->createHost(domain);
       client->appendBufWrite(MESG_OK);
     }
   else
