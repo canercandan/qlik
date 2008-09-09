@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:29:14 2008 caner candan
-// Last update Sun Aug 17 01:04:03 2008 caner candan
+// Last update Tue Sep  2 14:13:04 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -17,27 +17,11 @@
 #include "State.h"
 
 SocketClient::SocketClient()
-  : Socket()
 {}
 
 SocketClient::SocketClient(int socketServer)
-  : Socket()
 {
   acceptClient(socketServer);
-}
-
-SocketClient::SocketClient(const SocketClient& sc)
-  : Socket()
-{*this = sc;}
-
-SocketClient::~SocketClient()
-{}
-
-SocketClient&	SocketClient::operator=(const SocketClient& sc)
-{
-  if (this != &sc)
-    this->_socket = sc._socket;
-  return (*this);
 }
 
 void	SocketClient::acceptClient(int socketServer)

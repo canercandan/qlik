@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Tue Sep  2 08:48:13 2008 caner candan
+// Last update Fri Sep  5 18:37:45 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -20,6 +20,7 @@
 #include "SocketClient.h"
 #include "State.h"
 #include "Apache.h"
+#include "IceCast.h"
 
 Server::Actions	Server::actions[] = {
   {LOGIN, actLogin, MESG_EMPTY},
@@ -653,35 +654,36 @@ void	Server::actCreateOfferWeb(Server* server, Client* client)
 			    "limit ?, 1;"));
 
   stmt->Bind(0, row);
-  if (stmt->NextRow())
+  if (!stmt->NextRow())
     {
-      price = stmt->ValueInt(0);
-      if (!server->enoughCredit(price, client))
-	{
-	  client->appendBufWrite(MESG_KO);
-	  return;
-	}
-      space = stmt->ValueInt(1);
-      nbDb = stmt->ValueInt(2);
-      stmt.reset(server->_sql.Statement("insert into services_web "
-					"values(NULL, ?, ?, ?, ?, ?, ?, ?);"));
-      stmt->Bind(0, client->getId());
-      stmt->Bind(1, name);
-      stmt->Bind(2, space);
-      stmt->Bind(3, nbDb);
-      stmt->Bind(4, domain);
-      stmt->Bind(5, 1);
-      stmt->Bind(6, 1);
-      stmt->Execute();
-      server->subCredit(price, client);
+      client->appendBufWrite(MESG_KO);
+      return;
 
-      std::auto_ptr<IServerWeb>	serverWeb(new Apache(client));
-
-      serverWeb->createHost(domain);
-      client->appendBufWrite(MESG_OK);
     }
-  else
-    client->appendBufWrite(MESG_KO);
+  price = stmt->ValueInt(0);
+  if (!server->enoughCredit(price, client))
+    {
+      client->appendBufWrite(MESG_KO);
+      return;
+    }
+  space = stmt->ValueInt(1);
+  nbDb = stmt->ValueInt(2);
+  stmt.reset(server->_sql.Statement("insert into services_web "
+				    "values(NULL, ?, ?, ?, ?, ?, ?, ?);"));
+  stmt->Bind(0, client->getId());
+  stmt->Bind(1, name);
+  stmt->Bind(2, space);
+  stmt->Bind(3, nbDb);
+  stmt->Bind(4, domain);
+  stmt->Bind(5, 1);
+  stmt->Bind(6, 1);
+  stmt->Execute();
+  server->subCredit(price, client);
+
+  std::auto_ptr<IServerWeb>	serverWeb(new Apache(client));
+
+  serverWeb->createHost(domain);
+  client->appendBufWrite(MESG_OK);
 }
 
 void	Server::actCreateOfferStream(Server* server, Client* client)
@@ -707,31 +709,35 @@ void	Server::actCreateOfferStream(Server* server, Client* client)
 			    "limit ?, 1;"));
 
   stmt->Bind(0, row);
-  if (stmt->NextRow())
+  if (!stmt->NextRow())
     {
-      price = stmt->ValueInt(0);
-      if (!server->enoughCredit(price, client))
-	{
-	  client->appendBufWrite(MESG_KO);
-	  return;
-	}
-      slots = stmt->ValueInt(1);
-      bits = stmt->ValueInt(2);
-      stmt.reset(server->_sql.Statement("insert into services_stream "
-					"values(NULL, ?, ?, ?, ?, ?, ?, ?);"));
-      stmt->Bind(0, client->getId());
-      stmt->Bind(1, name);
-      stmt->Bind(2, slots);
-      stmt->Bind(3, bits);
-      stmt->Bind(4, title);
-      stmt->Bind(5, 1);
-      stmt->Bind(6, 1);
-      stmt->Execute();
-      server->subCredit(price, client);
-      client->appendBufWrite(MESG_OK);
+      client->appendBufWrite(MESG_KO);
+      return;
     }
-  else
-    client->appendBufWrite(MESG_KO);
+  price = stmt->ValueInt(0);
+  if (!server->enoughCredit(price, client))
+    {
+      client->appendBufWrite(MESG_KO);
+      return;
+    }
+  slots = stmt->ValueInt(1);
+  bits = stmt->ValueInt(2);
+  stmt.reset(server->_sql.Statement("insert into services_stream "
+				    "values(NULL, ?, ?, ?, ?, ?, ?, ?);"));
+  stmt->Bind(0, client->getId());
+  stmt->Bind(1, name);
+  stmt->Bind(2, slots);
+  stmt->Bind(3, bits);
+  stmt->Bind(4, title);
+  stmt->Bind(5, 1);
+  stmt->Bind(6, 1);
+  stmt->Execute();
+  server->subCredit(price, client);
+
+  std::auto_ptr<IServerStream>	serverStream(new IceCast(client));
+
+  serverStream->createStream(name, slots, bits);
+  client->appendBufWrite(MESG_OK);
 }
 
 void	Server::actCreateWeb(Server* server, Client* client)
@@ -775,6 +781,10 @@ void	Server::actCreateWeb(Server* server, Client* client)
   stmt->Bind(6, 1);
   stmt->Execute();
   server->subCredit(price, client);
+
+  std::auto_ptr<IServerWeb>	serverWeb(new Apache(client));
+
+  serverWeb->createHost(domain);
   client->appendBufWrite(MESG_OK);
 }
 
@@ -798,8 +808,6 @@ void	Server::actCreateStream(Server* server, Client* client)
     }
   price = ((slots / RATIO_STREAM_SLOT)
 	   + (bits / RATIO_STREAM_BITS));
-  std::cout << "price: " << price << std::endl;
-  std::cout << "credit: " << client->getCredit() << std::endl;
   if (!server->enoughCredit(price, client))
     {
       client->appendBufWrite(MESG_KO);
@@ -819,6 +827,10 @@ void	Server::actCreateStream(Server* server, Client* client)
   stmt->Bind(6, 1);
   stmt->Execute();
   server->subCredit(price, client);
+
+  std::auto_ptr<IServerStream>	serverStream(new IceCast(client));
+
+  serverStream->createStream(name, slots, bits);
   client->appendBufWrite(MESG_OK);
 }
 

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:27:02 2008 caner candan
-// Last update Sat Aug 16 22:17:29 2008 caner candan
+// Last update Tue Sep  2 14:12:20 2008 caner candan
 //
 
 #ifndef __SOCKETSERVER_H__
@@ -21,11 +21,8 @@ class	SocketServer : public Socket
 public:
   SocketServer();
   SocketServer(int port);
-  SocketServer(const SocketServer&);
-  ~SocketServer();
-  SocketServer	&operator=(const SocketServer&);
 
-  void	SocketServer::createSocket(int port = 12345);
+  void		createSocket(int port = 12345);
   std::string	head(void);
 };
 

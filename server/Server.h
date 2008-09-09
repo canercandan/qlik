@@ -5,13 +5,16 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Tue Sep  2 01:03:23 2008 caner candan
+// Last update Fri Sep  5 21:57:59 2008 caner candan
 //
 
 #ifndef __SERVER_H__
 # define __SERVER_H__
 
+# include <sys/types.h>
+# include <unistd.h>
 # include <list>
+# include <map>
 # include <string>
 # include "Client.h"
 # include "SQLiteWrapper.h"
@@ -109,6 +112,14 @@
 // news_detail ROW
 // -> news_detail (BODY|KO)
 
+# define STREAM_START		"stream_start"
+// stream_start NAME
+// -> stream_start (OK|KO)
+
+# define STREAM_STOP		"stream_stop"
+// stream_stop NAME
+// -> stream_stop (OK|KO)
+
 # define RATIO_WEB_SPACE	100
 # define RATIO_WEB_DB		1
 
@@ -126,7 +137,9 @@
 class	Server
 {
 public:
-  typedef std::list<Client*>	listClients;
+  typedef std::list<Client*>		listClients;
+  typedef std::map<std::string, pid_t>	mapPid;
+
   typedef void	(*fct)(Server*, Client*);
 
   struct	Actions
@@ -200,6 +213,7 @@ public:
 private:
   SQLiteWrapper	_sql;
   listClients	_clients;
+  mapPid	_mapPid;
 };
 
 #endif // !__SERVER_H__

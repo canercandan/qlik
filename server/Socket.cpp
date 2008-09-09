@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 13:26:53 2008 caner candan
-// Last update Sun Aug 17 01:02:03 2008 caner candan
+// Last update Tue Sep  2 14:14:36 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -21,22 +21,9 @@ Socket::Socket()
   : _socket(-1), _status(true)
 {}
 
-Socket::Socket(const Socket& s)
-{*this = s;}
-
 Socket::~Socket()
 {
   closeSocket();
-}
-
-Socket&	Socket::operator=(const Socket& s)
-{
-  if (this != &s)
-    {
-      this->_socket = s._socket;
-      this->_status = s._status;
-    }
-  return (*this);
 }
 
 void	Socket::closeSocket(void)

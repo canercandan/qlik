@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 21:57:02 2008 caner candan
-// Last update Sat Aug 16 22:19:45 2008 caner candan
+// Last update Tue Sep  2 14:13:09 2008 caner candan
 //
 
 #ifndef __SOCKETCLIENT_H__
@@ -19,9 +19,6 @@ class	SocketClient : public Socket
 public:
   SocketClient();
   SocketClient(int socketServer);
-  SocketClient(const SocketClient&);
-  ~SocketClient();
-  SocketClient	&operator=(const SocketClient&);
 
   void	SocketClient::acceptClient(int socketServer);
   std::string	head(void);

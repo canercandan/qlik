@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:29:14 2008 caner candan
-// Last update Sun Aug 17 01:02:53 2008 caner candan
+// Last update Tue Sep  2 14:11:58 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -21,27 +21,11 @@
 #include "State.h"
 
 SocketServer::SocketServer()
-  : Socket()
 {}
 
 SocketServer::SocketServer(int port)
-  : Socket()
 {
   createSocket(port);
-}
-
-SocketServer::SocketServer(const SocketServer& ss)
-  : Socket()
-{*this = ss;}
-
-SocketServer::~SocketServer()
-{}
-
-SocketServer&	SocketServer::operator=(const SocketServer& ss)
-{
-  if (this != &ss)
-    this->_socket = ss._socket;
-  return (*this);
 }
 
 void	SocketServer::createSocket(int port /*= 12345*/)

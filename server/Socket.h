@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 13:20:30 2008 caner candan
-// Last update Sat Aug 16 22:14:00 2008 caner candan
+// Last update Tue Sep  2 14:14:13 2008 caner candan
 //
 
 #ifndef __SOCKET_H__
@@ -17,9 +17,7 @@ class	Socket
 {
 public:
   Socket();
-  Socket(const Socket&);
   ~Socket();
-  Socket&	operator=(const Socket&);
 
   void		closeSocket(void);
   void		send(const std::string& s);
