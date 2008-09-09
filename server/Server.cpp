@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Fri Sep  5 18:37:45 2008 caner candan
+// Last update Tue Sep  9 17:22:30 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -164,6 +164,8 @@ void		Server::loopServer(void)
 	    throw true;
 	  this->issetFd(fdRead, fdWrite);
 	}
+      std::cout << std::endl
+		<< "Server stopped." << std::endl;
     }
   catch (bool)
     {
