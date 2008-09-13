@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 08:52:06 2008 caner candan
-// Last update Mon Sep  1 21:12:33 2008 caner candan
+// Last update Fri Sep 12 22:34:39 2008 caner candan
 //
 
 #include <sstream>
@@ -60,35 +60,10 @@ const std::string&	Client::getBufWrite(void) const
   return (this->_bufWrite);
 }
 
-const Client::Type&	Client::getType(void) const
+bool	Client::isConnected()
 {
-  return (this->_type);
-}
-
-const Client::Right&	Client::getRight(void) const
-{
-  return (this->_right);
-}
-
-const std::string&	Client::getLogin(void) const
-{
-  return (this->_login);
-}
-
-int	Client::getId(void) const
-{
-  return (this->_id);
-}
-
-int	Client::getCredit(void) const
-{
-  return (this->_credit);
-}
-
-bool	Client::isConnected() const
-{
-  return (!this->getLogin().empty()
-	  && this->getSocket()->getStatus());
+  return (!this->getLogin().empty() &&
+	  this->getSocket()->getStatus());
 }
 
 void	Client::appendBufRead(const std::string& bufRead)
@@ -115,21 +90,6 @@ void	Client::appendBufWrite(const int& bufWrite)
 
   ss << bufWrite;
   this->_bufWrite += ss.str();
-}
-
-void	Client::setLogin(const std::string& login)
-{
-  this->_login = login;
-}
-
-void	Client::setId(const int& id)
-{
-  this->_id = id;
-}
-
-void	Client::setCredit(const int& credit)
-{
-  this->_credit = credit;
 }
 
 void	Client::clearBufRead(void)

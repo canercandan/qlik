@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 08:50:46 2008 caner candan
-// Last update Mon Sep  1 21:12:24 2008 caner candan
+// Last update Fri Sep 12 22:34:40 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -37,13 +37,9 @@ public:
   Socket		*getSocket(void) const;
   const std::string&	getBufRead(void) const;
   const std::string&	getBufWrite(void) const;
-  const Type&		getType(void) const;
   const Right&		getRight(void) const;
-  const std::string&	getLogin(void) const;
-  int			getId(void) const;
-  int			getCredit(void) const;
 
-  bool	isConnected() const;
+  bool	isConnected();
 
   void	appendBufRead(const std::string&);
   void	appendBufRead(const int&);
@@ -51,21 +47,44 @@ public:
   void	appendBufWrite(const std::string&);
   void	appendBufWrite(const int&);
 
-  void	setLogin(const std::string&);
-  void	setId(const int&);
-  void	setCredit(const int&);
-
-  void	clearBufRead(void);
-  void	clearBufWrite(void);
 private:
-  Socket	*_socket;
+  Socket*	_socket;
   std::string	_bufRead;
   std::string	_bufWrite;
-  Type		_type;
-  Right		_right;
-  int		_id;
+
+public:
+  const Type&	getType(void){return (_type);}
+  void	setType(const Type& type){_type = type;}
+private:
+  Type	_type;
+
+public:
+  const Right&	getRight(void){return (_right);}
+  void	setRight(const Right& right){_right = right;}
+private:
+  Right	_right;
+
+public:
+  const std::string&	getLogin(void){return (_login);}
+  void	setLogin(const std::string& login){_login = login;}
+private:
   std::string	_login;
-  int		_credit;
+
+public:
+  const int&	getId(void){return (_id);}
+  void	setId(const int& id){_id = id;}
+private:
+  int	_id;
+
+public:
+  const int&	getCredit(void){return (_credit);}
+  void	setCredit(const int& credit){_credit = credit;}
+private:
+  int	_credit;
+
+public:
+  void	clearBufRead(void);
+  void	clearBufWrite(void);
 };
 
 #endif // !__CLIENT_H__
