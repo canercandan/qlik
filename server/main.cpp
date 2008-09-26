@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:26:20 2008 caner candan
-// Last update Tue Sep  9 17:16:57 2008 caner candan
+// Last update Sun Sep 21 22:44:06 2008 caner candan
 //
 
 #include <cstdlib>
@@ -15,9 +15,10 @@
 int		main(int ac, char **av)
 {
   Server	s;
-  pid_t		pid;
 
 #ifndef DEBUG
+  pid_t		pid;
+
   if ((pid = fork()))
     {
       std::cout << "Server started..." << std::endl
