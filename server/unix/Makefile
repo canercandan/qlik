@@ -16,7 +16,8 @@ SRCS		=	$(PATH_SRC)/main.cpp		\
 			$(PATH_SRC)/Socket.cpp		\
 			$(PATH_SRC)/SocketClient.cpp	\
 			$(PATH_SRC)/SocketServer.cpp	\
-			$(PATH_SRC)/State.cpp
+			$(PATH_SRC)/State.cpp		\
+			$(PATH_SRC)/XmlParser.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
@@ -26,8 +27,11 @@ RM		=	rm -f
 SQLITE_INCLUDE	=	`pkg-config sqlite3 --cflags`
 SQLITE_LIBRARY	=	`pkg-config sqlite3 --libs`
 
-INCLUDES	+=	-I$(PATH_INCLUDE) $(SQLITE_INCLUDE)
-LIBRARIES	+=	-L$(PATH_LIBRARY) $(SQLITE_LIBRARY)
+XML_INCLUDE	=	`xml2-config --cflags`
+XML_LIBRARY	=	`xml2-config --libs`
+
+INCLUDES	+=	-I$(PATH_INCLUDE) $(SQLITE_INCLUDE) $(XML_INCLUDE)
+LIBRARIES	+=	-L$(PATH_LIBRARY) $(SQLITE_LIBRARY) $(XML_LIBRARY)
 
 DEBUG_42	=	-g -DDEBUG
 COMPAT		+=	-D__BSD_VISIBLE
