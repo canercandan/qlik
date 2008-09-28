@@ -75,7 +75,7 @@
          <string/>
         </property>
         <property name="icon" >
-         <iconset>images/email_go.png</iconset>
+         <iconset>../images/email_go.png</iconset>
         </property>
        </widget>
       </item>
@@ -85,7 +85,7 @@
          <string/>
         </property>
         <property name="icon" >
-         <iconset>images/user_add.png</iconset>
+         <iconset>../images/user_add.png</iconset>
         </property>
        </widget>
       </item>

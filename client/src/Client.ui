@@ -38,7 +38,7 @@
       <string>News</string>
      </attribute>
      <attribute name="icon" >
-      <iconset>images/newspaper.png</iconset>
+      <iconset>../images/newspaper.png</iconset>
      </attribute>
      <widget class="QWidget" name="verticalLayout_3" >
       <property name="geometry" >
@@ -61,7 +61,7 @@
             <string>Read</string>
            </property>
            <property name="icon" >
-            <iconset>images/newspaper_go.png</iconset>
+            <iconset>../images/newspaper_go.png</iconset>
            </property>
           </widget>
          </item>
@@ -83,7 +83,7 @@
       <string>Services</string>
      </attribute>
      <attribute name="icon" >
-      <iconset>images/bricks.png</iconset>
+      <iconset>../images/bricks.png</iconset>
      </attribute>
      <widget class="QWidget" name="verticalLayout" >
       <property name="geometry" >
@@ -140,7 +140,7 @@
             <string>Manage</string>
            </property>
            <property name="icon" >
-            <iconset>images/brick_edit.png</iconset>
+            <iconset>../images/brick_edit.png</iconset>
            </property>
           </widget>
          </item>
@@ -150,7 +150,7 @@
             <string>Credit</string>
            </property>
            <property name="icon" >
-            <iconset>images/coins_add.png</iconset>
+            <iconset>../images/coins_add.png</iconset>
            </property>
           </widget>
          </item>
@@ -162,7 +162,7 @@
           <string>Add a new service</string>
          </property>
          <property name="icon" >
-          <iconset>images/brick_add.png</iconset>
+          <iconset>../images/brick_add.png</iconset>
          </property>
         </widget>
        </item>
@@ -182,7 +182,7 @@
       <string>Credit</string>
      </attribute>
      <attribute name="icon" >
-      <iconset>images/coins.png</iconset>
+      <iconset>../images/coins.png</iconset>
      </attribute>
      <widget class="QWidget" name="verticalLayout_4" >
       <property name="geometry" >
@@ -268,7 +268,7 @@
       <string>Talk</string>
      </attribute>
      <attribute name="icon" >
-      <iconset>images/user_comment.png</iconset>
+      <iconset>../images/user_comment.png</iconset>
      </attribute>
      <widget class="QWidget" name="verticalLayout_5" >
       <property name="geometry" >
@@ -310,7 +310,7 @@
                  <string>Add</string>
                 </property>
                 <property name="icon" >
-                 <iconset>images/user_add.png</iconset>
+                 <iconset>../images/user_add.png</iconset>
                 </property>
                </widget>
               </item>
@@ -320,7 +320,7 @@
                  <string>Delete</string>
                 </property>
                 <property name="icon" >
-                 <iconset>images/user_delete.png</iconset>
+                 <iconset>../images/user_delete.png</iconset>
                 </property>
                </widget>
               </item>
@@ -354,7 +354,7 @@
                  <string>Add in my contact's list</string>
                 </property>
                 <property name="icon" >
-                 <iconset>images/user_add.png</iconset>
+                 <iconset>../images/user_add.png</iconset>
                 </property>
                </widget>
               </item>
@@ -371,7 +371,7 @@
           <string>Talk</string>
          </property>
          <property name="icon" >
-          <iconset>images/comment_edit.png</iconset>
+          <iconset>../images/comment_edit.png</iconset>
          </property>
         </widget>
        </item>
@@ -499,7 +499,7 @@
   </widget>
   <action name="actionSignIn" >
    <property name="icon" >
-    <iconset>images/connect.png</iconset>
+    <iconset>../images/connect.png</iconset>
    </property>
    <property name="text" >
     <string>Sign in</string>
@@ -507,7 +507,7 @@
   </action>
   <action name="actionSignOut" >
    <property name="icon" >
-    <iconset>images/disconnect.png</iconset>
+    <iconset>../images/disconnect.png</iconset>
    </property>
    <property name="text" >
     <string>Sign out</string>
@@ -515,7 +515,7 @@
   </action>
   <action name="actionQuit" >
    <property name="icon" >
-    <iconset>images/door.png</iconset>
+    <iconset>../images/door.png</iconset>
    </property>
    <property name="text" >
     <string>Quit</string>
@@ -523,7 +523,7 @@
   </action>
   <action name="actionSignUp" >
    <property name="icon" >
-    <iconset>images/database_save.png</iconset>
+    <iconset>../images/database_save.png</iconset>
    </property>
    <property name="text" >
     <string>Sign up</string>
@@ -531,7 +531,7 @@
   </action>
   <action name="actionInformation" >
    <property name="icon" >
-    <iconset>images/information.png</iconset>
+    <iconset>../images/information.png</iconset>
    </property>
    <property name="text" >
     <string>Information</string>
@@ -539,7 +539,7 @@
   </action>
   <action name="actionHelp" >
    <property name="icon" >
-    <iconset>images/help.png</iconset>
+    <iconset>../images/help.png</iconset>
    </property>
    <property name="text" >
     <string>Help</string>
@@ -547,7 +547,7 @@
   </action>
   <action name="actionRefresh" >
    <property name="icon" >
-    <iconset>images/database_refresh.png</iconset>
+    <iconset>../images/database_refresh.png</iconset>
    </property>
    <property name="text" >
     <string>Refresh</string>
@@ -555,7 +555,7 @@
   </action>
   <action name="actionOptions" >
    <property name="icon" >
-    <iconset>images/wrench.png</iconset>
+    <iconset>../images/wrench.png</iconset>
    </property>
    <property name="text" >
     <string>Options</string>
@@ -563,7 +563,7 @@
   </action>
   <action name="actionAccounts" >
    <property name="icon" >
-    <iconset>images/group_gear.png</iconset>
+    <iconset>../images/group_gear.png</iconset>
    </property>
    <property name="text" >
     <string>Accounts</string>

@@ -10,51 +10,51 @@ INCLUDEPATH	+=	.
 DEFINES		+=	#QT_NO_DEBUG_OUTPUT
 
 # Input
-HEADERS		+=	Client.h	\
-			Connect.h	\
-			Create.h	\
-			Service.h	\
-			Message.h	\
-			Web.h		\
-			Stream.h	\
-			Credit.h	\
-			Singleton.hpp	\
-			State.h		\
-			Options.h	\
-			Database.h	\
-			Socket.h	\
-			Accounts.h	\
-			Contact.h
+HEADERS		+=	../src/Client.h		\
+			../src/Connect.h	\
+			../src/Create.h		\
+			../src/Service.h	\
+			../src/Message.h	\
+			../src/Web.h		\
+			../src/Stream.h		\
+			../src/Credit.h		\
+			../src/Singleton.hpp	\
+			../src/State.h		\
+			../src/Options.h	\
+			../src/Database.h	\
+			../src/Socket.h		\
+			../src/Accounts.h	\
+			../src/Contact.h
 
-FORMS		+=	Client.ui	\
-			Connect.ui	\
-			Create.ui	\
-			Service.ui	\
-			Message.ui	\
-			Web.ui		\
-			Stream.ui	\
-			Credit.ui	\
-			Options.ui	\
-			Accounts.ui	\
-			Contact.ui
+FORMS		+=	../src/Client.ui	\
+			../src/Connect.ui	\
+			../src/Create.ui	\
+			../src/Service.ui	\
+			../src/Message.ui	\
+			../src/Web.ui		\
+			../src/Stream.ui	\
+			../src/Credit.ui	\
+			../src/Options.ui	\
+			../src/Accounts.ui	\
+			../src/Contact.ui
 
-SOURCES		+=	main.cpp	\
-			Client.cpp	\
-			Connect.cpp	\
-			Create.cpp	\
-			Service.cpp	\
-			Message.cpp	\
-			Web.cpp		\
-			Stream.cpp	\
-			Credit.cpp	\
-			State.cpp	\
-			Options.cpp	\
-			Database.cpp	\
-			Socket.cpp	\
-			Accounts.cpp	\
-			Contact.cpp
+SOURCES		+=	../src/main.cpp		\
+			../src/Client.cpp	\
+			../src/Connect.cpp	\
+			../src/Create.cpp	\
+			../src/Service.cpp	\
+			../src/Message.cpp	\
+			../src/Web.cpp		\
+			../src/Stream.cpp	\
+			../src/Credit.cpp	\
+			../src/State.cpp	\
+			../src/Options.cpp	\
+			../src/Database.cpp	\
+			../src/Socket.cpp	\
+			../src/Accounts.cpp	\
+			../src/Contact.cpp
 
 CONFIG		+=	#debug
 
-QT		+=	network		\
+QT		+=	network	\
 			sql
