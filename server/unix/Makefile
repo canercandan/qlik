@@ -23,8 +23,11 @@ OBJS		=	$(SRCS:.cpp=.o)
 CXX		=	g++
 RM		=	rm -f
 
-INCLUDES	+=	-I$(PATH_INCLUDE)
-LIBRARIES	+=	-L$(PATH_LIBRARY)
+SQLITE_INCLUDE	=	`pkg-config sqlite3 --cflags`
+SQLITE_LIBRARY	=	`pkg-config sqlite3 --libs`
+
+INCLUDES	+=	-I$(PATH_INCLUDE) $(SQLITE_INCLUDE)
+LIBRARIES	+=	-L$(PATH_LIBRARY) $(SQLITE_LIBRARY)
 
 DEBUG_42	=	-g -DDEBUG
 COMPAT		+=	-D__BSD_VISIBLE

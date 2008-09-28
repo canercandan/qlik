@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Fri Sep  5 21:57:59 2008 caner candan
+// Last update Sun Sep 28 02:12:54 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -19,7 +19,7 @@
 # include "Client.h"
 # include "SQLiteWrapper.h"
 
-# define DBFILE	"db/server.db"
+# define DBFILE	"../db/server.db"
 
 # define MESG_OK	"OK\n"
 # define MESG_KO	"KO\n"
