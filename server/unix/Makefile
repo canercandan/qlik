@@ -18,6 +18,7 @@ SRCS		=	$(PATH_SRC)/main.cpp		\
 			$(PATH_SRC)/SocketClient.cpp	\
 			$(PATH_SRC)/SocketServer.cpp	\
 			$(PATH_SRC)/State.cpp		\
+			$(PATH_SRC)/XmlConfig.cpp	\
 			$(PATH_SRC)/XmlParser.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
