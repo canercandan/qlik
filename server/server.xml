@@ -1,0 +1,5 @@
+<server>
+  <listen port="4242" />
+  <daemon enabled="true" />
+  <database path="../db/server.db" />
+</server>
