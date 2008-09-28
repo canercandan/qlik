@@ -13,6 +13,7 @@ SRCS		=	$(PATH_SRC)/main.cpp		\
 			$(PATH_SRC)/IceCast.cpp		\
 			$(PATH_SRC)/SQLiteWrapper.cpp	\
 			$(PATH_SRC)/Server.cpp		\
+			$(PATH_SRC)/Signal.cpp		\
 			$(PATH_SRC)/Socket.cpp		\
 			$(PATH_SRC)/SocketClient.cpp	\
 			$(PATH_SRC)/SocketServer.cpp	\

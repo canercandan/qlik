@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:26:20 2008 caner candan
-// Last update Sun Sep 21 22:44:06 2008 caner candan
+// Last update Sun Sep 28 16:45:47 2008 caner candan
 //
 
 #include <cstdlib>
@@ -16,7 +16,7 @@ int		main(int ac, char **av)
 {
   Server	s;
 
-#ifndef DEBUG
+#ifdef DEBUG4242
   pid_t		pid;
 
   if ((pid = fork()))

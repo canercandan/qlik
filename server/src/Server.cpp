@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Tue Sep  9 17:22:30 2008 caner candan
+// Last update Sun Sep 28 16:56:21 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -21,36 +21,45 @@
 #include "State.h"
 #include "Apache.h"
 #include "IceCast.h"
+#include "Signal.h"
+#include "Protocole.h"
 
 Server::Actions	Server::actions[] = {
-  {LOGIN, actLogin, MESG_EMPTY},
-  {LOGOUT, actLogout, MESG_OK},
-  {CREATE, actCreate, MESG_EMPTY},
-  {STATUS, actStatus, MESG_EMPTY},
-  {CLIENTS, actClients, MESG_EMPTY},
-  {ACCOUNTS, actAccounts, MESG_EMPTY},
-  {MESSAGE, actMessage, MESG_EMPTY},
-  {SERVICES_WEB, actServicesWeb, MESG_EMPTY},
-  {SERVICES_STREAM, actServicesStream, MESG_EMPTY},
-  {SERVICES_WEB_DETAIL, actServicesWebDetail, MESG_EMPTY},
-  {SERVICES_STREAM_DETAIL, actServicesStreamDetail, MESG_EMPTY},
-  {OFFER_WEB, actOfferWeb, MESG_EMPTY},
-  {OFFER_STREAM, actOfferStream, MESG_EMPTY},
-  {CREATE_OFFER_WEB, actCreateOfferWeb, MESG_EMPTY},
-  {CREATE_OFFER_STREAM, actCreateOfferStream, MESG_EMPTY},
-  {CREATE_WEB, actCreateWeb, MESG_EMPTY},
-  {CREATE_STREAM, actCreateStream, MESG_EMPTY},
-  {NEWS, actNews, MESG_EMPTY},
-  {NEWS_DETAIL, actNewsDetail, MESG_EMPTY},
-  {MESG_EMPTY, NULL, MESG_EMPTY}
+  {Protocole::login, actLogin, Protocole::empty},
+  {Protocole::logout, actLogout, Protocole::ok},
+  {Protocole::create, actCreate, Protocole::empty},
+  {Protocole::status, actStatus, Protocole::empty},
+  {Protocole::clients, actClients, Protocole::empty},
+  {Protocole::accounts, actAccounts, Protocole::empty},
+  {Protocole::message, actMessage, Protocole::empty},
+  {Protocole::servicesWeb, actServicesWeb, Protocole::empty},
+  {Protocole::servicesStream, actServicesStream, Protocole::empty},
+  {Protocole::servicesWebDetail, actServicesWebDetail, Protocole::empty},
+  {Protocole::servicesStreamDetail, actServicesStreamDetail, Protocole::empty},
+  {Protocole::offerWeb, actOfferWeb, Protocole::empty},
+  {Protocole::offerStream, actOfferStream, Protocole::empty},
+  {Protocole::createOfferWeb, actCreateOfferWeb, Protocole::empty},
+  {Protocole::createOfferStream, actCreateOfferStream, Protocole::empty},
+  {Protocole::createWeb, actCreateWeb, Protocole::empty},
+  {Protocole::createStream, actCreateStream, Protocole::empty},
+  {Protocole::news, actNews, Protocole::empty},
+  {Protocole::newsDetail, actNewsDetail, Protocole::empty},
+  {Protocole::empty, NULL, Protocole::empty}
 };
 
 Server::Server()
 {
   _sql.Open(DBFILE);
+
+  Signal*	signal = Signal::getInstance();
+
+  signal->addCallback(Signal::INT, this,
+		      static_cast<ISignalManager::callback>
+		      (&Server::signal));
 }
 
 Server::Server(const Server& s)
+  : ISignalManager()
 {*this = s;}
 
 Server::~Server()
@@ -63,6 +72,12 @@ Server&	Server::operator=(const Server& s)
   if (this != &s)
     this->_clients = s._clients;
   return (*this);
+}
+
+void	Server::signal()
+{
+  std::cout << "Server signal" << std::endl;
+  destroyListClients();
 }
 
 void	Server::destroyListClients()
