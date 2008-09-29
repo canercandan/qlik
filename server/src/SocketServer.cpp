@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:29:14 2008 caner candan
-// Last update Tue Sep  2 14:11:58 2008 caner candan
+// Last update Mon Sep 29 14:48:48 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -19,6 +19,7 @@
 #include <sstream>
 #include "SocketServer.h"
 #include "State.h"
+#include "Config.h"
 
 SocketServer::SocketServer()
 {}
@@ -30,11 +31,13 @@ SocketServer::SocketServer(int port)
 
 void	SocketServer::createSocket(int port /*= 12345*/)
 {
-  struct sockaddr_in	addr;
-  struct protoent	*pe;
+  Config*	config = Config::getInstance();
 
   try
     {
+      struct sockaddr_in	addr;
+      struct protoent		*pe;
+
       pe = ::getprotobyname("tcp");
       if ((this->_socket = ::socket(PF_INET, SOCK_STREAM,
 				    pe->p_proto)) < 0)
@@ -47,25 +50,25 @@ void	SocketServer::createSocket(int port /*= 12345*/)
 	throw 2;
       if (listen(this->_socket, MAX_LISTEN) < 0)
 	throw 3;
-#ifdef DEBUG
-      std::cout << this->head()
-		<< "Socket created in "
-		<< "localhost : " << port
-		<< std::endl;
-#endif // !DEBUG
+      if (config->isVerbose())
+	std::cout << this->head()
+		  << "Socket created in "
+		  << "localhost : " << port
+		  << std::endl;
     }
   catch (int e)
     {
-#ifdef DEBUG
-      std::cout << this->head();
-      if (e == 1)
-	std::cout << "socket error";
-      else if (e == 2)
-	std::cout << "bind error";
-      else if (e == 3)
-	std::cout << "listen error";
-      std::cout << std::endl;
-#endif // !DEBUG
+      if (config->isVerbose())
+	{
+	  std::cout << this->head();
+	  if (e == 1)
+	    std::cout << "socket error";
+	  else if (e == 2)
+	    std::cout << "bind error";
+	  else if (e == 3)
+	    std::cout << "listen error";
+	  std::cout << std::endl;
+	}
       State::getInstance()->setState(State::ERROR);
       this->closeSocket();
     }

@@ -10,6 +10,7 @@ NAME		=	$(PATH_BIN)/server
 SRCS		=	$(PATH_SRC)/main.cpp		\
 			$(PATH_SRC)/Apache.cpp		\
 			$(PATH_SRC)/Client.cpp		\
+			$(PATH_SRC)/Config.cpp		\
 			$(PATH_SRC)/IceCast.cpp		\
 			$(PATH_SRC)/SQLiteWrapper.cpp	\
 			$(PATH_SRC)/Server.cpp		\
@@ -18,7 +19,6 @@ SRCS		=	$(PATH_SRC)/main.cpp		\
 			$(PATH_SRC)/SocketClient.cpp	\
 			$(PATH_SRC)/SocketServer.cpp	\
 			$(PATH_SRC)/State.cpp		\
-			$(PATH_SRC)/XmlConfig.cpp	\
 			$(PATH_SRC)/XmlParser.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)

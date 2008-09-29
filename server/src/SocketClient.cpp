@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:29:14 2008 caner candan
-// Last update Tue Sep  2 14:13:04 2008 caner candan
+// Last update Mon Sep 29 14:49:04 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -15,6 +15,7 @@
 #include <sstream>
 #include "SocketClient.h"
 #include "State.h"
+#include "Config.h"
 
 SocketClient::SocketClient()
 {}
@@ -26,6 +27,8 @@ SocketClient::SocketClient(int socketServer)
 
 void	SocketClient::acceptClient(int socketServer)
 {
+  Config*	config = Config::getInstance();
+
   try
     {
       if ((this->_socket = accept(socketServer, NULL, NULL)) < 0)
@@ -33,11 +36,10 @@ void	SocketClient::acceptClient(int socketServer)
     }
   catch (bool)
     {
-#ifdef DEBUG
-      std::cout << this->head()
-		<< "accept error"
-		<< std::endl;
-#endif // !DEBUG
+      if (config->isVerbose())
+	std::cout << this->head()
+		  << "accept error"
+		  << std::endl;
       State::getInstance()->setState(State::ERROR);
       this->closeSocket();
     }

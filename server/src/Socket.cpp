@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 13:26:53 2008 caner candan
-// Last update Tue Sep  2 14:14:36 2008 caner candan
+// Last update Mon Sep 29 15:14:14 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <sstream>
 #include "Socket.h"
+#include "Config.h"
 
 Socket::Socket()
   : _socket(-1), _status(true)
@@ -32,22 +33,23 @@ void	Socket::closeSocket(void)
     {
       this->setStatus(false);
       ::close(this->_socket);
-#ifdef DEBUG
-      std::cout << this->head()
-		<< "socket closed"
-		<< std::endl;
-#endif // !DEBUG
+      if (Config::getInstance()->isVerbose())
+	std::cout << this->head()
+		  << "socket closed"
+		  << std::endl;
     }
 }
 
 void	Socket::send(const std::string& s)
 {
-  std::string	str(s);
-  std::string	toSend;
-  size_t	pos;
+  Config*	config = Config::getInstance();
 
   try
     {
+      std::string	str(s);
+      std::string	toSend;
+      size_t		pos;
+
       if (!this->isConnected())
 	throw 1;
       while ((pos = str.find('\n')) != std::string::npos)
@@ -55,61 +57,63 @@ void	Socket::send(const std::string& s)
 	  toSend = str.substr(0, pos + 1);
 	  if (::send(this->_socket, toSend.c_str(), toSend.size(), 0) < 0)
 	    throw 2;
-#ifdef DEBUG
-	  std::cout << this->head()
-		    << "send [" << toSend << ']'
-		    << std::endl;
-#endif // !DEBUG
+	  if (config->isVerbose())
+	    std::cout << this->head()
+		      << "send [" << toSend << ']'
+		      << std::endl;
 	  str = str.substr(pos + 1);
 	}
     }
   catch (int e)
     {
-#ifdef DEBUG
-      std::cout << this->head();
-      if (e == 1)
-	std::cout << "send error, not connected";
-      else if (e == 2)
-	std::cout << "send error";
-      std::cout << std::endl;
-#endif // !DEBUG
+      if (config->isVerbose())
+	{
+	  std::cout << this->head();
+	  if (e == 1)
+	    std::cout << "send error, not connected";
+	  else if (e == 2)
+	    std::cout << "send error";
+	  std::cout << std::endl;
+	}
     }
 }
 
 std::string	Socket::recv()
 {
-  char		buf[1024];
-  int		size;
+  Config*	config = Config::getInstance();
 
   try
     {
       if (!this->isConnected())
 	throw 1;
-      size = ::recv(this->_socket, buf, sizeof(buf), 0);
+
+      char	buf[1024];
+      int	size = ::recv(this->_socket, buf, sizeof(buf), 0);
+
       if (!this->isGoodRecv())
 	throw 2;
       if (!size)
 	throw 3;
       buf[size] = 0;
-#ifdef DEBUG
-      std::cout << this->head()
-		<< "recv [" << buf << ']'
-		<< std::endl;
-#endif // !DEBUG
+      if (config->isVerbose())
+	std::cout << this->head()
+		  << "recv [" << buf << ']'
+		  << std::endl;
       return (std::string(buf));
     }
   catch (int e)
     {
-#ifdef DEBUG
-      std::cout << this->head() << "error recv, ";
-      if (e == 1)
-	std::cout << "not connected";
-      else if (e == 2)
-	std::cout << "trame incorrect";
-      else if (e == 3)
-	std::cout << "trame size incorrect";
-      std::cout << std::endl;
-#endif // !DEBUG
+      if (config->isVerbose())
+	{
+	  std::cout << this->head() << "error recv, ";
+	  if (e == 1)
+	    std::cout << "not connected";
+	  else if (e == 2)
+	    std::cout << "trame incorrect";
+	  else if (e == 3)
+	    std::cout << "trame size incorrect";
+	  std::cout << std::endl;
+	}
       this->closeSocket();
     }
   return ("");

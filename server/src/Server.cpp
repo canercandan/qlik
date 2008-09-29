@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Mon Sep 29 02:32:29 2008 caner candan
+// Last update Mon Sep 29 15:28:06 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -23,13 +23,13 @@
 #include "IceCast.h"
 #include "Signal.h"
 #include "Protocole.h"
-#include "XmlConfig.h"
+#include "Config.h"
 
 Server::Server()
 {
-  XmlConfig*	config = XmlConfig::getInstance();
+  Config*	config = Config::getInstance();
 
-  _sql.Open(config->xmlGetParam("//server/database", "path"));
+  _sql.Open(config->getDatabase());
 
   Signal*	signal = Signal::getInstance();
 
@@ -84,21 +84,24 @@ Server::~Server()
 
 void	Server::signal()
 {
-  std::cout << "Server signal" << std::endl;
+  if (Config::getInstance()->isVerbose())
+    std::cout << "Server signal" << std::endl;
   destroyListClients();
 }
 
 void	Server::destroyListClients()
 {
-  listClients::iterator	it;
-  listClients::iterator	end = this->_clients.end();
-
-  for (it = this->_clients.begin(); it != end; ++it)
-    if (*it)
-      {
-	delete *it;
-	*it = NULL;
-      }
+  for (listClients::iterator
+	 it = _clients.begin(),
+	 end = _clients.end();
+       it != end; ++it)
+    {
+      if (*it)
+	{
+	  delete *it;
+	  *it = NULL;
+	}
+    }
 }
 
 void		Server::addServer(int port)
@@ -124,10 +127,10 @@ void		Server::addClient(Client *server)
 
 void	Server::setFd(fd_set& fdRead, fd_set& fdWrite, int& fdMax)
 {
-  listClients::iterator	it;
-  listClients::iterator	end = this->_clients.end();
-
-  for (it = this->_clients.begin(); it != end; ++it)
+  for (listClients::iterator
+	 it = _clients.begin(),
+	 end = _clients.end();
+       it != end; ++it)
     {
       if (!(*it)->getSocket()->getStatus())
 	{
@@ -153,7 +156,10 @@ void	Server::issetFd(fd_set& fdRead, fd_set& fdWrite)
   listClients::const_iterator	it;
   listClients::const_iterator	end = this->_clients.end();
 
-  for (it = this->_clients.begin(); it != end; ++it)
+  for (listClients::const_iterator
+	 it = _clients.begin(),
+	 end = _clients.end();
+       it != end; ++it)
     {
       if (!(*it)->getSocket()->getStatus())
 	continue;
@@ -169,13 +175,15 @@ void	Server::issetFd(fd_set& fdRead, fd_set& fdWrite)
 
 void		Server::loopServer(void)
 {
-  fd_set	fdRead;
-  fd_set	fdWrite;
-  int		fdMax;
-  State*	state = State::getInstance();
+  Config*	config = Config::getInstance();
 
   try
     {
+      fd_set	fdRead;
+      fd_set	fdWrite;
+      int	fdMax;
+      State*	state = State::getInstance();
+
       while (state->getState() == State::START)
 	{
 	  FD_ZERO(&fdRead);
@@ -187,34 +195,32 @@ void		Server::loopServer(void)
 	    throw true;
 	  this->issetFd(fdRead, fdWrite);
 	}
-      std::cout << std::endl
-		<< "Server stopped." << std::endl;
+      if (config->isVerbose())
+	std::cout << std::endl
+		  << "Server stopped." << std::endl;
     }
   catch (bool)
     {
-#ifdef DEBUG
-      std::cout << this->head()
-		<< "select error" << std::endl;
-#endif // !DEBUG
+      if (config->isVerbose())
+	std::cout << this->head()
+		  << "select error" << std::endl;
     }
 }
 
 void	Server::serverRead(Client *server)
 {
-#ifdef DEBUG
-  std::cout << this->head()
-	    << "server read" << std::endl;
-#endif // !DEBUG
+  if (Config::getInstance()->isVerbose())
+    std::cout << this->head()
+	      << "server read" << std::endl;
   addClient(server);
 }
 
 void	Server::clientRead(Client *client)
 {
-#ifdef DEBUG
-  std::cout << this->head() << " ["
-	    << client->getSocket()->getSocket()
-	    << "] client read" << std::endl;
-#endif // !DEBUG
+  if (Config::getInstance()->isVerbose())
+    std::cout << this->head() << " ["
+	      << client->getSocket()->getSocket()
+	      << "] client read" << std::endl;
   client->clearBufRead();
   client->appendBufRead(client->getSocket()->recv());
   this->executeAction(client);
@@ -222,11 +228,10 @@ void	Server::clientRead(Client *client)
 
 void	Server::clientWrite(Client *client)
 {
-#ifdef DEBUG
-  std::cout << this->head() << " ["
-	    << client->getSocket()->getSocket()
-	    << "] client write" << std::endl;
-#endif // !DEBUG
+  if (Config::getInstance()->isVerbose())
+    std::cout << this->head() << " ["
+	      << client->getSocket()->getSocket()
+	      << "] client write" << std::endl;
   client->getSocket()->send(client->getBufWrite());
   client->clearBufWrite();
 }
@@ -281,25 +286,29 @@ bool	Server::existLoginPasswd(const std::string& login,
 
 bool	Server::alreadyConnected(const std::string& login)
 {
-  listClients::const_iterator	it;
-  listClients::const_iterator	end = this->getListClients().end();
-
-  for (it = this->getListClients().begin(); it != end; ++it)
-    if ((*it)->isConnected())
-      if ((*it)->getLogin() == login)
-	return (true);
+  for (listClients::const_iterator
+	 it = this->getListClients().begin(),
+	 end = this->getListClients().end();
+       it != end; ++it)
+    {
+      if ((*it)->isConnected())
+	if ((*it)->getLogin() == login)
+	  return (true);
+    }
   return (false);
 }
 
 Client	*Server::findClient(const std::string& login)
 {
-  listClients::const_iterator	it;
-  listClients::const_iterator	end = this->getListClients().end();
-
-  for (it = this->getListClients().begin(); it != end; ++it)
-    if ((*it)->isConnected())
-      if ((*it)->getLogin() == login)
-	return (*it);
+  for (listClients::const_iterator
+	 it = this->getListClients().begin(),
+	 end = this->getListClients().end();
+       it != end; ++it)
+    {
+      if ((*it)->isConnected())
+	if ((*it)->getLogin() == login)
+	  return (*it);
+    }
   return (NULL);
 }
 
@@ -433,15 +442,19 @@ void	Server::actStatus(Client* client)
 
 void	Server::actClients(Client* client)
 {
-  listClients::const_iterator	it;
-  listClients::const_iterator	end = this->getListClients().end();
-
   if (this->notConnected(client))
     return;
+
   client->appendBufWrite(Protocole::begin);
-  for (it = this->getListClients().begin(); it != end; ++it)
-    if ((*it)->isConnected())
-      client->appendBufWrite((*it)->getLogin() + '\n');
+
+  for (listClients::const_iterator
+	 it = this->getListClients().begin(),
+	 end = this->getListClients().end();
+       it != end; ++it)
+    {
+      if ((*it)->isConnected())
+	client->appendBufWrite((*it)->getLogin() + '\n');
+    }
   client->appendBufWrite(Protocole::end);
 }
 
@@ -468,6 +481,9 @@ void	Server::actAccounts(Client* client)
 
 void	Server::actMessage(Client* client)
 {
+  if (this->notConnected(client))
+    return;
+
   std::string	str(client->getBufRead());
   std::string	action;
   std::string	login;
@@ -475,8 +491,6 @@ void	Server::actMessage(Client* client)
   size_t	separator;
   Client	*to;
 
-  if (this->notConnected(client))
-    return;
   separator = str.find(' ');
   action = str.substr(0, separator);
   str = str.substr(separator + 1);
@@ -660,6 +674,9 @@ void	Server::actOfferStream(Client* client)
 
 void	Server::actCreateOfferWeb(Client* client)
 {
+  if (this->notConnected(client))
+    return;
+
   std::stringstream	ss(client->getBufRead());
   std::string		action;
   std::string		name;
@@ -669,8 +686,6 @@ void	Server::actCreateOfferWeb(Client* client)
   int			space;
   int			nbDb;
 
-  if (this->notConnected(client))
-    return;
   row = 0;
   ss >> action >> name >> row >> domain;
 
@@ -715,6 +730,9 @@ void	Server::actCreateOfferWeb(Client* client)
 
 void	Server::actCreateOfferStream(Client* client)
 {
+  if (this->notConnected(client))
+    return;
+
   std::stringstream		ss(client->getBufRead());
   std::string			action;
   std::string			name;
@@ -724,8 +742,6 @@ void	Server::actCreateOfferStream(Client* client)
   int				slots;
   int				bits;
 
-  if (this->notConnected(client))
-    return;
   row = 0;
   ss >> action >> name >> row >> title;
 
@@ -769,6 +785,9 @@ void	Server::actCreateOfferStream(Client* client)
 
 void	Server::actCreateWeb(Client* client)
 {
+  if (this->notConnected(client))
+    return;
+
   std::stringstream	ss(client->getBufRead());
   std::string		action;
   std::string		name;
@@ -777,8 +796,6 @@ void	Server::actCreateWeb(Client* client)
   int			price;
   std::string		domain;
 
-  if (this->notConnected(client))
-    return;
   space = 0;
   nbDb = 0;
   ss >> action >> name >> space >> nbDb >> domain;
@@ -797,7 +814,7 @@ void	Server::actCreateWeb(Client* client)
 
   std::auto_ptr<SQLiteStatement>	stmt
     (this->_sql.Statement("insert into services_web "
-			    "values(NULL, ?, ?, ?, ?, ?, ?, ?);"));
+			  "values(NULL, ?, ?, ?, ?, ?, ?, ?);"));
 
   stmt->Bind(0, client->getId());
   stmt->Bind(1, name);
@@ -817,6 +834,9 @@ void	Server::actCreateWeb(Client* client)
 
 void	Server::actCreateStream(Client* client)
 {
+  if (this->notConnected(client))
+    return;
+
   std::stringstream	ss(client->getBufRead());
   std::string		action;
   std::string		name;
@@ -825,8 +845,6 @@ void	Server::actCreateStream(Client* client)
   int			price;
   std::string		title;
 
-  if (this->notConnected(client))
-    return;
   ss >> action >> name >> slots >> bits >> title;
   if (name.empty() || !slots || !bits || title.empty())
     {

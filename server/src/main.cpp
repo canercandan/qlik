@@ -5,20 +5,18 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:26:20 2008 caner candan
-// Last update Mon Sep 29 00:50:05 2008 caner candan
+// Last update Mon Sep 29 14:16:00 2008 caner candan
 //
 
-#include <cstdlib>
 #include <iostream>
 #include "Server.h"
-#include "XmlConfig.h"
+#include "Config.h"
 
-int		main(int ac, char **av)
+int		main(void)
 {
-  Server	s;
-  XmlConfig*	config = XmlConfig::getInstance();
+  Config*	config = Config::getInstance();
 
-  if (config->xmlGetParam("/server/daemon", "enabled") == "true")
+  if (config->isDaemon())
     {
       pid_t		pid;
 
@@ -29,7 +27,9 @@ int		main(int ac, char **av)
 	  return (0);
 	}
     }
-  s.addServer(ac == 2 ? ::atoi(av[1]) : 4243);
+  Server	s;
+
+  s.addServer(config->getPort());
   s.loopServer();
   return (0);
 }
