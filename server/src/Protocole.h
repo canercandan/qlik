@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Sep 28 16:29:02 2008 caner candan
-// Last update Sun Sep 28 16:40:21 2008 caner candan
+// Last update Mon Sep 29 00:52:58 2008 caner candan
 //
 
 #ifndef __PROTOCOLE_H__
@@ -120,6 +120,13 @@ namespace	Protocole
   const int&	ratioWebDb = 1;
   const int&	ratioStreamSlot = 5;
   const int&	ratioStreamBits = 24;
+
+  const std::string&	passwdCharacters =
+    "abcdefghijklmnopqrstuvwxyz"
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "0123456789"
+    "!\"#$%&'()*+,-./:;<=>?[\\]^_`{|}~";
+  const int&		passwdSize = 8;
 };
 
 #endif // !__PROTOCOLE_H__

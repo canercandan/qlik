@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Sun Sep 28 16:58:22 2008 caner candan
+// Last update Mon Sep 29 01:32:21 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -20,60 +20,19 @@
 # include "SQLiteWrapper.h"
 # include "ISignalManager.h"
 
-# define DBFILE	"../db/server.db"
-
-#define PASSWD_CHARACTERS			\
-  "abcdefghijklmnopqrstuvwxyz"			\
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"			\
-  "0123456789"					\
-  "!\"#$%&'()*+,-./:;<=>?[\\]^_`{|}~"
-
-#define PASSWD_SIZE	8
-
 class	Server : public ISignalManager
 {
 public:
+  typedef void	(Server::*callback)(Client*);
+
+  typedef std::pair<callback, std::string>	pairCallback;
+  typedef std::map<std::string, pairCallback>	mapAction;
+
   typedef std::list<Client*>		listClients;
   typedef std::map<std::string, pid_t>	mapPid;
-
-  typedef void	(*fct)(Server*, Client*);
-
-  struct	Actions
-  {
-    std::string	keyword;
-    fct		func;
-    std::string	retMesg;
-  };
-
-  static Actions	actions[];
-
-  static void	actLogin(Server*, Client*);
-  static void	actLogout(Server*, Client*);
-  static void	actCreate(Server*, Client*);
-  static void	actCredit(Server*, Client*);
-  static void	actStatus(Server*, Client*);
-  static void	actClients(Server*, Client*);
-  static void	actAccounts(Server*, Client*);
-  static void	actMessage(Server*, Client*);
-  static void	actServicesWeb(Server*, Client*);
-  static void	actServicesStream(Server*, Client*);
-  static void	actServicesWebDetail(Server*, Client*);
-  static void	actServicesStreamDetail(Server*, Client*);
-  static void	actOfferWeb(Server*, Client*);
-  static void	actOfferStream(Server*, Client*);
-  static void	actCreateOfferWeb(Server*, Client*);
-  static void	actCreateOfferStream(Server*, Client*);
-  static void	actCreateWeb(Server*, Client*);
-  static void	actCreateStream(Server*, Client*);
-  static void	actNews(Server*, Client*);
-  static void	actNewsDetail(Server*, Client*);
-
-  static std::string	generatePasswd();
 public:
   Server();
-  Server(const Server&);
   ~Server();
-  Server&	operator=(const Server&);
 
   void	signal();
 
@@ -108,8 +67,32 @@ public:
   void	subCredit(const int&, Client*);
 
   std::string	head(void);
+
+  void	actLogin(Client*);
+  void	actLogout(Client*);
+  void	actCreate(Client*);
+  void	actCredit(Client*);
+  void	actStatus(Client*);
+  void	actClients(Client*);
+  void	actAccounts(Client*);
+  void	actMessage(Client*);
+  void	actServicesWeb(Client*);
+  void	actServicesStream(Client*);
+  void	actServicesWebDetail(Client*);
+  void	actServicesStreamDetail(Client*);
+  void	actOfferWeb(Client*);
+  void	actOfferStream(Client*);
+  void	actCreateOfferWeb(Client*);
+  void	actCreateOfferStream(Client*);
+  void	actCreateWeb(Client*);
+  void	actCreateStream(Client*);
+  void	actNews(Client*);
+  void	actNewsDetail(Client*);
+
+  std::string	generatePasswd();
 private:
   SQLiteWrapper	_sql;
+  mapAction	_mapAction;
   listClients	_clients;
   mapPid	_mapPid;
 };

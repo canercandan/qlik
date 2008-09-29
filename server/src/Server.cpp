@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Sun Sep 28 16:56:21 2008 caner candan
+// Last update Mon Sep 29 02:32:29 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -23,55 +23,63 @@
 #include "IceCast.h"
 #include "Signal.h"
 #include "Protocole.h"
-
-Server::Actions	Server::actions[] = {
-  {Protocole::login, actLogin, Protocole::empty},
-  {Protocole::logout, actLogout, Protocole::ok},
-  {Protocole::create, actCreate, Protocole::empty},
-  {Protocole::status, actStatus, Protocole::empty},
-  {Protocole::clients, actClients, Protocole::empty},
-  {Protocole::accounts, actAccounts, Protocole::empty},
-  {Protocole::message, actMessage, Protocole::empty},
-  {Protocole::servicesWeb, actServicesWeb, Protocole::empty},
-  {Protocole::servicesStream, actServicesStream, Protocole::empty},
-  {Protocole::servicesWebDetail, actServicesWebDetail, Protocole::empty},
-  {Protocole::servicesStreamDetail, actServicesStreamDetail, Protocole::empty},
-  {Protocole::offerWeb, actOfferWeb, Protocole::empty},
-  {Protocole::offerStream, actOfferStream, Protocole::empty},
-  {Protocole::createOfferWeb, actCreateOfferWeb, Protocole::empty},
-  {Protocole::createOfferStream, actCreateOfferStream, Protocole::empty},
-  {Protocole::createWeb, actCreateWeb, Protocole::empty},
-  {Protocole::createStream, actCreateStream, Protocole::empty},
-  {Protocole::news, actNews, Protocole::empty},
-  {Protocole::newsDetail, actNewsDetail, Protocole::empty},
-  {Protocole::empty, NULL, Protocole::empty}
-};
+#include "XmlConfig.h"
 
 Server::Server()
 {
-  _sql.Open(DBFILE);
+  XmlConfig*	config = XmlConfig::getInstance();
+
+  _sql.Open(config->xmlGetParam("//server/database", "path"));
 
   Signal*	signal = Signal::getInstance();
 
   signal->addCallback(Signal::INT, this,
 		      static_cast<ISignalManager::callback>
 		      (&Server::signal));
-}
 
-Server::Server(const Server& s)
-  : ISignalManager()
-{*this = s;}
+  _mapAction[Protocole::login] =
+    pairCallback(&Server::actLogin, Protocole::empty);
+  _mapAction[Protocole::logout] =
+    pairCallback(&Server::actLogout, Protocole::ok);
+  _mapAction[Protocole::create] =
+    pairCallback(&Server::actCreate, Protocole::empty);
+  _mapAction[Protocole::status] =
+    pairCallback(&Server::actStatus, Protocole::empty);
+  _mapAction[Protocole::clients] =
+    pairCallback(&Server::actClients, Protocole::empty);
+  _mapAction[Protocole::accounts] =
+    pairCallback(&Server::actAccounts, Protocole::empty);
+  _mapAction[Protocole::message] =
+    pairCallback(&Server::actMessage, Protocole::empty);
+  _mapAction[Protocole::servicesWeb] =
+    pairCallback(&Server::actServicesWeb, Protocole::empty);
+  _mapAction[Protocole::servicesStream] =
+    pairCallback(&Server::actServicesStream, Protocole::empty);
+  _mapAction[Protocole::servicesWebDetail] =
+    pairCallback(&Server::actServicesWebDetail, Protocole::empty);
+  _mapAction[Protocole::servicesStreamDetail] =
+    pairCallback(&Server::actServicesStreamDetail, Protocole::empty);
+  _mapAction[Protocole::offerWeb] =
+    pairCallback(&Server::actOfferWeb, Protocole::empty);
+  _mapAction[Protocole::offerStream] =
+    pairCallback(&Server::actOfferStream, Protocole::empty);
+  _mapAction[Protocole::createOfferWeb] =
+    pairCallback(&Server::actCreateOfferWeb, Protocole::empty);
+  _mapAction[Protocole::createOfferStream] =
+    pairCallback(&Server::actCreateOfferStream, Protocole::empty);
+  _mapAction[Protocole::createWeb] =
+    pairCallback(&Server::actCreateWeb, Protocole::empty);
+  _mapAction[Protocole::createStream] =
+    pairCallback(&Server::actCreateStream, Protocole::empty);
+  _mapAction[Protocole::news] =
+    pairCallback(&Server::actNews, Protocole::empty);
+  _mapAction[Protocole::newsDetail] =
+    pairCallback(&Server::actNewsDetail, Protocole::empty);
+}
 
 Server::~Server()
 {
   destroyListClients();
-}
-
-Server&	Server::operator=(const Server& s)
-{
-  if (this != &s)
-    this->_clients = s._clients;
-  return (*this);
 }
 
 void	Server::signal()
@@ -111,7 +119,7 @@ void		Server::addClient(Client *server)
   sc = new SocketClient(server->getSocket()->getSocket());
   client = new Client(sc, Client::CLIENT);
   this->_clients.push_back(client);
-  client->appendBufWrite(WELCOME);
+  client->appendBufWrite(Protocole::welcome);
 }
 
 void	Server::setFd(fd_set& fdRead, fd_set& fdWrite, int& fdMax)
@@ -227,21 +235,23 @@ void	Server::executeAction(Client *client)
 {
   std::stringstream	ss(client->getBufRead());
   std::string		action;
-  int			i;
 
   ss >> action;
-  for (i = 0; actions[i].func; i++)
-    if (actions[i].keyword == action)
-      {
-	ss.str(MESG_EMPTY);
-	ss << action << ' ';
-	client->appendBufWrite(ss.str());
-	actions[i].func(this, client);
-	if (!actions[i].retMesg.empty())
-	  client->appendBufWrite(actions[i].retMesg);
-	return;
-      }
-  client->appendBufWrite(MESG_KO);
+
+  if (_mapAction.find(action) == _mapAction.end())
+    {
+      client->appendBufWrite(Protocole::ko);
+      return;
+    }
+
+  pairCallback&	pair = _mapAction[action];
+
+  ss.str(Protocole::empty);
+  ss << action << ' ';
+  client->appendBufWrite(ss.str());
+  (this->*pair.first)(client);
+  if (!pair.second.empty())
+    client->appendBufWrite(pair.second);
 }
 
 bool	Server::existLogin(const std::string& login)
@@ -297,7 +307,7 @@ bool	Server::notConnected(Client *client)
 {
   if (!client->isConnected())
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return (true);
     }
   return (false);
@@ -340,7 +350,7 @@ void	Server::subCredit(const int& value, Client* client)
   client->setCredit(client->getCredit() - value);
 }
 
-void	Server::actLogin(Server *server, Client *client)
+void	Server::actLogin(Client* client)
 {
   std::stringstream	ss(client->getBufRead());
   std::string		action;
@@ -349,15 +359,15 @@ void	Server::actLogin(Server *server, Client *client)
 
   ss >> action >> login >> passwd;
   if (login.empty() || passwd.empty() ||
-      !server->existLoginPasswd(login, passwd) ||
-      server->alreadyConnected(login))
+      !this->existLoginPasswd(login, passwd) ||
+      this->alreadyConnected(login))
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
     }
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select users.id, users.username, "
+    (this->_sql.Statement("select users.id, users.username, "
 			    "credit.value "
 			    "from users, credit "
 			    "where users.id = credit.id_user "
@@ -374,12 +384,12 @@ void	Server::actLogin(Server *server, Client *client)
   client->appendBufWrite("\n");
 }
 
-void	Server::actLogout(Server*, Client *client)
+void	Server::actLogout(Client* client)
 {
-  client->setLogin(MESG_EMPTY);
+  client->setLogin(Protocole::empty);
 }
 
-void	Server::actCreate(Server* server, Client *client)
+void	Server::actCreate(Client* client)
 {
   std::stringstream	ss(client->getBufRead());
   std::string		action;
@@ -387,76 +397,76 @@ void	Server::actCreate(Server* server, Client *client)
   std::string		passwd;
 
   ss >> action >> login;
-  if (login.empty() || server->existLogin(login))
+  if (login.empty() || this->existLogin(login))
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
     }
   passwd = generatePasswd();
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("insert into users "
+    (this->_sql.Statement("insert into users "
 			    "values(NULL, ?, ?);"));
 
   stmt->Bind(0, login);
   stmt->Bind(1, passwd);
   stmt->Execute();
-  stmt.reset(server->_sql.Statement("insert into credit "
+  stmt.reset(this->_sql.Statement("insert into credit "
 				    "values(last_insert_rowid(), 0);"));
   stmt->Execute();
   client->appendBufWrite(passwd + '\n');
 }
 
-void	Server::actCredit(Server* server, Client* client)
+void	Server::actCredit(Client* client)
 {
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
   client->appendBufWrite(client->getCredit());
   client->appendBufWrite("\n");
 }
 
-void	Server::actStatus(Server* server, Client* client)
+void	Server::actStatus(Client* client)
 {
-  if (!server->notConnected(client))
-    client->appendBufWrite(MESG_OK);
+  if (!this->notConnected(client))
+    client->appendBufWrite(Protocole::ok);
 }
 
-void	Server::actClients(Server* server, Client* client)
+void	Server::actClients(Client* client)
 {
   listClients::const_iterator	it;
-  listClients::const_iterator	end = server->getListClients().end();
+  listClients::const_iterator	end = this->getListClients().end();
 
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
-  client->appendBufWrite(MESG_BEGIN);
-  for (it = server->getListClients().begin(); it != end; ++it)
+  client->appendBufWrite(Protocole::begin);
+  for (it = this->getListClients().begin(); it != end; ++it)
     if ((*it)->isConnected())
       client->appendBufWrite((*it)->getLogin() + '\n');
-  client->appendBufWrite(MESG_END);
+  client->appendBufWrite(Protocole::end);
 }
 
-void	Server::actAccounts(Server* server, Client* client)
+void	Server::actAccounts(Client* client)
 {
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select username "
+    (this->_sql.Statement("select username "
 			    "from users "
 			    "order by username;"));
   std::stringstream	ss;
 
-  client->appendBufWrite(MESG_BEGIN);
+  client->appendBufWrite(Protocole::begin);
   while (stmt->NextRow())
     {
-      ss.str(MESG_EMPTY);
+      ss.str(Protocole::empty);
       ss << stmt->ValueString(0) << std::endl;
       client->appendBufWrite(ss.str());
     }
-  client->appendBufWrite(MESG_END);
+  client->appendBufWrite(Protocole::end);
 }
 
-void	Server::actMessage(Server *server, Client *client)
+void	Server::actMessage(Client* client)
 {
   std::string	str(client->getBufRead());
   std::string	action;
@@ -465,7 +475,7 @@ void	Server::actMessage(Server *server, Client *client)
   size_t	separator;
   Client	*to;
 
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
   separator = str.find(' ');
   action = str.substr(0, separator);
@@ -474,69 +484,69 @@ void	Server::actMessage(Server *server, Client *client)
   login = str.substr(0, separator);
   message = str.substr(separator + 1);
   if (login.empty() || message.empty() ||
-      !(to = server->findClient(login)))
+      !(to = this->findClient(login)))
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
     }
-  to->appendBufWrite(std::string(MESSAGE) + ' ');
+  to->appendBufWrite(std::string(Protocole::message) + ' ');
   to->appendBufWrite(client->getLogin() + ' ' + message);
-  client->appendBufWrite(MESG_OK);
+  client->appendBufWrite(Protocole::ok);
 }
 
-void	Server::actServicesWeb(Server* server, Client *client)
+void	Server::actServicesWeb(Client* client)
 {
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select name "
+    (this->_sql.Statement("select name "
 			    "from services_web "
 			    "where id_user = ? "
 			    "order by name;"));
   std::stringstream	ss;
 
-  client->appendBufWrite(MESG_BEGIN);
+  client->appendBufWrite(Protocole::begin);
   stmt->Bind(0, client->getId());
   while (stmt->NextRow())
     {
-      ss.str(MESG_EMPTY);
+      ss.str(Protocole::empty);
       ss << stmt->ValueString(0) << std::endl;
       client->appendBufWrite(ss.str());
     }
-  client->appendBufWrite(MESG_END);
+  client->appendBufWrite(Protocole::end);
 }
 
-void	Server::actServicesStream(Server* server, Client *client)
+void	Server::actServicesStream(Client* client)
 {
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select name "
+    (this->_sql.Statement("select name "
 			    "from services_stream "
 			    "where id_user = ? "
 			    "order by name;"));
   std::stringstream	ss;
 
-  client->appendBufWrite(MESG_BEGIN);
+  client->appendBufWrite(Protocole::begin);
   stmt->Bind(0, client->getId());
   while (stmt->NextRow())
     {
-      ss.str(MESG_EMPTY);
+      ss.str(Protocole::empty);
       ss << stmt->ValueString(0) << std::endl;
       client->appendBufWrite(ss.str());
     }
-  client->appendBufWrite(MESG_END);
+  client->appendBufWrite(Protocole::end);
 }
 
-void	Server::actServicesWebDetail(Server* server, Client* client)
+void	Server::actServicesWebDetail(Client* client)
 {
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select name, space, nb_db, "
+    (this->_sql.Statement("select name, space, nb_db, "
 			    "domain, created, expired "
 			    "from services_web "
 			    "where id_user = ? "
@@ -552,7 +562,7 @@ void	Server::actServicesWebDetail(Server* server, Client* client)
   stmt->Bind(1, row);
   if (stmt->NextRow())
     {
-      ss.str(MESG_EMPTY);
+      ss.str(Protocole::empty);
       ss << stmt->ValueString(0)
 	 << ' ' << stmt->ValueString(1)
 	 << ' ' << stmt->ValueString(2)
@@ -563,16 +573,16 @@ void	Server::actServicesWebDetail(Server* server, Client* client)
       client->appendBufWrite(ss.str());
     }
   else
-    client->appendBufWrite(MESG_KO);
+    client->appendBufWrite(Protocole::ko);
 }
 
-void	Server::actServicesStreamDetail(Server* server, Client* client)
+void	Server::actServicesStreamDetail(Client* client)
 {
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select name, slots, bits, "
+    (this->_sql.Statement("select name, slots, bits, "
 			    "title, created, expired "
 			    "from services_stream "
 			    "where id_user = ? "
@@ -588,7 +598,7 @@ void	Server::actServicesStreamDetail(Server* server, Client* client)
   stmt->Bind(1, row);
   if (stmt->NextRow())
     {
-      ss.str(MESG_EMPTY);
+      ss.str(Protocole::empty);
       ss << stmt->ValueString(0)
 	 << ' ' << stmt->ValueString(1)
 	 << ' ' << stmt->ValueString(2)
@@ -599,56 +609,56 @@ void	Server::actServicesStreamDetail(Server* server, Client* client)
       client->appendBufWrite(ss.str());
     }
   else
-    client->appendBufWrite(MESG_KO);
+    client->appendBufWrite(Protocole::ko);
 }
 
-void	Server::actOfferWeb(Server* server, Client* client)
+void	Server::actOfferWeb(Client* client)
 {
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select price, name "
+    (this->_sql.Statement("select price, name "
 			    "from offer_web "
 			    "order by name;"));
   std::stringstream	ss;
 
-  client->appendBufWrite(MESG_BEGIN);
+  client->appendBufWrite(Protocole::begin);
   while (stmt->NextRow())
     {
-      ss.str(MESG_EMPTY);
+      ss.str(Protocole::empty);
       ss << stmt->ValueString(0)
 	 << ' ' << stmt->ValueString(1)
 	 << std::endl;
       client->appendBufWrite(ss.str());
     }
-  client->appendBufWrite(MESG_END);
+  client->appendBufWrite(Protocole::end);
 }
 
-void	Server::actOfferStream(Server* server, Client* client)
+void	Server::actOfferStream(Client* client)
 {
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select price, name "
+    (this->_sql.Statement("select price, name "
 			    "from offer_stream "
 			    "order by name;"));
   std::stringstream	ss;
 
-  client->appendBufWrite(MESG_BEGIN);
+  client->appendBufWrite(Protocole::begin);
   while (stmt->NextRow())
     {
-      ss.str(MESG_EMPTY);
+      ss.str(Protocole::empty);
       ss << stmt->ValueString(0)
 	 << ' ' << stmt->ValueString(1)
 	 << std::endl;
       client->appendBufWrite(ss.str());
     }
-  client->appendBufWrite(MESG_END);
+  client->appendBufWrite(Protocole::end);
 }
 
-void	Server::actCreateOfferWeb(Server* server, Client* client)
+void	Server::actCreateOfferWeb(Client* client)
 {
   std::stringstream	ss(client->getBufRead());
   std::string		action;
@@ -659,13 +669,13 @@ void	Server::actCreateOfferWeb(Server* server, Client* client)
   int			space;
   int			nbDb;
 
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
   row = 0;
   ss >> action >> name >> row >> domain;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select price, space, nb_db "
+    (this->_sql.Statement("select price, space, nb_db "
 			    "from offer_web "
 			    "order by name "
 			    "limit ?, 1;"));
@@ -673,19 +683,19 @@ void	Server::actCreateOfferWeb(Server* server, Client* client)
   stmt->Bind(0, row);
   if (!stmt->NextRow())
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
 
     }
   price = stmt->ValueInt(0);
-  if (!server->enoughCredit(price, client))
+  if (!this->enoughCredit(price, client))
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
     }
   space = stmt->ValueInt(1);
   nbDb = stmt->ValueInt(2);
-  stmt.reset(server->_sql.Statement("insert into services_web "
+  stmt.reset(this->_sql.Statement("insert into services_web "
 				    "values(NULL, ?, ?, ?, ?, ?, ?, ?);"));
   stmt->Bind(0, client->getId());
   stmt->Bind(1, name);
@@ -695,15 +705,15 @@ void	Server::actCreateOfferWeb(Server* server, Client* client)
   stmt->Bind(5, 1);
   stmt->Bind(6, 1);
   stmt->Execute();
-  server->subCredit(price, client);
+  this->subCredit(price, client);
 
   std::auto_ptr<IServerWeb>	serverWeb(new Apache(client));
 
   serverWeb->createHost(domain);
-  client->appendBufWrite(MESG_OK);
+  client->appendBufWrite(Protocole::ok);
 }
 
-void	Server::actCreateOfferStream(Server* server, Client* client)
+void	Server::actCreateOfferStream(Client* client)
 {
   std::stringstream		ss(client->getBufRead());
   std::string			action;
@@ -714,13 +724,13 @@ void	Server::actCreateOfferStream(Server* server, Client* client)
   int				slots;
   int				bits;
 
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
   row = 0;
   ss >> action >> name >> row >> title;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select price, slots, bits "
+    (this->_sql.Statement("select price, slots, bits "
 			    "from offer_stream "
 			    "order by name "
 			    "limit ?, 1;"));
@@ -728,18 +738,18 @@ void	Server::actCreateOfferStream(Server* server, Client* client)
   stmt->Bind(0, row);
   if (!stmt->NextRow())
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
     }
   price = stmt->ValueInt(0);
-  if (!server->enoughCredit(price, client))
+  if (!this->enoughCredit(price, client))
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
     }
   slots = stmt->ValueInt(1);
   bits = stmt->ValueInt(2);
-  stmt.reset(server->_sql.Statement("insert into services_stream "
+  stmt.reset(this->_sql.Statement("insert into services_stream "
 				    "values(NULL, ?, ?, ?, ?, ?, ?, ?);"));
   stmt->Bind(0, client->getId());
   stmt->Bind(1, name);
@@ -749,15 +759,15 @@ void	Server::actCreateOfferStream(Server* server, Client* client)
   stmt->Bind(5, 1);
   stmt->Bind(6, 1);
   stmt->Execute();
-  server->subCredit(price, client);
+  this->subCredit(price, client);
 
   std::auto_ptr<IServerStream>	serverStream(new IceCast(client));
 
   serverStream->createStream(name, slots, bits);
-  client->appendBufWrite(MESG_OK);
+  client->appendBufWrite(Protocole::ok);
 }
 
-void	Server::actCreateWeb(Server* server, Client* client)
+void	Server::actCreateWeb(Client* client)
 {
   std::stringstream	ss(client->getBufRead());
   std::string		action;
@@ -767,26 +777,26 @@ void	Server::actCreateWeb(Server* server, Client* client)
   int			price;
   std::string		domain;
 
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
   space = 0;
   nbDb = 0;
   ss >> action >> name >> space >> nbDb >> domain;
   if (name.empty() || !space || !nbDb || domain.empty())
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
     }
-  price = ((space / RATIO_WEB_SPACE)
-	   + (nbDb / RATIO_WEB_DB));
-  if (!server->enoughCredit(price, client))
+  price = ((space / Protocole::ratioWebSpace)
+	   + (nbDb / Protocole::ratioWebDb));
+  if (!this->enoughCredit(price, client))
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
     }
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("insert into services_web "
+    (this->_sql.Statement("insert into services_web "
 			    "values(NULL, ?, ?, ?, ?, ?, ?, ?);"));
 
   stmt->Bind(0, client->getId());
@@ -797,15 +807,15 @@ void	Server::actCreateWeb(Server* server, Client* client)
   stmt->Bind(5, 1);
   stmt->Bind(6, 1);
   stmt->Execute();
-  server->subCredit(price, client);
+  this->subCredit(price, client);
 
   std::auto_ptr<IServerWeb>	serverWeb(new Apache(client));
 
   serverWeb->createHost(domain);
-  client->appendBufWrite(MESG_OK);
+  client->appendBufWrite(Protocole::ok);
 }
 
-void	Server::actCreateStream(Server* server, Client* client)
+void	Server::actCreateStream(Client* client)
 {
   std::stringstream	ss(client->getBufRead());
   std::string		action;
@@ -815,24 +825,24 @@ void	Server::actCreateStream(Server* server, Client* client)
   int			price;
   std::string		title;
 
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
   ss >> action >> name >> slots >> bits >> title;
   if (name.empty() || !slots || !bits || title.empty())
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
     }
-  price = ((slots / RATIO_STREAM_SLOT)
-	   + (bits / RATIO_STREAM_BITS));
-  if (!server->enoughCredit(price, client))
+  price = ((slots / Protocole::ratioStreamSlot)
+	   + (bits / Protocole::ratioStreamBits));
+  if (!this->enoughCredit(price, client))
     {
-      client->appendBufWrite(MESG_KO);
+      client->appendBufWrite(Protocole::ko);
       return;
     }
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("insert into services_stream "
+    (this->_sql.Statement("insert into services_stream "
 			    "values(NULL, ?, ?, ?, ?, ?, ?, ?);"));
 
   stmt->Bind(0, client->getId());
@@ -843,43 +853,43 @@ void	Server::actCreateStream(Server* server, Client* client)
   stmt->Bind(5, 1);
   stmt->Bind(6, 1);
   stmt->Execute();
-  server->subCredit(price, client);
+  this->subCredit(price, client);
 
   std::auto_ptr<IServerStream>	serverStream(new IceCast(client));
 
   serverStream->createStream(name, slots, bits);
-  client->appendBufWrite(MESG_OK);
+  client->appendBufWrite(Protocole::ok);
 }
 
-void	Server::actNews(Server* server, Client* client)
+void	Server::actNews(Client* client)
 {
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select date, subject "
+    (this->_sql.Statement("select date, subject "
 			    "from news "
 			    "order by date desc;"));
   std::stringstream	ss;
 
-  client->appendBufWrite(MESG_BEGIN);
+  client->appendBufWrite(Protocole::begin);
   while (stmt->NextRow())
     {
-      ss.str(MESG_EMPTY);
+      ss.str(Protocole::empty);
       ss << stmt->ValueString(0) << ' '
 	 << stmt->ValueString(1) << std::endl;
       client->appendBufWrite(ss.str());
     }
-  client->appendBufWrite(MESG_END);
+  client->appendBufWrite(Protocole::end);
 }
 
-void	Server::actNewsDetail(Server* server, Client* client)
+void	Server::actNewsDetail(Client* client)
 {
-  if (server->notConnected(client))
+  if (this->notConnected(client))
     return;
 
   std::auto_ptr<SQLiteStatement>	stmt
-    (server->_sql.Statement("select body "
+    (this->_sql.Statement("select body "
 			    "from news "
 			    "order by date desc "
 			    "limit ?, 1;"));
@@ -891,25 +901,23 @@ void	Server::actNewsDetail(Server* server, Client* client)
   stmt->Bind(0, id);
   if (stmt->NextRow())
     {
-      ss.str(MESG_EMPTY);
+      ss.str(Protocole::empty);
       ss << stmt->ValueString(0) << std::endl;
       client->appendBufWrite(ss.str());
     }
   else
-    client->appendBufWrite(MESG_KO);
+    client->appendBufWrite(Protocole::ko);
 }
 
 std::string	Server::generatePasswd()
 {
-  std::string	s;
-  size_t	size;
-  int		i;
+  const size_t&	size = Protocole::passwdCharacters.size();
+  std::string	res;
 
-  size = std::string(PASSWD_CHARACTERS).size();
   srand((unsigned int)time(0));
-  for (i = 0; i < PASSWD_SIZE; i++)
-    s += PASSWD_CHARACTERS[rand() % size];
-  return (s);
+  for (int i = 0; i < Protocole::passwdSize; i++)
+    res += Protocole::passwdCharacters[rand() % size];
+  return (res);
 }
 
 std::string	Server::head(void)

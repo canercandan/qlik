@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Sep 28 15:56:48 2008 caner candan
-// Last update Sun Sep 28 15:56:48 2008 caner candan
+// Last update Mon Sep 29 01:03:02 2008 caner candan
 //
 
 #ifndef __ISIGNALMANAGER_H__
