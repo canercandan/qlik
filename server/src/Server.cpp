@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Mon Sep 29 15:28:06 2008 caner candan
+// Last update Mon Sep 29 19:24:51 2008 caner candan
 //
 
 #include <sys/select.h>
@@ -22,7 +22,7 @@
 #include "Apache.h"
 #include "IceCast.h"
 #include "Signal.h"
-#include "Protocole.h"
+#include "Protocole.hpp"
 #include "Config.h"
 
 Server::Server()
@@ -929,7 +929,7 @@ void	Server::actNewsDetail(Client* client)
 
 std::string	Server::generatePasswd()
 {
-  const size_t&	size = Protocole::passwdCharacters.size();
+  const size_t&	size = std::string(Protocole::passwdCharacters).size();
   std::string	res;
 
   srand((unsigned int)time(0));

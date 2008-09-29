@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Tue Sep  2 00:58:57 2008 caner candan
+// Last update Mon Sep 29 18:08:15 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -17,34 +17,6 @@
 # include "Message.h"
 # include "Contact.h"
 
-# define WELCOME		"welcome"
-# define LOGIN			"login"
-# define LOGOUT			"logout"
-# define CREATE			"create"
-# define CREDIT			"credit"
-# define STATUS			"status"
-# define CLIENTS		"clients"
-# define ACCOUNTS		"accounts"
-# define MESSAGE		"message"
-# define SERVICES_WEB		"services_web"
-# define SERVICES_STREAM	"services_stream"
-# define SERVICES_WEB_DETAIL	"services_web_detail"
-# define SERVICES_STREAM_DETAIL	"services_stream_detail"
-# define OFFER_WEB		"offer_web"
-# define OFFER_STREAM		"offer_stream"
-# define CREATE_OFFER_WEB	"create_offer_web"
-# define CREATE_OFFER_STREAM	"create_offer_stream"
-# define CREATE_WEB		"create_web"
-# define CREATE_STREAM		"create_stream"
-# define NEWS			"news"
-# define NEWS_DETAIL		"news_detail"
-
-# define RATIO_WEB_SPACE	100
-# define RATIO_WEB_DB		1
-
-# define RATIO_STREAM_SLOT	5
-# define RATIO_STREAM_BITS	24
-
 class	Client : public QMainWindow, public Ui::Client
 {
   Q_OBJECT
@@ -52,43 +24,11 @@ class	Client : public QMainWindow, public Ui::Client
   typedef QMap<QString, Message*>	MessageMap;
 
 public:
-  typedef void	(*fct)(Client*, const QStringList&);
+  typedef void	(Client::*callback)(const QStringList&);
 
-  struct	Actions
-  {
-    QString	keyword;
-    fct		func;
-  };
+  typedef QMap<QString, callback>	mapAction;
 
-  enum	ServiceType
-    {
-      WEB,
-      STREAM
-    };
-
-  static Actions	actions[];
-
-  static void	actWelcome(Client*, const QStringList&);
-  static void	actLogin(Client*, const QStringList&);
-  static void	actLogout(Client*, const QStringList&);
-  static void	actCreate(Client*, const QStringList&);
-  static void	actCredit(Client*, const QStringList&);
-  static void	actStatus(Client*, const QStringList&);
-  static void	actClients(Client*, const QStringList&);
-  static void	actAccounts(Client*, const QStringList&);
-  static void	actMessage(Client*, const QStringList&);
-  static void	actServicesWeb(Client*, const QStringList&);
-  static void	actServicesStream(Client*, const QStringList&);
-  static void	actServicesWebDetail(Client*, const QStringList&);
-  static void	actServicesStreamDetail(Client*, const QStringList&);
-  static void	actOfferWeb(Client*, const QStringList&);
-  static void	actOfferStream(Client*, const QStringList&);
-  static void	actCreateOfferWeb(Client*, const QStringList&);
-  static void	actCreateOfferStream(Client*, const QStringList&);
-  static void	actCreateWeb(Client*, const QStringList&);
-  static void	actCreateStream(Client*, const QStringList&);
-  static void	actNews(Client*, const QStringList&);
-  static void	actNewsDetail(Client*, const QStringList&);
+  enum	ServiceType {WEB, STREAM};
 public:
   Client(QWidget *parent = NULL);
   ~Client();
@@ -120,6 +60,28 @@ public:
   void	setCredit(const int&);
   void	addCredit(const int&);
   void	subCredit(const int&);
+
+  void	actWelcome(const QStringList&);
+  void	actLogin(const QStringList&);
+  void	actLogout(const QStringList&);
+  void	actCreate(const QStringList&);
+  void	actCredit(const QStringList&);
+  void	actStatus(const QStringList&);
+  void	actClients(const QStringList&);
+  void	actAccounts(const QStringList&);
+  void	actMessage(const QStringList&);
+  void	actServicesWeb(const QStringList&);
+  void	actServicesStream(const QStringList&);
+  void	actServicesWebDetail(const QStringList&);
+  void	actServicesStreamDetail(const QStringList&);
+  void	actOfferWeb(const QStringList&);
+  void	actOfferStream(const QStringList&);
+  void	actCreateOfferWeb(const QStringList&);
+  void	actCreateOfferStream(const QStringList&);
+  void	actCreateWeb(const QStringList&);
+  void	actCreateStream(const QStringList&);
+  void	actNews(const QStringList&);
+  void	actNewsDetail(const QStringList&);
 private slots:
   void	on_actionSignUp_triggered();
   void	on_actionSignIn_triggered();
@@ -152,6 +114,7 @@ private slots:
   void	loadServices(int);
   void	loadHistory(int);
 private:
+  mapAction	_mapAction;
   MessageMap	_mm;
   QString	_userCreated;
   int		_credit;

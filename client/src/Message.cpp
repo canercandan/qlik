@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug  4 06:10:50 2008 caner candan
-// Last update Sun Aug 24 22:29:50 2008 caner candan
+// Last update Mon Sep 29 19:01:41 2008 caner candan
 //
 
 #include <QWidget>
@@ -14,6 +14,7 @@
 #include "Client.h"
 #include "Socket.h"
 #include "Contact.h"
+#include "Protocole.h"
 
 Message::Message(QWidget* parent /*= NULL*/)
   : QDialog(parent)
@@ -30,7 +31,7 @@ void	Message::on_send_clicked()
 
   if (edit.isEmpty())
     return;
-  stream << MESSAGE << ' ' << to << ' ' << edit << endl;
+  stream << Protocole::message << ' ' << to << ' ' << edit << endl;
   static_cast<Client*>(this->parent())->appendMessage(to, from, edit);
   this->edit->clear();
   this->edit->setFocus();

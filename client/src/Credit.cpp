@@ -5,13 +5,14 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug 11 16:09:52 2008 caner candan
-// Last update Tue Aug 19 16:20:04 2008 caner candan
+// Last update Mon Sep 29 18:59:32 2008 caner candan
 //
 
 #include <QMessageBox>
 #include "Credit.h"
 #include "Client.h"
 #include "Socket.h"
+#include "Protocole.h"
 
 Credit::Credit(QWidget* parent /*= NULL*/)
   : QDialog(parent)
@@ -41,7 +42,7 @@ void	Credit::on_buy_clicked()
 
   QTextStream	stream(Socket::getInstance()->socket());
 
-  stream << MESSAGE
+  stream << Protocole::message
 	 << ' ' << "finance"
 	 << ' ' << "Notice: add " << this->coins->currentText()
 	 << " coins."

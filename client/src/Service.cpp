@@ -5,13 +5,14 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Jul 21 02:05:40 2008 caner candan
-// Last update Tue Sep  2 00:06:44 2008 caner candan
+// Last update Mon Sep 29 19:20:39 2008 caner candan
 //
 
 #include <QWidget>
 #include <QMessageBox>
 #include "Service.h"
 #include "Client.h"
+#include "Protocole.h"
 
 Service::Service(QWidget* parent /*= NULL*/)
   : QDialog(parent)
@@ -175,8 +176,8 @@ void	Service::createWebMore()
       this->webDomain->setFocus();
       return;
     }
-  if (!this->_confirmMore(this->webSpace, RATIO_WEB_SPACE,
-			  this->webNbDb, RATIO_WEB_DB))
+  if (!this->_confirmMore(this->webSpace, Protocole::ratioWebSpace,
+			  this->webNbDb, Protocole::ratioWebDb))
     return;
   static_cast<Client*>(this->parent())->createWeb();
 }
@@ -235,8 +236,8 @@ void	Service::createStreamMore()
       this->streamTitle->setFocus();
       return;
     }
-  if (!this->_confirmMore(this->streamSlots, RATIO_STREAM_SLOT,
-			 this->streamBits, RATIO_STREAM_BITS))
+  if (!this->_confirmMore(this->streamSlots, Protocole::ratioStreamSlot,
+			  this->streamBits, Protocole::ratioStreamBits))
     return;
   static_cast<Client*>(this->parent())->createStream();
 }

@@ -4,6 +4,7 @@ PATH_BIN	=	.
 PATH_SRC	=	../src
 PATH_INCLUDE	=	.
 PATH_LIBRARY	=	.
+PATH_COMMON	=	../../common
 
 NAME		=	$(PATH_BIN)/server
 
@@ -32,7 +33,7 @@ SQLITE_LIBRARY	=	`pkg-config sqlite3 --libs`
 XML_INCLUDE	=	`xml2-config --cflags`
 XML_LIBRARY	=	`xml2-config --libs`
 
-INCLUDES	+=	-I$(PATH_INCLUDE) $(SQLITE_INCLUDE) $(XML_INCLUDE)
+INCLUDES	+=	-I$(PATH_INCLUDE) $(SQLITE_INCLUDE) $(XML_INCLUDE) -I$(PATH_COMMON)
 LIBRARIES	+=	-L$(PATH_LIBRARY) $(SQLITE_LIBRARY) $(XML_LIBRARY)
 
 DEBUG_42	=	-g -DDEBUG

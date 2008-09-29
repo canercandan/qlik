@@ -5,54 +5,55 @@
 TEMPLATE	=	app
 TARGET		=
 DEPENDPATH	+=	.
-INCLUDEPATH	+=	.
+INCLUDEPATH	+=	. ../../common
 
 DEFINES		+=	#QT_NO_DEBUG_OUTPUT
 
 # Input
-HEADERS		+=	../src/Client.h		\
+HEADERS		+=	../src/Accounts.h	\
+			../src/Client.h		\
 			../src/Connect.h	\
+			../src/Contact.h	\
 			../src/Create.h		\
-			../src/Service.h	\
-			../src/Message.h	\
-			../src/Web.h		\
-			../src/Stream.h		\
 			../src/Credit.h		\
-			../src/Singleton.hpp	\
-			../src/State.h		\
-			../src/Options.h	\
 			../src/Database.h	\
+			../src/Message.h	\
+			../src/Options.h	\
+			../src/Service.h	\
+			../src/Singleton.hpp	\
 			../src/Socket.h		\
-			../src/Accounts.h	\
-			../src/Contact.h
+			../src/State.h		\
+			../src/Stream.h		\
+			../src/Web.h		\
+			../../common/Protocole.h
 
-FORMS		+=	../src/Client.ui	\
+FORMS		+=	../src/Accounts.ui	\
+			../src/Client.ui	\
 			../src/Connect.ui	\
+			../src/Contact.ui	\
 			../src/Create.ui	\
-			../src/Service.ui	\
-			../src/Message.ui	\
-			../src/Web.ui		\
-			../src/Stream.ui	\
 			../src/Credit.ui	\
+			../src/Message.ui	\
 			../src/Options.ui	\
-			../src/Accounts.ui	\
-			../src/Contact.ui
+			../src/Service.ui	\
+			../src/Stream.ui	\
+			../src/Web.ui
 
 SOURCES		+=	../src/main.cpp		\
+			../src/Accounts.cpp	\
 			../src/Client.cpp	\
 			../src/Connect.cpp	\
+			../src/Contact.cpp	\
 			../src/Create.cpp	\
-			../src/Service.cpp	\
-			../src/Message.cpp	\
-			../src/Web.cpp		\
-			../src/Stream.cpp	\
 			../src/Credit.cpp	\
-			../src/State.cpp	\
-			../src/Options.cpp	\
 			../src/Database.cpp	\
+			../src/Message.cpp	\
+			../src/Options.cpp	\
+			../src/Service.cpp	\
 			../src/Socket.cpp	\
-			../src/Accounts.cpp	\
-			../src/Contact.cpp
+			../src/State.cpp	\
+			../src/Stream.cpp	\
+			../src/Web.cpp
 
 CONFIG		+=	#debug
 

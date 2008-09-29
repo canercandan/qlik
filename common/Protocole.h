@@ -1,118 +1,118 @@
 //
-// Protocole.h for server in /home/candan_c/cu/rendu/ekzay/server/src
+// Protocole.hpp for ekzay in /home/candan_c/cu/rendu/ekzay/server/src
 // 
 // Made by caner candan
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Sep 28 16:29:02 2008 caner candan
-// Last update Mon Sep 29 00:52:58 2008 caner candan
+// Last update Mon Sep 29 19:24:42 2008 caner candan
 //
 
-#ifndef __PROTOCOLE_H__
-# define __PROTOCOLE_H__
+#ifndef __PROTOCOLE_HPP__
+# define __PROTOCOLE_HPP__
 
 # include <string>
 
 namespace	Protocole
 {
-  const std::string&	ok = "ok\n";
-  const std::string&	ko = "ko\n";
+  const char*	ok = "ok\n";
+  const char*	ko = "ko\n";
 
-  const std::string&	empty = "";
+  const char*	empty = "";
 
-  const std::string&	begin = "begin\n";
-  const std::string&	end = "end\n";
+  const char*	begin = "begin\n";
+  const char*	end = "end\n";
 
-  const std::string&	welcome = "welcome\n";
+  const char*	welcome = "welcome\n";
 
-  const std::string&	login = "login";
+  const char*	login = "login";
   // login USERNAME PASSWORD
   // -> login (CREDIT|KO)
 
-  const std::string&	logout = "logout";
+  const char*	logout = "logout";
   // logout
   // -> logout OK
 
-  const std::string&	create = "create";
+  const char*	create = "create";
   // create USERNAME
   // -> create (PASSWORD|KO)
 
-  const std::string&	credit = "credit";
+  const char*	credit = "credit";
   // credit
   // -> credit CREDIT
 
-  const std::string&	status = "status";
+  const char*	status = "status";
   // status
   // -> status (OK|KO)
 
-  const std::string&	clients = "clients";
+  const char*	clients = "clients";
   // clients
   // -> clients (BEGIN\n*(USERNAME)\nEND|KO)
 
-  const std::string&	accounts = "accounts";
+  const char*	accounts = "accounts";
   // accounts
   // -> accounts (BEGIN\n*(USERNAME)\nEND|KO)
 
-  const std::string&	message = "message";
+  const char*	message = "message";
   // message USERNAME MESSAGE
   // -> message (OK|KO)
   // -> message FROM MESSAGE
 
-  const std::string&	servicesWeb = "services_web";
+  const char*	servicesWeb = "services_web";
   // services_web
   // -> services_web (BEGIN\n*(NAME)\nEND|KO)
 
-  const std::string&	servicesStream = "services_stream";
+  const char*	servicesStream = "services_stream";
   // services_stream
   // -> services_stream (BEGIN\n*(NAME)\nEND|KO)
 
-  const std::string&	servicesWebDetail = "services_web_detail";
+  const char*	servicesWebDetail = "services_web_detail";
   // services_web_detail ROW
   // -> services_web_detail (NAME SPACE NB_DB DOMAIN
   // CREATED EXPIRED|KO)
 
-  const std::string&	servicesStreamDetail = "services_stream_detail";
+  const char*	servicesStreamDetail = "services_stream_detail";
   // services_stream_detail ROW
   // -> services_stream_detail (NAME SLOTS BITS TITLE
   // CREATED EXPIRED|KO)
 
-  const std::string&	offerWeb = "offer_web";
+  const char*	offerWeb = "offer_web";
   // offer_web
   // -> offer_web (BEGIN\n*(PRICE NAME)\nEND|KO)
 
-  const std::string&	offerStream = "offer_stream";
+  const char*	offerStream = "offer_stream";
   // offer_stream
   // -> offer_stream (BEGIN\n*(PRICE NAME)\nEND|KO)
 
-  const std::string&	createOfferWeb = "create_offer_web";
+  const char*	createOfferWeb = "create_offer_web";
   // create_offer_web NAME ROW DOMAIN
   // -> create_offer_web (OK|KO)
 
-  const std::string&	createOfferStream = "create_offer_stream";
+  const char*	createOfferStream = "create_offer_stream";
   // create_offer_stream NAME ROW TITLE
   // -> create_offer_stream (OK|KO)
 
-  const std::string&	createWeb = "create_web";
+  const char*	createWeb = "create_web";
   // create_web NAME SPACE NB_DB DOMAIN
   // -> create_web (OK|KO)
 
-  const std::string&	createStream = "create_stream";
+  const char*	createStream = "create_stream";
   // create_stream NAME SLOTS BITS TITLE
   // -> create_stream (OK|KO)
 
-  const std::string&	news = "news";
+  const char*	news = "news";
   // news
   // -> news (BEGIN\n*(DATE SUBJECT)\nEND|KO)
 
-  const std::string&	newsDetail = "news_detail";
+  const char*	newsDetail = "news_detail";
   // news_detail ROW
   // -> news_detail (BODY|KO)
 
-  const std::string&	streamStart = "stream_start";
+  const char*	streamStart = "stream_start";
   // stream_start NAME
   // -> stream_start (OK|KO)
 
-  const std::string&	streamStop = "stream_stop";
+  const char*	streamStop = "stream_stop";
   // stream_stop NAME
   // -> stream_stop (OK|KO)
 
@@ -121,7 +121,7 @@ namespace	Protocole
   const int&	ratioStreamSlot = 5;
   const int&	ratioStreamBits = 24;
 
-  const std::string&	passwdCharacters =
+  const char*	passwdCharacters =
     "abcdefghijklmnopqrstuvwxyz"
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "0123456789"
@@ -129,4 +129,4 @@ namespace	Protocole
   const int&		passwdSize = 8;
 };
 
-#endif // !__PROTOCOLE_H__
+#endif // !__PROTOCOLE_HPP__
