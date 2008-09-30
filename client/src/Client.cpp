@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Mon Sep 29 19:17:36 2008 caner candan
+// Last update Tue Sep 30 00:10:22 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -72,13 +72,15 @@ Client::Client(QWidget *parent /*= NULL*/)
   _mapAction[Protocole::message] = &Client::actMessage;
   _mapAction[Protocole::servicesWeb] = &Client::actServicesWeb;
   _mapAction[Protocole::servicesStream] = &Client::actServicesStream;
-  _mapAction[Protocole::servicesWebDetail] = &Client::actServicesWebDetail;
+  _mapAction[Protocole::servicesWebDetail] =
+    &Client::actServicesWebDetail;
   _mapAction[Protocole::servicesStreamDetail] =
     &Client::actServicesStreamDetail;
   _mapAction[Protocole::offerWeb] = &Client::actOfferWeb;
   _mapAction[Protocole::offerStream] = &Client::actOfferStream;
   _mapAction[Protocole::createOfferWeb] = &Client::actCreateOfferWeb;
-  _mapAction[Protocole::createOfferStream] = &Client::actCreateOfferStream;
+  _mapAction[Protocole::createOfferStream] =
+    &Client::actCreateOfferStream;
   _mapAction[Protocole::createWeb] = &Client::actCreateWeb;
   _mapAction[Protocole::createStream] = &Client::actCreateStream;
   _mapAction[Protocole::news] = &Client::actNews;

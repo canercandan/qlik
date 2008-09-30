@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Mon Sep 29 18:08:15 2008 caner candan
+// Last update Tue Sep 30 00:15:12 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -13,6 +13,7 @@
 
 # include <QMainWindow>
 # include <QtNetwork>
+# include <string>
 # include "ui_Client.h"
 # include "Message.h"
 # include "Contact.h"
@@ -22,11 +23,10 @@ class	Client : public QMainWindow, public Ui::Client
   Q_OBJECT
 
   typedef QMap<QString, Message*>	MessageMap;
-
 public:
   typedef void	(Client::*callback)(const QStringList&);
 
-  typedef QMap<QString, callback>	mapAction;
+  typedef QMap<QString, callback>	MapAction;
 
   enum	ServiceType {WEB, STREAM};
 public:
@@ -114,7 +114,7 @@ private slots:
   void	loadServices(int);
   void	loadHistory(int);
 private:
-  mapAction	_mapAction;
+  MapAction	_mapAction;
   MessageMap	_mm;
   QString	_userCreated;
   int		_credit;
