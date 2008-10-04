@@ -5,7 +5,7 @@
 TEMPLATE	=	app
 TARGET		=
 DEPENDPATH	+=	.
-INCLUDEPATH	+=	. ../../common
+INCLUDEPATH	+=	.
 
 DEFINES		+=	#QT_NO_DEBUG_OUTPUT
 
@@ -19,13 +19,13 @@ HEADERS		+=	../src/Accounts.h	\
 			../src/Database.h	\
 			../src/Message.h	\
 			../src/Options.h	\
+			../src/Protocole.h	\
 			../src/Service.h	\
 			../src/Singleton.hpp	\
 			../src/Socket.h		\
 			../src/State.h		\
 			../src/Stream.h		\
-			../src/Web.h		\
-			../../common/Protocole.h
+			../src/Web.h
 
 FORMS		+=	../src/Accounts.ui	\
 			../src/Client.ui	\
