@@ -5,21 +5,28 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Sep 28 16:29:02 2008 caner candan
-// Last update Sat Oct  4 15:30:27 2008 caner candan
+// Last update Tue Oct 14 16:08:32 2008 caner candan
 //
 
 #ifndef __PROTOCOLE_H__
 # define __PROTOCOLE_H__
 
-# define OK	"ok\n"
-# define KO	"ko\n"
+# define PATTERN_NAME		"^[a-zA-Z0-9-_]+$"
+# define PATTERN_DOMAIN		"^(www.)?[a-z0-9-_]+\\.[a-z]{2,4}$"
+# define PATTERN_USERNAME	"^[a-zA-Z][a-zA-Z0-9-_]{3,19}$"
+# define PATTERN_PASSWD		"^.{4,20}$"
 
+# define NL	"\n"
+# define SP	" "
 # define EMPTY	""
 
-# define BEGIN	"begin\n"
-# define END	"end\n"
+# define OK	"ok"
+# define KO	"ko"
 
-# define WELCOME	"welcome\n"
+# define BEGIN	"begin"
+# define END	"end"
+
+# define WELCOME	"welcome"
 
 # define LOGIN	"login"
 // login USERNAME PASSWORD
@@ -70,7 +77,7 @@
 # define SERVICES_STREAM_DETAIL	"services_stream_detail"
 // services_stream_detail ROW
 // -> services_stream_detail (NAME SLOTS BITS TITLE
-// CREATED EXPIRED|KO)
+// PORT STATUS CREATED EXPIRED|KO)
 
 # define OFFER_WEB	"offer_web"
 // offer_web
@@ -103,6 +110,10 @@
 # define NEWS_DETAIL	"news_detail"
 // news_detail ROW
 // -> news_detail (BODY|KO)
+
+# define STREAM_STATUS	"stream_status"
+// stream_status NAME
+// -> stream_status (OK|KO)
 
 # define STREAM_START	"stream_start"
 // stream_start NAME

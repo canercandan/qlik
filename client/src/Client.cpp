@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Sat Oct  4 15:37:58 2008 caner candan
+// Last update Mon Oct 20 23:56:06 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -24,20 +24,23 @@
 #include "Socket.h"
 #include "Accounts.h"
 #include "Protocole.h"
+#include "About.h"
 
 Client::Client(QWidget *parent /*= NULL*/)
   : QMainWindow(parent), _credit(0)
 {
   Socket*	socket = Socket::getInstance();
-  Database*	database = Database::getInstance();
 
   setupUi(this);
+
   actionSignUp->setEnabled(false);
   actionSignIn->setEnabled(false);
   actionSignOut->setEnabled(false);
   actionRefresh->setEnabled(false);
+
   pageBox->setEnabled(false);
   pageBox->setCurrentIndex(0);
+
   connect(socket->socket(), SIGNAL(connected()),
 	  this, SLOT(connectedToServer()));
   connect(socket->socket(), SIGNAL(readyRead()),
@@ -52,72 +55,167 @@ Client::Client(QWidget *parent /*= NULL*/)
 	  this, SLOT(loadServices(int)));
   connect(creditBox, SIGNAL(currentChanged(int)),
 	  this, SLOT(loadHistory(int)));
-  if (!database->connect())
-    {
-      QMessageBox::critical(this,
-			    tr("Unable to connect to database"),
-			    tr("An error occured: ")
-			    + database->database().lastError().text());
-      setEnabled(false);
-    }
+
   Options::getInstance(this);
 
   _mapAction[WELCOME] = &Client::actWelcome;
-  _mapAction[LOGIN] = &Client::actLogout;
+
+  _mapAction[LOGIN] = &Client::actLogin;
   _mapAction[LOGOUT] = &Client::actLogout;
   _mapAction[CREATE] = &Client::actCreate;
+
   _mapAction[STATUS] = &Client::actStatus;
   _mapAction[CLIENTS] = &Client::actClients;
   _mapAction[ACCOUNTS] = &Client::actAccounts;
   _mapAction[MESSAGE] = &Client::actMessage;
+
   _mapAction[SERVICES_WEB] = &Client::actServicesWeb;
   _mapAction[SERVICES_STREAM] = &Client::actServicesStream;
   _mapAction[SERVICES_WEB_DETAIL] = &Client::actServicesWebDetail;
   _mapAction[SERVICES_STREAM_DETAIL] = &Client::actServicesStreamDetail;
+
   _mapAction[OFFER_WEB] = &Client::actOfferWeb;
   _mapAction[OFFER_STREAM] = &Client::actOfferStream;
+
   _mapAction[CREATE_OFFER_WEB] = &Client::actCreateOfferWeb;
   _mapAction[CREATE_OFFER_STREAM] = &Client::actCreateOfferStream;
   _mapAction[CREATE_WEB] = &Client::actCreateWeb;
   _mapAction[CREATE_STREAM] = &Client::actCreateStream;
+
   _mapAction[NEWS] = &Client::actNews;
   _mapAction[NEWS_DETAIL] = &Client::actNewsDetail;
+
+  _mapAction[STREAM_STATUS] = &Client::actStreamStatus;
+  _mapAction[STREAM_START] = &Client::actStreamStart;
+  _mapAction[STREAM_STOP] = &Client::actStreamStop;
+
+  if (_keyExist("sizeX") && _keyExist("sizeY"))
+    {
+      int	x = _getKeyValue("sizeX").toInt();
+      int	y = _getKeyValue("sizeY").toInt();
+
+      resize(x, y);
+    }
+
+  if (_keyExist("posX") && _keyExist("posY"))
+    {
+      int	x = _getKeyValue("posX").toInt();
+      int	y = _getKeyValue("posY").toInt();
+
+      move(x, y);
+    }
+
+  if (_keyExist("mask"))
+    {
+      QVariant	value = _getKeyValue("mask");
+
+      if (value.toInt() & OPT_SPLASH)
+	{
+	  QSqlQuery	q(Database::getInstance()->database());
+
+	  q.prepare("select username from users;");
+	  q.exec();
+
+	  if (q.next())
+	    on_actionSignIn_triggered();
+	  else
+	    on_actionSignUp_triggered();
+	}
+    }
 }
 
 Client::~Client()
 {
+  _saveKey("sizeX", QVariant(this->width()));
+  _saveKey("sizeY", QVariant(this->height()));
+
+  _saveKey("posX", QVariant(this->x()));
+  _saveKey("posY", QVariant(this->y()));
+
   Socket::kill();
   Database::kill();
   Service::kill();
   Web::kill();
   Stream::kill();
   Credit::kill();
+
   destroyMessages();
+}
+
+QVariant	Client::_getKeyValue(const QString& key)
+{
+  QSqlQuery	q(Database::getInstance()->database());
+
+  q.prepare("select value "
+	    "from options "
+	    "where key = ?;");
+  q.addBindValue(key);
+  q.exec();
+
+  if (q.next())
+    return (q.value(0));
+  return ("");
+}
+
+bool	Client::_keyExist(const QString& key)
+{
+  QSqlQuery	q(Database::getInstance()->database());
+
+  q.prepare("select key "
+	    "from options "
+	    "where key = ?;");
+  q.addBindValue(key);
+  q.exec();
+
+  return (q.next());
+}
+
+void	Client::_saveKey(const QString& key, const QVariant& value)
+{
+  QSqlQuery	q(Database::getInstance()->database());
+
+  if (!_keyExist(key))
+    {
+      q.prepare("insert into options "
+		"values(?, ?);");
+      q.addBindValue(key);
+      q.addBindValue(value.toString());
+      q.exec();
+    }
+  else
+    {
+      q.prepare("update options "
+		"set value = ? "
+		"where key = ?;");
+      q.addBindValue(value.toString());
+      q.addBindValue(key);
+      q.exec();
+    }
 }
 
 void	Client::openMessage(const QString& sName)
 {
-  if (!this->_mm.contains(sName) ||
-      !this->_mm[sName])
-    this->_mm[sName] = new Message(this);
-  this->_mm[sName]->from->setText(this->infoAccount->text());
-  this->_mm[sName]->to->setText(sName);
-  this->_mm[sName]->show();
+  if (!_mm.contains(sName) ||
+      !_mm[sName])
+    _mm[sName] = new Message(this);
+  _mm[sName]->from->setText(this->infoAccount->text());
+  _mm[sName]->to->setText(sName);
+  _mm[sName]->show();
 }
 
 void	Client::destroyMessages()
 {
-  MessageMap::iterator	it;
-  MessageMap::iterator	end = this->_mm.end();
-
-  for (it = this->_mm.begin(); it != end; ++it)
+  for (MessageMap::iterator
+	 it = _mm.begin(),
+	 end = _mm.end();
+       it != end; ++it)
     {
       if (it.value())
 	{
 	  it.value()->close();
 	  delete it.value();
 	}
-      this->_mm[it.key()] = NULL;
+      _mm[it.key()] = NULL;
     }
 }
 
@@ -125,8 +223,8 @@ void	Client::appendMessage(const QString& sName,
 			      const QString& from,
 			      const QString& body)
 {
-  const QString&	time = QTime::currentTime().toString();
-  QTextEdit		*list = this->_mm[sName]->list;
+  const QString	time(QTime::currentTime().toString());
+  QTextEdit*	list = this->_mm[sName]->list;
 
   list->append('[' + time + "] " + from + "> " + body);
 }
@@ -138,8 +236,8 @@ void	Client::login()
   this->actionSignOut->setEnabled(true);
   this->actionRefresh->setEnabled(true);
   this->pageBox->setEnabled(true);
-  this->infoStatus->setText("Online");
-  this->statusbar->showMessage("I'm sign in ...");
+  this->infoStatus->setText(tr("online"));
+  this->statusbar->showMessage(tr("bar_login"));
   this->on_actionRefresh_triggered();
 }
 
@@ -150,9 +248,9 @@ void	Client::logout()
   this->actionSignOut->setEnabled(false);
   this->actionRefresh->setEnabled(false);
   this->pageBox->setEnabled(false);
-  this->infoAccount->setText("guest");
-  this->infoStatus->setText("Offline");
-  this->statusbar->showMessage("I'm sign out ...");
+  this->infoAccount->setText(tr("guest"));
+  this->infoStatus->setText(tr("offline"));
+  this->statusbar->showMessage(tr("bar_logout"));
   this->pageBox->setCurrentIndex(0);
   this->destroyMessages();
   this->newsList->clear();
@@ -177,7 +275,7 @@ void	Client::on_actionSignUp_triggered()
 
   if (create.exec() != QDialog::Accepted)
     return;
-  this->_userCreated = create.username->text();
+  _userCreated = create.username->text();
   stream << CREATE
 	 << ' ' << this->_userCreated
 	 << endl;
@@ -234,18 +332,11 @@ void	Client::on_actionRefresh_triggered()
     this->loadClients();
 }
 
-void	Client::on_actionInformation_triggered()
+void	Client::on_actionAbout_triggered()
 {
-  QMessageBox::information(this,
-			   tr("Information"),
-			   tr("Information about this program"));
-}
+  About	about(this);
 
-void	Client::on_actionHelp_triggered()
-{
-  QMessageBox::information(this,
-			   tr("Help"),
-			   tr("Help about this soft"));
+  about.exec();
 }
 
 void	Client::on_actionQuit_triggered()
@@ -330,7 +421,8 @@ void	Client::on_talkOpen_clicked()
     {
       if (this->talkMyContactsList->currentRow() < 0)
 	return;
-      this->openMessage(this->talkMyContactsList->currentItem()->data(Qt::UserRole).toString());
+      this->openMessage(this->talkMyContactsList->currentItem()->
+			data(Qt::UserRole).toString());
       return;
     }
   if (this->talkAllContactsList->currentRow() < 0)
@@ -352,9 +444,7 @@ void	Client::on_talkMyContactsDel_clicked()
   if (this->talkMyContactsList->currentRow() < 0)
     return;
 
-  if (QMessageBox::question(this,
-			    tr("Are you sure ?"),
-			    tr("Are you sure ?"),
+  if (QMessageBox::question(this, tr("are_you_sure"), tr("are_you_sure_txt"),
 			    QMessageBox::Yes | QMessageBox::No)
       != QMessageBox::Yes)
     return;
@@ -398,7 +488,7 @@ void	Client::addToContactsList(const Contact& contact)
 
 void	Client::connectedToServer()
 {
-  this->statusbar->showMessage("Connected to server");
+  this->statusbar->showMessage(tr("bar_connected"));
   this->setEnabled(true);
   this->actionSignUp->setEnabled(true);
   this->actionSignIn->setEnabled(true);
@@ -437,6 +527,7 @@ void	Client::readAction()
 	  qDebug() << "action found" << action;
 
 	  resList.erase(resList.begin());
+	  action = resList.at(0);
 
 	  if (action == BEGIN)
 	    {
@@ -457,9 +548,8 @@ void	Client::displayError(QAbstractSocket::SocketError)
 {
   Options*	options = Options::getInstance(this);
 
-  QMessageBox::critical(this,
-			tr("Not connected"),
-			tr("This address isn't a server"));
+  QMessageBox::critical(this, tr("not_connected"),
+			tr("not_connected_txt"));
   this->logout();
   this->setEnabled(false);
   options->setEnabled(true);
@@ -640,16 +730,14 @@ void	Client::createStream()
 
 void	Client::actWelcome(const QStringList&)
 {
-  this->statusbar->showMessage("Welcome");
+  this->statusbar->showMessage(tr("welcome"));
 }
 
 void	Client::actLogin(const QStringList& resList)
 {
-  if (resList.at(0) == "KO")
+  if (resList.at(0) == KO)
     {
-      QMessageBox::critical(this,
-			    tr("Login incorrect"),
-			    tr("Username or password incorrect"));
+      QMessageBox::critical(this, tr("login_inc"), tr("login_inc_txt"));
       this->logout();
       return;
     }
@@ -659,11 +747,9 @@ void	Client::actLogin(const QStringList& resList)
 
 void	Client::actLogout(const QStringList& resList)
 {
-  if (resList.at(0) != "OK")
+  if (resList.at(0) != OK)
     {
-      QMessageBox::critical(this,
-			    tr("Logout error"),
-			    tr("Logout error"));
+      QMessageBox::critical(this, tr("logout_err"), tr("logout_err_txt"));
       return;
     }
   this->logout();
@@ -671,19 +757,14 @@ void	Client::actLogout(const QStringList& resList)
 
 void	Client::actCreate(const QStringList& resList)
 {
-  if (resList.at(0) == "KO")
+  if (resList.at(0) == KO)
     {
-      QMessageBox::critical(this,
-			    tr("Creation incorrect"),
-			    tr("Username already used or incorrect"));
+      QMessageBox::critical(this, tr("create_inc"), tr("create_inc_txt"));
       return;
     }
-  if (QMessageBox::question(this,
-			    tr("Created"),
-			    tr("Your account has been created and "
-			       "your password is ") + resList.at(0)
-			    + tr("\n\nWould you like to save your "
-				 "account in the account's list ?"),
+  if (QMessageBox::question(this, tr("created"), tr("created_txt")
+			    + resList.at(0)
+			    + tr("created_txt2"),
 			    QMessageBox::Yes | QMessageBox::No)
       == QMessageBox::Yes)
     {
@@ -696,12 +777,12 @@ void	Client::actCreate(const QStringList& resList)
       q.exec();
       Accounts::getInstance(this)->reset();
     }
-  this->statusbar->showMessage("Accout created ...");
+  this->statusbar->showMessage(tr("bar_created"));
 }
 
 void	Client::actCredit(const QStringList& resList)
 {
-  if (resList.at(0) == "KO")
+  if (resList.at(0) == KO)
     return;
   this->setCredit(resList.at(0).toInt());
 }
@@ -718,7 +799,9 @@ void	Client::actClients(const QStringList& resList)
 
   if (name == this->infoAccount->text())
     return;
+
   qDebug() << "add client" << name;
+
   this->loadAllContact(name);
   this->loadMyContact(name);
 }
@@ -730,14 +813,12 @@ void	Client::actMessage(const QStringList& resList)
 {
   const QString&	to = resList.at(0);
 
-  if (to == "KO")
+  if (to == KO)
     {
-      QMessageBox::critical(this,
-			    tr("Message error"),
-			    tr("Message error"));
+      QMessageBox::critical(this, tr("message_err"), tr("message_err_txt"));
       return;
     }
-  if (to == "OK")
+  if (to == OK)
     return;
   this->openMessage(to);
 
@@ -755,8 +836,9 @@ void	Client::actServicesWeb(const QStringList& resList)
   const QString&	name = resList.join(" ");
 
   qDebug() << "add service web" << name;
+
   this->serviceWebList->addItem(new QListWidgetItem
-				  (QIcon("images/bricks.png"), name));
+				(QIcon("images/bricks.png"), name));
 }
 
 void	Client::actServicesStream(const QStringList& resList)
@@ -767,17 +849,17 @@ void	Client::actServicesStream(const QStringList& resList)
   const QString&	name = resList.join(" ");
 
   qDebug() << "add service stream" << name;
+
   this->serviceStreamList->addItem(new QListWidgetItem
-				     (QIcon("images/bricks.png"), name));
+				   (QIcon("images/bricks.png"), name));
 }
 
 void	Client::actServicesWebDetail(const QStringList& resList)
 {
-  if (resList.at(0) == "KO")
+  if (resList.at(0) == KO)
     {
-      QMessageBox::critical(this,
-			    tr("incorrect web service"),
-			    tr("incorrect web service"));
+      QMessageBox::critical(this, tr("web_service_inc"),
+			    tr("web_service_inc_txt"));
       return;
     }
 
@@ -791,11 +873,10 @@ void	Client::actServicesWebDetail(const QStringList& resList)
 
 void	Client::actServicesStreamDetail(const QStringList& resList)
 {
-  if (resList.at(0) == "KO")
+  if (resList.at(0) == KO)
     {
-      QMessageBox::critical(this,
-			    tr("incorrect stream service"),
-			    tr("incorrect stream service"));
+      QMessageBox::critical(this, tr("stream_service_inc"),
+			    tr("stream_service_inc_txt"));
       return;
     }
 
@@ -805,6 +886,20 @@ void	Client::actServicesStreamDetail(const QStringList& resList)
   stream->slotss->setText(resList.at(1));
   stream->bits->setText(resList.at(2));
   stream->title->setText(resList.at(3));
+  stream->port->setText(resList.at(4));
+
+  QString	status(resList.at(5));
+
+  if (status == "1")
+    {
+      stream->start->setEnabled(false);
+      stream->stop->setEnabled(true);
+    }
+  else
+    {
+      stream->start->setEnabled(true);
+      stream->stop->setEnabled(false);
+    }
 }
 
 void	Client::actOfferWeb(const QStringList& resList)
@@ -821,6 +916,7 @@ void	Client::actOfferWeb(const QStringList& resList)
   QListWidgetItem*	item = new QListWidgetItem;
 
   qDebug() << "add offer web" << name;
+
   item->setIcon(QIcon("images/bricks.png"));
   item->setText(name);
   item->setData(Qt::UserRole, price);
@@ -841,6 +937,7 @@ void	Client::actOfferStream(const QStringList& resList)
   QListWidgetItem*	item = new QListWidgetItem;
 
   qDebug() << "add offer stream" << name;
+
   item->setIcon(QIcon("images/bricks.png"));
   item->setText(name);
   item->setData(Qt::UserRole, price);
@@ -849,45 +946,41 @@ void	Client::actOfferStream(const QStringList& resList)
 
 void	Client::actCreateOfferWeb(const QStringList& resList)
 {
-  if (resList.at(0) == "KO")
+  if (resList.at(0) == KO)
     {
-      QMessageBox::critical(this,
-			    tr("Error"),
-			    tr("Impossible to create a web offer"));
+      QMessageBox::critical(this, tr("create_offer_web_err"),
+			    tr("create_offer_web_err_txt"));
       return;
     }
 
   Service*	service =   Service::getInstance(this);
 
-  QMessageBox::information(this,
-			   tr("Created"),
-			   tr("Your web offer has been created"));
+  QMessageBox::information(this, tr("create_offer_web"),
+			   tr("create_offer_web_txt"));
   this->subCredit(service->offerWebList->currentItem()->
-		    data(Qt::UserRole).toInt());
-  this->addHistory(WEB, "create offer", -1);
+		  data(Qt::UserRole).toInt());
+  this->addHistory(WEB, tr("history_create_offer_web"), -1);
   State::getInstance()->setWebList(State::WAIT);
   this->on_actionRefresh_triggered();
-  Service::getInstance(this)->hide();
+  service->hide();
 }
 
 void	Client::actCreateOfferStream(const QStringList& resList)
 {
-  if (resList.at(0) == "KO")
+  if (resList.at(0) == KO)
     {
-      QMessageBox::critical(this,
-			    tr("Error"),
-			    tr("Impossible to create a stream offer"));
+      QMessageBox::critical(this, tr("create_offer_stream_err"),
+			    tr("create_offer_stream_err_txt"));
       return;
     }
 
   Service*	service =   Service::getInstance(this);
 
-  QMessageBox::information(this,
-			   tr("Created"),
-			   tr("Your stream offer has been created"));
+  QMessageBox::information(this, tr("create_offer_stream"),
+			   tr("create_offer_stream_txt"));
   this->subCredit(service->offerStreamList->currentItem()->
-		    data(Qt::UserRole).toInt());
-  this->addHistory(STREAM, "create offer", -1);
+		  data(Qt::UserRole).toInt());
+  this->addHistory(STREAM, tr("history_create_offer_stream"), -1);
   State::getInstance()->setStreamList(State::WAIT);
   this->on_actionRefresh_triggered();
   service->hide();
@@ -895,22 +988,19 @@ void	Client::actCreateOfferStream(const QStringList& resList)
 
 void	Client::actCreateWeb(const QStringList& resList)
 {
-  if (resList.at(0) == "KO")
+  if (resList.at(0) == KO)
     {
-      QMessageBox::critical(this,
-			    tr("Error"),
-			    tr("Impossible to create a web"));
+      QMessageBox::critical(this, tr("create_web_err"),
+			    tr("create_web_err_txt"));
       return;
     }
 
-  Service*	service =   Service::getInstance(this);
+  Service*	service = Service::getInstance(this);
 
-  QMessageBox::information(this,
-			   tr("Created"),
-			   tr("Your web has been created"));
+  QMessageBox::information(this, tr("create_web"), tr("create_web_txt"));
   this->subCredit((service->webSpace->currentText().toInt() / RATIO_WEB_SPACE)
 		  + (service->webNbDb->currentText().toInt() / RATIO_WEB_DB));
-  this->addHistory(WEB, "create", -1);
+  this->addHistory(WEB, tr("history_create_web"), -1);
   State::getInstance()->setWebList(State::WAIT);
   this->on_actionRefresh_triggered();
   service->hide();
@@ -918,24 +1008,22 @@ void	Client::actCreateWeb(const QStringList& resList)
 
 void	Client::actCreateStream(const QStringList& resList)
 {
-  if (resList.at(0) == "KO")
+  if (resList.at(0) == KO)
     {
-      QMessageBox::critical(this,
-			    tr("Error"),
-			    tr("Impossible to create a stream"));
+      QMessageBox::critical(this, tr("create_stream_err"),
+			    tr("create_stream_err_txt"));
       return;
     }
 
-  Service*	service =   Service::getInstance(this);
+  Service*	service = Service::getInstance(this);
 
-  QMessageBox::information(this,
-			   tr("Created"),
-			   tr("Your stream has been created"));
+  QMessageBox::information(this, tr("create_stream"),
+			   tr("create_stream_txt"));
   this->subCredit((service->streamSlots->currentText().toInt()
 		   / RATIO_STREAM_SLOT)
 		  + (service->streamBits->currentText().toInt()
 		     / RATIO_STREAM_BITS));
-  this->addHistory(STREAM, "create", -1);
+  this->addHistory(STREAM, tr("history_create_stream"), -1);
   State::getInstance()->setStreamList(State::WAIT);
   this->on_actionRefresh_triggered();
   service->hide();
@@ -956,16 +1044,43 @@ void	Client::actNews(const QStringList& resList)
 
   qDebug() << "add news" << subject << date;
   qDebug() << sDate;
+
   this->newsList->addItem(sDate + ' ' + subject);
   this->actionRefresh->setEnabled(true);
 }
 
 void	Client::actNewsDetail(const QStringList& resList)
 {
-  if (resList.at(0) != "KO")
-    QMessageBox::information(this,
-			     tr("Message"),
+  if (resList.at(0) != KO)
+    QMessageBox::information(this, tr("news_box"),
 			     resList.join(" "));
+}
+
+void	Client::actStreamStatus(const QStringList& resList)
+{
+  if (resList.at(0) != KO)
+    {
+      Stream*	stream = Stream::getInstance(this);
+
+      stream->start->setEnabled(false);
+      stream->stop->setEnabled(true);
+    }
+}
+
+void	Client::actStreamStart(const QStringList& resList)
+{
+  this->actStreamStatus(resList);
+}
+
+void	Client::actStreamStop(const QStringList& resList)
+{
+  if (resList.at(0) != KO)
+    {
+      Stream*	stream = Stream::getInstance(this);
+
+      stream->start->setEnabled(true);
+      stream->stop->setEnabled(false);
+    }
 }
 
 void	Client::addHistory(const Client::ServiceType& type,

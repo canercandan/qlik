@@ -10,89 +10,83 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Message</string>
+   <string>message</string>
   </property>
-  <widget class="QWidget" name="verticalLayout" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>321</width>
-     <height>231</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" >
-    <item>
-     <layout class="QHBoxLayout" >
-      <item>
-       <widget class="QLabel" name="label_2" >
-        <property name="text" >
-         <string>From</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="from" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label" >
-        <property name="text" >
-         <string>To</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="to" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <widget class="QTextEdit" name="list" >
-      <property name="autoFormatting" >
-       <set>QTextEdit::AutoAll</set>
-      </property>
-      <property name="readOnly" >
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" >
-      <item>
-       <widget class="QLineEdit" name="edit" />
-      </item>
-      <item>
-       <widget class="QPushButton" name="send" >
-        <property name="text" >
-         <string/>
-        </property>
-        <property name="icon" >
-         <iconset>../images/email_go.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="add" >
-        <property name="text" >
-         <string/>
-        </property>
-        <property name="icon" >
-         <iconset>../images/user_add.png</iconset>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <layout class="QVBoxLayout" >
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QLabel" name="label_2" >
+         <property name="text" >
+          <string>from</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="from" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label" >
+         <property name="text" >
+          <string>to</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="to" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="list" >
+       <property name="autoFormatting" >
+        <set>QTextEdit::AutoAll</set>
+       </property>
+       <property name="readOnly" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QLineEdit" name="edit" />
+       </item>
+       <item>
+        <widget class="QPushButton" name="send" >
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="icon" >
+          <iconset>../images/email_go.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="add" >
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="icon" >
+          <iconset>../images/user_add.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <tabstops>
   <tabstop>edit</tabstop>

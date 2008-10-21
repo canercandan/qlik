@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  2 02:17:58 2008 caner candan
-// Last update Fri Sep  5 18:37:01 2008 caner candan
+// Last update Sun Oct 12 18:53:59 2008 caner candan
 //
 
 #ifndef __ISERVERSTREAM_H__
@@ -18,9 +18,7 @@ class	IServerStream
 public:
   virtual ~IServerStream(){}
 
-  virtual void	createStream(const std::string& name,
-			     const int& slots,
-			     const int& bits) = 0;
+  virtual void	createStream() = 0;
 };
 
 #endif // !__ISERVERSTREAM_H__

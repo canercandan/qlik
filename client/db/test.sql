@@ -1,5 +1,6 @@
 insert into options values("host", "localhost");
-insert into options values("port", "4243");
+insert into options values("port", "4242");
+insert into options values("mask", "0");
 
 insert into users values("Caner", "coco");
 

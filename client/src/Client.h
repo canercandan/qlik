@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Tue Sep 30 00:15:12 2008 caner candan
+// Last update Mon Oct 20 20:14:39 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -62,34 +62,45 @@ public:
   void	subCredit(const int&);
 
   void	actWelcome(const QStringList&);
+
   void	actLogin(const QStringList&);
   void	actLogout(const QStringList&);
   void	actCreate(const QStringList&);
+
   void	actCredit(const QStringList&);
   void	actStatus(const QStringList&);
   void	actClients(const QStringList&);
   void	actAccounts(const QStringList&);
   void	actMessage(const QStringList&);
+
   void	actServicesWeb(const QStringList&);
   void	actServicesStream(const QStringList&);
   void	actServicesWebDetail(const QStringList&);
   void	actServicesStreamDetail(const QStringList&);
+
   void	actOfferWeb(const QStringList&);
   void	actOfferStream(const QStringList&);
+
   void	actCreateOfferWeb(const QStringList&);
   void	actCreateOfferStream(const QStringList&);
   void	actCreateWeb(const QStringList&);
   void	actCreateStream(const QStringList&);
+
   void	actNews(const QStringList&);
   void	actNewsDetail(const QStringList&);
+
+  void	actStreamStatus(const QStringList&);
+  void	actStreamStart(const QStringList&);
+  void	actStreamStop(const QStringList&);
 private slots:
   void	on_actionSignUp_triggered();
   void	on_actionSignIn_triggered();
   void	on_actionSignOut_triggered();
+
   void	on_actionRefresh_triggered();
+
   void	on_actionQuit_triggered();
-  void	on_actionInformation_triggered();
-  void	on_actionHelp_triggered();
+  void	on_actionAbout_triggered();
   void	on_actionOptions_triggered();
   void	on_actionAccounts_triggered();
 
@@ -113,6 +124,10 @@ private slots:
   void	loadPages(int);
   void	loadServices(int);
   void	loadHistory(int);
+private:
+  QVariant	_getKeyValue(const QString& key);
+  bool		_keyExist(const QString&);
+  void		_saveKey(const QString& key, const QVariant& value);
 private:
   MapAction	_mapAction;
   MessageMap	_mm;

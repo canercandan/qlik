@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 08:50:46 2008 caner candan
-// Last update Fri Sep 12 22:34:40 2008 caner candan
+// Last update Thu Oct  9 19:25:26 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -29,12 +29,12 @@ public:
       ADMIN
     };
 public:
-  Client(Socket *socket = NULL, Type type = SERVER);
+  Client(Socket* socket = NULL, Type type = SERVER);
   Client(const Client&);
   ~Client();
   Client&	operator=(const Client&);
 
-  Socket		*getSocket(void) const;
+  Socket*		getSocket(void) const;
   const std::string&	getBufRead(void) const;
   const std::string&	getBufWrite(void) const;
   const Right&		getRight(void) const;

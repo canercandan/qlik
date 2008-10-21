@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug 11 16:09:52 2008 caner candan
-// Last update Mon Sep 29 20:08:24 2008 caner candan
+// Last update Sun Oct 12 14:23:03 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -29,29 +29,20 @@ void	Credit::reset()
 
 void	Credit::on_buy_clicked()
 {
-  if (QMessageBox::question(this,
-			    tr("buy"),
-			    tr("Go to this link: "
-			       "http://www.paypal.com\n"
-			       "When you have finish your payment"
-			       ", click on Ok to notice one\n"
-			       "or if you want to cancel click on Cancel."),
+  if (QMessageBox::question(this, tr("buy"), tr("buy_txt"),
 			    QMessageBox::Ok | QMessageBox::Cancel)
       != QMessageBox::Ok)
     return;
 
   QTextStream	stream(Socket::getInstance()->socket());
 
-  stream << Protocole::message
-	 << ' ' << "finance"
-	 << ' ' << "Notice: add " << this->coins->currentText()
-	 << " coins."
+  stream << MESSAGE << ' ' << "finance" << ' '
+	 << tr("notice_add_txt")
+	 << this->coins->currentText()
+	 << tr("notice_add_txt2")
 	 << endl;
-  QMessageBox::information(this,
-			   tr("Notification"),
-			   tr("Your notice has been send success.\n"
-			      "After check you will receive your coins "
-			      "in your accounts."));
+  QMessageBox::information(this, tr("notification"),
+			   tr("notification_txt"));
   this->hide();
 }
 

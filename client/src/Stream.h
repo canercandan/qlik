@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug 11 16:06:11 2008 caner candan
-// Last update Mon Aug 18 16:16:35 2008 caner candan
+// Last update Mon Oct 13 00:00:44 2008 caner candan
 //
 
 #ifndef __STREAM_H__
@@ -22,6 +22,8 @@ class	Stream : public QDialog, public Singleton<Stream>,
 
   friend class	Singleton<Stream>;
 private slots:
+  void	on_start_clicked();
+  void	on_stop_clicked();
 private:
   Stream(QWidget* parent = NULL);
 };

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Jul 21 02:03:48 2008 caner candan
-// Last update Tue Sep  2 00:03:54 2008 caner candan
+// Last update Tue Oct 14 16:00:25 2008 caner candan
 //
 
 #ifndef __SERVICE_H__
@@ -14,9 +14,6 @@
 # include <QDialog>
 # include "Singleton.hpp"
 # include "ui_Service.h"
-
-# define PATTERN_NAME	"^[a-zA-Z0-9-_]+$"
-# define PATTERN_DOMAIN	"^(www.)?[a-z0-9-_]+\\.[a-z]{2,4}$"
 
 class	Service : public QDialog, public Singleton<Service>,
 		  public Ui::Service

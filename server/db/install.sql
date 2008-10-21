@@ -39,6 +39,8 @@ create table services_stream
 	slots integer,
 	bits integer,
 	title text,
+	port integer,
+	pid integer,
 	created integer,
 	expired integer
 );

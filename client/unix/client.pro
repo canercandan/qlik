@@ -5,34 +5,38 @@
 TEMPLATE	=	app
 TARGET		=
 DEPENDPATH	+=	.
-INCLUDEPATH	+=	.
+INCLUDEPATH	+=	. ../../common/src
 
 DEFINES		+=	#QT_NO_DEBUG_OUTPUT
 
 # Input
-HEADERS		+=	../src/Accounts.h	\
+HEADERS		+=	../src/About.h		\
+			../src/Accounts.h	\
 			../src/Client.h		\
 			../src/Connect.h	\
 			../src/Contact.h	\
 			../src/Create.h		\
 			../src/Credit.h		\
 			../src/Database.h	\
+			../src/Lang.h		\
 			../src/Message.h	\
 			../src/Options.h	\
-			../src/Protocole.h	\
 			../src/Service.h	\
 			../src/Singleton.hpp	\
 			../src/Socket.h		\
 			../src/State.h		\
 			../src/Stream.h		\
-			../src/Web.h
+			../src/Web.h		\
+			../../common/src/Protocole.h
 
-FORMS		+=	../src/Accounts.ui	\
+FORMS		+=	../src/About.ui		\
+			../src/Accounts.ui	\
 			../src/Client.ui	\
 			../src/Connect.ui	\
 			../src/Contact.ui	\
 			../src/Create.ui	\
 			../src/Credit.ui	\
+			../src/Lang.ui		\
 			../src/Message.ui	\
 			../src/Options.ui	\
 			../src/Service.ui	\
@@ -40,6 +44,7 @@ FORMS		+=	../src/Accounts.ui	\
 			../src/Web.ui
 
 SOURCES		+=	../src/main.cpp		\
+			../src/About.cpp	\
 			../src/Accounts.cpp	\
 			../src/Client.cpp	\
 			../src/Connect.cpp	\
@@ -47,6 +52,7 @@ SOURCES		+=	../src/main.cpp		\
 			../src/Create.cpp	\
 			../src/Credit.cpp	\
 			../src/Database.cpp	\
+			../src/Lang.cpp		\
 			../src/Message.cpp	\
 			../src/Options.cpp	\
 			../src/Service.cpp	\
@@ -54,6 +60,10 @@ SOURCES		+=	../src/main.cpp		\
 			../src/State.cpp	\
 			../src/Stream.cpp	\
 			../src/Web.cpp
+
+TRANSLATIONS	+=	../lang/client_en_US.ts	\
+			../lang/client_de.ts	\
+			../lang/client_fr.ts
 
 CONFIG		+=	#debug
 

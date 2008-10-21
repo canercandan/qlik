@@ -4,7 +4,7 @@ PATH_BIN	=	.
 PATH_SRC	=	../src
 PATH_INCLUDE	=	.
 PATH_LIBRARY	=	.
-PATH_COMMON	=	../../common
+PATH_COMMON	=	../../common/src
 
 NAME		=	$(PATH_BIN)/server
 
@@ -20,6 +20,7 @@ SRCS		=	$(PATH_SRC)/main.cpp		\
 			$(PATH_SRC)/SocketClient.cpp	\
 			$(PATH_SRC)/SocketServer.cpp	\
 			$(PATH_SRC)/State.cpp		\
+			$(PATH_SRC)/Stream.cpp		\
 			$(PATH_SRC)/XmlParser.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
@@ -27,14 +28,13 @@ OBJS		=	$(SRCS:.cpp=.o)
 CXX		=	g++
 RM		=	rm -f
 
-SQLITE_INCLUDE	=	`pkg-config sqlite3 --cflags`
-SQLITE_LIBRARY	=	`pkg-config sqlite3 --libs`
+INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_COMMON)
+INCLUDES	+=	`pkg-config sqlite3 --cflags`
+INCLUDES	+=	`xml2-config --cflags`
 
-XML_INCLUDE	=	`xml2-config --cflags`
-XML_LIBRARY	=	`xml2-config --libs`
-
-INCLUDES	+=	-I$(PATH_INCLUDE) $(SQLITE_INCLUDE) $(XML_INCLUDE) -I$(PATH_COMMON)
-LIBRARIES	+=	-L$(PATH_LIBRARY) $(SQLITE_LIBRARY) $(XML_LIBRARY)
+LIBRARIES	+=	-L$(PATH_LIBRARY)
+LIBRARIES	+=	`pkg-config sqlite3 --libs`
+LIBRARIES	+=	`xml2-config --libs`
 
 DEBUG_42	=	-g -DDEBUG
 COMPAT		+=	-D__BSD_VISIBLE

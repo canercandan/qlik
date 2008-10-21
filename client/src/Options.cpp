@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug 11 16:09:52 2008 caner candan
-// Last update Mon Aug 18 19:39:21 2008 caner candan
+// Last update Wed Oct 15 21:26:00 2008 caner candan
 //
 
 #include "Options.h"
@@ -51,14 +51,31 @@ void	Options::_fillFields()
 
   q.prepare("select key, value "
 	    "from options "
-	    "where key in ('host', 'port');");
+	    "where key in ('host', 'port', 'mask', 'lang');");
   q.exec();
+
   while (q.next())
     {
-      if (q.value(0).toString() == "host")
-	this->host->setText(q.value(1).toString());
-      else if (q.value(0).toString() == "port")
-	this->port->setText(q.value(1).toString());
+      QString	name(q.value(0).toString());
+      QString	value(q.value(1).toString());
+
+      if (name == "host")
+	this->host->setText(value);
+      else if (name == "port")
+	this->port->setText(value);
+      else if (name == "mask")
+	{
+	  int	value = q.value(1).toInt();
+
+	  if (value & OPT_VERBOSE)
+	    this->verbose->setChecked(true);
+	  if (value & OPT_SECURE)
+	    this->secure->setChecked(true);
+	  if (value & OPT_SPLASH)
+	    this->splash->setChecked(true);
+	}
+      else if (name == "lang")
+	this->language->setText(value);
     }
 }
 
@@ -71,9 +88,31 @@ void	Options::_modifyServer()
 	    "where key = 'host';");
   q.addBindValue(this->host->text());
   q.exec();
+
   q.prepare("update options "
 	    "set value = ? "
 	    "where key = 'port';");
   q.addBindValue(this->port->text());
+  q.exec();
+
+  int	mask = 0;
+
+  if (this->verbose->isChecked())
+    mask |= OPT_VERBOSE;
+  if (this->secure->isChecked())
+    mask |= OPT_SECURE;
+  if (this->splash->isChecked())
+    mask |= OPT_SPLASH;
+
+  q.prepare("update options "
+	    "set value = ? "
+	    "where key = 'mask';");
+  q.addBindValue(mask);
+  q.exec();
+
+  q.prepare("update options "
+	    "set value = ? "
+	    "where key = 'lang';");
+  q.addBindValue(this->language->text());
   q.exec();
 }

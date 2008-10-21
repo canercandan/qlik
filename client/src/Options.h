@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug 11 16:06:11 2008 caner candan
-// Last update Mon Aug 18 19:38:55 2008 caner candan
+// Last update Thu Oct 16 15:24:57 2008 caner candan
 //
 
 #ifndef __OPTIONS_H__
@@ -14,6 +14,10 @@
 # include <QDialog>
 # include "Singleton.hpp"
 # include "ui_Options.h"
+
+# define OPT_VERBOSE	1 << 1
+# define OPT_SECURE	1 << 2
+# define OPT_SPLASH	1 << 3
 
 class	Options : public QDialog, public Singleton<Options>,
 		  public Ui::Options

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:36:03 2008 caner candan
-// Last update Tue Aug 19 02:25:42 2008 caner candan
+// Last update Tue Oct 14 23:34:03 2008 caner candan
 //
 
 #ifndef __CONNECT_H__
@@ -19,8 +19,7 @@ class	Connect : public QDialog, public Ui::Connect
   Q_OBJECT
 
   public:
-  Connect(QWidget *parent = NULL);
-  ~Connect();
+  Connect(QWidget* parent = NULL);
 private slots:
   void	on_pushButtonOk_clicked();
   void	on_pushButtonCancel_clicked();

@@ -5,89 +5,102 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>290</width>
-    <height>120</height>
+    <width>442</width>
+    <height>209</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Create</string>
+   <string>create</string>
   </property>
-  <widget class="QWidget" name="verticalLayout" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>271</width>
-     <height>101</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" >
-    <item>
-     <widget class="QGroupBox" name="groupBox_2" >
-      <property name="title" >
-       <string>Account Settings</string>
-      </property>
-      <widget class="QWidget" name="gridLayout" >
-       <property name="geometry" >
-        <rect>
-         <x>9</x>
-         <y>20</y>
-         <width>251</width>
-         <height>31</height>
-        </rect>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QLabel" name="label_2" >
+       <property name="text" >
+        <string/>
        </property>
-       <layout class="QGridLayout" >
-        <item row="0" column="0" >
-         <widget class="QLabel" name="label" >
-          <property name="text" >
-           <string>Username</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" >
-         <widget class="QLineEdit" name="username" >
-          <property name="maxLength" >
-           <number>20</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <property name="pixmap" >
+        <pixmap>../images/logo.png</pixmap>
+       </property>
       </widget>
-     </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" >
-      <item>
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButtonOk" >
-        <property name="text" >
-         <string>Ok</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButtonCancel" >
-        <property name="text" >
-         <string>Cancel</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QGroupBox" name="groupBox_2" >
+         <property name="title" >
+          <string>account_settings</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QLabel" name="label_3" >
+              <property name="text" >
+               <string>create_txt</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QGridLayout" >
+              <item row="0" column="0" >
+               <widget class="QLabel" name="label" >
+                <property name="text" >
+                 <string>username</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" >
+               <widget class="QLineEdit" name="username" >
+                <property name="maxLength" >
+                 <number>20</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonOk" >
+           <property name="text" >
+            <string>ok</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonCancel" >
+           <property name="text" >
+            <string>cancel</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <tabstops>
   <tabstop>pushButtonOk</tabstop>

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug  4 06:10:50 2008 caner candan
-// Last update Mon Sep 29 20:08:34 2008 caner candan
+// Last update Tue Oct  7 15:54:57 2008 caner candan
 //
 
 #include <QWidget>
@@ -31,7 +31,7 @@ void	Message::on_send_clicked()
 
   if (edit.isEmpty())
     return;
-  stream << Protocole::message << ' ' << to << ' ' << edit << endl;
+  stream << MESSAGE << ' ' << to << ' ' << edit << endl;
   static_cast<Client*>(this->parent())->appendMessage(to, from, edit);
   this->edit->clear();
   this->edit->setFocus();

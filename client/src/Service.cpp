@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Jul 21 02:05:40 2008 caner candan
-// Last update Mon Sep 29 20:08:38 2008 caner candan
+// Last update Sun Oct 12 01:55:52 2008 caner candan
 //
 
 #include <QWidget>
@@ -26,43 +26,33 @@ void	Service::createWebOffer()
 
   if (this->offerWebName->text().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No name"),
-			       tr("No name"));
+      QMessageBox::information(this, tr("no_name"), tr("no_name_txt"));
       this->offerWebName->setFocus();
       return;
     }
   rx.setPattern(PATTERN_NAME);
   if (rx.indexIn(this->offerWebName->text()) < 0)
     {
-      QMessageBox::information(this,
-			       tr("Name incorrect"),
-			       tr("Name incorrect"));
+      QMessageBox::information(this, tr("name_inc"), tr("name_inc_txt"));
       this->offerWebName->setFocus();
       return;
     }
   if (this->offerWebList->currentRow() < 0)
     {
-      QMessageBox::information(this,
-			       tr("No offer"),
-			       tr("No offer"));
+      QMessageBox::information(this, tr("no_offer"), tr("no_offer_txt"));
       this->offerWebList->setFocus();
       return;
     }
   if (this->offerWebDomain->text().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No domain"),
-			       tr("No domain"));
+      QMessageBox::information(this, tr("no_domain"), tr("no_domain_txt"));
       this->offerWebDomain->setFocus();
       return;
     }
   rx.setPattern(PATTERN_DOMAIN);
   if (rx.indexIn(this->offerWebDomain->text()) < 0)
     {
-      QMessageBox::information(this,
-			       tr("Domain incorrect"),
-			       tr("Domain incorrect"));
+      QMessageBox::information(this, tr("domain_inc"), tr("domain_inc_txt"));
       this->offerWebDomain->setFocus();
       return;
     }
@@ -77,43 +67,33 @@ void	Service::createStreamOffer()
 
   if (this->offerStreamName->text().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No name"),
-			       tr("No name"));
+      QMessageBox::information(this, tr("no_name"), tr("no_name_txt"));
       this->offerStreamName->setFocus();
       return;
     }
   rx.setPattern(PATTERN_NAME);
   if (rx.indexIn(this->offerStreamName->text()) < 0)
     {
-      QMessageBox::information(this,
-			       tr("Name incorrect"),
-			       tr("Name incorrect"));
+      QMessageBox::information(this, tr("name_inc"), tr("name_inc_txt"));
       this->offerStreamName->setFocus();
       return;
     }
   if (this->offerStreamList->currentRow() < 0)
     {
-      QMessageBox::information(this,
-			       tr("No offer"),
-			       tr("No offer"));
+      QMessageBox::information(this, tr("no_offer"), tr("no_offer_txt"));
       this->offerStreamList->setFocus();
       return;
     }
   if (this->offerStreamTitle->text().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No title"),
-			       tr("No title"));
+      QMessageBox::information(this, tr("no_title"), tr("no_title_txt"));
       this->offerStreamTitle->setFocus();
       return;
     }
   rx.setPattern(PATTERN_NAME);
   if (rx.indexIn(this->offerStreamTitle->text()) < 0)
     {
-      QMessageBox::information(this,
-			       tr("Title incorrect"),
-			       tr("Title incorrect"));
+      QMessageBox::information(this, tr("title_inc"), tr("title_inc_txt"));
       this->offerStreamTitle->setFocus();
       return;
     }
@@ -128,56 +108,44 @@ void	Service::createWebMore()
 
   if (this->webName->text().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No name"),
-			       tr("No name"));
+      QMessageBox::information(this, tr("no_name"), tr("no_name_txt"));
       this->webName->setFocus();
       return;
     }
   rx.setPattern(PATTERN_NAME);
   if (rx.indexIn(this->webName->text()) < 0)
     {
-      QMessageBox::information(this,
-			       tr("Name incorrect"),
-			       tr("Name incorrect"));
+      QMessageBox::information(this, tr("name_inc"), tr("name_inc_txt"));
       this->webName->setFocus();
       return;
     }
   if (this->webSpace->currentText().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No space"),
-			       tr("No space"));
+      QMessageBox::information(this, tr("no_space"), tr("no_space_txt"));
       this->webSpace->setFocus();
       return;
     }
   if (this->webNbDb->currentText().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No nb db"),
-			       tr("No nb db"));
+      QMessageBox::information(this, tr("no_nbr_db"), tr("no_nbr_db_txt"));
       this->webNbDb->setFocus();
       return;
     }
   if (this->webDomain->text().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No domain"),
-			       tr("No domain"));
+      QMessageBox::information(this, tr("no_domain"), tr("no_domain_txt"));
       this->webDomain->setFocus();
       return;
     }
   rx.setPattern(PATTERN_DOMAIN);
   if (rx.indexIn(this->webDomain->text()) < 0)
     {
-      QMessageBox::information(this,
-			       tr("Domain incorrect"),
-			       tr("Domain incorrect"));
+      QMessageBox::information(this, tr("domain_inc"), tr("domain_inc_txt"));
       this->webDomain->setFocus();
       return;
     }
-  if (!this->_confirmMore(this->webSpace, Protocole::ratioWebSpace,
-			  this->webNbDb, Protocole::ratioWebDb))
+  if (!this->_confirmMore(this->webSpace, RATIO_WEB_SPACE,
+			  this->webNbDb, RATIO_WEB_DB))
     return;
   static_cast<Client*>(this->parent())->createWeb();
 }
@@ -188,56 +156,44 @@ void	Service::createStreamMore()
 
   if (this->streamName->text().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No name"),
-			       tr("No name"));
+      QMessageBox::information(this, tr("no_name"), tr("no_name_txt"));
       this->streamName->setFocus();
       return;
     }
   rx.setPattern(PATTERN_NAME);
   if (rx.indexIn(this->streamName->text()) < 0)
     {
-      QMessageBox::information(this,
-			       tr("Name incorrect"),
-			       tr("Name incorrect"));
+      QMessageBox::information(this, tr("name_inc"), tr("name_inc_txt"));
       this->streamName->setFocus();
       return;
     }
   if (this->streamSlots->currentText().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No slots"),
-			       tr("No slots"));
+      QMessageBox::information(this, tr("no_slots"), tr("no_slots_txt"));
       this->streamSlots->setFocus();
       return;
     }
   if (this->streamBits->currentText().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No bits"),
-			       tr("No bits"));
+      QMessageBox::information(this, tr("no_bits"), tr("no_bits_txt"));
       this->streamBits->setFocus();
       return;
     }
   if (this->streamTitle->text().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No title"),
-			       tr("No title"));
+      QMessageBox::information(this, tr("no_title"), tr("no_title_txt"));
       this->streamTitle->setFocus();
       return;
     }
   rx.setPattern(PATTERN_NAME);
   if (rx.indexIn(this->streamTitle->text()) < 0)
     {
-      QMessageBox::information(this,
-			       tr("Title incorrect"),
-			       tr("Title incorrect"));
+      QMessageBox::information(this, tr("title_inc"), tr("title_inc_txt"));
       this->streamTitle->setFocus();
       return;
     }
-  if (!this->_confirmMore(this->streamSlots, Protocole::ratioStreamSlot,
-			  this->streamBits, Protocole::ratioStreamBits))
+  if (!this->_confirmMore(this->streamSlots, RATIO_STREAM_SLOT,
+			  this->streamBits, RATIO_STREAM_BITS))
     return;
   static_cast<Client*>(this->parent())->createStream();
 }
@@ -268,14 +224,12 @@ bool	Service::_confirmOffer(QListWidget* list)
   if (client->creditCurrently->text().toInt()
       < list->currentItem()->data(Qt::UserRole).toInt())
     {
-      QMessageBox::information(this,
-			       tr("Not enough credit"),
-			       tr("Not enough credit"));
+      QMessageBox::information(this, tr("not_enough_credit"),
+			       tr("not_enough_credit_txt"));
       return (false);
     }
-  return (QMessageBox::question(this,
-				tr("Are you sure ?"),
-				tr("Are you sure ?"),
+  return (QMessageBox::question(this, tr("are_you_sure"),
+				tr("are_you_sure_txt"),
 				QMessageBox::Yes | QMessageBox::No)
 	  == QMessageBox::Yes);
 }
@@ -289,14 +243,12 @@ bool	Service::_confirmMore(QComboBox* list1, int ratio1,
       < ((list1->currentText().toInt() / ratio1)
 	 + (list2->currentText().toInt() / ratio2)))
     {
-      QMessageBox::information(this,
-			       tr("Not enough credit"),
-			       tr("Not enough credit"));
+      QMessageBox::information(this, tr("not_enough_credit"),
+			       tr("not_enough_credit_txt"));
       return (false);
     }
-  return (QMessageBox::question(this,
-				tr("Are you sure ?"),
-				tr("Are you sure ?"),
+  return (QMessageBox::question(this, tr("are_you_sure"),
+				tr("are_you_sure_txt"),
 				QMessageBox::Yes | QMessageBox::No)
 	  == QMessageBox::Yes);
 }

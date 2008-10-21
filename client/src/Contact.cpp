@@ -5,14 +5,14 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:46:22 2008 caner candan
-// Last update Tue Aug 19 23:51:52 2008 caner candan
+// Last update Sun Oct 12 01:13:07 2008 caner candan
 //
 
 #include <QWidget>
 #include <QMessageBox>
 #include "Contact.h"
 
-Contact::Contact(QWidget *parent /*= NULL*/)
+Contact::Contact(QWidget* parent /*= NULL*/)
   : QDialog(parent)
 {
   setupUi(this);
@@ -22,9 +22,7 @@ void	Contact::on_ok_clicked()
 {
   if (this->username->text().isEmpty())
     {
-      QMessageBox::information(this,
-			       tr("No username"),
-			       tr("Please insert the username"));
+      QMessageBox::information(this, tr("no_username"), tr("no_username_txt"));
       this->username->setFocus();
       return;
     }
@@ -34,9 +32,8 @@ void	Contact::on_ok_clicked()
   rx.setPattern("^[a-zA-Z][a-zA-Z0-9-_]{3,19}$");
   if (rx.indexIn(this->username->text()) < 0)
     {
-      QMessageBox::information(this,
-			       tr("Username incorrect"),
-			       tr("Username incorrect"));
+      QMessageBox::information(this, tr("username_inc"),
+			       tr("username_inc_txt"));
       this->username->setFocus();
       return;
     }
@@ -45,9 +42,7 @@ void	Contact::on_ok_clicked()
       rx.setPattern("^[a-zA-Z0-9-_ ]{4,20}$");
       if (rx.indexIn(this->alias->text()) < 0)
 	{
-	  QMessageBox::information(this,
-				   tr("Alias incorrect"),
-				   tr("Alias incorrect"));
+	  QMessageBox::information(this, tr("alias_inc"), tr("alias_inc_txt"));
 	  this->alias->setFocus();
 	  return;
 	}

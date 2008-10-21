@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Mon Sep 29 01:32:21 2008 caner candan
+// Last update Mon Oct 13 00:37:44 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -28,8 +28,10 @@ public:
   typedef std::pair<callback, std::string>	pairCallback;
   typedef std::map<std::string, pairCallback>	mapAction;
 
-  typedef std::list<Client*>		listClients;
-  typedef std::map<std::string, pid_t>	mapPid;
+  typedef std::list<Client*>	listClients;
+
+  typedef std::map<std::string, pid_t>		mapClientPid;
+  typedef std::map<std::string, mapClientPid>	mapStreamPid;
 public:
   Server();
   ~Server();
@@ -71,30 +73,42 @@ public:
   void	actLogin(Client*);
   void	actLogout(Client*);
   void	actCreate(Client*);
+
   void	actCredit(Client*);
   void	actStatus(Client*);
   void	actClients(Client*);
   void	actAccounts(Client*);
   void	actMessage(Client*);
+
   void	actServicesWeb(Client*);
   void	actServicesStream(Client*);
   void	actServicesWebDetail(Client*);
   void	actServicesStreamDetail(Client*);
+
   void	actOfferWeb(Client*);
   void	actOfferStream(Client*);
+
   void	actCreateOfferWeb(Client*);
   void	actCreateOfferStream(Client*);
+
   void	actCreateWeb(Client*);
   void	actCreateStream(Client*);
+
   void	actNews(Client*);
   void	actNewsDetail(Client*);
 
+  void	actStreamStatus(Client*);
+  void	actStreamStart(Client*);
+  void	actStreamStop(Client*);
+
   std::string	generatePasswd();
+private:
+  bool	_streamOnline(Client*, const std::string& name);
 private:
   SQLiteWrapper	_sql;
   mapAction	_mapAction;
   listClients	_clients;
-  mapPid	_mapPid;
+  mapStreamPid	_mapStreamPid;
 };
 
 #endif // !__SERVER_H__
