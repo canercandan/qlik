@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:26:20 2008 caner candan
-// Last update Mon Sep 29 14:16:00 2008 caner candan
+// Last update Sun Oct 26 19:22:39 2008 caner candan
 //
 
 #include <iostream>
@@ -27,9 +27,10 @@ int		main(void)
 	  return (0);
 	}
     }
+
   Server	s;
 
-  s.addServer(config->getPort());
-  s.loopServer();
+  s.start();
+
   return (0);
 }

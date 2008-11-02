@@ -1,0 +1,181 @@
+<ui version="4.0" >
+ <class>About</class>
+ <widget class="QWidget" name="About" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>373</width>
+    <height>457</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>about</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <layout class="QVBoxLayout" >
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QLabel" name="label_3" >
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="pixmap" >
+          <pixmap>../images/logo.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4" >
+         <property name="text" >
+          <string>qlik</string>
+         </property>
+         <property name="alignment" >
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_2" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2" >
+       <property name="text" >
+        <string>progression</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="progressBar" >
+       <property name="value" >
+        <number>67</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>workers</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="tableWidget" >
+       <property name="enabled" >
+        <bool>true</bool>
+       </property>
+       <property name="editTriggers" >
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="tabKeyNavigation" >
+        <bool>false</bool>
+       </property>
+       <row>
+        <property name="text" >
+         <string/>
+        </property>
+        <property name="icon" >
+         <iconset>../images/user_gray.png</iconset>
+        </property>
+       </row>
+       <row>
+        <property name="text" >
+         <string/>
+        </property>
+        <property name="icon" >
+         <iconset>../images/user.png</iconset>
+        </property>
+       </row>
+       <column>
+        <property name="text" >
+         <string>name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text" >
+         <string>job</string>
+        </property>
+       </column>
+       <column>
+        <property name="text" >
+         <string>email</string>
+        </property>
+       </column>
+       <item row="0" column="0" >
+        <property name="text" >
+         <string>Caner Candan</string>
+        </property>
+       </item>
+       <item row="0" column="1" >
+        <property name="text" >
+         <string>developper</string>
+        </property>
+       </item>
+       <item row="0" column="2" >
+        <property name="text" >
+         <string>caner.candan@localhost</string>
+        </property>
+       </item>
+       <item row="1" column="0" >
+        <property name="text" >
+         <string>Geraldine Starke</string>
+        </property>
+       </item>
+       <item row="1" column="1" >
+        <property name="text" >
+         <string>translator</string>
+        </property>
+       </item>
+       <item row="1" column="2" >
+        <property name="text" >
+         <string>geraldine.starke@localhost</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="close" >
+         <property name="text" >
+          <string>close</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -9,11 +9,17 @@ PATH_COMMON	=	../../common/src
 NAME		=	$(PATH_BIN)/server
 
 SRCS		=	$(PATH_SRC)/main.cpp		\
+			$(PATH_SRC)/Action.cpp		\
 			$(PATH_SRC)/Apache.cpp		\
 			$(PATH_SRC)/Client.cpp		\
 			$(PATH_SRC)/Config.cpp		\
+			$(PATH_SRC)/Credit.cpp		\
+			$(PATH_SRC)/Database.cpp	\
 			$(PATH_SRC)/IceCast.cpp		\
+			$(PATH_SRC)/Mysql.cpp		\
+			$(PATH_SRC)/Proftpd.cpp		\
 			$(PATH_SRC)/SQLiteWrapper.cpp	\
+			$(PATH_SRC)/Select.cpp		\
 			$(PATH_SRC)/Server.cpp		\
 			$(PATH_SRC)/Signal.cpp		\
 			$(PATH_SRC)/Socket.cpp		\

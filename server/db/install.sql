@@ -11,29 +11,20 @@ create table credit
 	value integer
 );
 
-create table history
+create table web
 (
-	id integer primary key autoincrement,
-	id_user integer,
-	type integer,
-	date integer
-);
-
-create table services_web
-(
-	id integer primary key autoincrement,
 	id_user integer,
 	name text,
 	space integer,
 	nb_db integer,
 	domain text,
 	created integer,
-	expired integer
+	expired integer,
+	primary key(id_user, name)
 );
 
-create table services_stream
+create table stream
 (
-	id integer primary key autoincrement,
 	id_user integer,
 	name text,
 	slots integer,
@@ -42,13 +33,13 @@ create table services_stream
 	port integer,
 	pid integer,
 	created integer,
-	expired integer
+	expired integer,
+	primary key(id_user, name)
 );
 
 create table offer_web
 (
-	id integer primary key autoincrement,
-	name text,
+	name text primary key,
 	space integer,
 	nb_db integer,
 	price integer
@@ -56,8 +47,7 @@ create table offer_web
 
 create table offer_stream
 (
-	id integer primary key autoincrement,
-	name text,
+	name text primary key,
 	slots integer,
 	bits integer,
 	price integer
@@ -65,7 +55,7 @@ create table offer_stream
 
 create table news
 (
-	id integer primary key autoincrement,
+	id integer primary key,
 	id_user integer,
 	subject text,
 	body text,

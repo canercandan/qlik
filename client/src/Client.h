@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Mon Oct 20 20:14:39 2008 caner candan
+// Last update Thu Oct 30 16:17:41 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -24,11 +24,7 @@ class	Client : public QMainWindow, public Ui::Client
 
   typedef QMap<QString, Message*>	MessageMap;
 public:
-  typedef void	(Client::*callback)(const QStringList&);
-
-  typedef QMap<QString, callback>	MapAction;
-
-  enum	ServiceType {WEB, STREAM};
+  enum	ServiceType {TYPE_WEB, TYPE_STREAM};
 public:
   Client(QWidget *parent = NULL);
   ~Client();
@@ -61,37 +57,7 @@ public:
   void	addCredit(const int&);
   void	subCredit(const int&);
 
-  void	actWelcome(const QStringList&);
-
-  void	actLogin(const QStringList&);
-  void	actLogout(const QStringList&);
-  void	actCreate(const QStringList&);
-
-  void	actCredit(const QStringList&);
-  void	actStatus(const QStringList&);
-  void	actClients(const QStringList&);
-  void	actAccounts(const QStringList&);
-  void	actMessage(const QStringList&);
-
-  void	actServicesWeb(const QStringList&);
-  void	actServicesStream(const QStringList&);
-  void	actServicesWebDetail(const QStringList&);
-  void	actServicesStreamDetail(const QStringList&);
-
-  void	actOfferWeb(const QStringList&);
-  void	actOfferStream(const QStringList&);
-
-  void	actCreateOfferWeb(const QStringList&);
-  void	actCreateOfferStream(const QStringList&);
-  void	actCreateWeb(const QStringList&);
-  void	actCreateStream(const QStringList&);
-
-  void	actNews(const QStringList&);
-  void	actNewsDetail(const QStringList&);
-
-  void	actStreamStatus(const QStringList&);
-  void	actStreamStart(const QStringList&);
-  void	actStreamStop(const QStringList&);
+  void	refreshList();
 private slots:
   void	on_actionSignUp_triggered();
   void	on_actionSignIn_triggered();
@@ -129,7 +95,6 @@ private:
   bool		_keyExist(const QString&);
   void		_saveKey(const QString& key, const QVariant& value);
 private:
-  MapAction	_mapAction;
   MessageMap	_mm;
   QString	_userCreated;
   int		_credit;

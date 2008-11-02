@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Sep 28 15:56:41 2008 caner candan
-// Last update Sun Sep 28 15:56:42 2008 caner candan
+// Last update Mon Oct 27 15:24:25 2008 caner candan
 //
 
 #ifndef __SIGNAL_H__
@@ -21,12 +21,15 @@ class	Signal : public Singleton<Signal>
   friend class	Singleton<Signal>;
 public:
   enum	Type {INT, TERM};
+  enum	Priority {HIGH, NORMAL, LOW};
 
   typedef std::pair<ISignalManager*, ISignalManager::callback>	pairCallback;
   typedef std::list<pairCallback>				listCallback;
-  typedef std::map<Type, listCallback>				mapSignal;
+  typedef std::map<Priority, listCallback>			mapPriority;
+  typedef std::map<Type, mapPriority>				mapSignal;
 
-  void	addCallback(Type, ISignalManager*, ISignalManager::callback);
+  void	addCallback(const Type&, const Priority&,
+		    ISignalManager*, ISignalManager::callback);
 private:
   Signal();
   ~Signal();
@@ -35,6 +38,7 @@ private:
   static void	_sigTerm(int);
 
   void	_signalLoop(const Type&);
+  void	_signalLoopPriority(const Type&, const Priority&);
 private:
   mapSignal	_signals;
 };

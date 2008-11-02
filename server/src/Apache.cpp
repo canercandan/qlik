@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  2 03:47:39 2008 caner candan
-// Last update Tue Sep  2 14:28:42 2008 caner candan
+// Last update Thu Oct 23 19:43:32 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -20,7 +20,7 @@ Apache::Apache(Client* client)
     _dirUserConfig(_dirConfig + _user),
     _fileUserConfig(_dirUserConfig + ".conf")
 {
-  char		root[128];
+  char	root[128];
 
   ::mkdir(_dirConfig.c_str(), 0755);
   ::getcwd(root, sizeof(root));
@@ -30,25 +30,25 @@ Apache::Apache(Client* client)
 
 void	Apache::_createRoot()
 {
-  std::ofstream	out(this->_fileUserConfig.c_str());
+  std::ofstream	out(_fileUserConfig.c_str());
 
   out << "Include "
-      << this->_rootDir << '/'
-      << this->_dirUserConfig << "/*.conf"
+      << _rootDir << '/'
+      << _dirUserConfig << "/*.conf"
       << std::endl;
   out.close();
-  ::mkdir(this->_dirUserConfig.c_str(), 0755);
+  ::mkdir(_dirUserConfig.c_str(), 0755);
 }
 
 void	Apache::createHost(const std::string& domain)
 {
-  std::string	configFile(this->_dirUserConfig + '/'
+  std::string	configFile(_dirUserConfig + '/'
 			   + domain + ".conf");
   std::string	wwwPath("/home/web_1/web/vhosts/"
-			+ this->_user + '/' + domain);
+			+ _user + '/' + domain);
   std::ofstream	out(configFile.c_str());
 
-  out << "# user: " << this->_user << " domain: " << domain
+  out << "# user: " << _user << " domain: " << domain
       << " configuration start" << std::endl
       << "<VirtualHost *>" << std::endl
       << "DocumentRoot " << wwwPath << "/www" << std::endl
@@ -69,7 +69,7 @@ void	Apache::createHost(const std::string& domain)
       << "Allow from all" << std::endl
       << "</Directory>" << std::endl
       << "</VirtualHost>" << std::endl
-      << "# user: " << this->_user << " domain: " << domain
+      << "# user: " << _user << " domain: " << domain
       << " configuration end" << std::endl;
   out.close();
 }

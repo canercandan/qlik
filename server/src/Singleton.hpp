@@ -1,21 +1,24 @@
 //
-// Singleton.hpp for Singleton in /home/candan_c/rendu/ekzay/server
+// Singleton.hpp for server in /home/candan_c/cu/rendu/qlik/server/src
 // 
 // Made by caner candan
 // Login   <candan_c@epitech.net>
 // 
-// Started on  Sun Aug 17 00:22:13 2008 caner candan
-// Last update Sun Aug 17 00:58:57 2008 caner candan
+// Started on  Sat Oct 25 21:08:36 2008 caner candan
+// Last update Sat Oct 25 21:08:36 2008 caner candan
 //
 
-#ifndef __SINGLETON_HPP__
-# define __SINGLETON_HPP__
+#ifndef __SINGLETON_H__
+# define __SINGLETON_H__
 
 # include <cstdlib>
 
 template <typename T>
 class	Singleton
 {
+protected:
+  Singleton(){}
+  ~Singleton(){}
 public:
   static T*	getInstance()
   {
@@ -32,9 +35,9 @@ public:
 	_singleton = NULL;
       }
   }
-protected:
-  Singleton(){}
-  ~Singleton(){}
+
+  static bool	exist()
+  {return (_singleton != NULL);}
 private:
   static T*	_singleton;
 };
@@ -42,4 +45,4 @@ private:
 template <typename T>
 T*	Singleton<T>::_singleton = NULL;
 
-#endif // !__SINGLETON_HPP__
+#endif // !__SINGLETON_H__

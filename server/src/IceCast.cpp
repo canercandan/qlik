@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Sep  2 14:07:57 2008 caner candan
-// Last update Sun Oct 12 19:02:36 2008 caner candan
+// Last update Thu Oct 23 17:10:37 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -35,13 +35,17 @@ void	IceCast::_createRoot()
 
 void	IceCast::createStream()
 {
-  std::string	configDir(this->_dirUserConfig + '/'
+  std::string	configDir(_dirUserConfig + '/'
 			  + _stream.getName() + '/');
-  std::string	configFile(configDir + "icecast.xml");
+  std::string	configFile("icecast.xml");
+  std::string	logFile("acccess.log");
+  std::string	errFile("error.log");
 
   ::mkdir(configDir.c_str(), 0755);
 
-  std::ofstream	out(configFile.c_str());
+  std::ofstream	out(std::string(configDir + configFile).c_str());
+  std::ofstream	log(std::string(configDir + logFile).c_str());
+  std::ofstream	err(std::string(configDir + errFile).c_str());
 
   out << "<icecast>" << std::endl
       << "<limits>" << std::endl
@@ -71,8 +75,8 @@ void	IceCast::createStream()
       << "<alias source=\"/\" dest=\"/status.xsl\"/>" << std::endl
       << "</paths>" << std::endl
       << "<logging>" << std::endl
-      << "<accesslog>access.log</accesslog>" << std::endl
-      << "<errorlog>error.log</errorlog>" << std::endl
+      << "<accesslog>" << logFile << "</accesslog>" << std::endl
+      << "<errorlog>" << errFile << "</errorlog>" << std::endl
       << "<loglevel>3</loglevel>" << std::endl
       << "</logging>" << std::endl
       << "</icecast>" << std::endl;

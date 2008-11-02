@@ -12,6 +12,7 @@ DEFINES		+=	#QT_NO_DEBUG_OUTPUT
 # Input
 HEADERS		+=	../src/About.h		\
 			../src/Accounts.h	\
+			../src/Action.h		\
 			../src/Client.h		\
 			../src/Connect.h	\
 			../src/Contact.h	\
@@ -46,6 +47,7 @@ FORMS		+=	../src/About.ui		\
 SOURCES		+=	../src/main.cpp		\
 			../src/About.cpp	\
 			../src/Accounts.cpp	\
+			../src/Action.cpp	\
 			../src/Client.cpp	\
 			../src/Connect.cpp	\
 			../src/Contact.cpp	\

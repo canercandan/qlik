@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:29:14 2008 caner candan
-// Last update Mon Sep 29 14:49:04 2008 caner candan
+// Last update Thu Oct 30 13:51:27 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -40,7 +40,8 @@ void	SocketClient::acceptClient(int socketServer)
 	std::cout << this->head()
 		  << "accept error"
 		  << std::endl;
-      State::getInstance()->setState(State::ERROR);
+
+      State::getInstance()->setLoopState(State::LOOP_ERROR);
       this->closeSocket();
     }
 }

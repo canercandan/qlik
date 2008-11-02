@@ -5,24 +5,11 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Aug 17 00:28:11 2008 caner candan
-// Last update Sun Aug 17 00:39:46 2008 caner candan
+// Last update Thu Oct 30 13:51:42 2008 caner candan
 //
 
 #include "State.h"
 
 State::State()
-  : _state(START)
+  : _loopstate(LOOP_START), _processstate(PROCESS_PLAY)
 {}
-
-State::~State()
-{}
-
-void	State::setState(const State::Step& state)
-{
-  this->_state = state;
-}
-
-const State::Step&	State::getState() const
-{
-  return (this->_state);
-}

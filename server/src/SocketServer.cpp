@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:29:14 2008 caner candan
-// Last update Mon Sep 29 14:48:48 2008 caner candan
+// Last update Thu Oct 30 13:51:35 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -69,7 +69,8 @@ void	SocketServer::createSocket(int port /*= 12345*/)
 	    std::cout << "listen error";
 	  std::cout << std::endl;
 	}
-      State::getInstance()->setState(State::ERROR);
+
+      State::getInstance()->setLoopState(State::LOOP_ERROR);
       this->closeSocket();
     }
 }

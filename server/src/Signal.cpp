@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Sep 28 15:56:35 2008 caner candan
-// Last update Sun Sep 28 15:56:35 2008 caner candan
+// Last update Mon Oct 27 15:24:03 2008 caner candan
 //
 
 #include <iostream>
@@ -21,11 +21,10 @@ Signal::Signal()
 Signal::~Signal()
 {}
 
-void	Signal::addCallback(Signal::Type type,
-			    ISignalManager* sm,
-			    ISignalManager::callback callback)
+void	Signal::addCallback(const Signal::Type& type, const Signal::Priority& priority,
+			    ISignalManager* sm, ISignalManager::callback callback)
 {
-  this->_signals[type].push_back(pairCallback(sm, callback));
+  _signals[type][priority].push_back(pairCallback(sm, callback));
 }
 
 void	Signal::_sigInt(int)
@@ -40,9 +39,20 @@ void	Signal::_sigTerm(int)
 
 void	Signal::_signalLoop(const Type& type)
 {
-  listCallback&	list = this->_signals[type];
+  _signalLoopPriority(type, HIGH);
+  _signalLoopPriority(type, NORMAL);
+  _signalLoopPriority(type, LOW);
 
-  for (listCallback::iterator
+  //::exit(-1);
+}
+
+void	Signal::_signalLoopPriority(const Type& type,
+				    const Priority& priority)
+{
+  mapPriority&	map = _signals[type];
+  listCallback&	list = map[priority];
+
+  for (listCallback::const_iterator
 	 it = list.begin(),
 	 end = list.end();
        it != end; ++it)
@@ -52,5 +62,4 @@ void	Signal::_signalLoop(const Type& type)
 
       (sm->*cb)();
     }
-  ::exit(-1);
 }
