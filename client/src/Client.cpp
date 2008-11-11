@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Sun Nov  2 12:33:04 2008 caner candan
+// Last update Tue Nov 11 13:20:22 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -391,7 +391,7 @@ void	Client::on_newsRead_clicked()
 
   if (this->newsList->currentRow() >= 0)
     stream << NEWS_DETAIL
-	   << ' ' << this->newsList->currentItem()->data(Qt::UserRole)
+	   << ' ' << this->newsList->currentItem()->data(Qt::UserRole).toString()
 	   << endl;
 }
 
