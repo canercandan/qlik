@@ -25,7 +25,7 @@
          <string>read</string>
         </attribute>
         <attribute name="icon" >
-         <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_go.png</iconset>
+         <iconset>../images/newspaper_go.png</iconset>
         </attribute>
         <layout class="QGridLayout" >
          <item row="0" column="0" >
@@ -119,7 +119,7 @@
          <string>add</string>
         </attribute>
         <attribute name="icon" >
-         <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_add.png</iconset>
+         <iconset>../images/newspaper_add.png</iconset>
         </attribute>
         <layout class="QGridLayout" >
          <item row="0" column="0" >
