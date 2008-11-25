@@ -68,7 +68,7 @@
           <string/>
          </property>
          <property name="icon" >
-          <iconset>../images/email_go.png</iconset>
+          <iconset resource="../resources/resources.qrc" >:/talk/images/email_go.png</iconset>
          </property>
         </widget>
        </item>
@@ -78,7 +78,7 @@
           <string/>
          </property>
          <property name="icon" >
-          <iconset>../images/user_add.png</iconset>
+          <iconset resource="../resources/resources.qrc" >:/talk/images/user_add.png</iconset>
          </property>
         </widget>
        </item>
@@ -95,7 +95,9 @@
   <tabstop>to</tabstop>
   <tabstop>list</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../resources/resources.qrc" />
+ </resources>
  <connections>
   <connection>
    <sender>edit</sender>

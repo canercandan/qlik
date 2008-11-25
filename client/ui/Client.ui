@@ -76,7 +76,7 @@
         <string>news</string>
        </attribute>
        <attribute name="icon" >
-        <iconset>../images/newspaper.png</iconset>
+        <iconset resource="../resources/resources.qrc" >:/pages/images/newspaper.png</iconset>
        </attribute>
        <layout class="QGridLayout" >
         <item row="0" column="0" >
@@ -106,7 +106,7 @@
              <string>read</string>
             </property>
             <property name="icon" >
-             <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_go.png</iconset>
+             <iconset resource="../resources/resources.qrc" >:/news/images/newspaper_go.png</iconset>
             </property>
            </widget>
           </item>
@@ -118,7 +118,7 @@
                <string>add</string>
               </property>
               <property name="icon" >
-               <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_add.png</iconset>
+               <iconset resource="../resources/resources.qrc" >:/news/images/newspaper_add.png</iconset>
               </property>
              </widget>
             </item>
@@ -128,7 +128,7 @@
                <string>delete</string>
               </property>
               <property name="icon" >
-               <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_delete.png</iconset>
+               <iconset resource="../resources/resources.qrc" >:/news/images/newspaper_delete.png</iconset>
               </property>
              </widget>
             </item>
@@ -151,7 +151,7 @@
         <string>services</string>
        </attribute>
        <attribute name="icon" >
-        <iconset>../images/bricks.png</iconset>
+        <iconset resource="../resources/resources.qrc" >:/pages/images/bricks.png</iconset>
        </attribute>
        <layout class="QGridLayout" >
         <item row="0" column="0" >
@@ -191,7 +191,7 @@
                <string>manage</string>
               </property>
               <property name="icon" >
-               <iconset>../images/brick_edit.png</iconset>
+               <iconset resource="../resources/resources.qrc" >:/services/images/brick_edit.png</iconset>
               </property>
              </widget>
             </item>
@@ -201,7 +201,7 @@
                <string>credit</string>
               </property>
               <property name="icon" >
-               <iconset>../images/coins_add.png</iconset>
+               <iconset resource="../resources/resources.qrc" >:/services/images/coins_add.png</iconset>
               </property>
              </widget>
             </item>
@@ -213,7 +213,7 @@
              <string>add_new_service</string>
             </property>
             <property name="icon" >
-             <iconset>../images/brick_add.png</iconset>
+             <iconset resource="../resources/resources.qrc" >:/services/images/brick_add.png</iconset>
             </property>
            </widget>
           </item>
@@ -234,7 +234,7 @@
         <string>credit</string>
        </attribute>
        <attribute name="icon" >
-        <iconset>../images/coins.png</iconset>
+        <iconset resource="../resources/resources.qrc" >:/pages/images/coins.png</iconset>
        </attribute>
        <layout class="QGridLayout" >
         <item row="0" column="0" >
@@ -304,7 +304,7 @@
         <string>talk</string>
        </attribute>
        <attribute name="icon" >
-        <iconset>../images/user_comment.png</iconset>
+        <iconset resource="../resources/resources.qrc" >:/pages/images/user_comment.png</iconset>
        </attribute>
        <layout class="QGridLayout" >
         <item row="0" column="0" >
@@ -332,7 +332,7 @@
                      <string>add</string>
                     </property>
                     <property name="icon" >
-                     <iconset>../images/user_add.png</iconset>
+                     <iconset resource="../resources/resources.qrc" >:/talk/images/user_add.png</iconset>
                     </property>
                    </widget>
                   </item>
@@ -342,7 +342,7 @@
                      <string>delete</string>
                     </property>
                     <property name="icon" >
-                     <iconset>../images/user_delete.png</iconset>
+                     <iconset resource="../resources/resources.qrc" >:/talk/images/user_delete.png</iconset>
                     </property>
                    </widget>
                   </item>
@@ -370,7 +370,7 @@
                      <string>talk_all_contacts_add</string>
                     </property>
                     <property name="icon" >
-                     <iconset>../images/user_add.png</iconset>
+                     <iconset resource="../resources/resources.qrc" >:/talk/images/user_add.png</iconset>
                     </property>
                    </widget>
                   </item>
@@ -388,7 +388,7 @@
              <string>talk</string>
             </property>
             <property name="icon" >
-             <iconset>../images/comment_edit.png</iconset>
+             <iconset resource="../resources/resources.qrc" >:/talk/images/comment_edit.png</iconset>
             </property>
            </widget>
           </item>
@@ -409,7 +409,7 @@
         <string>admin</string>
        </attribute>
        <attribute name="icon" >
-        <iconset>../images/key_delete.png</iconset>
+        <iconset resource="../resources/resources.qrc" >:/pages/images/key_delete.png</iconset>
        </attribute>
        <layout class="QGridLayout" >
         <item row="0" column="0" >
@@ -451,7 +451,7 @@
                    <string>modify</string>
                   </property>
                   <property name="icon" >
-                   <iconset>../images/user_edit.png</iconset>
+                   <iconset resource="../resources/resources.qrc" >:/admin/images/user_edit.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -479,7 +479,7 @@
                    <string>halt</string>
                   </property>
                   <property name="icon" >
-                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_stop_blue.png</iconset>
+                   <iconset resource="../resources/resources.qrc" >:/admin/images/control_stop_blue.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -496,7 +496,7 @@
                    <string>reload</string>
                   </property>
                   <property name="icon" >
-                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_repeat_blue.png</iconset>
+                   <iconset resource="../resources/resources.qrc" >:/admin/images/control_repeat_blue.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -513,7 +513,7 @@
                    <string>play</string>
                   </property>
                   <property name="icon" >
-                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_play_blue.png</iconset>
+                   <iconset resource="../resources/resources.qrc" >:/admin/images/control_play_blue.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -530,7 +530,7 @@
                    <string>break</string>
                   </property>
                   <property name="icon" >
-                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_pause_blue.png</iconset>
+                   <iconset resource="../resources/resources.qrc" >:/admin/images/control_pause_blue.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -621,7 +621,7 @@
   </widget>
   <action name="actionSignIn" >
    <property name="icon" >
-    <iconset>../images/connect.png</iconset>
+    <iconset resource="../resources/resources.qrc" >:/toolbar/images/connect.png</iconset>
    </property>
    <property name="text" >
     <string>sign_in</string>
@@ -629,7 +629,7 @@
   </action>
   <action name="actionSignOut" >
    <property name="icon" >
-    <iconset>../images/disconnect.png</iconset>
+    <iconset resource="../resources/resources.qrc" >:/toolbar/images/disconnect.png</iconset>
    </property>
    <property name="text" >
     <string>sign_out</string>
@@ -637,7 +637,7 @@
   </action>
   <action name="actionQuit" >
    <property name="icon" >
-    <iconset>../images/door.png</iconset>
+    <iconset resource="../resources/resources.qrc" >:/toolbar/images/door.png</iconset>
    </property>
    <property name="text" >
     <string>quit</string>
@@ -645,7 +645,7 @@
   </action>
   <action name="actionSignUp" >
    <property name="icon" >
-    <iconset>../images/database_save.png</iconset>
+    <iconset resource="../resources/resources.qrc" >:/toolbar/images/database_save.png</iconset>
    </property>
    <property name="text" >
     <string>sign_up</string>
@@ -653,7 +653,7 @@
   </action>
   <action name="actionRefresh" >
    <property name="icon" >
-    <iconset>../images/database_refresh.png</iconset>
+    <iconset resource="../resources/resources.qrc" >:/toolbar/images/database_refresh.png</iconset>
    </property>
    <property name="text" >
     <string>refresh</string>
@@ -661,7 +661,7 @@
   </action>
   <action name="actionOptions" >
    <property name="icon" >
-    <iconset>../images/wrench.png</iconset>
+    <iconset resource="../resources/resources.qrc" >:/toolbar/images/wrench.png</iconset>
    </property>
    <property name="text" >
     <string>options</string>
@@ -669,7 +669,7 @@
   </action>
   <action name="actionAccounts" >
    <property name="icon" >
-    <iconset>../images/group_gear.png</iconset>
+    <iconset resource="../resources/resources.qrc" >:/toolbar/images/group_gear.png</iconset>
    </property>
    <property name="text" >
     <string>accounts</string>
@@ -677,7 +677,7 @@
   </action>
   <action name="actionAbout" >
    <property name="icon" >
-    <iconset>../images/help.png</iconset>
+    <iconset resource="../resources/resources.qrc" >:/toolbar/images/help.png</iconset>
    </property>
    <property name="text" >
     <string>about</string>
@@ -685,7 +685,7 @@
   </action>
   <action name="actionLogo" >
    <property name="icon" >
-    <iconset>../images/logo.png</iconset>
+    <iconset resource="../resources/resources.qrc" >:/toolbar/images/logo.png</iconset>
    </property>
    <property name="text" >
     <string>logo</string>

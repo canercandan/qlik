@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>476</width>
-    <height>314</height>
+    <width>371</width>
+    <height>272</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -24,7 +24,7 @@
         <string>manage</string>
        </property>
        <property name="icon" >
-        <iconset>../images/user_edit.png</iconset>
+        <iconset resource="../resources/resources.qrc" >:/accounts/images/user_edit.png</iconset>
        </property>
       </widget>
      </item>
@@ -36,7 +36,7 @@
           <string>add</string>
          </property>
          <property name="icon" >
-          <iconset>../images/user_add.png</iconset>
+          <iconset resource="../resources/resources.qrc" >:/accounts/images/user_add.png</iconset>
          </property>
         </widget>
        </item>
@@ -46,7 +46,7 @@
           <string>delete</string>
          </property>
          <property name="icon" >
-          <iconset>../images/user_delete.png</iconset>
+          <iconset resource="../resources/resources.qrc" >:/accounts/images/user_delete.png</iconset>
          </property>
         </widget>
        </item>
@@ -162,7 +162,9 @@
   <tabstop>save</tabstop>
   <tabstop>done</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../resources/resources.qrc" />
+ </resources>
  <connections>
   <connection>
    <sender>accountsList</sender>

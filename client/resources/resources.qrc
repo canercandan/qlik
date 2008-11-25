@@ -1,4 +1,14 @@
 <RCC>
+    <qresource prefix="/about" >
+        <file>images/logo.png</file>
+        <file>images/user.png</file>
+    </qresource>
+    <qresource prefix="/accounts" >
+        <file>images/user.png</file>
+        <file>images/user_add.png</file>
+        <file>images/user_delete.png</file>
+        <file>images/user_edit.png</file>
+    </qresource>
     <qresource prefix="/admin" >
         <file>images/control_pause_blue.png</file>
         <file>images/control_play_blue.png</file>
@@ -8,6 +18,12 @@
         <file>images/user_edit.png</file>
         <file>images/user_gray.png</file>
         <file>images/user_red.png</file>
+    </qresource>
+    <qresource prefix="/connect" >
+        <file>images/logo.png</file>
+    </qresource>
+    <qresource prefix="/create" >
+        <file>images/logo.png</file>
     </qresource>
     <qresource prefix="/credit" />
     <qresource prefix="/news" >
@@ -31,6 +47,7 @@
     </qresource>
     <qresource prefix="/talk" >
         <file>images/comment_edit.png</file>
+        <file>images/email_go.png</file>
         <file>images/user.png</file>
         <file>images/user_add.png</file>
         <file>images/user_comment.png</file>
