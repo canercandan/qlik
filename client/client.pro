@@ -5,17 +5,17 @@
 ## Login   <candan_c@epitech.net>
 ## 
 ## Started on  Wed Nov 26 00:03:08 2008 caner candan
-## Last update Wed Nov 26 00:14:09 2008 caner candan
+## Last update Wed Nov 26 00:27:57 2008 caner candan
 ##
 
 TEMPLATE	=	app
 TARGET		=	client
 
 DEPENDPATH	+=	.
-INCLUDEPATH	+=	. src ../../common/src
+INCLUDEPATH	+=	. src ../common/src
 
 DESTDIR		+=	bin
-MOD_DIR		+=	build/moc
+MOC_DIR		+=	build/moc
 RCC_DIR		+=	build/rcc
 UI_DIR		+=	build/ui
 
