@@ -106,7 +106,7 @@
              <string>read</string>
             </property>
             <property name="icon" >
-             <iconset>../images/newspaper_go.png</iconset>
+             <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_go.png</iconset>
             </property>
            </widget>
           </item>
@@ -118,7 +118,7 @@
                <string>add</string>
               </property>
               <property name="icon" >
-               <iconset>../images/newspaper_add.png</iconset>
+               <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_add.png</iconset>
               </property>
              </widget>
             </item>
@@ -128,7 +128,7 @@
                <string>delete</string>
               </property>
               <property name="icon" >
-               <iconset>../images/newspaper_delete.png</iconset>
+               <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_delete.png</iconset>
               </property>
              </widget>
             </item>
@@ -479,7 +479,7 @@
                    <string>halt</string>
                   </property>
                   <property name="icon" >
-                   <iconset>../images/control_stop_blue.png</iconset>
+                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_stop_blue.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -496,7 +496,7 @@
                    <string>reload</string>
                   </property>
                   <property name="icon" >
-                   <iconset>../images/control_repeat_blue.png</iconset>
+                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_repeat_blue.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -513,7 +513,7 @@
                    <string>play</string>
                   </property>
                   <property name="icon" >
-                   <iconset>../images/control_play_blue.png</iconset>
+                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_play_blue.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -530,7 +530,7 @@
                    <string>break</string>
                   </property>
                   <property name="icon" >
-                   <iconset>../images/control_pause_blue.png</iconset>
+                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_pause_blue.png</iconset>
                   </property>
                  </widget>
                 </item>
@@ -693,7 +693,9 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="9" />
- <resources/>
+ <resources>
+  <include location="../resources/resources.qrc" />
+ </resources>
  <connections>
   <connection>
    <sender>serviceWebList</sender>

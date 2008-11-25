@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/admin" />
+    <qresource prefix="/credit" />
+    <qresource prefix="/news" />
+    <qresource prefix="/services" />
+    <qresource prefix="/talk" />
+    <qresource prefix="/toolbar" />
+</RCC>
