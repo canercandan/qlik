@@ -1,0 +1,180 @@
+<ui version="4.0" >
+ <class>AccountsAdmin</class>
+ <widget class="QDialog" name="AccountsAdmin" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>339</width>
+    <height>246</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>accounts_admin</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>accounts_admin</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <layout class="QGridLayout" >
+        <item row="0" column="0" >
+         <widget class="QLabel" name="label" >
+          <property name="text" >
+           <string>account</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="3" >
+         <widget class="QLineEdit" name="account" >
+          <property name="readOnly" >
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" >
+         <widget class="QLabel" name="label_2" >
+          <property name="text" >
+           <string>current_credit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="3" >
+         <widget class="QLineEdit" name="currentCredit" >
+          <property name="readOnly" >
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" >
+         <widget class="QLabel" name="label_4" >
+          <property name="text" >
+           <string>new_credit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1" >
+         <widget class="QPushButton" name="minus" >
+          <property name="text" >
+           <string>-</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2" >
+         <widget class="QLineEdit" name="newCredit" />
+        </item>
+        <item row="2" column="3" >
+         <widget class="QPushButton" name="plus" >
+          <property name="text" >
+           <string>+</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" >
+         <widget class="QLabel" name="label_5" >
+          <property name="text" >
+           <string>right</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" >
+         <widget class="QCheckBox" name="rightMessage" >
+          <property name="text" >
+           <string>message</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2" >
+         <widget class="QCheckBox" name="rightWeb" >
+          <property name="text" >
+           <string>web</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="3" >
+         <widget class="QCheckBox" name="rightStream" >
+          <property name="text" >
+           <string>stream</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1" >
+         <widget class="QCheckBox" name="rightNews" >
+          <property name="text" >
+           <string>news</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2" >
+         <widget class="QCheckBox" name="rightServer" >
+          <property name="text" >
+           <string>server</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3" >
+         <widget class="QCheckBox" name="rightAdmin" >
+          <property name="text" >
+           <string>admin</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="3" >
+         <layout class="QHBoxLayout" >
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="ok" >
+            <property name="text" >
+             <string>ok</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cancel" >
+            <property name="text" >
+             <string>cancel</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>account</tabstop>
+  <tabstop>currentCredit</tabstop>
+  <tabstop>minus</tabstop>
+  <tabstop>newCredit</tabstop>
+  <tabstop>plus</tabstop>
+  <tabstop>rightMessage</tabstop>
+  <tabstop>rightWeb</tabstop>
+  <tabstop>rightStream</tabstop>
+  <tabstop>rightNews</tabstop>
+  <tabstop>rightServer</tabstop>
+  <tabstop>rightAdmin</tabstop>
+  <tabstop>ok</tabstop>
+  <tabstop>cancel</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

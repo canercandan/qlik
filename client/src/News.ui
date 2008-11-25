@@ -1,0 +1,202 @@
+<ui version="4.0" >
+ <class>News</class>
+ <widget class="QDialog" name="News" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>328</width>
+    <height>255</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>news</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <layout class="QVBoxLayout" >
+     <item>
+      <widget class="QTabWidget" name="newsBox" >
+       <property name="currentIndex" >
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="tab" >
+        <attribute name="title" >
+         <string>read</string>
+        </attribute>
+        <attribute name="icon" >
+         <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_go.png</iconset>
+        </attribute>
+        <layout class="QGridLayout" >
+         <item row="0" column="0" >
+          <layout class="QGridLayout" >
+           <item row="2" column="0" >
+            <widget class="QLabel" name="label" >
+             <property name="text" >
+              <string>subject</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" >
+            <widget class="QLabel" name="label_2" >
+             <property name="text" >
+              <string>body</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" >
+            <widget class="QLabel" name="label_3" >
+             <property name="text" >
+              <string>author</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" >
+            <widget class="QLineEdit" name="readAuthor" >
+             <property name="readOnly" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" >
+            <widget class="QLineEdit" name="readSubject" >
+             <property name="readOnly" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1" >
+            <widget class="QTextEdit" name="readBody" >
+             <property name="readOnly" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2" >
+            <layout class="QHBoxLayout" >
+             <item>
+              <spacer>
+               <property name="orientation" >
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" >
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="readClose" >
+               <property name="text" >
+                <string>close</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0" >
+            <widget class="QLabel" name="label_6" >
+             <property name="text" >
+              <string>date</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" >
+            <widget class="QLineEdit" name="readDate" >
+             <property name="readOnly" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_2" >
+        <attribute name="title" >
+         <string>add</string>
+        </attribute>
+        <attribute name="icon" >
+         <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_add.png</iconset>
+        </attribute>
+        <layout class="QGridLayout" >
+         <item row="0" column="0" >
+          <layout class="QGridLayout" >
+           <item row="0" column="0" >
+            <widget class="QLabel" name="label_4" >
+             <property name="text" >
+              <string>subject</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" >
+            <widget class="QLabel" name="label_5" >
+             <property name="text" >
+              <string>body</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" >
+            <widget class="QTextEdit" name="addBody" />
+           </item>
+           <item row="0" column="1" >
+            <widget class="QLineEdit" name="addSubject" />
+           </item>
+           <item row="2" column="0" colspan="2" >
+            <layout class="QHBoxLayout" >
+             <item>
+              <spacer>
+               <property name="orientation" >
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" >
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="addOk" >
+               <property name="text" >
+                <string>ok</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="addCancel" >
+               <property name="text" >
+                <string>cancel</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>newsBox</tabstop>
+  <tabstop>readAuthor</tabstop>
+  <tabstop>readDate</tabstop>
+  <tabstop>readSubject</tabstop>
+  <tabstop>readBody</tabstop>
+  <tabstop>readClose</tabstop>
+  <tabstop>addSubject</tabstop>
+  <tabstop>addBody</tabstop>
+  <tabstop>addOk</tabstop>
+  <tabstop>addCancel</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
