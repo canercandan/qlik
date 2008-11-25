@@ -73,7 +73,7 @@ TRANSLATIONS	+=	../lang/client_en_US.ts	\
 			../lang/client_de.ts	\
 			../lang/client_fr.ts
 
-CONFIG		+=	#debug
+CONFIG		+=	warn_on release #debug
 
 QT		+=	network	\
 			sql
