@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 13:26:53 2008 caner candan
-// Last update Mon Sep 29 15:14:14 2008 caner candan
+// Last update Thu Nov 13 22:39:55 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -34,13 +34,12 @@ void	Socket::closeSocket(void)
       this->setStatus(false);
       ::close(this->_socket);
       if (Config::getInstance()->isVerbose())
-	std::cout << this->head()
-		  << "socket closed"
-		  << std::endl;
+	std::cout << "Socket: [" << _socket
+		  << "] socket closed" << std::endl;
     }
 }
 
-void	Socket::send(const std::string& s)
+void	Socket::send(std::string s)
 {
   Config*	config = Config::getInstance();
 
@@ -58,9 +57,8 @@ void	Socket::send(const std::string& s)
 	  if (::send(this->_socket, toSend.c_str(), toSend.size(), 0) < 0)
 	    throw 2;
 	  if (config->isVerbose())
-	    std::cout << this->head()
-		      << "send [" << toSend << ']'
-		      << std::endl;
+	    std::cout << "Socket: [" << _socket
+		      << "] send [" << toSend << ']' << std::endl;
 	  str = str.substr(pos + 1);
 	}
     }
@@ -68,7 +66,7 @@ void	Socket::send(const std::string& s)
     {
       if (config->isVerbose())
 	{
-	  std::cout << this->head();
+	  std::cout << "Socket: [" << _socket << "] ";
 	  if (e == 1)
 	    std::cout << "send error, not connected";
 	  else if (e == 2)
@@ -88,7 +86,7 @@ std::string	Socket::recv()
 	throw 1;
 
       char	buf[1024];
-      int	size = ::recv(this->_socket, buf, sizeof(buf), 0);
+      int	size = ::recv(_socket, buf, sizeof(buf), 0);
 
       if (!this->isGoodRecv())
 	throw 2;
@@ -96,16 +94,15 @@ std::string	Socket::recv()
 	throw 3;
       buf[size] = 0;
       if (config->isVerbose())
-	std::cout << this->head()
-		  << "recv [" << buf << ']'
-		  << std::endl;
+	std::cout << "Socket: [" << _socket
+		  << "] recv [" << buf << ']' << std::endl;
       return (std::string(buf));
     }
   catch (int e)
     {
       if (config->isVerbose())
 	{
-	  std::cout << this->head() << "error recv, ";
+	  std::cout << "Socket: [" << _socket << "] error recv, ";
 	  if (e == 1)
 	    std::cout << "not connected";
 	  else if (e == 2)
@@ -119,7 +116,7 @@ std::string	Socket::recv()
   return ("");
 }
 
-std::string	Socket::sendRecv(const std::string& s)
+std::string	Socket::sendRecv(std::string s)
 {
   this->send(s);
   return (this->recv());
@@ -133,27 +130,4 @@ bool	Socket::isConnected(void) const
 bool	Socket::isGoodRecv(void) const
 {
   return (errno != EAGAIN);
-}
-
-int	Socket::getSocket(void) const
-{
-  return (this->_socket);
-}
-
-bool	Socket::getStatus(void) const
-{
-  return (this->_status);
-}
-
-void	Socket::setStatus(bool status)
-{
-  this->_status = status;
-}
-
-std::string	Socket::head(void)
-{
-  std::stringstream	ss;
-
-  ss << "Socket: [" << this->_socket << "] ";
-  return (ss.str());
 }

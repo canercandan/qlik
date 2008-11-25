@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:46:22 2008 caner candan
-// Last update Tue Oct 14 16:08:48 2008 caner candan
+// Last update Sat Nov 22 01:04:07 2008 caner candan
 //
 
 #include <QWidget>
@@ -22,7 +22,7 @@ Create::Create(QWidget* parent /*= NULL*/)
 Create::~Create()
 {}
 
-void	Create::on_pushButtonOk_clicked()
+void	Create::on_ok_clicked()
 {
   if (this->username->text().isEmpty())
     {
@@ -49,7 +49,7 @@ void	Create::on_pushButtonOk_clicked()
   this->accept();
 }
 
-void	Create::on_pushButtonCancel_clicked()
+void	Create::on_cancel_clicked()
 {
   this->reject();
 }

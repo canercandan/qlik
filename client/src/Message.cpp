@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug  4 06:10:50 2008 caner candan
-// Last update Tue Oct  7 15:54:57 2008 caner candan
+// Last update Sun Nov 23 23:39:39 2008 caner candan
 //
 
 #include <QWidget>
@@ -31,8 +31,11 @@ void	Message::on_send_clicked()
 
   if (edit.isEmpty())
     return;
-  stream << MESSAGE << ' ' << to << ' ' << edit << endl;
+
+  stream << MESSAGE << SP << to << SP << edit << NL;
+
   static_cast<Client*>(this->parent())->appendMessage(to, from, edit);
+
   this->edit->clear();
   this->edit->setFocus();
 }
@@ -43,7 +46,9 @@ void	Message::on_add_clicked()
 
   contact.username->setText(this->to->text());
   contact.alias->setFocus();
+
   if (contact.exec() != QDialog::Accepted)
     return;
+
   static_cast<Client*>(this->parent())->addToContactsList(contact);
 }

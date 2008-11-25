@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Wed Jul  9 21:29:14 2008 caner candan
-// Last update Thu Oct 30 13:51:35 2008 caner candan
+// Last update Thu Nov 13 19:31:39 2008 caner candan
 //
 
 #include <sys/types.h>
@@ -21,15 +21,12 @@
 #include "State.h"
 #include "Config.h"
 
-SocketServer::SocketServer()
-{}
-
 SocketServer::SocketServer(int port)
 {
-  createSocket(port);
+  _createSocket(port);
 }
 
-void	SocketServer::createSocket(int port /*= 12345*/)
+void	SocketServer::_createSocket(int port)
 {
   Config*	config = Config::getInstance();
 
@@ -39,28 +36,25 @@ void	SocketServer::createSocket(int port /*= 12345*/)
       struct protoent		*pe;
 
       pe = ::getprotobyname("tcp");
-      if ((this->_socket = ::socket(PF_INET, SOCK_STREAM,
-				    pe->p_proto)) < 0)
+      if ((this->_socket = ::socket(PF_INET, SOCK_STREAM, pe->p_proto)) < 0)
 	throw 1;
       addr.sin_family = AF_INET;
       addr.sin_port = ::htons(port);
       addr.sin_addr.s_addr = INADDR_ANY;
-      if (bind(this->_socket, (struct sockaddr*)&addr,
-	       (socklen_t)sizeof(addr)) < 0)
+      if (bind(_socket, (struct sockaddr*)&addr, (socklen_t)sizeof(addr)) < 0)
 	throw 2;
       if (listen(this->_socket, MAX_LISTEN) < 0)
 	throw 3;
       if (config->isVerbose())
-	std::cout << this->head()
-		  << "Socket created in "
-		  << "localhost : " << port
-		  << std::endl;
+	std::cout << "SocketServer: [" << _socket << "] "
+		  << "Socket created in localhost : "
+		  << port << std::endl;
     }
   catch (int e)
     {
       if (config->isVerbose())
 	{
-	  std::cout << this->head();
+	  std::cout << "SocketServer: [" << _socket << "] ";
 	  if (e == 1)
 	    std::cout << "socket error";
 	  else if (e == 2)
@@ -73,12 +67,4 @@ void	SocketServer::createSocket(int port /*= 12345*/)
       State::getInstance()->setLoopState(State::LOOP_ERROR);
       this->closeSocket();
     }
-}
-
-std::string	SocketServer::head(void)
-{
-  std::stringstream	ss;
-
-  ss << "SocketServer: [" << this->_socket << "] ";
-  return (ss.str());
 }

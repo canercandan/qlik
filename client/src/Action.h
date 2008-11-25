@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Oct 30 14:59:43 2008 caner candan
-// Last update Thu Oct 30 16:19:52 2008 caner candan
+// Last update Mon Nov 24 22:28:32 2008 caner candan
 //
 
 #ifndef __ACTION_H__
@@ -19,7 +19,8 @@ class	Action : public QObject
 public:
   typedef void	(Action::*callback)();
 
-  typedef QMap<QString, callback>	mapAction;
+  typedef QPair<callback, int>		pairCallback;
+  typedef QMap<QString, pairCallback>	mapAction;
 public:
   Action(Client*, const QString& userCreated);
 
@@ -34,11 +35,14 @@ private:
   void	_actCreate();
 
   void	_actCredit();
-
   void	_actStatus();
+  void	_actRight();
 
   void	_actClients();
+
   void	_actAccounts();
+  void	_actAccountsModify();
+
   void	_actMessage();
 
   void	_actWeb();
@@ -57,10 +61,17 @@ private:
 
   void	_actNews();
   void	_actNewsDetail();
+  void	_actNewsAdd();
+  void	_actNewsDelete();
 
   void	_actStreamStatus();
   void	_actStreamStart();
   void	_actStreamStop();
+
+  void	_actHalt();
+  void	_actReload();
+  void	_actPlay();
+  void	_actBreak();
 private:
   mapAction	_mapAction;
   Client*	_client;

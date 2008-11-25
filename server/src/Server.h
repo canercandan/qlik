@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Mon Oct 27 07:31:34 2008 caner candan
+// Last update Thu Nov 13 22:22:08 2008 caner candan
 //
 
 #ifndef __SERVER_H__
@@ -40,8 +40,6 @@ public:
 private:
   void	_destroyListClients();
 private:
-  const std::string	_head;
-
   listClients	_clients;
   mapStreamPid	_mapStreamPid;
 };

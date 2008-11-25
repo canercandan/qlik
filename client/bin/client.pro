@@ -12,6 +12,7 @@ DEFINES		+=	#QT_NO_DEBUG_OUTPUT
 # Input
 HEADERS		+=	../src/About.h		\
 			../src/Accounts.h	\
+			../src/AccountsAdmin.h	\
 			../src/Action.h		\
 			../src/Client.h		\
 			../src/Connect.h	\
@@ -21,6 +22,7 @@ HEADERS		+=	../src/About.h		\
 			../src/Database.h	\
 			../src/Lang.h		\
 			../src/Message.h	\
+			../src/News.h		\
 			../src/Options.h	\
 			../src/Service.h	\
 			../src/Singleton.hpp	\
@@ -32,6 +34,7 @@ HEADERS		+=	../src/About.h		\
 
 FORMS		+=	../src/About.ui		\
 			../src/Accounts.ui	\
+			../src/AccountsAdmin.ui	\
 			../src/Client.ui	\
 			../src/Connect.ui	\
 			../src/Contact.ui	\
@@ -39,6 +42,7 @@ FORMS		+=	../src/About.ui		\
 			../src/Credit.ui	\
 			../src/Lang.ui		\
 			../src/Message.ui	\
+			../src/News.ui		\
 			../src/Options.ui	\
 			../src/Service.ui	\
 			../src/Stream.ui	\
@@ -47,6 +51,7 @@ FORMS		+=	../src/About.ui		\
 SOURCES		+=	../src/main.cpp		\
 			../src/About.cpp	\
 			../src/Accounts.cpp	\
+			../src/AccountsAdmin.cpp\
 			../src/Action.cpp	\
 			../src/Client.cpp	\
 			../src/Connect.cpp	\
@@ -56,6 +61,7 @@ SOURCES		+=	../src/main.cpp		\
 			../src/Database.cpp	\
 			../src/Lang.cpp		\
 			../src/Message.cpp	\
+			../src/News.cpp		\
 			../src/Options.cpp	\
 			../src/Service.cpp	\
 			../src/Socket.cpp	\

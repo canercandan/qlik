@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Thu Oct 30 16:17:41 2008 caner candan
+// Last update Mon Nov 24 01:05:01 2008 caner candan
 //
 
 #ifndef __CLIENT_H__
@@ -35,9 +35,14 @@ public:
 		      const QString& from,
 		      const QString& body);
 
+  void	loadNews();
   void	loadClients();
-  void	loadMyContact(const QString& contact);
-  void	loadAllContact(const QString& contact);
+  void	loadMyContact(const QString& contact,
+		      const int& right);
+  void	loadAllContact(const QString& contact,
+		       const int& right);
+
+  void	loadAccounts();
 
   void	createOfferWeb();
   void	createOfferStream();
@@ -52,7 +57,7 @@ public:
 		   const int& price);
   void	addToContactsList(const Contact&);
 
-  const int&	getCredit() const;
+  int	getCredit() const;
   void	setCredit(const int&);
   void	addCredit(const int&);
   void	subCredit(const int&);
@@ -75,11 +80,20 @@ private slots:
   void	on_serviceCredit_clicked();
 
   void	on_newsRead_clicked();
+  void	on_newsAdd_clicked();
+  void	on_newsDelete_clicked();
 
   void	on_talkOpen_clicked();
   void	on_talkMyContactsAdd_clicked();
   void	on_talkMyContactsDel_clicked();
   void	on_talkAllContactsAdd_clicked();
+
+  void	on_adminModify_clicked();
+
+  void	on_serverHalt_clicked();
+  void	on_serverReload_clicked();
+  void	on_serverPlay_clicked();
+  void	on_serverBreak_clicked();
 
   void	connectedToServer();
   void	readAction();
@@ -97,7 +111,12 @@ private:
 private:
   MessageMap	_mm;
   QString	_userCreated;
-  int		_credit;
+
+public:
+  const int&	getRight(void){return (_right);}
+  void	setRight(const int& right){_right = right;}
+private:
+  int	_right;
 };
 
 #endif // !__CLIENT_H__

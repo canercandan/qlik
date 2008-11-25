@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sat Oct 25 21:03:17 2008 caner candan
-// Last update Sun Oct 26 15:07:16 2008 caner candan
+// Last update Tue Nov 18 11:36:38 2008 caner candan
 //
 
 #include "Credit.h"
@@ -19,9 +19,9 @@ void	Credit::add(const int& value)
 {
   Database*		database = Database::getInstance();
   SQLiteStatement*	stmt =
-    database->database().Statement("update credit "
-				   "set value = value + ? "
-				   "where id_user = ?;");
+    database->database().Statement("update users "
+				   "set credit = credit + ? "
+				   "where id = ?;");
 
   stmt->Bind(0, value);
   stmt->Bind(1, _client->getId());
@@ -35,9 +35,9 @@ void	Credit::sub(const int& value)
 {
   Database*		database = Database::getInstance();
   SQLiteStatement*	stmt =
-    database->database().Statement("update credit "
-				   "set value = value - ? "
-				   "where id_user = ?;");
+    database->database().Statement("update users "
+				   "set credit = credit - ? "
+				   "where id = ?;");
 
   stmt->Bind(0, value);
   stmt->Bind(1, _client->getId());
@@ -51,9 +51,9 @@ bool	Credit::haveEnoughFor(const int& value)
 {
   Database*		database = Database::getInstance();
   SQLiteStatement*	stmt =
-    database->database().Statement("select value "
-				   "from credit "
-				   "where id_user = ?;");
+    database->database().Statement("select credit "
+				   "from users "
+				   "where id = ?;");
 
   stmt->Bind(0, _client->getId());
 

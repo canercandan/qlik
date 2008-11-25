@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Sep 28 16:29:02 2008 caner candan
-// Last update Thu Oct 30 13:53:33 2008 caner candan
+// Last update Mon Nov 24 12:37:29 2008 caner candan
 //
 
 #ifndef __PROTOCOLE_H__
@@ -33,11 +33,14 @@
 # define CREATE	"create"
 
 # define CREDIT	"credit"
-
 # define STATUS	"status"
+# define RIGHT	"right"
 
 # define CLIENTS	"clients"
-# define ACCOUNTS	"accounts"
+
+# define ACCOUNTS		"accounts"
+# define ACCOUNTS_MODIFY	"accounts_modify"
+
 # define MESSAGE	"message"
 
 # define WEB	"web"
@@ -57,6 +60,12 @@
 
 # define NEWS		"news"
 # define NEWS_DETAIL	"news_detail"
+# define NEWS_ADD	"news_add"
+# define NEWS_DELETE	"news_delete"
+
+# define WEB_STATUS	"web_status"
+# define WEB_START	"web_start"
+# define WEB_STOP	"web_stop"
 
 # define STREAM_STATUS	"stream_status"
 # define STREAM_START	"stream_start"
@@ -71,6 +80,14 @@
 # define RATIO_WEB_DB		1
 # define RATIO_STREAM_SLOT	5
 # define RATIO_STREAM_BITS	24
+
+# define RIGHT_NONE		0
+# define RIGHT_MESSAGE		1 << 0
+# define RIGHT_WEB		1 << 1
+# define RIGHT_STREAM		1 << 2
+# define RIGHT_NEWS		1 << 3
+# define RIGHT_SERVER		1 << 4
+# define RIGHT_ADMIN		1 << 5
 
 # define PASSWD_CHARACTERS			\
   "abcdefghijklmnopqrstuvwxyz"			\

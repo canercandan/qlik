@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:36:03 2008 caner candan
-// Last update Tue Jul 15 23:20:06 2008 caner candan
+// Last update Sat Nov 22 01:02:44 2008 caner candan
 //
 
 #ifndef __CREATE_H__
@@ -22,8 +22,8 @@ class	Create : public QDialog, public Ui::Create
   Create(QWidget *parent = NULL);
   ~Create();
 private slots:
-  void	on_pushButtonOk_clicked();
-  void	on_pushButtonCancel_clicked();
+  void	on_ok_clicked();
+  void	on_cancel_clicked();
 private:
 };
 

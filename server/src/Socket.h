@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Jul 10 13:20:30 2008 caner candan
-// Last update Tue Sep  2 14:14:13 2008 caner candan
+// Last update Thu Nov 13 22:39:50 2008 caner candan
 //
 
 #ifndef __SOCKET_H__
@@ -19,21 +19,22 @@ public:
   Socket();
   ~Socket();
 
-  void		closeSocket(void);
-  void		send(const std::string& s);
+  void	closeSocket(void);
+
+  void		send(std::string s);
   std::string	recv();
-  std::string	sendRecv(const std::string& s);
-  bool		isConnected(void) const;
-  bool		isGoodRecv(void) const;
+  std::string	sendRecv(std::string s);
 
-  int		getSocket(void) const;
-  bool		getStatus(void) const;
-
-  void		setStatus(bool status);
-
-  std::string	head(void);
+  bool	isConnected(void) const;
+  bool	isGoodRecv(void) const;
+public:
+  const int&	socket(void){return (_socket);}
 protected:
   int	_socket;
+public:
+  const bool&	getStatus(void){return (_status);}
+  void	setStatus(const bool& status){_status = status;}
+private:
   bool	_status;
 };
 

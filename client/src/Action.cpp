@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Oct 30 14:59:45 2008 caner candan
-// Last update Thu Oct 30 16:23:57 2008 caner candan
+// Last update Tue Nov 25 13:51:46 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -18,6 +18,8 @@
 #include "Stream.h"
 #include "Service.h"
 #include "State.h"
+#include "News.h"
+#include "AccountsAdmin.h"
 
 Action::Action(Client* client, const QString& userCreated)
   : _client(client), _userCreated(userCreated)
@@ -54,12 +56,24 @@ void	Action::execute()
 	}
       else
 	{
-	  if (_mapAction.find(resList.at(0)) == _mapAction.end())
+	  if (_mapAction.find(action) == _mapAction.end())
 	    return;
 
-	  callback	callback = _mapAction[action];
+	  pairCallback	pairCallback = _mapAction[action];
+	  callback	callback = pairCallback.first;
+	  int		right = pairCallback.second;
 
 	  qDebug() << "action found" << action;
+
+	  if ((_client->getRight() & right) != right)
+	    {
+	      qDebug() << "action forbidden";
+
+	      QMessageBox::critical(_client,
+				    tr("action_forbidden"),
+				    tr("action_forbidden_txt"));
+	      return;
+	    }
 
 	  resList.erase(resList.begin());
 	  action = resList.at(0);
@@ -81,40 +95,62 @@ void	Action::execute()
 
 void	Action::_fillMapAction()
 {
-  _mapAction[WELCOME] = &Action::_actWelcome;
+  _mapAction[WELCOME] = pairCallback(&Action::_actWelcome, RIGHT_NONE);
 
-  _mapAction[LOGIN] = &Action::_actLogin;
-  _mapAction[LOGOUT] = &Action::_actLogout;
-  _mapAction[CREATE] = &Action::_actCreate;
+  _mapAction[LOGIN] = pairCallback(&Action::_actLogin, RIGHT_NONE);
+  _mapAction[LOGOUT] = pairCallback(&Action::_actLogout, RIGHT_NONE);
+  _mapAction[CREATE] = pairCallback(&Action::_actCreate, RIGHT_NONE);
 
-  _mapAction[CREDIT] = &Action::_actCredit;
+  _mapAction[CREDIT] = pairCallback(&Action::_actCredit, RIGHT_NONE);
+  _mapAction[STATUS] = pairCallback(&Action::_actStatus, RIGHT_NONE);
+  _mapAction[RIGHT] = pairCallback(&Action::_actRight, RIGHT_NONE);
 
-  _mapAction[STATUS] = &Action::_actStatus;
+  _mapAction[CLIENTS] = pairCallback(&Action::_actClients, RIGHT_MESSAGE);
 
-  _mapAction[CLIENTS] = &Action::_actClients;
-  _mapAction[ACCOUNTS] = &Action::_actAccounts;
-  _mapAction[MESSAGE] = &Action::_actMessage;
+  _mapAction[ACCOUNTS] = pairCallback(&Action::_actAccounts, RIGHT_ADMIN);
+  _mapAction[ACCOUNTS_MODIFY] =
+    pairCallback(&Action::_actAccountsModify, RIGHT_ADMIN);
 
-  _mapAction[WEB] = &Action::_actWeb;
-  _mapAction[STREAM] = &Action::_actStream;
+  _mapAction[MESSAGE] = pairCallback(&Action::_actMessage, RIGHT_MESSAGE);
 
-  _mapAction[WEB_DETAIL] = &Action::_actWebDetail;
-  _mapAction[STREAM_DETAIL] = &Action::_actStreamDetail;
+  _mapAction[WEB] = pairCallback(&Action::_actWeb, RIGHT_WEB);
+  _mapAction[STREAM] = pairCallback(&Action::_actStream, RIGHT_STREAM);
 
-  _mapAction[OFFER_WEB] = &Action::_actOfferWeb;
-  _mapAction[OFFER_STREAM] = &Action::_actOfferStream;
+  _mapAction[WEB_DETAIL] = pairCallback(&Action::_actWebDetail, RIGHT_WEB);
+  _mapAction[STREAM_DETAIL] =
+    pairCallback(&Action::_actStreamDetail, RIGHT_STREAM);
 
-  _mapAction[CREATE_OFFER_WEB] = &Action::_actCreateOfferWeb;
-  _mapAction[CREATE_OFFER_STREAM] = &Action::_actCreateOfferStream;
-  _mapAction[CREATE_WEB] = &Action::_actCreateWeb;
-  _mapAction[CREATE_STREAM] = &Action::_actCreateStream;
+  _mapAction[OFFER_WEB] = pairCallback(&Action::_actOfferWeb, RIGHT_WEB);
+  _mapAction[OFFER_STREAM] =
+    pairCallback(&Action::_actOfferStream, RIGHT_STREAM);
 
-  _mapAction[NEWS] = &Action::_actNews;
-  _mapAction[NEWS_DETAIL] = &Action::_actNewsDetail;
+  _mapAction[CREATE_OFFER_WEB] =
+    pairCallback(&Action::_actCreateOfferWeb, RIGHT_WEB);
+  _mapAction[CREATE_OFFER_STREAM] =
+    pairCallback(&Action::_actCreateOfferStream, RIGHT_STREAM);
+  _mapAction[CREATE_WEB] =
+    pairCallback(&Action::_actCreateWeb, RIGHT_WEB);
+  _mapAction[CREATE_STREAM] =
+    pairCallback(&Action::_actCreateStream, RIGHT_STREAM);
 
-  _mapAction[STREAM_STATUS] = &Action::_actStreamStatus;
-  _mapAction[STREAM_START] = &Action::_actStreamStart;
-  _mapAction[STREAM_STOP] = &Action::_actStreamStop;
+  _mapAction[NEWS] = pairCallback(&Action::_actNews, RIGHT_NEWS);
+  _mapAction[NEWS_DETAIL] = pairCallback(&Action::_actNewsDetail, RIGHT_NEWS);
+  _mapAction[NEWS_ADD] =
+    pairCallback(&Action::_actNewsAdd, RIGHT_NEWS | RIGHT_ADMIN);
+  _mapAction[NEWS_DELETE] =
+    pairCallback(&Action::_actNewsDelete, RIGHT_NEWS | RIGHT_ADMIN);
+
+  _mapAction[STREAM_STATUS] =
+    pairCallback(&Action::_actStreamStatus, RIGHT_STREAM);
+  _mapAction[STREAM_START] =
+    pairCallback(&Action::_actStreamStart, RIGHT_STREAM);
+  _mapAction[STREAM_STOP] =
+    pairCallback(&Action::_actStreamStop, RIGHT_STREAM);
+
+  _mapAction[HALT] = pairCallback(&Action::_actHalt, RIGHT_SERVER);
+  _mapAction[RELOAD] = pairCallback(&Action::_actReload, RIGHT_SERVER);
+  _mapAction[PLAY] = pairCallback(&Action::_actPlay, RIGHT_SERVER);
+  _mapAction[BREAK] = pairCallback(&Action::_actBreak, RIGHT_SERVER);
 }
 
 void	Action::_actWelcome()
@@ -130,7 +166,12 @@ void	Action::_actLogin()
       _client->logout();
       return;
     }
+
   _actCredit();
+
+  _resList.erase(_resList.begin());
+  _actRight();
+
   _client->login();
 }
 
@@ -173,11 +214,20 @@ void	Action::_actCredit()
 {
   if (_resList.at(0) == KO)
     return;
+
   _client->setCredit(_resList.at(0).toInt());
 }
 
 void	Action::_actStatus()
 {}
+
+void	Action::_actRight()
+{
+  if (_resList.at(0) == KO)
+    return;
+
+  _client->setRight(_resList.at(0).toInt());
+}
 
 void	Action::_actClients()
 {
@@ -185,18 +235,71 @@ void	Action::_actClients()
     return;
 
   const QString	name(_resList.at(0));
+  const int	right(_resList.at(1).toInt());
 
   if (name == _client->infoAccount->text())
     return;
 
   qDebug() << "add client" << name;
 
-  _client->loadAllContact(name);
-  _client->loadMyContact(name);
+  _client->loadAllContact(name, right);
+  _client->loadMyContact(name, right);
 }
 
 void	Action::_actAccounts()
-{}
+{
+  if (_resList.count() < 1)
+    return;
+
+  const QString	account(_resList.at(0));
+
+  if (account == KO)
+    {
+      QMessageBox::critical(_client,
+			    tr("accounts_err"),
+			    tr("accounts_err_txt"));
+      return;
+    }
+
+  const QString	credit(_resList.at(1));
+  const QString	right(_resList.at(2));
+  const QString	status(_resList.at(3));
+
+  qDebug() << "add account" << account;
+
+  QTreeWidgetItem*	item = new QTreeWidgetItem;
+
+  if (!status.toInt())
+    item->setIcon(0, QIcon("../images/user_gray.png"));
+  else if (right.toInt() & (RIGHT_ADMIN | RIGHT_SERVER))
+    item->setIcon(0, QIcon("../images/user_red.png"));
+  else
+    item->setIcon(0, QIcon("../images/user.png"));
+
+  item->setText(0, account);
+  item->setText(1, credit);
+  item->setText(2, right);
+  item->setText(3, status);
+
+  _client->adminAccountList->addTopLevelItem(item);
+}
+
+void	Action::_actAccountsModify()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client,
+			    tr("accounts_modify"),
+			    tr("accounts_modify_txt"));
+      return;
+    }
+
+  _client->refreshList();
+
+  AccountsAdmin*	aa = AccountsAdmin::getInstance(_client);
+
+  aa->hide();
+}
 
 void	Action::_actMessage()
 {
@@ -212,10 +315,9 @@ void	Action::_actMessage()
 
   _client->openMessage(to);
 
-  QStringList	resMessage(_resList);
+  _resList.erase(_resList.begin());
 
-  resMessage.erase(resMessage.begin());
-  _client->appendMessage(to, to, resMessage.join(" "));
+  _client->appendMessage(to, to, _resList.join(" "));
 }
 
 void	Action::_actWeb()
@@ -228,7 +330,7 @@ void	Action::_actWeb()
   qDebug() << "add service web" << name;
 
   _client->serviceWebList->addItem(new QListWidgetItem
-				   (QIcon("images/bricks.png"), name));
+				   (QIcon("../images/bricks.png"), name));
 }
 
 void	Action::_actStream()
@@ -241,7 +343,7 @@ void	Action::_actStream()
   qDebug() << "add service stream" << name;
 
   _client->serviceStreamList->addItem(new QListWidgetItem
-				      (QIcon("images/bricks.png"), name));
+				      (QIcon("../images/bricks.png"), name));
 }
 
 void	Action::_actWebDetail()
@@ -298,16 +400,17 @@ void	Action::_actOfferWeb()
   if (_resList.count() < 1)
     return;
 
-  const QString	price(_resList.at(0));
-  const QString	name(_resList.at(1));
+  const QString	name(_resList.at(0));
+  const QString	price(_resList.at(1));
 
   QListWidgetItem*	item = new QListWidgetItem;
 
   qDebug() << "add offer web" << name;
 
-  item->setIcon(QIcon("images/bricks.png"));
+  item->setIcon(QIcon("../images/bricks.png"));
   item->setText(name);
   item->setData(Qt::UserRole, price);
+
   Service::getInstance(_client)->offerWebList->addItem(item);
 }
 
@@ -316,14 +419,14 @@ void	Action::_actOfferStream()
   if (_resList.count() < 1)
     return;
 
-  const QString	price(_resList.at(0));
-  const QString	name(_resList.at(1));
+  const QString	name(_resList.at(0));
+  const QString	price(_resList.at(1));
 
   QListWidgetItem*	item = new QListWidgetItem;
 
   qDebug() << "add offer stream" << name;
 
-  item->setIcon(QIcon("images/bricks.png"));
+  item->setIcon(QIcon("../images/bricks.png"));
   item->setText(name);
   item->setData(Qt::UserRole, price);
   Service::getInstance(_client)->offerStreamList->addItem(item);
@@ -441,35 +544,75 @@ void	Action::_actNews()
     return;
 
   const QString	id(_resList.at(0));
-  const int	date = _resList.at(1).toInt();
-  const QString	sDate(::ctime((time_t*)&date));
+  const QString	author(_resList.at(1));
+  QDateTime	date;
 
-  QStringList	resMessage(_resList);
+  date.setTime_t(_resList.at(2).toInt());
 
-  resMessage.erase(resMessage.begin());
-  resMessage.erase(resMessage.begin());
+  _resList.erase(_resList.begin());
+  _resList.erase(_resList.begin());
+  _resList.erase(_resList.begin());
 
-  const QString	subject = resMessage.join(" ");
+  const QString	subject = _resList.join(" ");
 
   qDebug() << "add news" << subject << date;
-  qDebug() << sDate;
 
-  QListWidgetItem*	item = new QListWidgetItem;
+  QTreeWidgetItem*	item = new QTreeWidgetItem;
 
-  //item->setIcon(QIcon("images/bricks.png"));
-  item->setText(sDate + ' ' + subject);
-  item->setData(Qt::UserRole, id);
+  item->setIcon(0, QIcon("../images/newspaper.png"));
 
-  _client->newsList->addItem(item);
+  item->setData(0, Qt::UserRole, id);
+
+  item->setText(0, subject);
+  item->setText(1, author);
+  item->setText(2, date.toString());
+
+  _client->newsList->addTopLevelItem(item);
 
   _client->actionRefresh->setEnabled(true);
 }
 
 void	Action::_actNewsDetail()
 {
-  if (_resList.at(0) != KO)
-    QMessageBox::information(_client, tr("news_box"),
-			     _resList.join(" "));
+  if (_resList.at(0) == KO)
+    return;
+
+  News*	news = News::getInstance(_client);
+
+  news->newsBox->setCurrentIndex(0);
+
+  news->readBody->setText(_resList.join(" "));
+  news->readSubject->setText(_client->newsList->currentItem()->text(0));
+  news->readAuthor->setText(_client->newsList->currentItem()->text(1));
+  news->readDate->setText(_client->newsList->currentItem()->text(2));
+
+  news->show();
+}
+
+void	Action::_actNewsAdd()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client,
+			    tr("news_add_err"),
+			    tr("news_add_err_txt"));
+      return;
+    }
+
+  _client->refreshList();
+}
+
+void	Action::_actNewsDelete()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client,
+			    tr("news_delete_err"),
+			    tr("news_delete_err_txt"));
+      return;
+    }
+
+  _client->refreshList();
 }
 
 void	Action::_actStreamStatus()
@@ -497,4 +640,48 @@ void	Action::_actStreamStop()
       stream->start->setEnabled(true);
       stream->stop->setEnabled(false);
     }
+}
+
+void	Action::_actHalt()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client, tr("halt_err"), tr("halt_err_txt"));
+      return;
+    }
+
+  QMessageBox::information(_client, tr("halt_info"), tr("halt_info_txt"));
+}
+
+void	Action::_actReload()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client, tr("reload_err"), tr("reload_err_txt"));
+      return;
+    }
+
+  QMessageBox::information(_client, tr("reload_info"), tr("reload_info_txt"));
+}
+
+void	Action::_actPlay()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client, tr("play_err"), tr("play_err_txt"));
+      return;
+    }
+
+  QMessageBox::information(_client, tr("play_info"), tr("play_info_txt"));
+}
+
+void	Action::_actBreak()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client, tr("break_err"), tr("break_err_txt"));
+      return;
+    }
+
+  QMessageBox::information(_client, tr("break_info"), tr("break_info_txt"));
 }

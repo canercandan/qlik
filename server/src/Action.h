@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Oct 26 17:42:54 2008 caner candan
-// Last update Thu Oct 30 14:05:17 2008 caner candan
+// Last update Mon Nov 24 12:37:52 2008 caner candan
 //
 
 #ifndef __ACTION_H__
@@ -15,6 +15,7 @@
 # include <unistd.h>
 # include <map>
 # include <string>
+# include <sstream>
 # include "Server.h"
 # include "Client.h"
 
@@ -23,7 +24,8 @@ class	Action
 public:
   typedef void	(Action::*callback)();
 
-  typedef std::pair<callback, std::string>	pairCallback;
+  typedef std::pair<bool, int>			pairParam;
+  typedef std::pair<callback, pairParam>	pairCallback;
   typedef std::map<std::string, pairCallback>	mapAction;
 public:
   Action(Server*, Client*);
@@ -38,11 +40,14 @@ private:
   void	_actCreate();
 
   void	_actCredit();
-
   void	_actStatus();
+  void	_actRight();
 
   void	_actClients();
+
   void	_actAccounts();
+  void	_actAccountsModify();
+
   void	_actMessage();
 
   void	_actWeb();
@@ -62,6 +67,12 @@ private:
 
   void	_actNews();
   void	_actNewsDetail();
+  void	_actNewsAdd();
+  void	_actNewsDelete();
+
+  void	_actWebStatus();
+  void	_actWebStart();
+  void	_actWebStop();
 
   void	_actStreamStatus();
   void	_actStreamStart();
@@ -77,8 +88,6 @@ private:
 			  const std::string& passwd);
   bool	_alreadyConnected(const std::string& login);
 
-  bool	_notConnected();
-
   std::string	_generatePasswd();
 
   bool	_streamOnline(const std::string& name);
@@ -89,6 +98,8 @@ private:
   Client*	_client;
 
   mapAction	_mapAction;
+
+  std::stringstream	_buffer;
 };
 
 #endif // !__ACTION_H__

@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Sun Oct 26 17:06:21 2008 caner candan
-// Last update Mon Oct 27 18:06:34 2008 caner candan
+// Last update Thu Nov 13 19:55:54 2008 caner candan
 //
 
 #ifndef __SELECT_H__
@@ -37,8 +37,7 @@ private:
   void	_clientRead(Client* client);
   void	_clientWrite(Client* client);
 private:
-  Server*		_server;
-  const std::string	_head;
+  Server*	_server;
 };
 
 #endif // !__SELECT_H__

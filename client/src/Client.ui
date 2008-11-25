@@ -61,7 +61,7 @@
     <item row="1" column="0" >
      <widget class="QToolBox" name="pageBox" >
       <property name="currentIndex" >
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="news" >
        <property name="geometry" >
@@ -69,7 +69,7 @@
          <x>0</x>
          <y>0</y>
          <width>313</width>
-         <height>266</height>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label" >
@@ -82,17 +82,53 @@
         <item row="0" column="0" >
          <layout class="QVBoxLayout" >
           <item>
-           <widget class="QListWidget" name="newsList" />
+           <widget class="QTreeWidget" name="newsList" >
+            <column>
+             <property name="text" >
+              <string>subject</string>
+             </property>
+            </column>
+            <column>
+             <property name="text" >
+              <string>author</string>
+             </property>
+            </column>
+            <column>
+             <property name="text" >
+              <string>date</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="newsRead" >
+            <property name="text" >
+             <string>read</string>
+            </property>
+            <property name="icon" >
+             <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_go.png</iconset>
+            </property>
+           </widget>
           </item>
           <item>
            <layout class="QHBoxLayout" >
             <item>
-             <widget class="QPushButton" name="newsRead" >
+             <widget class="QPushButton" name="newsAdd" >
               <property name="text" >
-               <string>read</string>
+               <string>add</string>
               </property>
               <property name="icon" >
-               <iconset>../images/newspaper_go.png</iconset>
+               <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_add.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="newsDelete" >
+              <property name="text" >
+               <string>delete</string>
+              </property>
+              <property name="icon" >
+               <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/newspaper_delete.png</iconset>
               </property>
              </widget>
             </item>
@@ -107,8 +143,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>212</width>
-         <height>232</height>
+         <width>313</width>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label" >
@@ -190,8 +226,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>212</width>
-         <height>191</height>
+         <width>313</width>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label" >
@@ -261,7 +297,7 @@
          <x>0</x>
          <y>0</y>
          <width>313</width>
-         <height>266</height>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label" >
@@ -354,6 +390,154 @@
             <property name="icon" >
              <iconset>../images/comment_edit.png</iconset>
             </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="admin" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>313</width>
+         <height>236</height>
+        </rect>
+       </property>
+       <attribute name="label" >
+        <string>admin</string>
+       </attribute>
+       <attribute name="icon" >
+        <iconset>../images/key_delete.png</iconset>
+       </attribute>
+       <layout class="QGridLayout" >
+        <item row="0" column="0" >
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QTabWidget" name="adminBox" >
+            <property name="currentIndex" >
+             <number>0</number>
+            </property>
+            <widget class="QWidget" name="tab_3" >
+             <attribute name="title" >
+              <string>accounts</string>
+             </attribute>
+             <layout class="QGridLayout" >
+              <item row="0" column="0" >
+               <layout class="QVBoxLayout" >
+                <item>
+                 <widget class="QTreeWidget" name="adminAccountList" >
+                  <column>
+                   <property name="text" >
+                    <string>account</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text" >
+                    <string>credit</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text" >
+                    <string>right</string>
+                   </property>
+                  </column>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="adminModify" >
+                  <property name="text" >
+                   <string>modify</string>
+                  </property>
+                  <property name="icon" >
+                   <iconset>../images/user_edit.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="tab_4" >
+             <attribute name="title" >
+              <string>server</string>
+             </attribute>
+             <layout class="QGridLayout" >
+              <item row="0" column="0" >
+               <layout class="QGridLayout" >
+                <item row="0" column="0" >
+                 <widget class="QLabel" name="label_4" >
+                  <property name="text" >
+                   <string>halt_txt</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0" >
+                 <widget class="QPushButton" name="serverHalt" >
+                  <property name="text" >
+                   <string>halt</string>
+                  </property>
+                  <property name="icon" >
+                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_stop_blue.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1" >
+                 <widget class="QLabel" name="label_7" >
+                  <property name="text" >
+                   <string>reload_txt</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1" >
+                 <widget class="QPushButton" name="serverReload" >
+                  <property name="text" >
+                   <string>reload</string>
+                  </property>
+                  <property name="icon" >
+                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_repeat_blue.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0" >
+                 <widget class="QLabel" name="label_6" >
+                  <property name="text" >
+                   <string>play_txt</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0" >
+                 <widget class="QPushButton" name="serverPlay" >
+                  <property name="text" >
+                   <string>play</string>
+                  </property>
+                  <property name="icon" >
+                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_play_blue.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1" >
+                 <widget class="QLabel" name="label_5" >
+                  <property name="text" >
+                   <string>break_txt</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1" >
+                 <widget class="QPushButton" name="serverBreak" >
+                  <property name="text" >
+                   <string>break</string>
+                  </property>
+                  <property name="icon" >
+                   <iconset>../../../../../../../../home/candan_c/rendu/qlik/client/images/control_pause_blue.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -509,25 +693,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="9" />
- <includes/>
  <resources/>
  <connections>
-  <connection>
-   <sender>newsList</sender>
-   <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>newsRead</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>62</x>
-     <y>213</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>60</x>
-     <y>301</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>serviceWebList</sender>
    <signal>doubleClicked(QModelIndex)</signal>
@@ -539,8 +706,8 @@
      <y>250</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>71</x>
-     <y>306</y>
+     <x>80</x>
+     <y>351</y>
     </hint>
    </hints>
   </connection>
@@ -551,12 +718,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>91</x>
-     <y>253</y>
+     <x>101</x>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>82</x>
-     <y>312</y>
+     <x>91</x>
+     <y>351</y>
     </hint>
    </hints>
   </connection>
@@ -567,12 +734,12 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>73</x>
+     <x>84</x>
      <y>293</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>91</x>
-     <y>390</y>
+     <x>107</x>
+     <y>447</y>
     </hint>
    </hints>
   </connection>
@@ -583,12 +750,44 @@
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>137</x>
-     <y>263</y>
+     <x>130</x>
+     <y>293</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>131</x>
-     <y>390</y>
+     <x>118</x>
+     <y>447</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>adminAccountList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>adminModify</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>83</x>
+     <y>318</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>169</x>
+     <y>454</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newsList</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>newsRead</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>161</x>
+     <y>200</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>162</x>
+     <y>310</y>
     </hint>
    </hints>
   </connection>

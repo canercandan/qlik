@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug 11 16:09:52 2008 caner candan
-// Last update Mon Oct 13 01:10:02 2008 caner candan
+// Last update Sun Nov 23 23:37:56 2008 caner candan
 //
 
 #include <QTextStream>
@@ -23,16 +23,12 @@ void	Stream::on_start_clicked()
 {
   QTextStream	stream(Socket::getInstance()->socket());
 
-  stream << STREAM_START
-	 << ' ' << this->name->text()
-	 << endl;
+  stream << STREAM_START << SP << this->name->text() << NL;
 }
 
 void	Stream::on_stop_clicked()
 {
   QTextStream	stream(Socket::getInstance()->socket());
 
-  stream << STREAM_STOP
-	 << ' ' << this->name->text()
-	 << endl;
+  stream << STREAM_STOP << SP << this->name->text() << NL;
 }

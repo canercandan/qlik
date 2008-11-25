@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Fri Jul 11 21:40:50 2008 caner candan
-// Last update Mon Oct 27 15:32:30 2008 caner candan
+// Last update Thu Nov 13 22:22:10 2008 caner candan
 //
 
 #include <string>
@@ -17,13 +17,11 @@
 #include "Select.h"
 
 Server::Server()
-  : _head("Server: ")
 {
   Signal*	signal = Signal::getInstance();
 
   signal->addCallback(Signal::INT, Signal::LOW, this,
-		      static_cast<ISignalManager::callback>
-		      (&Server::signal));
+		      static_cast<ISignalManager::callback>(&Server::signal));
 }
 
 Server::~Server()

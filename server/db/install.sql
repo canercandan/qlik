@@ -1,63 +1,59 @@
-create table users
+create table	users
 (
-	id integer primary key autoincrement,
-	username text,
-	password text
+	id		integer	primary key	autoincrement	,
+	username	text					,
+	password	text					,
+	credit		integer					,
+	right		integer
 );
 
-create table credit
+create table	web
 (
-	id_user integer primary key,
-	value integer
+	id_user		integer		,
+	name		text		,
+	space		integer		,
+	nb_db		integer		,
+	domain		text		,
+	created		integer		,
+	expired		integer		,
+	primary key	(id_user, name)
 );
 
-create table web
+create table	stream
 (
-	id_user integer,
-	name text,
-	space integer,
-	nb_db integer,
-	domain text,
-	created integer,
-	expired integer,
-	primary key(id_user, name)
+	id_user		integer		,
+	name		text		,
+	slots		integer		,
+	bits		integer		,
+	title		text		,
+	port		integer		,
+	pid		integer		,
+	created		integer		,
+	expired		integer		,
+	primary key	(id_user, name)
 );
 
-create table stream
+create table	offer_web
 (
-	id_user integer,
-	name text,
-	slots integer,
-	bits integer,
-	title text,
-	port integer,
-	pid integer,
-	created integer,
-	expired integer,
-	primary key(id_user, name)
+	name		text	primary key	,
+	space		integer			,
+	nb_db		integer			,
+	price		integer
 );
 
-create table offer_web
+create table	offer_stream
 (
-	name text primary key,
-	space integer,
-	nb_db integer,
-	price integer
+	name		text	primary key	,
+	slots		integer			,
+	bits		integer			,
+	price		integer
 );
 
-create table offer_stream
+create table	news
 (
-	name text primary key,
-	slots integer,
-	bits integer,
-	price integer
-);
-
-create table news
-(
-	id integer primary key,
-	id_user integer,
-	subject text,
-	body text,
-	date integer
+	id		integer	primary key	autoincrement	,
+	id_user		integer 				,
+	subject		text					,
+	body		text					,
+	date		integer
 );

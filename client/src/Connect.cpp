@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 18:46:22 2008 caner candan
-// Last update Tue Oct 14 23:34:05 2008 caner candan
+// Last update Sat Nov 22 01:02:21 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -20,7 +20,7 @@ Connect::Connect(QWidget* parent /*= NULL*/)
   _loadAccounts();
 }
 
-void	Connect::on_pushButtonOk_clicked()
+void	Connect::on_ok_clicked()
 {
   if (!this->connectBox->currentIndex()) // accounts
     {
@@ -76,7 +76,7 @@ void	Connect::on_pushButtonOk_clicked()
   this->accept();
 }
 
-void	Connect::on_pushButtonCancel_clicked()
+void	Connect::on_cancel_clicked()
 {
   this->reject();
 }

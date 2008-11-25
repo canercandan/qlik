@@ -121,14 +121,14 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonOk" >
+          <widget class="QPushButton" name="ok" >
            <property name="text" >
             <string>ok</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButtonCancel" >
+          <widget class="QPushButton" name="cancel" >
            <property name="text" >
             <string>cancel</string>
            </property>
@@ -143,8 +143,8 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButtonOk</tabstop>
-  <tabstop>pushButtonCancel</tabstop>
+  <tabstop>ok</tabstop>
+  <tabstop>cancel</tabstop>
  </tabstops>
  <resources/>
  <connections/>
