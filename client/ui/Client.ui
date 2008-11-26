@@ -61,7 +61,7 @@
     <item row="1" column="0" >
      <widget class="QToolBox" name="pageBox" >
       <property name="currentIndex" >
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="news" >
        <property name="geometry" >
@@ -143,8 +143,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>313</width>
-         <height>236</height>
+         <width>182</width>
+         <height>232</height>
         </rect>
        </property>
        <attribute name="label" >
@@ -296,8 +296,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>313</width>
-         <height>236</height>
+         <width>206</width>
+         <height>229</height>
         </rect>
        </property>
        <attribute name="label" >
@@ -694,6 +694,7 @@
  </widget>
  <layoutdefault spacing="6" margin="9" />
  <resources>
+  <include location="../resources/resources.qrc" />
   <include location="../resources/resources.qrc" />
  </resources>
  <connections>

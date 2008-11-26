@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Oct 30 14:59:45 2008 caner candan
-// Last update Tue Nov 25 13:51:46 2008 caner candan
+// Last update Wed Nov 26 02:13:14 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -270,11 +270,11 @@ void	Action::_actAccounts()
   QTreeWidgetItem*	item = new QTreeWidgetItem;
 
   if (!status.toInt())
-    item->setIcon(0, QIcon("../images/user_gray.png"));
+    item->setIcon(0, QIcon(":/accounts/images/user_gray.png"));
   else if (right.toInt() & (RIGHT_ADMIN | RIGHT_SERVER))
-    item->setIcon(0, QIcon("../images/user_red.png"));
+    item->setIcon(0, QIcon(":/accounts/images/user_red.png"));
   else
-    item->setIcon(0, QIcon("../images/user.png"));
+    item->setIcon(0, QIcon(":/accounts/images/user.png"));
 
   item->setText(0, account);
   item->setText(1, credit);
@@ -330,7 +330,7 @@ void	Action::_actWeb()
   qDebug() << "add service web" << name;
 
   _client->serviceWebList->addItem(new QListWidgetItem
-				   (QIcon("../images/bricks.png"), name));
+				   (QIcon(":/services/images/bricks.png"), name));
 }
 
 void	Action::_actStream()
@@ -343,7 +343,7 @@ void	Action::_actStream()
   qDebug() << "add service stream" << name;
 
   _client->serviceStreamList->addItem(new QListWidgetItem
-				      (QIcon("../images/bricks.png"), name));
+				      (QIcon(":/services/images/bricks.png"), name));
 }
 
 void	Action::_actWebDetail()
@@ -407,7 +407,7 @@ void	Action::_actOfferWeb()
 
   qDebug() << "add offer web" << name;
 
-  item->setIcon(QIcon("../images/bricks.png"));
+  item->setIcon(QIcon(":/services/images/bricks.png"));
   item->setText(name);
   item->setData(Qt::UserRole, price);
 
@@ -426,7 +426,7 @@ void	Action::_actOfferStream()
 
   qDebug() << "add offer stream" << name;
 
-  item->setIcon(QIcon("../images/bricks.png"));
+  item->setIcon(QIcon(":/services/images/bricks.png"));
   item->setText(name);
   item->setData(Qt::UserRole, price);
   Service::getInstance(_client)->offerStreamList->addItem(item);
@@ -559,7 +559,7 @@ void	Action::_actNews()
 
   QTreeWidgetItem*	item = new QTreeWidgetItem;
 
-  item->setIcon(0, QIcon("../images/newspaper.png"));
+  item->setIcon(0, QIcon(":/news/images/newspaper.png"));
 
   item->setData(0, Qt::UserRole, id);
 

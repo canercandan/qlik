@@ -8,6 +8,8 @@
         <file>images/user_add.png</file>
         <file>images/user_delete.png</file>
         <file>images/user_edit.png</file>
+        <file>images/user_gray.png</file>
+        <file>images/user_red.png</file>
     </qresource>
     <qresource prefix="/admin" >
         <file>images/control_pause_blue.png</file>
@@ -25,7 +27,9 @@
     <qresource prefix="/create" >
         <file>images/logo.png</file>
     </qresource>
-    <qresource prefix="/credit" />
+    <qresource prefix="/credit" >
+        <file>images/bricks.png</file>
+    </qresource>
     <qresource prefix="/news" >
         <file>images/newspaper.png</file>
         <file>images/newspaper_add.png</file>
@@ -67,5 +71,10 @@
         <file>images/information.png</file>
         <file>images/logo.png</file>
         <file>images/wrench.png</file>
+    </qresource>
+    <qresource prefix="/translations" >
+        <file>translations/client_de.ts</file>
+        <file>translations/client_en_US.ts</file>
+        <file>translations/client_fr.ts</file>
     </qresource>
 </RCC>

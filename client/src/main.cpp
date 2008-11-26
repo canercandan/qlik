@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:09:31 2008 caner candan
-// Last update Sun Oct 12 17:22:42 2008 caner candan
+// Last update Wed Nov 26 02:05:27 2008 caner candan
 //
 
 #include <QApplication>
@@ -14,20 +14,22 @@
 #include "Lang.h"
 #include "Client.h"
 
-int	main(int ac, char **av)
+static bool	testDB(Database* db)
 {
-  QApplication	app(ac, av);
-  Database*	db = Database::getInstance();
-
   if (!db->connect())
     {
       QMessageBox::critical(NULL, "Error database connection",
 			    QString("Unable to connect to database: ")
 			    + db->database().lastError().text());
       Database::kill();
-      return (-1);
-    }
 
+      return (false);
+    }
+  return (true);
+}
+
+static bool	configLang(QApplication& app, Database* db)
+{
   QSqlQuery	q(db->database());
 
   q.prepare("select value "
@@ -47,7 +49,7 @@ int	main(int ac, char **av)
       if (langSet.exec() != QDialog::Accepted)
 	{
 	  Database::kill();
-	  return (-1);
+	  return (false);
 	}
 
       language = langSet.language->text();
@@ -58,8 +60,22 @@ int	main(int ac, char **av)
       q.exec();
     }
 
-  translator.load(QString("../lang/client_") + language);
+  translator.load(QString(":/tanslations/translations/client_") + language);
   app.installTranslator(&translator);
+
+  return (true);
+}
+
+int	main(int ac, char **av)
+{
+  QApplication	app(ac, av);
+  Database*	db = Database::getInstance();
+
+  if (!testDB(db))
+    return (-1);
+
+  if (!configLang(app, db))
+    return (-1);
 
   Client	client;
 

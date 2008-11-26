@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:29:04 2008 caner candan
-// Last update Tue Nov 25 13:54:24 2008 caner candan
+// Last update Wed Nov 26 02:03:15 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -723,9 +723,9 @@ void	Client::loadMyContact(const QString& contact,
   QListWidgetItem*	item = new QListWidgetItem;
 
   if (right & (RIGHT_ADMIN | RIGHT_SERVER))
-    item->setIcon(QIcon("../images/user_red.png"));
+    item->setIcon(QIcon(":/talk/images/user_red.png"));
   else
-    item->setIcon(QIcon("../images/user.png"));
+    item->setIcon(QIcon(":/talk/images/user.png"));
 
   if (q.value(0).toString().isEmpty())
     item->setText(contact);
@@ -741,9 +741,9 @@ void	Client::loadAllContact(const QString& contact,
   QListWidgetItem*	item = new QListWidgetItem;
 
   if (right & (RIGHT_ADMIN | RIGHT_SERVER))
-    item->setIcon(QIcon("../images/user_red.png"));
+    item->setIcon(QIcon(":/talk/images/user_red.png"));
   else
-    item->setIcon(QIcon("../images/user.png"));
+    item->setIcon(QIcon(":/talk/images/user.png"));
 
   item->setText(contact);
 
@@ -801,7 +801,7 @@ void	Client::loadHistory(int idx)
   list->clear();
   while (q.next())
     list->addItem(new QListWidgetItem
-		  (QIcon("../images/bricks.png"),
+		  (QIcon(":/credit/images/bricks.png"),
 		   q.value(0).toString()));
 }
 
