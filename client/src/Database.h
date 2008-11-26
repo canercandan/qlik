@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Mon Aug 11 16:06:11 2008 caner candan
-// Last update Sun Sep 28 02:30:24 2008 caner candan
+// Last update Wed Nov 26 02:31:50 2008 caner candan
 //
 
 #ifndef __DATABASE_H__
@@ -14,7 +14,7 @@
 # include <QtSql>
 # include "Singleton.hpp"
 
-# define DBFILE	"../db/client.db"
+# define DBFILE	"client.db"
 
 class	Database : public Singleton<Database>
 {
