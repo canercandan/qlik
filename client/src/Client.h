@@ -1,12 +1,50 @@
-//
-// Client.h for Client in /home/candan_c/rendu/ekzay/client
+// Client.h --- 
 // 
-// Made by caner candan
-// Login   <candan_c@epitech.net>
+// Filename: Client.h
+// Description: 
+// Author: Caner Candan
+// Maintainer: 
+// Created: Thu Nov 27 00:43:46 2008 (+0200)
+// Version: 
+// Last-Updated: Thu Nov 27 00:45:00 2008 (+0200)
+//           By: Caner Candan
+//     Update #: 2
+// URL: 
+// Keywords: 
+// Compatibility: 
 // 
-// Started on  Tue Jul 15 15:24:41 2008 caner candan
-// Last update Mon Nov 24 01:05:01 2008 caner candan
-//
+// 
+
+// Commentary: 
+// 
+// 
+// 
+// 
+
+// Change log:
+// 
+// 
+// 
+// 
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License as
+// published by the Free Software Foundation; either version 3, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; see the file COPYING.  If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+// Floor, Boston, MA 02110-1301, USA.
+
+// 
+// 
+
+// Code:
 
 #ifndef __CLIENT_H__
 # define __CLIENT_H__
@@ -120,3 +158,6 @@ private:
 };
 
 #endif // !__CLIENT_H__
+
+// 
+// Client.h ends here

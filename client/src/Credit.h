@@ -1,12 +1,50 @@
-//
-// Credit.h for Credit in /home/candan_c/rendu/ekzay/client
+// Credit.h --- 
 // 
-// Made by caner candan
-// Login   <candan_c@epitech.net>
+// Filename: Credit.h
+// Description: 
+// Author: Caner Candan
+// Maintainer: 
+// Created: Thu Nov 27 00:55:24 2008 (+0200)
+// Version: 
+// Last-Updated: Thu Nov 27 00:55:27 2008 (+0200)
+//           By: Caner Candan
+//     Update #: 1
+// URL: 
+// Keywords: 
+// Compatibility: 
 // 
-// Started on  Mon Aug 11 16:06:11 2008 caner candan
-// Last update Mon Sep 29 19:57:09 2008 caner candan
-//
+// 
+
+// Commentary: 
+// 
+// 
+// 
+// 
+
+// Change log:
+// 
+// 
+// 
+// 
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License as
+// published by the Free Software Foundation; either version 3, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; see the file COPYING.  If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+// Floor, Boston, MA 02110-1301, USA.
+
+// 
+// 
+
+// Code:
 
 #ifndef __CREDIT_H__
 # define __CREDIT_H__
@@ -31,3 +69,6 @@ private:
 };
 
 #endif // !__CREDIT_H__
+
+// 
+// Credit.h ends here

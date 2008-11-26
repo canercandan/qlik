@@ -1,12 +1,50 @@
-//
-// Message.cpp for Message in /home/candan_c/rendu/ekzay/client
+// Message.cpp --- 
 // 
-// Made by caner candan
-// Login   <candan_c@epitech.net>
+// Filename: Message.cpp
+// Description: 
+// Author: Caner Candan
+// Maintainer: 
+// Created: Thu Nov 27 00:57:21 2008 (+0200)
+// Version: 
+// Last-Updated: Thu Nov 27 00:57:24 2008 (+0200)
+//           By: Caner Candan
+//     Update #: 1
+// URL: 
+// Keywords: 
+// Compatibility: 
 // 
-// Started on  Mon Aug  4 06:10:50 2008 caner candan
-// Last update Sun Nov 23 23:39:39 2008 caner candan
-//
+// 
+
+// Commentary: 
+// 
+// 
+// 
+// 
+
+// Change log:
+// 
+// 
+// 
+// 
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License as
+// published by the Free Software Foundation; either version 3, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; see the file COPYING.  If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+// Floor, Boston, MA 02110-1301, USA.
+
+// 
+// 
+
+// Code:
 
 #include <QWidget>
 #include <QMessageBox>
@@ -52,3 +90,6 @@ void	Message::on_add_clicked()
 
   static_cast<Client*>(this->parent())->addToContactsList(contact);
 }
+
+// 
+// Message.cpp ends here
