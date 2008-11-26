@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:09:31 2008 caner candan
-// Last update Wed Nov 26 02:36:45 2008 caner candan
+// Last update Wed Nov 26 13:25:19 2008 caner candan
 //
 
 #include <QApplication>
@@ -28,7 +28,8 @@ static bool	testDB(Database* db)
   return (true);
 }
 
-static bool	configLang(QApplication& app, Database* db)
+static bool	configLang(QApplication& app, QTranslator& translator,
+			   Database* db)
 {
   QSqlQuery	q(db->database());
 
@@ -37,7 +38,6 @@ static bool	configLang(QApplication& app, Database* db)
 	    "where key = 'lang';");
   q.exec();
 
-  QTranslator	translator;
   QString	language;
 
   if (q.next())
@@ -74,7 +74,9 @@ int	main(int ac, char **av)
   if (!testDB(db))
     return (-1);
 
-  if (!configLang(app, db))
+  QTranslator	translator;
+
+  if (!configLang(app, translator, db))
     return (-1);
 
   Client	client;
