@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Thu Oct 30 14:59:45 2008 caner candan
-// Last update Wed Nov 26 02:13:14 2008 caner candan
+// Last update Wed Nov 26 13:55:46 2008 caner candan
 //
 
 #include <QMessageBox>
@@ -599,7 +599,15 @@ void	Action::_actNewsAdd()
       return;
     }
 
+  QMessageBox::information(_client,
+			   tr("news_add"),
+			   tr("news_add_txt"));
+
   _client->refreshList();
+
+  News*	news = News::getInstance(_client);
+
+  news->hide();
 }
 
 void	Action::_actNewsDelete()
