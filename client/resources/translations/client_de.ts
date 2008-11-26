@@ -675,7 +675,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="257"/>
+        <location filename="../../ui/Client.ui" line="254"/>
         <source>0</source>
         <translation type="unfinished"></translation>
     </message>

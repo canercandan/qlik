@@ -633,7 +633,7 @@ Would you like to save your account in the account&apos;s list ?</translation>
         <translation>Currently</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="257"/>
+        <location filename="../../ui/Client.ui" line="254"/>
         <source>0</source>
         <translation>0</translation>
     </message>

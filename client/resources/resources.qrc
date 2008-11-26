@@ -73,8 +73,8 @@
         <file>images/wrench.png</file>
     </qresource>
     <qresource prefix="/translations" >
-        <file>translations/client_de.ts</file>
-        <file>translations/client_en_US.ts</file>
-        <file>translations/client_fr.ts</file>
+        <file>translations/client_de.qm</file>
+        <file>translations/client_en_US.qm</file>
+        <file>translations/client_fr.qm</file>
     </qresource>
 </RCC>

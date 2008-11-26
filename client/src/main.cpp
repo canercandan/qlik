@@ -5,7 +5,7 @@
 // Login   <candan_c@epitech.net>
 // 
 // Started on  Tue Jul 15 15:09:31 2008 caner candan
-// Last update Wed Nov 26 02:05:27 2008 caner candan
+// Last update Wed Nov 26 02:36:45 2008 caner candan
 //
 
 #include <QApplication>
@@ -60,7 +60,7 @@ static bool	configLang(QApplication& app, Database* db)
       q.exec();
     }
 
-  translator.load(QString(":/tanslations/translations/client_") + language);
+  translator.load(QString(":/translations/translations/client_") + language);
   app.installTranslator(&translator);
 
   return (true);

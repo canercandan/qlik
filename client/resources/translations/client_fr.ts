@@ -622,7 +622,7 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
         <translation>Actuellement</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="257"/>
+        <location filename="../../ui/Client.ui" line="254"/>
         <source>0</source>
         <translation>0</translation>
     </message>
