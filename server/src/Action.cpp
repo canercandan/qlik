@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:44:02 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 16:23:57 2008 (+0200)
+// Last-Updated: Fri Nov 28 00:12:39 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 2
+//     Update #: 21
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -267,10 +267,19 @@ void	Action::_actCreate()
   Database*		database = Database::getInstance();
   SQLiteStatement*	stmt =
     database->database().Statement("insert into users "
-				   "values(NULL, ?, ?, 0, 0);");
+				   "values(NULL, ?, ?, 0, ?);");
 
   stmt->Bind(0, login);
   stmt->Bind(1, passwd);
+
+  int	right = 0;
+
+  right |= RIGHT_MESSAGE;
+  //right |= RIGHT_WEB;
+  right |= RIGHT_STREAM;
+  right |= RIGHT_NEWS;
+
+  stmt->Bind(2, right);
 
   stmt->Execute();
 
@@ -713,7 +722,6 @@ void	Action::_actCreateOfferStream()
     {
       _client->appendBufWrite(KO);
       _client->appendBufWrite(NL);
-
       return;
     }
 
@@ -725,14 +733,13 @@ void	Action::_actCreateOfferStream()
 
   stmt->Bind(0, offer);
 
-  bool	ret = stmt->NextRow();
-
-  stmt->End();
-
-  if (!ret)
+  if (!stmt->NextRow())
     {
       _client->appendBufWrite(KO);
       _client->appendBufWrite(NL);
+
+      stmt->End();
+
       return;
     }
 
@@ -755,10 +762,12 @@ void	Action::_actCreateOfferStream()
   stream.setBits(stmt->ValueInt(2));
   stream.setTitle(title);
 
+  stmt->End();
+
   stmt = database->database().Statement("select max(port) + 2 "
 					"from stream;");
 
-  if (!stmt->NextRow())
+  if (!stmt->NextRow() || stmt->ValueInt(0) == 0)
     stream.setPort(9000);
   else
     stream.setPort(stmt->ValueInt(0));
@@ -767,7 +776,7 @@ void	Action::_actCreateOfferStream()
 
   stmt = database->database().Statement
     ("insert into stream "
-     "values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
+     "values(?, ?, ?, ?, ?, ?, ?, ?);");
 
   stmt->Bind(0, _client->getId());
   stmt->Bind(1, stream.getName());
@@ -775,9 +784,8 @@ void	Action::_actCreateOfferStream()
   stmt->Bind(3, stream.getBits());
   stmt->Bind(4, stream.getTitle());
   stmt->Bind(5, stream.getPort());
-  stmt->Bind(6, 0);
+  stmt->Bind(6, 1);
   stmt->Bind(7, 1);
-  stmt->Bind(8, 1);
 
   stmt->Execute();
 
@@ -832,7 +840,7 @@ void	Action::_actCreateStream()
     database->database().Statement("select max(port) + 2 "
 				   "from stream;");
 
-  if (!stmt->NextRow())
+  if (!stmt->NextRow() || stmt->ValueInt(0) == 0)
     stream.setPort(9000);
   else
     stream.setPort(stmt->ValueInt(0));
@@ -841,7 +849,7 @@ void	Action::_actCreateStream()
 
   stmt = database->database().Statement
     ("insert into stream "
-     "values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
+     "values(?, ?, ?, ?, ?, ?, ?, ?);");
 
   stmt->Bind(0, _client->getId());
   stmt->Bind(1, stream.getName());
@@ -849,9 +857,8 @@ void	Action::_actCreateStream()
   stmt->Bind(3, stream.getBits());
   stmt->Bind(4, stream.getTitle());
   stmt->Bind(5, stream.getPort());
-  stmt->Bind(6, 0);
+  stmt->Bind(6, 1);
   stmt->Bind(7, 1);
-  stmt->Bind(8, 1);
 
   stmt->Execute();
 

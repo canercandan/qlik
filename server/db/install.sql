@@ -6,9 +6,9 @@
 --Maintainer: 
 --Created: Thu Nov 27 01:42:06 2008 (+0200)
 --Version: 
---Last-Updated: Thu Nov 27 19:12:56 2008 (+0200)
+--Last-Updated: Thu Nov 27 23:58:48 2008 (+0200)
 --          By: Caner Candan
---    Update #: 10
+--    Update #: 11
 --URL: 
 --Keywords: 
 --Compatibility: 
@@ -79,7 +79,6 @@ create table	stream
 	bits		integer		,
 	title		text		,
 	port		integer		,
-	pid		integer		,
 	created		integer		,
 	expired		integer		,
 	primary key	(id_user, name)
