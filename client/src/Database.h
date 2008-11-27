@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:55:40 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 00:55:46 2008 (+0200)
+// Last-Updated: Thu Nov 27 15:56:33 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 2
+//     Update #: 3
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -52,7 +52,7 @@
 # include <QtSql>
 # include "Singleton.hpp"
 
-# define DBFILE	"client.db"
+# define DBFILE	"data.db"
 
 class	Database : public Singleton<Database>
 {
