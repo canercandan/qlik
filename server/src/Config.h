@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:46:12 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 12:05:20 2008 (+0200)
+// Last-Updated: Thu Nov 27 15:17:46 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 6
+//     Update #: 17
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -22,6 +22,9 @@
 // 
 
 // Change log:
+// 27-Nov-2008    Caner Candan  
+//    Last-Updated: Thu Nov 27 15:17:29 2008 (+0200) #16 (Caner Candan)
+//    delete default filename FILE_CONFIG, create fillFromFile function
 // 27-Nov-2008    Caner Candan  
 //    Last-Updated: Thu Nov 27 12:05:17 2008 (+0200) #5 (Caner Candan)
 //    server.xml -> config.xml
@@ -56,39 +59,42 @@
 # define __CONFIG_H__
 
 # include <string>
-# include "XmlParser.h"
 # include "Singleton.hpp"
 
-# define FILE_CONFIG	"config.xml"
-
-class	Config : public XmlParser,
-		 public Singleton<Config>
+class	Config : public Singleton<Config>
 {
   friend class	Singleton<Config>;
+public:
+  void	fillFromFile(const std::string& filename);
+
 public:
   const std::string&	getDatabase(void){return (_database);}
 private:
   void	_setDatabase(const std::string& database){_database = database;}
 private:
   std::string	_database;
+
 public:
   const int&	getPort(void){return (_port);}
 private:
   void	_setPort(const int& port){_port = port;}
 private:
   int	_port;
+
 public:
   bool	isDaemon(void){return (_daemon);}
 private:
   void	_setDaemon(bool daemon){_daemon = daemon;}
 private:
   bool	_daemon;
+
 public:
   bool	isVerbose(void){return (_verbose);}
 private:
   void	_setVerbose(bool verbose){_verbose = verbose;}
 private:
   bool	_verbose;
+
 private:
   Config();
 };

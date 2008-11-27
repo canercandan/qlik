@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 09:18:32 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 09:18:34 2008 (+0200)
+// Last-Updated: Thu Nov 27 15:31:12 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 81
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -22,6 +22,9 @@
 // 
 
 // Change log:
+// 27-Nov-2008    Caner Candan  
+//    Last-Updated: Thu Nov 27 15:28:50 2008 (+0200) #79 (Caner Candan)
+//    add an usage, get options
 // 
 // 
 // 
@@ -47,11 +50,61 @@
 // Code:
 
 #include <iostream>
+#include <iomanip>
 #include "Server.h"
 #include "Config.h"
 
-int		main(void)
+static void	usage(std::string filename)
 {
+  std::cout << "Usage: " << filename
+	    << " [option(s)]" << std::endl
+	    << "The options are:" << std::endl
+	    << std::left << std::setw(25) << "  -f [file]"
+	    << "Select a file of config" << std::endl
+	    << std::endl
+	    << "Report bugs to candanc42@gmail.com." << std::endl;
+}
+
+static bool	getOption(int ac, char** av)
+{
+  if (ac < 2)
+    {
+      usage(av[0]);
+      return (false);
+    }
+
+  bool	flagF = false;
+  int	ch;
+
+  while ((ch = getopt(ac, av, "f:h")) != -1)
+    {
+      if (ch == 'f')
+	{
+	  Config*	config = Config::getInstance();
+
+	  config->fillFromFile(std::string(optarg));
+	  flagF = true;
+	}
+      else
+	{
+	  usage(av[0]);
+	  return (false);
+	}
+    }
+  ac -= optind;
+  av += optind;
+
+  return (flagF);
+}
+
+int		main(int ac, char** av)
+{
+  if (!getOption(ac, av))
+    {
+      Config::kill();
+      return (-1);
+    }
+
   Config*	config = Config::getInstance();
 
   if (config->isDaemon())

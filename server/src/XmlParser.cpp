@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 09:18:23 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 09:18:26 2008 (+0200)
+// Last-Updated: Thu Nov 27 15:20:03 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 14
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -54,24 +54,24 @@ XmlParser::XmlParser(const std::string& filename)
   : _filename(filename)
 {
   ::xmlInitParser();
-  this->_doc = ::xmlParseFile(this->_filename.c_str());
-  if (!this->_doc)
+  _doc = ::xmlParseFile(_filename.c_str());
+  if (!_doc)
     {
       std::cerr << "errror - xml file configuration invalid" << std::endl;
       exit(-1);
     }
-  this->_root = ::xmlDocGetRootElement(this->_doc);
-  if (!this->_root)
+  _root = ::xmlDocGetRootElement(_doc);
+  if (!_root)
     {
-      ::xmlFreeDoc(this->_doc);
+      ::xmlFreeDoc(_doc);
       std::cerr << "error - xml file configuration is empty" << std::endl;
       exit(-1);
     }
   ::xmlXPathInit();
-  this->_ctxt = ::xmlXPathNewContext(_doc);
-  if (!this->_ctxt)
+  _ctxt = ::xmlXPathNewContext(_doc);
+  if (!_ctxt)
     {
-      ::xmlFreeDoc(this->_doc);
+      ::xmlFreeDoc(_doc);
       std::cerr << "error - can't create xml path context" << std::endl;
       exit(-1);
     }
@@ -79,14 +79,14 @@ XmlParser::XmlParser(const std::string& filename)
 
 XmlParser::~XmlParser()
 {
-  ::xmlFreeDoc(this->_doc);
-  ::xmlXPathFreeContext(this->_ctxt);
+  ::xmlFreeDoc(_doc);
+  ::xmlXPathFreeContext(_ctxt);
 }
 
-XmlParser::listAttribute	XmlParser::xmlGetParam(const std::string& path)
+XmlParser::listAttribute	XmlParser::getParam(const std::string& path)
 {
   listAttribute		mapAttr;
-  xmlXPathObjectPtr	xpath = this->_xPath(path);
+  xmlXPathObjectPtr	xpath = _xPath(path);
   xmlNodePtr		node = xpath->nodesetval->nodeTab[0];
   xmlAttrPtr		attr = node->properties;
 
@@ -101,10 +101,10 @@ XmlParser::listAttribute	XmlParser::xmlGetParam(const std::string& path)
   return (mapAttr);
 }
 
-std::string	XmlParser::xmlGetParam(const std::string& path,
-				       const std::string& sAttr)
+std::string	XmlParser::getParam(const std::string& path,
+				    const std::string& sAttr)
 {
-  xmlXPathObjectPtr	xpath = this->_xPath(path);
+  xmlXPathObjectPtr	xpath = _xPath(path);
   xmlNodePtr		node = xpath->nodesetval->nodeTab[0];
   xmlAttrPtr		attr = node->properties;
 
@@ -119,11 +119,11 @@ std::string	XmlParser::xmlGetParam(const std::string& path,
   return ("");
 }
 
-XmlParser::listParam	XmlParser::xmlGetListParam(const std::string& path)
+XmlParser::listParam	XmlParser::getListParam(const std::string& path)
 {
   listParam		listParam;
   listAttribute		mapAttr;
-  xmlXPathObjectPtr	xpath = this->_xPath(path);
+  xmlXPathObjectPtr	xpath = _xPath(path);
 
   for (int i = 0; i < xpath->nodesetval->nodeNr; i++)
     {
@@ -157,8 +157,7 @@ xmlXPathObjectPtr	XmlParser::_xPath(const std::string& path)
 {
   xmlXPathObjectPtr	xpath;
 
-  if (!(xpath = ::xmlXPathEvalExpression((xmlChar*)path.c_str(),
-					 this->_ctxt)))
+  if (!(xpath = ::xmlXPathEvalExpression((xmlChar*)path.c_str(), _ctxt)))
     std::cerr << "error - can't evaluate xpath expression"
 	      << std::endl;
   else

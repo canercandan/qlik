@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 09:18:28 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 09:18:30 2008 (+0200)
+// Last-Updated: Thu Nov 27 15:19:56 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 3
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -22,6 +22,9 @@
 // 
 
 // Change log:
+// 27-Nov-2008    Caner Candan  
+//    Last-Updated: Thu Nov 27 15:19:47 2008 (+0200) #2 (Caner Candan)
+//    Rename xmlGetParam -> getParam ...
 // 
 // 
 // 
@@ -64,10 +67,10 @@ public:
   XmlParser(const std::string& filename);
   ~XmlParser();
 
-  listAttribute	xmlGetParam(const std::string& path);
-  std::string	xmlGetParam(const std::string& path,
-			    const std::string& attr);
-  listParam	xmlGetListParam(const std::string& path);
+  listAttribute	getParam(const std::string& path);
+  std::string	getParam(const std::string& path,
+			 const std::string& attr);
+  listParam	getListParam(const std::string& path);
 private:
   xmlXPathObjectPtr	_xPath(const std::string& path);
 private:

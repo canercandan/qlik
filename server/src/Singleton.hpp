@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 09:16:02 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 09:16:05 2008 (+0200)
+// Last-Updated: Thu Nov 27 15:18:03 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 10
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -22,6 +22,12 @@
 // 
 
 // Change log:
+// 27-Nov-2008    Caner Candan  
+//    Last-Updated: Thu Nov 27 15:17:52 2008 (+0200) #6 (Caner Candan)
+//    delete getInstance overloaded with a string param
+// 27-Nov-2008    Caner Candan  
+//    Last-Updated: Thu Nov 27 14:12:23 2008 (+0200) #4 (Caner Candan)
+//    add a getInstance with string param
 // 
 // 
 // 
@@ -50,6 +56,7 @@
 # define __SINGLETON_H__
 
 # include <cstdlib>
+# include <string>
 
 template <typename T>
 class	Singleton

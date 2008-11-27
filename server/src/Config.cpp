@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:46:08 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:46:10 2008 (+0200)
+// Last-Updated: Thu Nov 27 15:20:10 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 16
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -48,20 +48,25 @@
 
 #include <sstream>
 #include "Config.h"
+#include "XmlParser.h"
 
 Config::Config()
-  : XmlParser(FILE_CONFIG)
-{
-  _setDatabase(xmlGetParam("//server/database", "path"));
+{}
 
-  std::stringstream	ss(xmlGetParam("//server/listen", "port"));
+void	Config::fillFromFile(const std::string& filename)
+{
+  XmlParser	xml(filename);
+
+  _setDatabase(xml.getParam("//server/database", "path"));
+
+  std::stringstream	ss(xml.getParam("//server/listen", "port"));
   int			port;
 
   ss >> port;
 
   _setPort(port);
-  _setDaemon(xmlGetParam("//server/daemon", "enabled") == "true");
-  _setVerbose(xmlGetParam("//server/verbose", "enabled") == "true");
+  _setDaemon(xml.getParam("//server/daemon", "enabled") == "true");
+  _setVerbose(xml.getParam("//server/verbose", "enabled") == "true");
 }
 
 // 
