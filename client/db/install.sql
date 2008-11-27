@@ -6,9 +6,9 @@
 --Maintainer: 
 --Created: Thu Nov 27 01:11:40 2008 (+0200)
 --Version: 
---Last-Updated: Thu Nov 27 01:11:43 2008 (+0200)
+--Last-Updated: Thu Nov 27 19:17:27 2008 (+0200)
 --          By: Caner Candan
---    Update #: 1
+--    Update #: 7
 --URL: 
 --Keywords: 
 --Compatibility: 
@@ -45,6 +45,10 @@
 --
 
 --Code:
+
+------------------------------------------------------------------
+-- create tables
+------------------------------------------------------------------
 
 create table options
 (
@@ -84,6 +88,14 @@ create table contacts
 	contact text,
 	alias text
 );
+
+------------------------------------------------------------------
+-- insert values
+------------------------------------------------------------------
+
+insert into options values("host", "91.121.102.113");
+insert into options values("port", "4242");
+insert into options values("mask", "0");
 
 --
 --install.sql ends here

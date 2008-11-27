@@ -6,9 +6,9 @@
 --Maintainer: 
 --Created: Thu Nov 27 01:42:06 2008 (+0200)
 --Version: 
---Last-Updated: Thu Nov 27 01:42:09 2008 (+0200)
+--Last-Updated: Thu Nov 27 19:12:56 2008 (+0200)
 --          By: Caner Candan
---    Update #: 1
+--    Update #: 10
 --URL: 
 --Keywords: 
 --Compatibility: 
@@ -45,6 +45,10 @@
 --
 
 --Code:
+
+------------------------------------------------------------------
+-- create tables
+------------------------------------------------------------------
 
 create table	users
 (
@@ -105,6 +109,26 @@ create table	news
 	body		text					,
 	date		integer
 );
+
+------------------------------------------------------------------
+-- insert values
+------------------------------------------------------------------
+
+insert into users values(1,	"admin",	"totitoti",	0,	57);
+insert into users values(2,	"candan_c",	"totitoti",	0,	57);
+insert into users values(3,	"starke_g",	"totitoti",	0,	57);
+insert into users values(4,	"finance",	"totitoti",	0,	41);
+insert into users values(5,	"demo",		"demo",		100,	15);
+
+insert into offer_web values("Web100",	100,	1,	1);
+insert into offer_web values("Web200",	200,	2,	2);
+insert into offer_web values("Web300",	300,	3,	3);
+insert into offer_web values("Web400",	400,	4,	4);
+
+insert into offer_stream values("Strm05",	5,	24,	1);
+insert into offer_stream values("Strm10",	10,	32,	2);
+insert into offer_stream values("Strm15",	15,	48,	3);
+insert into offer_stream values("Strm20",	20,	64,	4);
 
 --
 --install.sql ends here
