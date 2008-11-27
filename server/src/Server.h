@@ -1,12 +1,50 @@
-//
-// Server.h for Server in /home/candan_c/rendu/ekzay/server
+// Server.h --- 
 // 
-// Made by caner candan
-// Login   <candan_c@epitech.net>
+// Filename: Server.h
+// Description: 
+// Author: Caner Candan
+// Maintainer: 
+// Created: Thu Nov 27 09:15:48 2008 (+0200)
+// Version: 
+// Last-Updated: Thu Nov 27 09:15:52 2008 (+0200)
+//           By: Caner Candan
+//     Update #: 1
+// URL: 
+// Keywords: 
+// Compatibility: 
 // 
-// Started on  Fri Jul 11 20:34:03 2008 caner candan
-// Last update Thu Nov 13 22:22:08 2008 caner candan
-//
+// 
+
+// Commentary: 
+// 
+// 
+// 
+// 
+
+// Change log:
+// 
+// 
+// 
+// 
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License as
+// published by the Free Software Foundation; either version 3, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; see the file COPYING.  If not, write to
+// the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+// Floor, Boston, MA 02110-1301, USA.
+
+// 
+// 
+
+// Code:
 
 #ifndef __SERVER_H__
 # define __SERVER_H__
@@ -45,3 +83,6 @@ private:
 };
 
 #endif // !__SERVER_H__
+
+// 
+// Server.h ends here
