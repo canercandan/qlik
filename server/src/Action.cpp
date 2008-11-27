@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:44:02 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:44:06 2008 (+0200)
+// Last-Updated: Thu Nov 27 16:23:57 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 2
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -767,7 +767,7 @@ void	Action::_actCreateOfferStream()
 
   stmt = database->database().Statement
     ("insert into stream "
-     "values(?, ?, ?, ?, ?, ?, ?, ?);");
+     "values(?, ?, ?, ?, ?, ?, ?, ?, ?);");
 
   stmt->Bind(0, _client->getId());
   stmt->Bind(1, stream.getName());
