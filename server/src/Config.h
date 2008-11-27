@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:46:12 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 11:36:53 2008 (+0200)
+// Last-Updated: Thu Nov 27 12:05:20 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 4
+//     Update #: 6
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -22,6 +22,9 @@
 // 
 
 // Change log:
+// 27-Nov-2008    Caner Candan  
+//    Last-Updated: Thu Nov 27 12:05:17 2008 (+0200) #5 (Caner Candan)
+//    server.xml -> config.xml
 // 27-Nov-2008    Caner Candan  
 //    Last-Updated: Thu Nov 27 01:46:15 2008 (+0200) #1 (Caner Candan)
 //    ../server.xml -> server.xml
@@ -56,7 +59,7 @@
 # include "XmlParser.h"
 # include "Singleton.hpp"
 
-# define FILE_CONFIG	"server.xml"
+# define FILE_CONFIG	"config.xml"
 
 class	Config : public XmlParser,
 		 public Singleton<Config>

@@ -6,9 +6,9 @@
 ## Maintainer: 
 ## Created: Thu Nov 27 01:43:52 2008 (+0200)
 ## Version: 
-## Last-Updated: Thu Nov 27 01:43:55 2008 (+0200)
+## Last-Updated: Thu Nov 27 12:11:24 2008 (+0200)
 ##           By: Caner Candan
-##     Update #: 1
+##     Update #: 12
 ## URL: 
 ## Keywords: 
 ## Compatibility: 
@@ -22,6 +22,9 @@
 ######################################################################
 ## 
 ### Change log:
+## 27-Nov-2008    Caner Candan  
+##    Last-Updated: Thu Nov 27 12:02:36 2008 (+0200) #5 (Caner Candan)
+##    ../src -> src, . -> bin, mkdir bin if not exist
 ## 
 ## 
 ######################################################################
@@ -46,11 +49,11 @@
 ## 
 ### Code:
 
-PATH_BIN	=	.
-PATH_SRC	=	../src
+PATH_BIN	=	bin
+PATH_SRC	=	src
 PATH_INCLUDE	=	.
 PATH_LIBRARY	=	.
-PATH_COMMON	=	../../common/src
+PATH_COMMON	=	../common/src
 
 NAME		=	$(PATH_BIN)/server
 
@@ -79,6 +82,7 @@ OBJS		=	$(SRCS:.cpp=.o)
 
 CXX		=	g++
 RM		=	rm -f
+MKDIR		=	mkdir -p
 
 INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_COMMON)
 INCLUDES	+=	`pkg-config sqlite3 --cflags`
@@ -98,6 +102,7 @@ LDFLAGS		+=	$(LIBRARIES)
 .SUFFIXES	:	.cpp.o
 
 $(NAME)		:	$(OBJS)
+			-@$(MKDIR) $(PATH_BIN)
 			$(CXX) -o $@ $(OBJS) $(LDFLAGS)
 
 all		:	$(NAME)
@@ -109,6 +114,7 @@ clean		:
 
 fclean		:	clean
 			-$(RM) $(NAME)
+			-$(RM) -r $(PATH_BIN)
 
 re		:	fclean all
 
