@@ -1,14 +1,14 @@
-// Stream.h --- 
+// Service.cpp --- 
 // 
-// Filename: Stream.h
+// Filename: Service.cpp
 // Description: 
 // Author: Caner Candan
 // Maintainer: 
-// Created: Thu Nov 27 09:18:19 2008 (+0200)
+// Created: Sat Nov 29 10:15:07 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 12:49:12 2008 (+0200)
+// Last-Updated: Sat Nov 29 10:16:51 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 13
+//     Update #: 5
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -40,52 +40,35 @@
 // along with this program; see the file COPYING.  If not, write to
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth
 // Floor, Boston, MA 02110-1301, USA.
-
 // 
 // 
 
 // Code:
 
-#ifndef __STREAM_H__
-# define __STREAM_H__
+#include "Service.h"
 
-# include <string>
-# include "Service.h"
+Service::Service()
+  : _created(0), _expired(0), _price(0)
+{}
 
-class	Stream : public Service
+Service::~Service()
+{}
+
+Service::Service(const Service& service)
+{*this = service;}
+
+Service&	Service::operator=(const Service& service)
 {
-public:
-  Stream();
-  ~Stream();
-  Stream(const Stream&);
-  Stream&	operator=(const Stream&);
-
-public:
-  const int&	getSlots(void){return (_slots);}
-  void	setSlots(const int& slots){_slots = slots;}
-private:
-  int	_slots;
-
-public:
-  const int&	getBits(void){return (_bits);}
-  void	setBits(const int& bits){_bits = bits;}
-private:
-  int	_bits;
-
-public:
-  const std::string&	getTitle(void){return (_title);}
-  void	setTitle(const std::string& title){_title = title;}
-private:
-  std::string	_title;
-
-public:
-  const int&	getPort(void){return (_port);}
-  void	setPort(const int& port){_port = port;}
-private:
-  int	_port;
-};
-
-#endif // !__STREAM_H__
+  if (this != &service)
+    {
+      _login = service._login;
+      _name = service._name;
+      _created = service._created;
+      _expired = service._expired;
+      _price = service._price;
+    }
+  return (*this);
+}
 
 // 
-// Stream.h ends here
+// Service.cpp ends here

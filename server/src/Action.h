@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:44:10 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:44:14 2008 (+0200)
+// Last-Updated: Sat Nov 29 12:49:22 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 24
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -56,6 +56,9 @@
 # include <sstream>
 # include "Server.h"
 # include "Client.h"
+# include "Service.h"
+# include "Stream.h"
+# include "Web.h"
 
 class	Action
 {
@@ -103,6 +106,9 @@ private:
   void	_actCreateWeb();
   void	_actCreateStream();
 
+  void	_actRenewWeb();
+  void	_actRenewStream();
+
   void	_actNews();
   void	_actNewsDetail();
   void	_actNewsAdd();
@@ -131,6 +137,9 @@ private:
   bool	_streamOnline(const std::string& name);
   void	_sendServices(const std::string& req);
   void	_sendOffer(const std::string& req);
+  void	_createStream(Stream&);
+  void	_createWeb(Web&);
+  void	_renewExpiredDate(Service&);
 private:
   Server*	_server;
   Client*	_client;

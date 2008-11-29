@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 09:18:15 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 09:20:12 2008 (+0200)
+// Last-Updated: Sat Nov 29 12:51:38 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 2
+//     Update #: 13
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -49,19 +49,20 @@
 #include "Stream.h"
 
 Stream::Stream()
+  : Service(), _slots(0), _bits(0), _port(0)
 {}
 
 Stream::~Stream()
 {}
 
 Stream::Stream(const Stream& stream)
+  : Service()
 {*this = stream;}
 
 Stream&	Stream::operator=(const Stream& stream)
 {
   if (this != &stream)
     {
-      _name = stream._name;
       _slots = stream._slots;
       _bits = stream._bits;
       _title = stream._title;

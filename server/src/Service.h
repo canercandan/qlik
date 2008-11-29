@@ -1,14 +1,14 @@
-// Stream.h --- 
+// Service.h --- 
 // 
-// Filename: Stream.h
+// Filename: Service.h
 // Description: 
 // Author: Caner Candan
 // Maintainer: 
-// Created: Thu Nov 27 09:18:19 2008 (+0200)
+// Created: Sat Nov 29 10:09:00 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 12:49:12 2008 (+0200)
+// Last-Updated: Sat Nov 29 11:26:34 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 13
+//     Update #: 8
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -40,52 +40,56 @@
 // along with this program; see the file COPYING.  If not, write to
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth
 // Floor, Boston, MA 02110-1301, USA.
-
 // 
 // 
 
 // Code:
 
-#ifndef __STREAM_H__
-# define __STREAM_H__
+#ifndef __SERVICE_H__
+# define __SERVICE_H__
 
 # include <string>
-# include "Service.h"
 
-class	Stream : public Service
+class	Service
 {
 public:
-  Stream();
-  ~Stream();
-  Stream(const Stream&);
-  Stream&	operator=(const Stream&);
+  Service();
+  ~Service();
+  Service(const Service&);
+  Service&	operator=(const Service&);
 
 public:
-  const int&	getSlots(void){return (_slots);}
-  void	setSlots(const int& slots){_slots = slots;}
+  const std::string&	getLogin(void){return (_login);}
+  void	setLogin(const std::string& login){_login = login;}
 private:
-  int	_slots;
+  std::string	_login;
 
 public:
-  const int&	getBits(void){return (_bits);}
-  void	setBits(const int& bits){_bits = bits;}
+  const std::string&	getName(void){return (_name);}
+  void	setName(const std::string& name){_name = name;}
 private:
-  int	_bits;
+  std::string	_name;
 
 public:
-  const std::string&	getTitle(void){return (_title);}
-  void	setTitle(const std::string& title){_title = title;}
+  const int&	getCreated(void){return (_created);}
+  void	setCreated(const int& created){_created = created;}
 private:
-  std::string	_title;
+  int	_created;
 
 public:
-  const int&	getPort(void){return (_port);}
-  void	setPort(const int& port){_port = port;}
+  const int&	getExpired(void){return (_expired);}
+  void	setExpired(const int& expired){_expired = expired;}
 private:
-  int	_port;
+  int	_expired;
+
+public:
+  const int&	getPrice(void){return (_price);}
+  void	setPrice(const int& price){_price = price;}
+private:
+  int	_price;
 };
 
-#endif // !__STREAM_H__
+#endif // !__SERVICE_H__
 
 // 
-// Stream.h ends here
+// Service.h ends here

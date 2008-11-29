@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 09:16:02 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 15:18:03 2008 (+0200)
+// Last-Updated: Sat Nov 29 12:31:08 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 10
+//     Update #: 12
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -81,8 +81,7 @@ public:
       }
   }
 
-  static bool	exist()
-  {return (_singleton != NULL);}
+  static bool	exist(){return (_singleton != NULL);}
 private:
   static T*	_singleton;
 };

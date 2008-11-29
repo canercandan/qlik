@@ -1,14 +1,14 @@
-// Stream.h --- 
+// Web.h --- 
 // 
-// Filename: Stream.h
+// Filename: Web.h
 // Description: 
 // Author: Caner Candan
 // Maintainer: 
-// Created: Thu Nov 27 09:18:19 2008 (+0200)
+// Created: Fri Nov 28 19:21:53 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 12:49:12 2008 (+0200)
+// Last-Updated: Sat Nov 29 10:15:03 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 13
+//     Update #: 11
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -40,52 +40,46 @@
 // along with this program; see the file COPYING.  If not, write to
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth
 // Floor, Boston, MA 02110-1301, USA.
-
 // 
 // 
 
 // Code:
 
-#ifndef __STREAM_H__
-# define __STREAM_H__
+#ifndef __WEB_H__
+# define __WEB_H__
 
 # include <string>
 # include "Service.h"
 
-class	Stream : public Service
+class	Web : public Service
 {
 public:
-  Stream();
-  ~Stream();
-  Stream(const Stream&);
-  Stream&	operator=(const Stream&);
+  Web();
+  ~Web();
+  Web(const Web&);
+  Web&	operator=(const Web&);
 
 public:
-  const int&	getSlots(void){return (_slots);}
-  void	setSlots(const int& slots){_slots = slots;}
+  const int&	getSpace(void){return (_space);}
+  void	setSpace(const int& space){_space = space;}
 private:
-  int	_slots;
+  int	_space;
 
 public:
-  const int&	getBits(void){return (_bits);}
-  void	setBits(const int& bits){_bits = bits;}
+  const int&	getNbDb(void){return (_nbdb);}
+  void	setNbDb(const int& nbdb){_nbdb = nbdb;}
 private:
-  int	_bits;
+  int	_nbdb;
 
 public:
-  const std::string&	getTitle(void){return (_title);}
-  void	setTitle(const std::string& title){_title = title;}
+  const std::string&	getDomain(void){return (_domain);}
+  void	setDomain(const std::string& domain){_domain = domain;}
 private:
-  std::string	_title;
-
-public:
-  const int&	getPort(void){return (_port);}
-  void	setPort(const int& port){_port = port;}
-private:
-  int	_port;
+  std::string	_domain;
 };
 
-#endif // !__STREAM_H__
+#endif // !__WEB_H__
+
 
 // 
-// Stream.h ends here
+// Web.h ends here

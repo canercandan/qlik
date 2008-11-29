@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:44:02 2008 (+0200)
 // Version: 
-// Last-Updated: Fri Nov 28 00:12:39 2008 (+0200)
+// Last-Updated: Sat Nov 29 12:49:56 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 21
+//     Update #: 176
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -164,6 +164,11 @@ void	Action::_fillMapAction()
     pairCallback(&Action::_actCreateWeb, pairParam(true, RIGHT_WEB));
   _mapAction[CREATE_STREAM] =
     pairCallback(&Action::_actCreateStream, pairParam(true, RIGHT_STREAM));
+
+  _mapAction[RENEW_WEB] =
+    pairCallback(&Action::_actRenewWeb, pairParam(true, RIGHT_WEB));
+  _mapAction[RENEW_STREAM] =
+    pairCallback(&Action::_actRenewStream, pairParam(true, RIGHT_STREAM));
 
   _mapAction[NEWS] =
     pairCallback(&Action::_actNews, pairParam(true, RIGHT_NEWS));
@@ -609,52 +614,27 @@ void	Action::_actCreateOfferWeb()
 
   stmt->Bind(0, offer);
 
-  bool	ret = stmt->NextRow();
+  if (!stmt->NextRow())
+    {
+      _client->appendBufWrite(KO);
+      _client->appendBufWrite(NL);
+
+      stmt->End();
+
+      return;
+    }
+
+  Web	web;
+
+  web.setPrice(stmt->ValueInt(0));
+  web.setName(name);
+  web.setSpace(stmt->ValueInt(1));
+  web.setNbDb(stmt->ValueInt(2));
+  web.setDomain(domain);
 
   stmt->End();
 
-  if (!ret)
-    {
-      _client->appendBufWrite(KO);
-      _client->appendBufWrite(NL);
-      return;
-    }
-
-  int	price = stmt->ValueInt(0);
-
-  Credit	credit(_client);
-
-  if (!credit.haveEnoughFor(price))
-    {
-      _client->appendBufWrite(KO);
-      _client->appendBufWrite(NL);
-      return;
-    }
-
-  int	space = stmt->ValueInt(1);
-  int	nbDb = stmt->ValueInt(2);
-
-  stmt = database->database().Statement("insert into web "
-					"values(?, ?, ?, ?, ?, ?, ?);");
-
-  stmt->Bind(0, _client->getId());
-  stmt->Bind(1, name);
-  stmt->Bind(2, space);
-  stmt->Bind(3, nbDb);
-  stmt->Bind(4, domain);
-  stmt->Bind(5, 1);
-  stmt->Bind(6, 1);
-
-  stmt->Execute();
-
-  credit.sub(price);
-
-  Apache	serverWeb(_client);
-
-  serverWeb.createHost(domain);
-
-  _client->appendBufWrite(OK);
-  _client->appendBufWrite(NL);
+  _createWeb(web);
 }
 
 void	Action::_actCreateWeb()
@@ -673,17 +653,34 @@ void	Action::_actCreateWeb()
       return;
     }
 
-  int	price = ((space / RATIO_WEB_SPACE)
-		 + (nbDb / RATIO_WEB_DB));
+  Web	web;
 
+  web.setPrice((space / RATIO_WEB_SPACE) + (nbDb / RATIO_WEB_DB));
+  web.setName(name);
+  web.setSpace(space);
+  web.setNbDb(nbDb);
+  web.setDomain(domain);
+
+  _createWeb(web);
+}
+
+void	Action::_createWeb(Web& web)
+{
   Credit	credit(_client);
 
-  if (!credit.haveEnoughFor(price))
+  if (!credit.haveEnoughFor(web.getPrice()))
     {
       _client->appendBufWrite(KO);
       _client->appendBufWrite(NL);
       return;
     }
+
+  web.setLogin(_client->getLogin());
+  web.setCreated((int)time(0));
+  web.setExpired(web.getCreated());
+
+  _renewExpiredDate(web);
+
 
   Database*		database = Database::getInstance();
   SQLiteStatement*	stmt =
@@ -691,20 +688,20 @@ void	Action::_actCreateWeb()
 				   "values(?, ?, ?, ?, ?, ?, ?);");
 
   stmt->Bind(0, _client->getId());
-  stmt->Bind(1, name);
-  stmt->Bind(2, space);
-  stmt->Bind(3, nbDb);
-  stmt->Bind(4, domain);
-  stmt->Bind(5, 1);
-  stmt->Bind(6, 1);
+  stmt->Bind(1, web.getName());
+  stmt->Bind(2, web.getSpace());
+  stmt->Bind(3, web.getNbDb());
+  stmt->Bind(4, web.getDomain());
+  stmt->Bind(5, web.getCreated());
+  stmt->Bind(6, web.getExpired());
 
   stmt->Execute();
 
-  credit.sub(price);
+  credit.sub(web.getPrice());
 
   Apache	serverWeb(_client);
 
-  serverWeb.createHost(domain);
+  serverWeb.createHost(web.getDomain());
 
   _client->appendBufWrite(OK);
   _client->appendBufWrite(NL);
@@ -743,20 +740,9 @@ void	Action::_actCreateOfferStream()
       return;
     }
 
-  int	price = stmt->ValueInt(0);
-
-  Credit	credit(_client);
-
-  if (!credit.haveEnoughFor(price))
-    {
-      _client->appendBufWrite(KO);
-      _client->appendBufWrite(NL);
-      return;
-    }
-
   Stream	stream;
 
-  stream.setLogin(_client->getLogin());
+  stream.setPrice(stmt->ValueInt(0));
   stream.setName(name);
   stream.setSlots(stmt->ValueInt(1));
   stream.setBits(stmt->ValueInt(2));
@@ -764,39 +750,7 @@ void	Action::_actCreateOfferStream()
 
   stmt->End();
 
-  stmt = database->database().Statement("select max(port) + 2 "
-					"from stream;");
-
-  if (!stmt->NextRow() || stmt->ValueInt(0) == 0)
-    stream.setPort(9000);
-  else
-    stream.setPort(stmt->ValueInt(0));
-
-  stmt->End();
-
-  stmt = database->database().Statement
-    ("insert into stream "
-     "values(?, ?, ?, ?, ?, ?, ?, ?);");
-
-  stmt->Bind(0, _client->getId());
-  stmt->Bind(1, stream.getName());
-  stmt->Bind(2, stream.getSlots());
-  stmt->Bind(3, stream.getBits());
-  stmt->Bind(4, stream.getTitle());
-  stmt->Bind(5, stream.getPort());
-  stmt->Bind(6, 1);
-  stmt->Bind(7, 1);
-
-  stmt->Execute();
-
-  credit.sub(price);
-
-  IceCast	serverStream(stream);
-
-  serverStream.createStream();
-
-  _client->appendBufWrite(OK);
-  _client->appendBufWrite(NL);
+  _createStream(stream);
 }
 
 void	Action::_actCreateStream()
@@ -815,25 +769,27 @@ void	Action::_actCreateStream()
       return;
     }
 
-  int	price = ((slots / RATIO_STREAM_SLOT)
-		 + (bits / RATIO_STREAM_BITS));
+  Stream	stream;
 
+  stream.setPrice((slots / RATIO_STREAM_SLOT) + (bits / RATIO_STREAM_BITS));
+  stream.setName(name);
+  stream.setSlots(slots);
+  stream.setBits(bits);
+  stream.setTitle(title);
+
+  _createStream(stream);
+}
+
+void	Action::_createStream(Stream& stream)
+{
   Credit	credit(_client);
 
-  if (!credit.haveEnoughFor(price))
+  if (!credit.haveEnoughFor(stream.getPrice()))
     {
       _client->appendBufWrite(KO);
       _client->appendBufWrite(NL);
       return;
     }
-
-  Stream	stream;
-
-  stream.setLogin(_client->getLogin());
-  stream.setName(name);
-  stream.setSlots(slots);
-  stream.setBits(bits);
-  stream.setTitle(title);
 
   Database*		database = Database::getInstance();
   SQLiteStatement*	stmt =
@@ -847,9 +803,14 @@ void	Action::_actCreateStream()
 
   stmt->End();
 
-  stmt = database->database().Statement
-    ("insert into stream "
-     "values(?, ?, ?, ?, ?, ?, ?, ?);");
+  stream.setLogin(_client->getLogin());
+  stream.setCreated((int)time(0));
+  stream.setExpired(stream.getCreated());
+
+  _renewExpiredDate(stream);
+
+  stmt = database->database().Statement("insert into stream "
+					"values(?, ?, ?, ?, ?, ?, ?, ?);");
 
   stmt->Bind(0, _client->getId());
   stmt->Bind(1, stream.getName());
@@ -857,12 +818,12 @@ void	Action::_actCreateStream()
   stmt->Bind(3, stream.getBits());
   stmt->Bind(4, stream.getTitle());
   stmt->Bind(5, stream.getPort());
-  stmt->Bind(6, 1);
-  stmt->Bind(7, 1);
+  stmt->Bind(6, stream.getCreated());
+  stmt->Bind(7, stream.getExpired());
 
   stmt->Execute();
 
-  credit.sub(price);
+  credit.sub(stream.getPrice());
 
   IceCast	serverStream(stream);
 
@@ -870,6 +831,155 @@ void	Action::_actCreateStream()
 
   _client->appendBufWrite(OK);
   _client->appendBufWrite(NL);
+}
+
+void	Action::_actRenewWeb()
+{
+  std::string	name;
+
+  _buffer >> name;
+
+  if (name.empty())
+    {
+      _client->appendBufWrite(KO);
+      _client->appendBufWrite(NL);
+      return;
+    }
+
+  Database*		database = Database::getInstance();
+  SQLiteStatement*	stmt =
+    database->database().Statement("select space, nb_db, expired "
+				   "from web "
+				   "where id_user = ? and name = ?;");
+
+  stmt->Bind(0, _client->getId());
+  stmt->Bind(1, name);
+
+  if (!stmt->NextRow())
+    {
+      _client->appendBufWrite(KO);
+      _client->appendBufWrite(NL);
+
+      stmt->End();
+
+      return;
+    }
+
+  Web	web;
+
+  web.setName(name);
+  web.setSpace(stmt->ValueInt(0));
+  web.setNbDb(stmt->ValueInt(1));
+  web.setExpired(stmt->ValueInt(2));
+
+  web.setPrice((web.getSpace() / RATIO_WEB_SPACE) +
+	       (web.getNbDb() / RATIO_WEB_DB));
+
+  stmt->End();
+
+  Credit	credit(_client);
+
+  if (!credit.haveEnoughFor(web.getPrice()))
+    {
+      _client->appendBufWrite(KO);
+      _client->appendBufWrite(NL);
+      return;
+    }
+
+  _renewExpiredDate(web);
+
+  stmt = database->database().Statement("update web "
+					"set expired = ? "
+					"where id_user = ? and name = ?;");
+
+  stmt->Bind(0, web.getExpired());
+  stmt->Bind(1, _client->getId());
+  stmt->Bind(2, web.getName());
+
+  stmt->Execute();
+
+  credit.sub(web.getPrice());
+
+  _client->appendBufWrite(OK);
+  _client->appendBufWrite(NL);
+}
+
+void	Action::_actRenewStream()
+{
+  std::string	name;
+
+  _buffer >> name;
+
+  if (name.empty())
+    {
+      _client->appendBufWrite(KO);
+      _client->appendBufWrite(NL);
+      return;
+    }
+
+  Database*		database = Database::getInstance();
+  SQLiteStatement*	stmt =
+    database->database().Statement("select slots, bits, expired "
+				   "from stream "
+				   "where id_user = ? and name = ?;");
+
+  stmt->Bind(0, _client->getId());
+  stmt->Bind(1, name);
+
+  if (!stmt->NextRow())
+    {
+      _client->appendBufWrite(KO);
+      _client->appendBufWrite(NL);
+
+      stmt->End();
+
+      return;
+    }
+
+  Stream	stream;
+
+  stream.setName(name);
+  stream.setSlots(stmt->ValueInt(0));
+  stream.setBits(stmt->ValueInt(1));
+  stream.setExpired(stmt->ValueInt(2));
+
+  stream.setPrice((stream.getSlots() / RATIO_STREAM_SLOT) +
+		  (stream.getBits() / RATIO_STREAM_BITS));
+
+  stmt->End();
+
+  Credit	credit(_client);
+
+  if (!credit.haveEnoughFor(stream.getPrice()))
+    {
+      _client->appendBufWrite(KO);
+      _client->appendBufWrite(NL);
+      return;
+    }
+
+  _renewExpiredDate(stream);
+
+  stmt = database->database().Statement("update web "
+					"set expired = ? "
+					"where id_user = ? and name = ?;");
+
+  stmt->Bind(0, stream.getExpired());
+  stmt->Bind(1, _client->getId());
+  stmt->Bind(2, stream.getName());
+
+  stmt->Execute();
+
+  credit.sub(stream.getPrice());
+
+  _client->appendBufWrite(OK);
+  _client->appendBufWrite(NL);
+}
+
+void	Action::_renewExpiredDate(Service& service)
+{
+  const int	month = 60 * 60 * 24 * 30.5;
+
+  service.setExpired(service.getExpired() + month);
 }
 
 void	Action::_actNews()

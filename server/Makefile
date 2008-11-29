@@ -6,9 +6,9 @@
 ## Maintainer: 
 ## Created: Thu Nov 27 01:43:52 2008 (+0200)
 ## Version: 
-## Last-Updated: Thu Nov 27 12:11:24 2008 (+0200)
+## Last-Updated: Sat Nov 29 12:33:27 2008 (+0200)
 ##           By: Caner Candan
-##     Update #: 12
+##     Update #: 18
 ## URL: 
 ## Keywords: 
 ## Compatibility: 
@@ -70,13 +70,15 @@ SRCS		=	$(PATH_SRC)/main.cpp		\
 			$(PATH_SRC)/SQLiteWrapper.cpp	\
 			$(PATH_SRC)/Select.cpp		\
 			$(PATH_SRC)/Server.cpp		\
+			$(PATH_SRC)/Service.cpp		\
 			$(PATH_SRC)/Signal.cpp		\
 			$(PATH_SRC)/Socket.cpp		\
 			$(PATH_SRC)/SocketClient.cpp	\
 			$(PATH_SRC)/SocketServer.cpp	\
 			$(PATH_SRC)/State.cpp		\
 			$(PATH_SRC)/Stream.cpp		\
-			$(PATH_SRC)/XmlParser.cpp
+			$(PATH_SRC)/XmlParser.cpp	\
+			$(PATH_SRC)/Web.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 

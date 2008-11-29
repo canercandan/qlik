@@ -1,14 +1,14 @@
-// Stream.h --- 
+// Web.cpp --- 
 // 
-// Filename: Stream.h
+// Filename: Web.cpp
 // Description: 
 // Author: Caner Candan
 // Maintainer: 
-// Created: Thu Nov 27 09:18:19 2008 (+0200)
+// Created: Fri Nov 28 19:24:05 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 12:49:12 2008 (+0200)
+// Last-Updated: Sat Nov 29 12:51:43 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 13
+//     Update #: 12
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -40,52 +40,34 @@
 // along with this program; see the file COPYING.  If not, write to
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth
 // Floor, Boston, MA 02110-1301, USA.
-
 // 
 // 
 
 // Code:
 
-#ifndef __STREAM_H__
-# define __STREAM_H__
+#include "Web.h"
 
-# include <string>
-# include "Service.h"
+Web::Web()
+  : Service(), _space(0), _nbdb(0)
+{}
 
-class	Stream : public Service
+Web::~Web()
+{}
+
+Web::Web(const Web& web)
+  : Service()
+{*this = web;}
+
+Web&	Web::operator=(const Web& web)
 {
-public:
-  Stream();
-  ~Stream();
-  Stream(const Stream&);
-  Stream&	operator=(const Stream&);
-
-public:
-  const int&	getSlots(void){return (_slots);}
-  void	setSlots(const int& slots){_slots = slots;}
-private:
-  int	_slots;
-
-public:
-  const int&	getBits(void){return (_bits);}
-  void	setBits(const int& bits){_bits = bits;}
-private:
-  int	_bits;
-
-public:
-  const std::string&	getTitle(void){return (_title);}
-  void	setTitle(const std::string& title){_title = title;}
-private:
-  std::string	_title;
-
-public:
-  const int&	getPort(void){return (_port);}
-  void	setPort(const int& port){_port = port;}
-private:
-  int	_port;
-};
-
-#endif // !__STREAM_H__
+  if (this != &web)
+    {
+      _space = web._space;
+      _nbdb = web._nbdb;
+      _domain = web._domain;
+    }
+  return (*this);
+}
 
 // 
-// Stream.h ends here
+// Web.cpp ends here
