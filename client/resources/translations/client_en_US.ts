@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="en">
+<!DOCTYPE TS><TS version="1.1" language="en_US">
 <defaultcodec></defaultcodec>
 <context>
     <name>About</name>
@@ -11,13 +11,10 @@
     <message>
         <location filename="../../ui/About.ui" line="33"/>
         <source>qlik</source>
-        <translation>Qlik is a combination
-with many hosters
-applications with the
-same goal, to give
-an easy panel of
-managment for
-the clients.</translation>
+        <translation>Qlik is a combination of many hosting 
+applications all with the goal to give 
+an easy management panel for the 
+users.</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="52"/>
@@ -27,7 +24,7 @@ the clients.</translation>
     <message>
         <location filename="../../ui/About.ui" line="73"/>
         <source>workers</source>
-        <translation>Workers</translation>
+        <translation>The staff</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="121"/>
@@ -75,7 +72,6 @@ the clients.</translation>
         <translation>Developer</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>translaator</source>
         <translation type="obsolete">Translator</translation>
     </message>
@@ -140,7 +136,7 @@ the clients.</translation>
     <message>
         <location filename="../../src/Accounts.cpp" line="76"/>
         <source>no_username_txt</source>
-        <translation>No username is insered</translation>
+        <translation>No username inserted.</translation>
     </message>
     <message>
         <location filename="../../src/Accounts.cpp" line="87"/>
@@ -150,7 +146,7 @@ the clients.</translation>
     <message>
         <location filename="../../src/Accounts.cpp" line="88"/>
         <source>username_inc_txt</source>
-        <translation>Your username is incorrect</translation>
+        <translation>Your username is incorrect.</translation>
     </message>
     <message>
         <location filename="../../src/Accounts.cpp" line="95"/>
@@ -160,7 +156,7 @@ the clients.</translation>
     <message>
         <location filename="../../src/Accounts.cpp" line="96"/>
         <source>no_password_txt</source>
-        <translation>No password is insered</translation>
+        <translation>No password is inserted.</translation>
     </message>
     <message>
         <location filename="../../src/Accounts.cpp" line="105"/>
@@ -170,7 +166,7 @@ the clients.</translation>
     <message>
         <location filename="../../src/Accounts.cpp" line="106"/>
         <source>password_inc_txt</source>
-        <translation>Your password is incorrect</translation>
+        <translation>Your password is incorrect.</translation>
     </message>
     <message>
         <location filename="../../src/Accounts.cpp" line="152"/>
@@ -180,7 +176,7 @@ the clients.</translation>
     <message>
         <location filename="../../src/Accounts.cpp" line="153"/>
         <source>are_you_sure_txt</source>
-        <translation>Are you sure you want to proceed ?</translation>
+        <translation>Are you sure, you want to proceed ?</translation>
     </message>
     <message>
         <location filename="../../ui/Accounts.ui" line="13"/>
@@ -193,7 +189,7 @@ the clients.</translation>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="19"/>
         <source>accounts_admin</source>
-        <translation>Accounts Administration</translation>
+        <translation>Account Administration</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="27"/>
@@ -271,12 +267,12 @@ the clients.</translation>
     <message>
         <location filename="../../src/Action.cpp" line="114"/>
         <source>action_forbidden</source>
-        <translation>Action forbidden</translation>
+        <translation>Action prohibited</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="115"/>
         <source>action_forbidden_txt</source>
-        <translation>This action is forbidden.</translation>
+        <translation>This action is prohibited.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="205"/>
@@ -291,7 +287,7 @@ the clients.</translation>
     <message>
         <location filename="../../src/Action.cpp" line="212"/>
         <source>login_inc_txt</source>
-        <translation>Username or password incorrect</translation>
+        <translation>Username or password incorrect.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="229"/>
@@ -301,7 +297,7 @@ the clients.</translation>
     <message>
         <location filename="../../src/Action.cpp" line="229"/>
         <source>logout_err_txt</source>
-        <translation>Logout action has send an error</translation>
+        <translation>Logout has sent an error.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="239"/>
@@ -311,7 +307,7 @@ the clients.</translation>
     <message>
         <location filename="../../src/Action.cpp" line="239"/>
         <source>create_inc_txt</source>
-        <translation>Username already used or incorrect</translation>
+        <translation>Username already used or incorrect.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="242"/>
@@ -388,47 +384,47 @@ Would you like to save your account in the account&apos;s list ?</translation>
     <message>
         <location filename="../../src/Action.cpp" line="503"/>
         <source>create_offer_web_err</source>
-        <translation>Error of creation of offer web</translation>
+        <translation>Error in creation to web offer</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="504"/>
         <source>create_offer_web_err_txt</source>
-        <translation>Create of offer web has sent an error.</translation>
+        <translation>Creation of web offer has sent an error.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="511"/>
         <source>create_offer_web</source>
-        <translation>Create of offer web</translation>
+        <translation>Creating of web offer successful</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="512"/>
         <source>create_offer_web_txt</source>
-        <translation>Your offer web has been created.</translation>
+        <translation>Your web offer has been created.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="514"/>
         <source>history_create_offer_web</source>
-        <translation>Create offer web</translation>
+        <translation>Create web offer</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="529"/>
         <source>create_offer_stream_err</source>
-        <translation>Error of creation of offer stream</translation>
+        <translation>Error in creation to stream offer</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="530"/>
         <source>create_offer_stream_err_txt</source>
-        <translation>Creation of offer stream has sent an error.</translation>
+        <translation>Creation of stream offer has sent an error.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="537"/>
         <source>create_offer_stream</source>
-        <translation>Creation of offer stream</translation>
+        <translation>Creating of stream offer successful</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="538"/>
         <source>create_offer_stream_txt</source>
-        <translation>Your offer stream has been created.</translation>
+        <translation>Your stream offer has been created.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="540"/>
@@ -438,7 +434,7 @@ Would you like to save your account in the account&apos;s list ?</translation>
     <message>
         <location filename="../../src/Action.cpp" line="555"/>
         <source>create_web_err</source>
-        <translation>Error of creation of web</translation>
+        <translation>Error in creation to web</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="555"/>
@@ -463,7 +459,7 @@ Would you like to save your account in the account&apos;s list ?</translation>
     <message>
         <location filename="../../src/Action.cpp" line="578"/>
         <source>create_stream_err</source>
-        <translation>Error of creation of stream</translation>
+        <translation>Error in creation to stream</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="579"/>
@@ -588,52 +584,52 @@ Would you like to save your account in the account&apos;s list ?</translation>
     <message>
         <location filename="../../src/Action.cpp" line="603"/>
         <source>renew_web_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Renewing web service failed</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="604"/>
         <source>renew_web_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Renewing web service has failed.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="610"/>
         <source>renew_web</source>
-        <translation type="unfinished"></translation>
+        <translation>Renewing web service successful</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="610"/>
         <source>renew_web_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Renewing web service is created successfuly.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="620"/>
         <source>renew_stream_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Renewing stream service failed</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="621"/>
         <source>renew_stream_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Renewing stream service has failed.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="628"/>
         <source>renew_stream</source>
-        <translation type="unfinished"></translation>
+        <translation>Renewing stream service successful</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="629"/>
         <source>renew_stream_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Renewing stream service is created successfuly.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="696"/>
         <source>news_add</source>
-        <translation type="unfinished"></translation>
+        <translation>Adding news successful</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="697"/>
         <source>news_add_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>News is added successfuly.</translation>
     </message>
 </context>
 <context>
@@ -774,12 +770,10 @@ Would you like to save your account in the account&apos;s list ?</translation>
         <translation>Sign &amp;Up</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>info</source>
         <translation type="obsolete">Information</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>help</source>
         <translation type="obsolete">Help</translation>
     </message>
@@ -799,12 +793,10 @@ Would you like to save your account in the account&apos;s list ?</translation>
         <translation>&amp;Accounts</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>connect_db_err</source>
         <translation type="obsolete">Unable to connect to database</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>connect_db_err_txt</source>
         <translation type="obsolete">An error occured</translation>
     </message>
@@ -824,12 +816,10 @@ Would you like to save your account in the account&apos;s list ?</translation>
         <translation>I&apos;m sign out</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>info_txt</source>
         <translation type="obsolete">Information about ekzay client</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>help_txt</source>
         <translation type="obsolete">Help about this soft</translation>
     </message>
@@ -2178,22 +2168,22 @@ After check you will receive your coins in your accounts</translation>
     <message>
         <location filename="../../ui/Stream.ui" line="153"/>
         <source>renew</source>
-        <translation type="unfinished"></translation>
+        <translation>Renew your service</translation>
     </message>
     <message>
         <location filename="../../src/Stream.cpp" line="77"/>
         <source>renew_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Click on Ok if you want to renew your service or Cancel.</translation>
     </message>
     <message>
         <location filename="../../ui/Stream.ui" line="99"/>
         <source>created</source>
-        <translation type="unfinished">Account created</translation>
+        <translation>Creation date</translation>
     </message>
     <message>
         <location filename="../../ui/Stream.ui" line="106"/>
         <source>expired</source>
-        <translation type="unfinished"></translation>
+        <translation>Expiration date</translation>
     </message>
 </context>
 <context>
@@ -2311,32 +2301,32 @@ After check you will receive your coins in your accounts</translation>
     <message>
         <location filename="../../src/Web.cpp" line="68"/>
         <source>not_yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Not yet</translation>
     </message>
     <message>
         <location filename="../../src/Web.cpp" line="68"/>
         <source>not_yet_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Not yet available.</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="156"/>
         <source>renew</source>
-        <translation type="unfinished"></translation>
+        <translation>Renew your service</translation>
     </message>
     <message>
         <location filename="../../src/Web.cpp" line="73"/>
         <source>renew_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Click on Ok if you want to renew your service or Cancel.</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="95"/>
         <source>created</source>
-        <translation type="unfinished">Account created</translation>
+        <translation>Creation date</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="102"/>
         <source>expired</source>
-        <translation type="unfinished"></translation>
+        <translation>Expiration date</translation>
     </message>
 </context>
 </TS>

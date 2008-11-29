@@ -1,76 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1">
+<!DOCTYPE TS><TS version="1.1" language="fr">
+<defaultcodec></defaultcodec>
 <context>
     <name>About</name>
     <message>
         <location filename="../../ui/About.ui" line="13"/>
         <source>about</source>
-        <translation type="unfinished">A propos</translation>
+        <translation>A propos</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="33"/>
         <source>qlik</source>
-        <translation type="unfinished"></translation>
+        <translation>Qlik est une combinaison de plusieurs 
+logiciels d&apos;hebergement qui ont le meme 
+but, fournir un panel de gestion simple 
+pour les utilisateurs.</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="52"/>
         <source>progression</source>
-        <translation type="unfinished"></translation>
+        <translation>Bar de progession</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="73"/>
         <source>workers</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;equipe</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="121"/>
         <source>Caner Candan</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="131"/>
         <source>caner.candan@localhost</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="136"/>
         <source>Geraldine Starke</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="146"/>
         <source>geraldine.starke@localhost</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="106"/>
         <source>name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="111"/>
         <source>job</source>
-        <translation type="unfinished"></translation>
+        <translation>Metier</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="116"/>
         <source>email</source>
-        <translation type="unfinished"></translation>
+        <translation>E-mail</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="169"/>
         <source>close</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="126"/>
         <source>developper</source>
-        <translation type="unfinished"></translation>
+        <translation>Developpeur</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="141"/>
         <source>translator</source>
-        <translation type="unfinished"></translation>
+        <translation>Traducteur</translation>
     </message>
 </context>
 <context>
@@ -181,77 +185,77 @@
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="19"/>
         <source>accounts_admin</source>
-        <translation type="unfinished"></translation>
+        <translation>Administration de comptes utilisateur</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="27"/>
         <source>account</source>
-        <translation type="unfinished">Compte</translation>
+        <translation>Compte</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="41"/>
         <source>current_credit</source>
-        <translation type="unfinished"></translation>
+        <translation>Credit actuel</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="55"/>
         <source>new_credit</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveau credit</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="62"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="72"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="79"/>
         <source>right</source>
-        <translation type="unfinished"></translation>
+        <translation>Droits</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="86"/>
         <source>message</source>
-        <translation type="unfinished">Message</translation>
+        <translation>Message</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="93"/>
         <source>web</source>
-        <translation type="unfinished">Web</translation>
+        <translation>Web</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="100"/>
         <source>stream</source>
-        <translation type="unfinished">Stream</translation>
+        <translation>Stream</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="107"/>
         <source>news</source>
-        <translation type="unfinished">Les nouvelles</translation>
+        <translation>Les nouvelles</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="114"/>
         <source>server</source>
-        <translation type="unfinished">Serveur</translation>
+        <translation>Serveur</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="121"/>
         <source>admin</source>
-        <translation type="unfinished"></translation>
+        <translation>Administration</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="143"/>
         <source>ok</source>
-        <translation type="unfinished">Ok</translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../../ui/AccountsAdmin.ui" line="150"/>
         <source>cancel</source>
-        <translation type="unfinished">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
 </context>
 <context>
@@ -259,369 +263,369 @@
     <message>
         <location filename="../../src/Action.cpp" line="114"/>
         <source>action_forbidden</source>
-        <translation type="unfinished"></translation>
+        <translation>Action non autorisee</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="115"/>
         <source>action_forbidden_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Cette action n&apos;est pas autorisee.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="205"/>
         <source>welcome</source>
-        <translation type="unfinished">Bienvenue</translation>
+        <translation>Bienvenue</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="212"/>
         <source>login_inc</source>
-        <translation type="unfinished">Authentification incorrect</translation>
+        <translation>Authentification incorrect</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="212"/>
         <source>login_inc_txt</source>
-        <translation type="unfinished">Le nom d&apos;utilisateur ou le mot de passe est incorrect</translation>
+        <translation>Le nom d&apos;utilisateur ou le mot de passe est incorrect</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="229"/>
         <source>logout_err</source>
-        <translation type="unfinished">Erreur de deconnexion</translation>
+        <translation>Erreur de deconnexion</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="229"/>
         <source>logout_err_txt</source>
-        <translation type="unfinished">Une erreur a ete envoye lors de la deconnexion</translation>
+        <translation>Une erreur a ete envoye lors de la deconnexion</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="239"/>
         <source>create_inc</source>
-        <translation type="unfinished">Creation de compte incorrect</translation>
+        <translation>Creation de compte incorrect</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="239"/>
         <source>create_inc_txt</source>
-        <translation type="unfinished">Le nom d&apos;utilisateur est deja utilise ou il est incorrect</translation>
+        <translation>Le nom d&apos;utilisateur est deja utilise ou il est incorrect</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="242"/>
         <source>created</source>
-        <translation type="unfinished">Compte cree</translation>
+        <translation>Compte cree</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="243"/>
         <source>created_txt</source>
-        <translation type="unfinished">Votre compte a ete cree correctement, le mot de passe est le suivant </translation>
+        <translation>Votre compte a ete cree correctement, le mot de passe est le suivant </translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="244"/>
         <source>created_txt2</source>
-        <translation type="unfinished">
+        <translation>
 
 Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="257"/>
         <source>bar_created</source>
-        <translation type="unfinished">J&apos;ai cree mon compte</translation>
+        <translation>J&apos;ai cree mon compte</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="306"/>
         <source>accounts_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste des comptes utilisateurs erronée</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="307"/>
         <source>accounts_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;affichage de la liste des comptes utilisateurs a echoue.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="339"/>
         <source>accounts_modify</source>
-        <translation type="unfinished"></translation>
+        <translation>Modification d&apos;un compte utilisateur reussi</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="340"/>
         <source>accounts_modify_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce compte utilisateur a ete modifie avec succes.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="357"/>
         <source>message_err</source>
-        <translation type="unfinished">Message erronne</translation>
+        <translation>Message erroné</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="357"/>
         <source>message_err_txt</source>
-        <translation type="unfinished">Une erreur a ete envoye lors de l&apos;envoi de votre message</translation>
+        <translation>Une erreur a ete envoye lors de l&apos;envoi de votre message.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="401"/>
         <source>web_service_inc</source>
-        <translation type="unfinished">Service web incorrect</translation>
+        <translation>Service web incorrect</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="401"/>
         <source>web_service_inc_txt</source>
-        <translation type="unfinished">Le service web est incorrect</translation>
+        <translation>Le service web est incorrect.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="426"/>
         <source>stream_service_inc</source>
-        <translation type="unfinished">Service stream incorrect</translation>
+        <translation>Service stream incorrect</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="427"/>
         <source>stream_service_inc_txt</source>
-        <translation type="unfinished">Le service stream est incorrect</translation>
+        <translation>Le service stream est incorrect.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="503"/>
         <source>create_offer_web_err</source>
-        <translation type="unfinished">Erreur de creation d&apos;offre web</translation>
+        <translation>Erreur dans la creation d&apos;offre web</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="504"/>
         <source>create_offer_web_err_txt</source>
-        <translation type="unfinished">Une erreur a ete envoye lors de la creation de l&apos;offre web</translation>
+        <translation>Une erreur a ete envoye lors de la creation de l&apos;offre web.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="511"/>
         <source>create_offer_web</source>
-        <translation type="unfinished">Offre web creee</translation>
+        <translation>Offre web creee</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="512"/>
         <source>create_offer_web_txt</source>
-        <translation type="unfinished">Votre offre web a bien ete creee</translation>
+        <translation>Votre offre web a bien ete creee.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="514"/>
         <source>history_create_offer_web</source>
-        <translation type="unfinished">Creation d&apos;une offre web</translation>
+        <translation>Creation d&apos;une offre web</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="529"/>
         <source>create_offer_stream_err</source>
-        <translation type="unfinished">Erreur de creation d&apos;offre stream</translation>
+        <translation>Erreur de creation d&apos;offre stream</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="530"/>
         <source>create_offer_stream_err_txt</source>
-        <translation type="unfinished">Une erreur a ete envoyee lors de la creation d&apos;offre stream</translation>
+        <translation>Une erreur a ete envoyee lors de la creation d&apos;offre stream.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="537"/>
         <source>create_offer_stream</source>
-        <translation type="unfinished">Offre stream creee</translation>
+        <translation>Offre stream creee</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="538"/>
         <source>create_offer_stream_txt</source>
-        <translation type="unfinished">Votre offre stream a ete creee</translation>
+        <translation>Votre offre stream a ete creee.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="540"/>
         <source>history_create_offer_stream</source>
-        <translation type="unfinished">Creation d&apos;offre stream</translation>
+        <translation>Creation d&apos;offre stream</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="555"/>
         <source>create_web_err</source>
-        <translation type="unfinished">Erreur de creation de service web</translation>
+        <translation>Erreur dans la creation de service web</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="555"/>
         <source>create_web_err_txt</source>
-        <translation type="unfinished">Une erreur a ete envoye lors de la creation d&apos;un service web</translation>
+        <translation>Une erreur a ete envoye lors de la creation d&apos;un service web.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="561"/>
         <source>create_web</source>
-        <translation type="unfinished">Service web cree</translation>
+        <translation>Service web cree</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="561"/>
         <source>create_web_txt</source>
-        <translation type="unfinished">Votre service web  a ete cree</translation>
+        <translation>Votre service web a ete cree.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="563"/>
         <source>history_create_web</source>
-        <translation type="unfinished">Creation d&apos;un service web</translation>
+        <translation>Creation d&apos;un service web</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="578"/>
         <source>create_stream_err</source>
-        <translation type="unfinished">Erreur de creation d&apos;un service stream</translation>
+        <translation>Erreur dans la creation d&apos;un service stream</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="579"/>
         <source>create_stream_err_txt</source>
-        <translation type="unfinished">Une erreur a ete envoye lors de la creation d&apos;un service stream</translation>
+        <translation>Une erreur a ete envoye lors de la creation d&apos;un service stream.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="586"/>
         <source>create_stream</source>
-        <translation type="unfinished">Service stream cree</translation>
+        <translation>Service stream cree</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="586"/>
         <source>create_stream_txt</source>
-        <translation type="unfinished">Votre service stream a ete cree</translation>
+        <translation>Votre service stream a ete cree.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="588"/>
         <source>history_create_stream</source>
-        <translation type="unfinished">Creation d&apos;un service stream</translation>
+        <translation>Creation d&apos;un service stream</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="690"/>
         <source>news_add_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de l&apos;ajout d&apos;une nouvelle</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="691"/>
         <source>news_add_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Une erreur a ete envoye lors de l&apos;ajout d&apos;une nouvelle.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="711"/>
         <source>news_delete_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de la suppression d&apos;une nouvelle</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="712"/>
         <source>news_delete_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Une erreur a ete envoye lors de la suppression d&apos;une nouvelle.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="750"/>
         <source>halt_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de la demande d&apos;arret du serveur</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="750"/>
         <source>halt_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Une erreur a ete envoye lors de la demande d&apos;arret du serveur.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="754"/>
         <source>halt_info</source>
-        <translation type="unfinished"></translation>
+        <translation>Arret reussi</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="754"/>
         <source>halt_info_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;arret du serveur a ete reussi.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="761"/>
         <source>reload_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de la demande de rechargement du serveur</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="761"/>
         <source>reload_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Une erreur a ete envoye lors de la demande de rechargement du serveur.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="765"/>
         <source>reload_info</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechargement du serveur reussi</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="765"/>
         <source>reload_info_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Le rechargement du serveur a ete reussi.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="772"/>
         <source>play_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de la demande de lecture du serveur</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="772"/>
         <source>play_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Une erreur a ete envoye lors de la demande de lecture du serveur.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="776"/>
         <source>play_info</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture reussi</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="776"/>
         <source>play_info_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>La demande de lecture a ete reussi.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="783"/>
         <source>break_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de la demande de pause du serveur</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="783"/>
         <source>break_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Une erreur a ete envoye lors de la demande de pause du serveur.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="787"/>
         <source>break_info</source>
-        <translation type="unfinished"></translation>
+        <translation>Pause reussi</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="787"/>
         <source>break_info_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>La pause du serveur a ete reussi.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="603"/>
         <source>renew_web_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Renouvellement du service web echoue</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="604"/>
         <source>renew_web_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Le renouvellement du service web a echoue.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="610"/>
         <source>renew_web</source>
-        <translation type="unfinished"></translation>
+        <translation>Renouvellement du service web reussi</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="610"/>
         <source>renew_web_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Le renouvellement du service web a ete reussi.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="620"/>
         <source>renew_stream_err</source>
-        <translation type="unfinished"></translation>
+        <translation>Renouvellement du service stream echoue</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="621"/>
         <source>renew_stream_err_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Le renouvellement du service stream a echoue.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="628"/>
         <source>renew_stream</source>
-        <translation type="unfinished"></translation>
+        <translation>Renouvellement du service stream reussi</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="629"/>
         <source>renew_stream_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Le renouvellement du service stream a ete reussi.</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="696"/>
         <source>news_add</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajout de nouvelle reussi</translation>
     </message>
     <message>
         <location filename="../../src/Action.cpp" line="697"/>
         <source>news_add_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;ajout d&apos;une nouvelle a ete reussi.</translation>
     </message>
 </context>
 <context>
@@ -762,12 +766,10 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
         <translation>S&apos;inscire</translation>
     </message>
     <message>
-        <location filename="" line="321"/>
         <source>info</source>
         <translation type="obsolete">Informations</translation>
     </message>
     <message>
-        <location filename="" line="321"/>
         <source>help</source>
         <translation type="obsolete">Aide</translation>
     </message>
@@ -787,12 +789,10 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
         <translation>Gestionnaire de comptes</translation>
     </message>
     <message>
-        <location filename="" line="321"/>
         <source>connect_db_err</source>
         <translation type="obsolete">Erreur a la connexion bdd</translation>
     </message>
     <message>
-        <location filename="" line="321"/>
         <source>connect_db_err_txt</source>
         <translation type="obsolete">Une erreur a ete envoye lors de la connexion a la base de donnees</translation>
     </message>
@@ -812,12 +812,10 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
         <translation>Je suis deconnecte</translation>
     </message>
     <message>
-        <location filename="" line="321"/>
         <source>info_txt</source>
         <translation type="obsolete">Informations a propos de l&apos;application</translation>
     </message>
     <message>
-        <location filename="" line="321"/>
         <source>help_txt</source>
         <translation type="obsolete">Aide sur l&apos;application</translation>
     </message>
@@ -1051,92 +1049,96 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
     <message>
         <location filename="../../ui/Client.ui" line="582"/>
         <source>?</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="611"/>
         <source>toolBar</source>
-        <translation type="unfinished"></translation>
+        <translation>Bar d&apos;outil</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="88"/>
         <source>subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Sujet</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="93"/>
         <source>author</source>
-        <translation type="unfinished"></translation>
+        <translation>Auteur</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="98"/>
         <source>date</source>
-        <translation type="unfinished"></translation>
+        <translation>Date</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="409"/>
         <source>admin</source>
-        <translation type="unfinished"></translation>
+        <translation>Administration</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="443"/>
         <source>right</source>
-        <translation type="unfinished"></translation>
+        <translation>Droits</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="451"/>
         <source>modify</source>
-        <translation type="unfinished"></translation>
+        <translation>Modification</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="464"/>
         <source>server</source>
-        <translation type="unfinished">Serveur</translation>
+        <translation>Serveur</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="472"/>
         <source>halt_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer sur Arret si vous souhaitez 
+arreter le serveur.</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="479"/>
         <source>halt</source>
-        <translation type="unfinished"></translation>
+        <translation>Arret</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="489"/>
         <source>reload_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer sur Rechargement si vous 
+souhaitez recharger le serveur.</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="496"/>
         <source>reload</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechargement</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="506"/>
         <source>play_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer sur Lecture si vous souhaitez 
+mettre en lecture le serveur.</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="513"/>
         <source>play</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="523"/>
         <source>break_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer sur Pause si vous souhaitez 
+mettre en pause le serveur.</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="530"/>
         <source>break</source>
-        <translation type="unfinished"></translation>
+        <translation>Pause</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="691"/>
         <source>logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Logo</translation>
     </message>
 </context>
 <context>
@@ -1352,7 +1354,7 @@ vous connecter a un autre compte.</translation>
     <message>
         <location filename="../../ui/Create.ui" line="41"/>
         <source>create_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Votre compte utilisateur a bien ete.</translation>
     </message>
 </context>
 <context>
@@ -1508,52 +1510,52 @@ Apres verification, vous allez recevoir vos pieces sur votre compte</translation
     <message>
         <location filename="../../ui/News.ui" line="13"/>
         <source>news</source>
-        <translation type="unfinished">Les nouvelles</translation>
+        <translation>Les nouvelles</translation>
     </message>
     <message>
         <location filename="../../ui/News.ui" line="25"/>
         <source>read</source>
-        <translation type="unfinished">Lire</translation>
+        <translation>Lire</translation>
     </message>
     <message>
         <location filename="../../ui/News.ui" line="130"/>
         <source>subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Sujet</translation>
     </message>
     <message>
         <location filename="../../ui/News.ui" line="137"/>
         <source>body</source>
-        <translation type="unfinished"></translation>
+        <translation>Corps du message</translation>
     </message>
     <message>
         <location filename="../../ui/News.ui" line="50"/>
         <source>author</source>
-        <translation type="unfinished"></translation>
+        <translation>Auteur</translation>
     </message>
     <message>
         <location filename="../../ui/News.ui" line="93"/>
         <source>close</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="../../ui/News.ui" line="102"/>
         <source>date</source>
-        <translation type="unfinished"></translation>
+        <translation>Date</translation>
     </message>
     <message>
         <location filename="../../ui/News.ui" line="119"/>
         <source>add</source>
-        <translation type="unfinished">Ajouter</translation>
+        <translation>Ajouter</translation>
     </message>
     <message>
         <location filename="../../ui/News.ui" line="165"/>
         <source>ok</source>
-        <translation type="unfinished">Ok</translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <location filename="../../ui/News.ui" line="172"/>
         <source>cancel</source>
-        <translation type="unfinished">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
 </context>
 <context>
@@ -1636,7 +1638,7 @@ Apres verification, vous allez recevoir vos pieces sur votre compte</translation
     <message>
         <location filename="../../ui/Options.ui" line="156"/>
         <source>splash_mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Ecran de connexion au chargement</translation>
     </message>
 </context>
 <context>
@@ -2147,37 +2149,37 @@ Apres verification, vous allez recevoir vos pieces sur votre compte</translation
     <message>
         <location filename="../../ui/Stream.ui" line="85"/>
         <source>port</source>
-        <translation type="unfinished">Port</translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="../../ui/Stream.ui" line="134"/>
         <source>start</source>
-        <translation type="unfinished"></translation>
+        <translation>Démarrer</translation>
     </message>
     <message>
         <location filename="../../ui/Stream.ui" line="144"/>
         <source>stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Arreter</translation>
     </message>
     <message>
         <location filename="../../ui/Stream.ui" line="153"/>
         <source>renew</source>
-        <translation type="unfinished"></translation>
+        <translation>Renouveler votre service</translation>
     </message>
     <message>
         <location filename="../../src/Stream.cpp" line="77"/>
         <source>renew_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer sur Ok si vous voulez renouveler votre service sinon Annuler.</translation>
     </message>
     <message>
         <location filename="../../ui/Stream.ui" line="99"/>
         <source>created</source>
-        <translation type="unfinished">Compte cree</translation>
+        <translation>Date de creation</translation>
     </message>
     <message>
         <location filename="../../ui/Stream.ui" line="106"/>
         <source>expired</source>
-        <translation type="unfinished"></translation>
+        <translation>Date d&apos;expiration</translation>
     </message>
 </context>
 <context>
@@ -2215,112 +2217,112 @@ Apres verification, vous allez recevoir vos pieces sur votre compte</translation
     <message>
         <location filename="../../ui/Web.ui" line="23"/>
         <source>main</source>
-        <translation type="unfinished"></translation>
+        <translation>General</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="130"/>
         <source>start</source>
-        <translation type="unfinished"></translation>
+        <translation>Démarrer</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="140"/>
         <source>stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Arreter</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="147"/>
         <source>format</source>
-        <translation type="unfinished"></translation>
+        <translation>Formater</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="343"/>
         <source>software</source>
-        <translation type="unfinished"></translation>
+        <translation>Logiciels</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="351"/>
         <source>software_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous pouvez installer des logiciels ici sur votre service web.</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="370"/>
         <source>install</source>
-        <translation type="unfinished"></translation>
+        <translation>Installer</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="169"/>
         <source>ftp</source>
-        <translation type="unfinished"></translation>
+        <translation>Ftp</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="175"/>
         <source>ftp_settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration du ftp</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="265"/>
         <source>host</source>
-        <translation type="unfinished">Hote</translation>
+        <translation>Hote</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="279"/>
         <source>username</source>
-        <translation type="unfinished">Nom d&apos;utilisateur</translation>
+        <translation>Nom d&apos;utilisateur</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="300"/>
         <source>port</source>
-        <translation type="unfinished">Port</translation>
+        <translation>Port</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="314"/>
         <source>password</source>
-        <translation type="unfinished">Mot de passe</translation>
+        <translation>Mot de passe</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="249"/>
         <source>db</source>
-        <translation type="unfinished"></translation>
+        <translation>Base de donnees</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="255"/>
         <source>db_settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration de la base de donnees</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="321"/>
         <source>type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="../../src/Web.cpp" line="68"/>
         <source>not_yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas encore</translation>
     </message>
     <message>
         <location filename="../../src/Web.cpp" line="68"/>
         <source>not_yet_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas encore disponible.</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="156"/>
         <source>renew</source>
-        <translation type="unfinished"></translation>
+        <translation>Renouveler votre service</translation>
     </message>
     <message>
         <location filename="../../src/Web.cpp" line="73"/>
         <source>renew_txt</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer sur Ok si vous voulez renouveler votre service sinon Annuler.</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="95"/>
         <source>created</source>
-        <translation type="unfinished">Compte cree</translation>
+        <translation>Date de creation</translation>
     </message>
     <message>
         <location filename="../../ui/Web.ui" line="102"/>
         <source>expired</source>
-        <translation type="unfinished"></translation>
+        <translation>Date d&apos;expiration</translation>
     </message>
 </context>
 </TS>
