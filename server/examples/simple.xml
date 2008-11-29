@@ -1,0 +1,6 @@
+<server>
+  <listen port="4242" />
+  <daemon enabled="false" />
+  <database path="data.db" />
+  <verbose enabled="false" />
+</server>
