@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:44:02 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 12:49:56 2008 (+0200)
+// Last-Updated: Sat Nov 29 12:58:35 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 176
+//     Update #: 177
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -959,7 +959,7 @@ void	Action::_actRenewStream()
 
   _renewExpiredDate(stream);
 
-  stmt = database->database().Statement("update web "
+  stmt = database->database().Statement("update stream "
 					"set expired = ? "
 					"where id_user = ? and name = ?;");
 
