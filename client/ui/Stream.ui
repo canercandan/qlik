@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>319</width>
-    <height>216</height>
+    <height>303</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -32,8 +32,8 @@
           </item>
           <item row="0" column="1" >
            <widget class="QLineEdit" name="name" >
-            <property name="enabled" >
-             <bool>false</bool>
+            <property name="readOnly" >
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -46,8 +46,8 @@
           </item>
           <item row="1" column="1" >
            <widget class="QLineEdit" name="slotss" >
-            <property name="enabled" >
-             <bool>false</bool>
+            <property name="readOnly" >
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -60,8 +60,8 @@
           </item>
           <item row="2" column="1" >
            <widget class="QLineEdit" name="bits" >
-            <property name="enabled" >
-             <bool>false</bool>
+            <property name="readOnly" >
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -74,8 +74,8 @@
           </item>
           <item row="3" column="1" >
            <widget class="QLineEdit" name="title" >
-            <property name="enabled" >
-             <bool>false</bool>
+            <property name="readOnly" >
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -88,8 +88,36 @@
           </item>
           <item row="4" column="1" >
            <widget class="QLineEdit" name="port" >
-            <property name="enabled" >
-             <bool>false</bool>
+            <property name="readOnly" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" >
+           <widget class="QLabel" name="label_6" >
+            <property name="text" >
+             <string>created</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0" >
+           <widget class="QLabel" name="label_7" >
+            <property name="text" >
+             <string>expired</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1" >
+           <widget class="QLineEdit" name="created" >
+            <property name="readOnly" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1" >
+           <widget class="QLineEdit" name="expired" >
+            <property name="readOnly" >
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -119,6 +147,13 @@
           </item>
          </layout>
         </item>
+        <item>
+         <widget class="QPushButton" name="renew" >
+          <property name="text" >
+           <string>renew</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
@@ -126,6 +161,18 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>name</tabstop>
+  <tabstop>slotss</tabstop>
+  <tabstop>bits</tabstop>
+  <tabstop>title</tabstop>
+  <tabstop>port</tabstop>
+  <tabstop>created</tabstop>
+  <tabstop>expired</tabstop>
+  <tabstop>start</tabstop>
+  <tabstop>stop</tabstop>
+  <tabstop>renew</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

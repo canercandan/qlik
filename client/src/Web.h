@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:05:34 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:05:37 2008 (+0200)
+// Last-Updated: Sat Nov 29 18:07:32 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 2
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -60,6 +60,10 @@ class	Web : public QDialog, public Singleton<Web>,
 
   friend class	Singleton<Web>;
 private slots:
+  void	on_start_clicked();
+  void	on_stop_clicked();
+
+  void	on_renew_clicked();
 private:
   Web(QWidget* parent = NULL);
 };

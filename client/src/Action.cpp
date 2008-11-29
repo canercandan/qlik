@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:37:41 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 00:43:20 2008 (+0200)
+// Last-Updated: Sat Nov 29 17:46:52 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 39
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -22,6 +22,9 @@
 // 
 
 // Change log:
+// 28-Nov-2008    Caner Candan  
+//    Last-Updated: Thu Nov 27 00:43:20 2008 (+0200) #1 (Caner Candan)
+//    Reconize expiration and creation date of services
 // 
 // 
 // 
@@ -166,10 +169,16 @@ void	Action::_fillMapAction()
     pairCallback(&Action::_actCreateOfferWeb, RIGHT_WEB);
   _mapAction[CREATE_OFFER_STREAM] =
     pairCallback(&Action::_actCreateOfferStream, RIGHT_STREAM);
+
   _mapAction[CREATE_WEB] =
     pairCallback(&Action::_actCreateWeb, RIGHT_WEB);
   _mapAction[CREATE_STREAM] =
     pairCallback(&Action::_actCreateStream, RIGHT_STREAM);
+
+  _mapAction[RENEW_WEB] =
+    pairCallback(&Action::_actRenewWeb, RIGHT_WEB);
+  _mapAction[RENEW_STREAM] =
+    pairCallback(&Action::_actRenewStream, RIGHT_STREAM);
 
   _mapAction[NEWS] = pairCallback(&Action::_actNews, RIGHT_NEWS);
   _mapAction[NEWS_DETAIL] = pairCallback(&Action::_actNewsDetail, RIGHT_NEWS);
@@ -399,6 +408,14 @@ void	Action::_actWebDetail()
   web->space->setText(_resList.at(1));
   web->nbDb->setText(_resList.at(2));
   web->domain->setText(_resList.at(3));
+
+  QDateTime	date;
+
+  date.setTime_t(_resList.at(4).toInt());
+  web->created->setText(date.toString());
+
+  date.setTime_t(_resList.at(5).toInt());
+  web->expired->setText(date.toString());
 }
 
 void	Action::_actStreamDetail()
@@ -418,6 +435,14 @@ void	Action::_actStreamDetail()
   stream->bits->setText(_resList.at(2));
   stream->title->setText(_resList.at(3));
   stream->port->setText(_resList.at(4));
+
+  QDateTime	date;
+
+  date.setTime_t(_resList.at(6).toInt());
+  stream->created->setText(date.toString());
+
+  date.setTime_t(_resList.at(7).toInt());
+  stream->expired->setText(date.toString());
 
   QString	status(_resList.at(5));
 
@@ -480,21 +505,20 @@ void	Action::_actCreateOfferWeb()
       return;
     }
 
-  Service*	service =   Service::getInstance(_client);
+  _actCredit();
 
   QMessageBox::information(_client,
 			   tr("create_offer_web"),
 			   tr("create_offer_web_txt"));
 
-  _client->subCredit(service->offerWebList->currentItem()->
-		     data(Qt::UserRole).toInt());
-  _client->addHistory(Client::TYPE_WEB, tr("history_create_offer_web"), -1);
+  _client->addHistory(Client::TYPE_WEB, tr("history_create_offer_web"),
+		      (int)time(0));
 
   State::getInstance()->setWebList(State::WAIT);
 
   _client->refreshList();
 
-  service->hide();
+  Service::getInstance(_client)->hide();
 }
 
 void	Action::_actCreateOfferStream()
@@ -507,20 +531,20 @@ void	Action::_actCreateOfferStream()
       return;
     }
 
-  Service*	service =   Service::getInstance(_client);
+  _actCredit();
 
   QMessageBox::information(_client,
 			   tr("create_offer_stream"),
 			   tr("create_offer_stream_txt"));
 
-  _client->subCredit(service->offerStreamList->currentItem()->
-		     data(Qt::UserRole).toInt());
-  _client->addHistory(Client::TYPE_STREAM, tr("history_create_offer_stream"), -1);
+  _client->addHistory(Client::TYPE_STREAM, tr("history_create_offer_stream"),
+		      (int)time(0));
+
   State::getInstance()->setStreamList(State::WAIT);
 
   _client->refreshList();
 
-  service->hide();
+  Service::getInstance(_client)->hide();
 }
 
 void	Action::_actCreateWeb()
@@ -532,21 +556,18 @@ void	Action::_actCreateWeb()
       return;
     }
 
-  Service*	service = Service::getInstance(_client);
+  _actCredit();
 
   QMessageBox::information(_client, tr("create_web"), tr("create_web_txt"));
 
-  _client->subCredit
-    ((service->webSpace->currentText().toInt() / RATIO_WEB_SPACE)
-     + (service->webNbDb->currentText().toInt() / RATIO_WEB_DB));
-
-  _client->addHistory(Client::TYPE_WEB, tr("history_create_web"), -1);
+  _client->addHistory(Client::TYPE_WEB, tr("history_create_web"),
+		      (int)time(0));
 
   State::getInstance()->setWebList(State::WAIT);
 
   _client->refreshList();
 
-  service->hide();
+  Service::getInstance(_client)->hide();
 }
 
 void	Action::_actCreateStream()
@@ -559,21 +580,55 @@ void	Action::_actCreateStream()
       return;
     }
 
-  Service*	service = Service::getInstance(_client);
+  _actCredit();
 
   QMessageBox::information(_client,
 			   tr("create_stream"), tr("create_stream_txt"));
-  _client->subCredit
-    ((service->streamSlots->currentText().toInt() / RATIO_STREAM_SLOT)
-     + (service->streamBits->currentText().toInt() / RATIO_STREAM_BITS));
 
-  _client->addHistory(Client::TYPE_STREAM, tr("history_create_stream"), -1);
+  _client->addHistory(Client::TYPE_STREAM, tr("history_create_stream"),
+		      (int)time(0));
 
   State::getInstance()->setStreamList(State::WAIT);
 
   _client->refreshList();
 
-  service->hide();
+  Service::getInstance(_client)->hide();
+}
+
+void	Action::_actRenewWeb()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client,
+			    tr("renew_web_err"),
+			    tr("renew_web_err_txt"));
+      return;
+    }
+
+  _actCredit();
+
+  QMessageBox::information(_client, tr("renew_web"), tr("renew_web_txt"));
+
+  _client->showServiceSelected();
+}
+
+void	Action::_actRenewStream()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client,
+			    tr("renew_stream_err"),
+			    tr("renew_stream_err_txt"));
+      return;
+    }
+
+  _actCredit();
+
+  QMessageBox::information(_client,
+			   tr("renew_stream"),
+			   tr("renew_stream_txt"));
+
+  _client->showServiceSelected();
 }
 
 void	Action::_actNews()

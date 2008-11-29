@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:05:29 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:05:31 2008 (+0200)
+// Last-Updated: Sat Nov 29 18:10:01 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 13
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -46,12 +46,38 @@
 
 // Code:
 
+#include <QTextStream>
+#include <QMessageBox>
 #include "Web.h"
+#include "Socket.h"
+#include "Protocole.h"
 
 Web::Web(QWidget* parent /*= NULL*/)
   : QDialog(parent)
 {
   setupUi(this);
+}
+
+void	Web::on_start_clicked()
+{
+  QMessageBox::information(this, tr("not_yet"), tr("not_yet_txt"));
+}
+
+void	Web::on_stop_clicked()
+{
+  QMessageBox::information(this, tr("not_yet"), tr("not_yet_txt"));
+}
+
+void	Web::on_renew_clicked()
+{
+  if (QMessageBox::question(this, tr("renew"), tr("renew_txt"),
+			    QMessageBox::Ok | QMessageBox::Cancel)
+      != QMessageBox::Ok)
+    return;
+
+  QTextStream	stream(Socket::getInstance()->socket());
+
+  stream << RENEW_WEB << SP << this->name->text() << NL;
 }
 
 // 

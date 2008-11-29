@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:05:20 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:05:23 2008 (+0200)
+// Last-Updated: Sat Nov 29 13:16:49 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 21
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -47,6 +47,7 @@
 // Code:
 
 #include <QTextStream>
+#include <QMessageBox>
 #include "Stream.h"
 #include "Socket.h"
 #include "Protocole.h"
@@ -69,6 +70,18 @@ void	Stream::on_stop_clicked()
   QTextStream	stream(Socket::getInstance()->socket());
 
   stream << STREAM_STOP << SP << this->name->text() << NL;
+}
+
+void	Stream::on_renew_clicked()
+{
+  if (QMessageBox::question(this, tr("renew"), tr("renew_txt"),
+			    QMessageBox::Ok | QMessageBox::Cancel)
+      != QMessageBox::Ok)
+    return;
+
+  QTextStream	stream(Socket::getInstance()->socket());
+
+  stream << RENEW_STREAM << SP << this->name->text() << NL;
 }
 
 // 

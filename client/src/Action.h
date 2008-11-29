@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:39:24 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 00:43:11 2008 (+0200)
+// Last-Updated: Sat Nov 29 13:01:03 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 2
+//     Update #: 3
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -22,6 +22,9 @@
 // 
 
 // Change log:
+// 29-Nov-2008    Caner Candan  
+//    Last-Updated: Thu Nov 27 00:43:11 2008 (+0200) #2 (Caner Candan)
+//    add renew action to web and stream services
 // 
 // 
 // 
@@ -94,8 +97,12 @@ private:
 
   void	_actCreateOfferWeb();
   void	_actCreateOfferStream();
+
   void	_actCreateWeb();
   void	_actCreateStream();
+
+  void	_actRenewWeb();
+  void	_actRenewStream();
 
   void	_actNews();
   void	_actNewsDetail();

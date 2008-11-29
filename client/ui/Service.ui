@@ -648,20 +648,20 @@
   <tabstop>offerWebName</tabstop>
   <tabstop>offerWebList</tabstop>
   <tabstop>offerWebDomain</tabstop>
-  <tabstop>ok</tabstop>
-  <tabstop>cancel</tabstop>
   <tabstop>webName</tabstop>
   <tabstop>webSpace</tabstop>
   <tabstop>webNbDb</tabstop>
   <tabstop>webDomain</tabstop>
   <tabstop>streamType</tabstop>
+  <tabstop>offerStreamName</tabstop>
+  <tabstop>offerStreamList</tabstop>
+  <tabstop>offerStreamTitle</tabstop>
   <tabstop>streamName</tabstop>
   <tabstop>streamSlots</tabstop>
   <tabstop>streamBits</tabstop>
   <tabstop>streamTitle</tabstop>
-  <tabstop>offerStreamName</tabstop>
-  <tabstop>offerStreamList</tabstop>
-  <tabstop>offerStreamTitle</tabstop>
+  <tabstop>ok</tabstop>
+  <tabstop>cancel</tabstop>
  </tabstops>
  <resources/>
  <connections>

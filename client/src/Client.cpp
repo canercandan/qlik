@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:43:31 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 00:43:39 2008 (+0200)
+// Last-Updated: Sat Nov 29 13:14:28 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 2
+//     Update #: 6
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -415,7 +415,7 @@ void	Client::on_serviceAdd_clicked()
   service->show();
 }
 
-void	Client::on_serviceManage_clicked()
+void	Client::showServiceSelected()
 {
   QTextStream	stream(Socket::getInstance()->socket());
 
@@ -447,6 +447,11 @@ void	Client::on_serviceManage_clicked()
 
       Stream::getInstance(this)->show();
     }
+}
+
+void	Client::on_serviceManage_clicked()
+{
+  showServiceSelected();
 }
 
 void	Client::on_serviceCredit_clicked()

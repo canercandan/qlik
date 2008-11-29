@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:43:46 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 00:45:00 2008 (+0200)
+// Last-Updated: Sat Nov 29 13:14:33 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 2
+//     Update #: 3
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -101,6 +101,8 @@ public:
   void	subCredit(const int&);
 
   void	refreshList();
+
+  void	showServiceSelected();
 private slots:
   void	on_actionSignUp_triggered();
   void	on_actionSignIn_triggered();

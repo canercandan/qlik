@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:05:25 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:05:27 2008 (+0200)
+// Last-Updated: Fri Nov 28 23:21:10 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 2
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -62,6 +62,7 @@ class	Stream : public QDialog, public Singleton<Stream>,
 private slots:
   void	on_start_clicked();
   void	on_stop_clicked();
+  void	on_renew_clicked();
 private:
   Stream(QWidget* parent = NULL);
 };

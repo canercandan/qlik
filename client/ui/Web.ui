@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>319</width>
-    <height>233</height>
+    <height>319</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -89,12 +89,43 @@
                 </property>
                </widget>
               </item>
+              <item row="4" column="0" >
+               <widget class="QLabel" name="label_10" >
+                <property name="text" >
+                 <string>created</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0" >
+               <widget class="QLabel" name="label_11" >
+                <property name="text" >
+                 <string>expired</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1" >
+               <widget class="QLineEdit" name="created" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1" >
+               <widget class="QLineEdit" name="expired" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
             <item>
              <layout class="QHBoxLayout" >
               <item>
                <widget class="QPushButton" name="start" >
+                <property name="enabled" >
+                 <bool>false</bool>
+                </property>
                 <property name="text" >
                  <string>start</string>
                 </property>
@@ -102,6 +133,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="stop" >
+                <property name="enabled" >
+                 <bool>false</bool>
+                </property>
                 <property name="text" >
                  <string>stop</string>
                 </property>
@@ -115,6 +149,13 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="renew" >
+              <property name="text" >
+               <string>renew</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -282,7 +323,11 @@
                </widget>
               </item>
               <item row="0" column="1" colspan="3" >
-               <widget class="QLineEdit" name="dbType" />
+               <widget class="QLineEdit" name="dbType" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -342,13 +387,21 @@
   <tabstop>space</tabstop>
   <tabstop>nbDb</tabstop>
   <tabstop>domain</tabstop>
+  <tabstop>created</tabstop>
+  <tabstop>expired</tabstop>
   <tabstop>start</tabstop>
   <tabstop>stop</tabstop>
   <tabstop>format</tabstop>
+  <tabstop>renew</tabstop>
   <tabstop>ftpHost</tabstop>
   <tabstop>ftpPort</tabstop>
   <tabstop>ftpUsername</tabstop>
   <tabstop>ftpPasswd</tabstop>
+  <tabstop>dbType</tabstop>
+  <tabstop>dbHost</tabstop>
+  <tabstop>dbPort</tabstop>
+  <tabstop>dbUsername</tabstop>
+  <tabstop>dbPasswd</tabstop>
   <tabstop>softwareList</tabstop>
   <tabstop>softwareInstall</tabstop>
  </tabstops>

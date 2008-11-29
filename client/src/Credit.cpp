@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:53:31 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 00:53:35 2008 (+0200)
+// Last-Updated: Sat Nov 29 13:03:31 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 5
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -78,9 +78,10 @@ void	Credit::on_buy_clicked()
 	 << tr("notice_add_txt")
 	 << this->coins->currentText()
 	 << tr("notice_add_txt2")
-	 << endl;
-  QMessageBox::information(this, tr("notification"),
-			   tr("notification_txt"));
+	 << NL;
+
+  QMessageBox::information(this, tr("notification"), tr("notification_txt"));
+
   this->hide();
 }
 
