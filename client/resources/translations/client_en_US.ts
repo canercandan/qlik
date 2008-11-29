@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="en_US">
-<defaultcodec></defaultcodec>
 <context>
     <name>About</name>
     <message>
@@ -70,10 +69,6 @@ users.</translation>
         <location filename="../../ui/About.ui" line="126"/>
         <source>developper</source>
         <translation>Developer</translation>
-    </message>
-    <message>
-        <source>translaator</source>
-        <translation type="obsolete">Translator</translation>
     </message>
     <message>
         <location filename="../../ui/About.ui" line="141"/>
@@ -770,14 +765,6 @@ Would you like to save your account in the account&apos;s list ?</translation>
         <translation>Sign &amp;Up</translation>
     </message>
     <message>
-        <source>info</source>
-        <translation type="obsolete">Information</translation>
-    </message>
-    <message>
-        <source>help</source>
-        <translation type="obsolete">Help</translation>
-    </message>
-    <message>
         <location filename="../../ui/Client.ui" line="659"/>
         <source>refresh</source>
         <translation>Refresh</translation>
@@ -793,14 +780,6 @@ Would you like to save your account in the account&apos;s list ?</translation>
         <translation>&amp;Accounts</translation>
     </message>
     <message>
-        <source>connect_db_err</source>
-        <translation type="obsolete">Unable to connect to database</translation>
-    </message>
-    <message>
-        <source>connect_db_err_txt</source>
-        <translation type="obsolete">An error occured</translation>
-    </message>
-    <message>
         <location filename="../../src/Client.cpp" line="252"/>
         <source>online</source>
         <translation>Online</translation>
@@ -814,14 +793,6 @@ Would you like to save your account in the account&apos;s list ?</translation>
         <location filename="../../src/Client.cpp" line="266"/>
         <source>bar_logout</source>
         <translation>I&apos;m sign out</translation>
-    </message>
-    <message>
-        <source>info_txt</source>
-        <translation type="obsolete">Information about ekzay client</translation>
-    </message>
-    <message>
-        <source>help_txt</source>
-        <translation type="obsolete">Help about this soft</translation>
     </message>
     <message>
         <location filename="../../src/Client.cpp" line="526"/>
@@ -847,198 +818,6 @@ Would you like to save your account in the account&apos;s list ?</translation>
         <location filename="../../src/Client.cpp" line="644"/>
         <source>not_connected_txt</source>
         <translation>This address isn&apos;t a server</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="652"/>
-        <source>welcome</source>
-        <translation type="obsolete">Welcome</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="659"/>
-        <source>login_inc</source>
-        <translation type="obsolete">Login incorrect</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="659"/>
-        <source>login_inc_txt</source>
-        <translation type="obsolete">Username or password incorrect</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="671"/>
-        <source>logout_err</source>
-        <translation type="obsolete">Logout error</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="671"/>
-        <source>logout_err_txt</source>
-        <translation type="obsolete">Logout action has send an error</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="681"/>
-        <source>create_inc</source>
-        <translation type="obsolete">Creation incorrect</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="681"/>
-        <source>create_inc_txt</source>
-        <translation type="obsolete">Username already used or incorrect</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="684"/>
-        <source>created</source>
-        <translation type="obsolete">Account created</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="685"/>
-        <source>created_txt</source>
-        <translation type="obsolete">Your account has been created and your password is </translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="686"/>
-        <source>created_txt2</source>
-        <translation type="obsolete">
-
-Would you like to save your account in the account&apos;s list ?</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="699"/>
-        <source>bar_created</source>
-        <translation type="obsolete">Account created</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="737"/>
-        <source>message_err</source>
-        <translation type="obsolete">Message Error</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="737"/>
-        <source>message_err_txt</source>
-        <translation type="obsolete">Your message has send an error</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="780"/>
-        <source>web_service_inc</source>
-        <translation type="obsolete">Web service incorrect</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="781"/>
-        <source>web_service_inc_txt</source>
-        <translation type="obsolete">Your web service is incorrect</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="797"/>
-        <source>stream_service_inc</source>
-        <translation type="obsolete">Stream service incorrect</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="798"/>
-        <source>stream_service_inc_txt</source>
-        <translation type="obsolete">Your stream service is incorrect</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="870"/>
-        <source>create_offer_web_err</source>
-        <translation type="obsolete">Error of creation of offer web</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="871"/>
-        <source>create_offer_web_err_txt</source>
-        <translation type="obsolete">Create of offer web has send an error</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="877"/>
-        <source>create_offer_web</source>
-        <translation type="obsolete">Create of offer web</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="878"/>
-        <source>create_offer_web_txt</source>
-        <translation type="obsolete">Your offer web has been created</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="881"/>
-        <source>history_create_offer_web</source>
-        <translation type="obsolete">Create offer web</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="891"/>
-        <source>create_offer_stream_err</source>
-        <translation type="obsolete">Error of creation of offer stream</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="892"/>
-        <source>create_offer_stream_err_txt</source>
-        <translation type="obsolete">Creation of offer stream has send an error</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="898"/>
-        <source>create_offer_stream</source>
-        <translation type="obsolete">Creation of offer stream</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="899"/>
-        <source>create_offer_stream_txt</source>
-        <translation type="obsolete">Your offer stream has been create</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="902"/>
-        <source>history_create_offer_stream</source>
-        <translation type="obsolete">Create offer stream</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="912"/>
-        <source>create_web_err</source>
-        <translation type="obsolete">Error of creation of web</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="913"/>
-        <source>create_web_err_txt</source>
-        <translation type="obsolete">Creation of web service has send an error</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="919"/>
-        <source>create_web</source>
-        <translation type="obsolete">Creation web</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="919"/>
-        <source>create_web_txt</source>
-        <translation type="obsolete">Your web service has been created</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="922"/>
-        <source>history_create_web</source>
-        <translation type="obsolete">Create web</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="932"/>
-        <source>create_stream_err</source>
-        <translation type="obsolete">Error of creation of stream</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="933"/>
-        <source>create_stream_err_txt</source>
-        <translation type="obsolete">Creation of stream has send an error</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="939"/>
-        <source>create_stream</source>
-        <translation type="obsolete">Creation of stream</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="940"/>
-        <source>create_stream_txt</source>
-        <translation type="obsolete">Your stream service has been created</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="945"/>
-        <source>history_create_stream</source>
-        <translation type="obsolete">Create stream</translation>
-    </message>
-    <message>
-        <location filename="../src/Client.cpp" line="974"/>
-        <source>news_box</source>
-        <translation type="obsolete">News message</translation>
     </message>
     <message>
         <location filename="../../ui/Client.ui" line="13"/>
