@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:44:02 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 12:58:35 2008 (+0200)
+// Last-Updated: Sun Nov 30 04:15:37 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 177
+//     Update #: 237
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -124,6 +124,16 @@ void	Action::_fillMapAction()
 
   _mapAction[CREDIT] =
     pairCallback(&Action::_actCredit, pairParam(true, RIGHT_NONE));
+
+  _mapAction[ADD_CREDIT] =
+    pairCallback(&Action::_actAddCredit, pairParam(true, RIGHT_NONE));
+  _mapAction[LIST_CREDIT] =
+    pairCallback(&Action::_actListCredit, pairParam(true, RIGHT_ADMIN));
+  _mapAction[ACCEPT_CREDIT] =
+    pairCallback(&Action::_actAcceptCredit, pairParam(true, RIGHT_ADMIN));
+  _mapAction[REJECT_CREDIT] =
+    pairCallback(&Action::_actRejectCredit, pairParam(true, RIGHT_ADMIN));
+
   _mapAction[STATUS] =
     pairCallback(&Action::_actStatus, pairParam(true, RIGHT_NONE));
   _mapAction[RIGHT] =
@@ -288,13 +298,148 @@ void	Action::_actCreate()
 
   stmt->Execute();
 
-  _client->appendBufWrite(passwd + '\n');
+  _client->appendBufWrite(passwd);
+  _client->appendBufWrite(NL);
 }
 
 void	Action::_actCredit()
 {
   _client->appendBufWrite(_client->getCredit());
   _client->appendBufWrite(NL);
+}
+
+void	Action::_actAddCredit()
+{
+  int	credit = 0;
+
+  _buffer >> credit;
+
+  Database*		database = Database::getInstance();
+  SQLiteStatement*	stmt =
+    database->database().Statement("insert into credits "
+				   "values(null, ?, ?, ?);");
+
+  stmt->Bind(0, _client->getId());
+  stmt->Bind(1, credit);
+  stmt->Bind(2, (int)time(0));
+
+  stmt->Execute();
+
+  _client->appendBufWrite(OK);
+  _client->appendBufWrite(NL);
+}
+
+void	Action::_actListCredit()
+{
+  Database*		database = Database::getInstance();
+  SQLiteStatement*	stmt =
+    database->database().Statement("select c.id, u.username, u.credit, "
+				   "c.credit, c.date "
+				   "from credits c, users u "
+				   "where c.id_user = u.id;");
+
+  _client->appendBufWrite(BEGIN);
+  _client->appendBufWrite(NL);
+
+  while (stmt->NextRow())
+    {
+      _client->appendBufWrite(stmt->ValueInt(0));
+      _client->appendBufWrite(SP);
+      _client->appendBufWrite(stmt->ValueString(1));
+      _client->appendBufWrite(SP);
+      _client->appendBufWrite(stmt->ValueInt(2));
+      _client->appendBufWrite(SP);
+      _client->appendBufWrite(stmt->ValueInt(3));
+      _client->appendBufWrite(SP);
+      _client->appendBufWrite(stmt->ValueInt(4));
+      _client->appendBufWrite(NL);
+    }
+
+  stmt->End();
+
+  _client->appendBufWrite(END);
+  _client->appendBufWrite(NL);
+}
+
+void	Action::_actAcceptCredit()
+{
+  int	id = 0;
+
+  _buffer >> id;
+
+  Database*		database = Database::getInstance();
+  SQLiteStatement*	stmt =
+    database->database().Statement("select id_user, credit "
+				   "from credits "
+				   "where id = ?;");
+
+  stmt->Bind(0, id);
+
+  if (!stmt->NextRow())
+    {
+      _client->appendBufWrite(KO);
+      _client->appendBufWrite(NL);
+
+      stmt->End();
+
+      return;
+    }
+
+  int	idUser = stmt->ValueInt(0);
+  int	credit = stmt->ValueInt(1);
+
+  stmt->End();
+
+  _acceptCredit(idUser, credit);
+  _rejectCredit(id);
+
+  stmt = database->database().Statement("delete from credits "
+					"where id = ?;");
+
+  stmt->Bind(0, id);
+
+  stmt->Execute();
+
+  _client->appendBufWrite(OK);
+  _client->appendBufWrite(NL);
+}
+
+void	Action::_actRejectCredit()
+{
+  int	id = 0;
+
+  _buffer >> id;
+
+  _rejectCredit(id);
+
+  _client->appendBufWrite(OK);
+  _client->appendBufWrite(NL);
+}
+
+void	Action::_acceptCredit(int idUser, int credit)
+{
+  Database*		database = Database::getInstance();
+  SQLiteStatement*	stmt =
+    database->database().Statement("update users "
+				   "set credit = credit + ? "
+				   "where id = ?;");
+
+  stmt->Bind(0, credit);
+  stmt->Bind(1, idUser);
+
+  stmt->Execute();
+}
+
+void	Action::_rejectCredit(int id)
+{
+  Database*		database = Database::getInstance();
+  SQLiteStatement*	stmt =
+    database->database().Statement("delete from credits "
+				   "where id = ?;");
+
+  stmt->Bind(0, id);
+
+  stmt->Execute();
 }
 
 void	Action::_actStatus()
@@ -703,8 +848,7 @@ void	Action::_createWeb(Web& web)
 
   serverWeb.createHost(web.getDomain());
 
-  _client->appendBufWrite(OK);
-  _client->appendBufWrite(NL);
+  _actCredit();
 }
 
 void	Action::_actCreateOfferStream()
@@ -829,8 +973,7 @@ void	Action::_createStream(Stream& stream)
 
   serverStream.createStream();
 
-  _client->appendBufWrite(OK);
-  _client->appendBufWrite(NL);
+  _actCredit();
 }
 
 void	Action::_actRenewWeb()
@@ -900,8 +1043,7 @@ void	Action::_actRenewWeb()
 
   credit.sub(web.getPrice());
 
-  _client->appendBufWrite(OK);
-  _client->appendBufWrite(NL);
+  _actCredit();
 }
 
 void	Action::_actRenewStream()
@@ -971,8 +1113,7 @@ void	Action::_actRenewStream()
 
   credit.sub(stream.getPrice());
 
-  _client->appendBufWrite(OK);
-  _client->appendBufWrite(NL);
+  _actCredit();
 }
 
 void	Action::_renewExpiredDate(Service& service)

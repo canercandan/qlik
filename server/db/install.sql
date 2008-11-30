@@ -6,9 +6,9 @@
 --Maintainer: 
 --Created: Thu Nov 27 01:42:06 2008 (+0200)
 --Version: 
---Last-Updated: Thu Nov 27 23:58:48 2008 (+0200)
+--Last-Updated: Sun Nov 30 03:56:14 2008 (+0200)
 --          By: Caner Candan
---    Update #: 11
+--    Update #: 12
 --URL: 
 --Keywords: 
 --Compatibility: 
@@ -57,6 +57,14 @@ create table	users
 	password	text					,
 	credit		integer					,
 	right		integer
+);
+
+create table	credits
+(
+	id		integer primary key	autoincrement	,
+	id_user		integer					,
+	credit		integer					,
+	date		integer
 );
 
 create table	web

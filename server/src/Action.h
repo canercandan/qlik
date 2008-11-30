@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:44:10 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 12:49:22 2008 (+0200)
+// Last-Updated: Sun Nov 30 04:15:53 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 24
+//     Update #: 27
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -81,6 +81,12 @@ private:
   void	_actCreate();
 
   void	_actCredit();
+
+  void	_actAddCredit();
+  void	_actListCredit();
+  void	_actAcceptCredit();
+  void	_actRejectCredit();
+
   void	_actStatus();
   void	_actRight();
 
@@ -140,6 +146,8 @@ private:
   void	_createStream(Stream&);
   void	_createWeb(Web&);
   void	_renewExpiredDate(Service&);
+  void	_acceptCredit(int idUser, int credit);
+  void	_rejectCredit(int id);
 private:
   Server*	_server;
   Client*	_client;
