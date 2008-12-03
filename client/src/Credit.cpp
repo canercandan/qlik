@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:53:31 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 13:03:31 2008 (+0200)
+// Last-Updated: Wed Dec  3 19:16:04 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 5
+//     Update #: 11
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -74,15 +74,7 @@ void	Credit::on_buy_clicked()
 
   QTextStream	stream(Socket::getInstance()->socket());
 
-  stream << MESSAGE << ' ' << "finance" << ' '
-	 << tr("notice_add_txt")
-	 << this->coins->currentText()
-	 << tr("notice_add_txt2")
-	 << NL;
-
-  QMessageBox::information(this, tr("notification"), tr("notification_txt"));
-
-  this->hide();
+  stream << ADD_CREDIT << SP << this->coins->currentText() << NL;
 }
 
 void	Credit::on_cancel_clicked()

@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 09:22:14 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 09:22:18 2008 (+0200)
+// Last-Updated: Sun Nov 30 04:17:46 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 3
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -22,6 +22,9 @@
 // 
 
 // Change log:
+// 29-Nov-2008    Caner Candan  
+//    Last-Updated: Thu Nov 27 09:22:18 2008 (+0200) #1 (Caner Candan)
+//    add a renew action for web and stream services
 // 
 // 
 // 
@@ -71,6 +74,12 @@
 # define CREATE	"create"
 
 # define CREDIT	"credit"
+
+# define ADD_CREDIT	"add_credit"
+# define LIST_CREDIT	"list_credit"
+# define ACCEPT_CREDIT	"accept_credit"
+# define REJECT_CREDIT	"reject_credit"
+
 # define STATUS	"status"
 # define RIGHT	"right"
 
@@ -95,6 +104,9 @@
 
 # define CREATE_WEB	"create_web"
 # define CREATE_STREAM	"create_stream"
+
+# define RENEW_WEB	"renew_web"
+# define RENEW_STREAM	"renew_stream"
 
 # define NEWS		"news"
 # define NEWS_DETAIL	"news_detail"

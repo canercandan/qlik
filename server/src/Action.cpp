@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:44:02 2008 (+0200)
 // Version: 
-// Last-Updated: Sun Nov 30 04:15:37 2008 (+0200)
+// Last-Updated: Thu Dec  4 01:30:17 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 237
+//     Update #: 423
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -254,6 +254,9 @@ void	Action::_actLogin()
   _client->appendBufWrite(SP);
   _client->appendBufWrite(_client->getRight());
   _client->appendBufWrite(NL);
+
+  _reloadClientsList();
+  _reloadAccountsList();
 }
 
 void	Action::_actLogout()
@@ -262,6 +265,9 @@ void	Action::_actLogout()
 
   _client->appendBufWrite(OK);
   _client->appendBufWrite(NL);
+
+  _reloadClientsList();
+  _reloadAccountsList();
 }
 
 void	Action::_actCreate()
@@ -300,6 +306,8 @@ void	Action::_actCreate()
 
   _client->appendBufWrite(passwd);
   _client->appendBufWrite(NL);
+
+  _reloadAccountsList();
 }
 
 void	Action::_actCredit()
@@ -327,6 +335,8 @@ void	Action::_actAddCredit()
 
   _client->appendBufWrite(OK);
   _client->appendBufWrite(NL);
+
+  _reloadCreditList();
 }
 
 void	Action::_actListCredit()
@@ -402,6 +412,12 @@ void	Action::_actAcceptCredit()
 
   _client->appendBufWrite(OK);
   _client->appendBufWrite(NL);
+
+  Client*	client = _server->findClient(idUser);
+
+  _reloadCredit(client);
+  _reloadAccountsList();
+  _reloadCreditList();
 }
 
 void	Action::_actRejectCredit()
@@ -414,9 +430,11 @@ void	Action::_actRejectCredit()
 
   _client->appendBufWrite(OK);
   _client->appendBufWrite(NL);
+
+  _reloadCreditList();
 }
 
-void	Action::_acceptCredit(int idUser, int credit)
+void	Action::_acceptCredit(const int idUser, const int credit)
 {
   Database*		database = Database::getInstance();
   SQLiteStatement*	stmt =
@@ -430,7 +448,7 @@ void	Action::_acceptCredit(int idUser, int credit)
   stmt->Execute();
 }
 
-void	Action::_rejectCredit(int id)
+void	Action::_rejectCredit(const int id)
 {
   Database*		database = Database::getInstance();
   SQLiteStatement*	stmt =
@@ -440,6 +458,185 @@ void	Action::_rejectCredit(int id)
   stmt->Bind(0, id);
 
   stmt->Execute();
+}
+
+void	Action::_reloadCredit(Client* client)
+{
+  if (!client)
+    return;
+
+  Client*	oldClient = _client;
+
+  _client = client;
+
+  _client->syncCredit();
+  _client->appendBufWrite(CREDIT);
+  _client->appendBufWrite(SP);
+  _actCredit();
+
+  _client = oldClient;
+}
+
+void	Action::_reloadRight(Client* client)
+{
+  if (!client)
+    return;
+
+  Client*	oldClient = _client;
+
+  _client = client;
+
+  _client->syncRight();
+  _client->appendBufWrite(RIGHT);
+  _client->appendBufWrite(SP);
+  _actRight();
+
+  _client = oldClient;
+}
+
+void	Action::_reloadClientsList()
+{
+  Server::listClients&	listClients = _server->getListClients();
+
+  for (Server::listClients::iterator
+	 it = listClients.begin(),
+	 end = listClients.end();
+       it != end; ++it)
+    {
+      Client*	client = *it;
+
+      if (!client)
+	continue;
+
+      if (!client->isConnected())
+	continue;
+
+      if (_client->getLogin() == client->getLogin())
+	continue;
+
+      Client*	oldClient = _client;
+
+      _client = client;
+
+      _client->appendBufWrite(CLIENTS);
+      _client->appendBufWrite(SP);
+
+      _actClients();
+
+      _client = oldClient;
+    }
+}
+
+void	Action::_reloadAccountsList()
+{
+  Server::listClients&	listClients = _server->getListClients();
+
+  for (Server::listClients::iterator
+	 it = listClients.begin(),
+	 end = listClients.end();
+       it != end; ++it)
+    {
+      Client*	client = *it;
+
+      if (!client)
+	continue;
+
+      if (!client->isConnected())
+	continue;
+
+      if ((client->getRight() & RIGHT_ADMIN) != RIGHT_ADMIN)
+	continue;
+
+      Client*	oldClient = _client;
+
+      _client = client;
+
+      _client->appendBufWrite(ACCOUNTS);
+      _client->appendBufWrite(SP);
+
+      _actAccounts();
+
+      _client = oldClient;
+    }
+}
+
+void	Action::_reloadCreditList()
+{
+  Server::listClients&	listClients = _server->getListClients();
+
+  for (Server::listClients::iterator
+	 it = listClients.begin(),
+	 end = listClients.end();
+       it != end; ++it)
+    {
+      Client*	client = *it;
+
+      if (!client)
+	continue;
+
+      if (!client->isConnected())
+	continue;
+
+      if ((client->getRight() & RIGHT_ADMIN) != RIGHT_ADMIN)
+	continue;
+
+      Client*	oldClient = _client;
+
+      _client = client;
+
+      _client->appendBufWrite(LIST_CREDIT);
+      _client->appendBufWrite(SP);
+
+      _actListCredit();
+
+      _client = oldClient;
+    }
+}
+
+void	Action::_reloadWebList()
+{
+  _client->syncCredit();
+  _client->appendBufWrite(WEB);
+  _client->appendBufWrite(SP);
+  _actWeb();
+}
+
+void	Action::_reloadStreamList()
+{
+  _client->syncCredit();
+  _client->appendBufWrite(STREAM);
+  _client->appendBufWrite(SP);
+  _actStream();
+}
+
+void	Action::_reloadNewsList()
+{
+  Server::listClients&	listClients = _server->getListClients();
+
+  for (Server::listClients::iterator
+	 it = listClients.begin(),
+	 end = listClients.end();
+       it != end; ++it)
+    {
+      Client*	client = *it;
+
+      if (!client)
+	continue;
+
+      if (!client->isConnected())
+	continue;
+
+      Client*	oldClient = _client;
+
+      _client = client;
+
+      _client->appendBufWrite(NEWS);
+      _client->appendBufWrite(SP);
+
+      _actNews();
+
+      _client = oldClient;
+    }
 }
 
 void	Action::_actStatus()
@@ -500,7 +697,8 @@ void	Action::_actAccounts()
       _client->appendBufWrite(SP);
       _client->appendBufWrite(stmt->ValueString(2));
       _client->appendBufWrite(SP);
-      _client->appendBufWrite(_server->findClient(stmt->ValueString(0)) ? 1 : 0);
+      _client->appendBufWrite(_server->findClient
+			      (stmt->ValueString(0)) ? 1 : 0);
       _client->appendBufWrite(NL);
     }
 
@@ -539,6 +737,13 @@ void	Action::_actAccountsModify()
 
   _client->appendBufWrite(OK);
   _client->appendBufWrite(NL);
+
+  Client*	client = _server->findClient(account);
+
+  _reloadCredit(client);
+  _reloadRight(client);
+  _reloadAccountsList();
+  _reloadClientsList();
 }
 
 void	Action::_actMessage()
@@ -849,6 +1054,8 @@ void	Action::_createWeb(Web& web)
   serverWeb.createHost(web.getDomain());
 
   _actCredit();
+
+  _reloadWebList();
 }
 
 void	Action::_actCreateOfferStream()
@@ -974,6 +1181,8 @@ void	Action::_createStream(Stream& stream)
   serverStream.createStream();
 
   _actCredit();
+
+  _reloadStreamList();
 }
 
 void	Action::_actRenewWeb()
@@ -1224,6 +1433,8 @@ void	Action::_actNewsAdd()
 
   _client->appendBufWrite(OK);
   _client->appendBufWrite(NL);
+
+  _reloadNewsList();
 }
 
 void	Action::_actNewsDelete()
@@ -1243,7 +1454,7 @@ void	Action::_actNewsDelete()
   Database*		database = Database::getInstance();
   SQLiteStatement*	stmt =
     database->database().Statement("delete from news "
-				   "where id = ? and id_user = ?;");
+				   "where id = ?;");
 
   stmt->Bind(0, id);
   stmt->Bind(1, _client->getId());
@@ -1252,6 +1463,8 @@ void	Action::_actNewsDelete()
 
   _client->appendBufWrite(OK);
   _client->appendBufWrite(NL);
+
+  _reloadNewsList();
 }
 
 void	Action::_actWebStatus()

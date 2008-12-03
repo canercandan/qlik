@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:43:31 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 13:14:28 2008 (+0200)
+// Last-Updated: Wed Dec  3 21:08:47 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 6
+//     Update #: 131
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -77,7 +77,6 @@ Client::Client(QWidget *parent /*= NULL*/)
   actionSignUp->setEnabled(false);
   actionSignIn->setEnabled(false);
   actionSignOut->setEnabled(false);
-  actionRefresh->setEnabled(false);
 
   pageBox->setEnabled(false);
   pageBox->setCurrentIndex(0);
@@ -96,6 +95,8 @@ Client::Client(QWidget *parent /*= NULL*/)
 	  this, SLOT(loadServices(int)));
   connect(creditBox, SIGNAL(currentChanged(int)),
 	  this, SLOT(loadHistory(int)));
+  connect(adminBox, SIGNAL(currentChanged(int)),
+	  this, SLOT(loadAdmin(int)));
 
   Options::getInstance(this);
 
@@ -247,11 +248,10 @@ void	Client::login()
   this->actionSignUp->setEnabled(false);
   this->actionSignIn->setEnabled(false);
   this->actionSignOut->setEnabled(true);
-  this->actionRefresh->setEnabled(true);
   this->pageBox->setEnabled(true);
   this->infoStatus->setText(tr("online"));
   this->statusbar->showMessage(tr("bar_login"));
-  this->refreshList();
+  this->loadPages(0);
 }
 
 void	Client::logout()
@@ -259,7 +259,6 @@ void	Client::logout()
   this->actionSignUp->setEnabled(true);
   this->actionSignIn->setEnabled(true);
   this->actionSignOut->setEnabled(false);
-  this->actionRefresh->setEnabled(false);
   this->pageBox->setEnabled(false);
   this->infoAccount->setText(tr("guest"));
   this->infoStatus->setText(tr("offline"));
@@ -321,11 +320,6 @@ void	Client::on_actionSignOut_triggered()
   stream << LOGOUT << NL;
 }
 
-void	Client::on_actionRefresh_triggered()
-{
-  this->refreshList();
-}
-
 void	Client::loadNews()
 {
   bool	rightNews = (this->getRight() & RIGHT_NEWS);
@@ -339,39 +333,14 @@ void	Client::loadNews()
   if (!rightNews)
     return;
 
+  State*	state = State::getInstance();
+
+  if (state->getNewsList() == State::DONE)
+    return;
+
   QTextStream	stream(Socket::getInstance()->socket());
 
-  this->newsList->clear();
-
   stream << NEWS << NL;
-
-  this->actionRefresh->setEnabled(false);
-}
-
-void	Client::refreshList()
-{
-  int	idx = this->pageBox->currentIndex();
-
-  if (idx == 0) // news
-    this->loadNews();
-  else if (idx == 1) // services
-    {
-      if (!this->serviceBox->currentIndex()) // web
-	this->loadServices(0);
-      else // stream
-	this->loadServices(1);
-    }
-  else if (idx == 2) // credit
-    {
-      if (!this->creditBox->currentIndex()) // web
-	this->loadHistory(0);
-      else // stream
-	this->loadHistory(1);
-    }
-  else if (idx == 3) // talk
-    this->loadClients();
-  else if (idx == 4) // admin
-    this->loadAccounts();
 }
 
 void	Client::on_actionAbout_triggered()
@@ -402,16 +371,12 @@ void	Client::on_serviceAdd_clicked()
 
   connect(service->serviceBox, SIGNAL(currentChanged(int)),
 	  this, SLOT(loadOffers(int)));
-  if (!this->serviceBox->currentIndex())
-    {
-      this->loadOffers(0);
-      service->serviceBox->setCurrentIndex(0);
-    }
-  else
-    {
-      this->loadOffers(1);
-      service->serviceBox->setCurrentIndex(1);
-    }
+
+  int	idx = this->serviceBox->currentIndex();
+
+  this->loadOffers(idx);
+  service->serviceBox->setCurrentIndex(idx);
+
   service->show();
 }
 
@@ -515,6 +480,7 @@ void	Client::on_talkMyContactsAdd_clicked()
 
   if (contact.exec() != QDialog::Accepted)
     return;
+
   this->addToContactsList(contact);
 }
 
@@ -535,6 +501,8 @@ void	Client::on_talkMyContactsDel_clicked()
   q.addBindValue(this->infoAccount->text());
   q.addBindValue(this->talkMyContactsList->currentItem()->data(Qt::UserRole));
   q.exec();
+
+  State::getInstance()->setClientsList(State::WAIT);
   this->loadClients();
 }
 
@@ -547,8 +515,10 @@ void	Client::on_talkAllContactsAdd_clicked()
 
   contact.username->setText(this->talkAllContactsList->currentItem()->text());
   contact.alias->setFocus();
+
   if (contact.exec() != QDialog::Accepted)
     return;
+
   this->addToContactsList(contact);
 }
 
@@ -562,6 +532,8 @@ void	Client::addToContactsList(const Contact& contact)
   q.addBindValue(contact.username->text());
   q.addBindValue(contact.alias->text());
   q.exec();
+
+  State::getInstance()->setClientsList(State::WAIT);
   this->loadClients();
 }
 
@@ -588,6 +560,43 @@ void	Client::on_adminModify_clicked()
   aa->rightAdmin->setChecked((right & RIGHT_ADMIN) == RIGHT_ADMIN);
 
   aa->show();
+}
+
+void	Client::on_adminCreditAccept_clicked()
+{
+  if (!_acceptRejectCredit())
+    return;
+
+  QTextStream	stream(Socket::getInstance()->socket());
+  QString	id(this->adminCreditList->currentItem()->data
+		   (0, Qt::UserRole).toString());
+
+  stream << ACCEPT_CREDIT << SP << id << NL;
+}
+
+void	Client::on_adminCreditReject_clicked()
+{
+  if (!_acceptRejectCredit())
+    return;
+
+  QTextStream	stream(Socket::getInstance()->socket());
+  QString	id(this->adminCreditList->currentItem()->data
+		   (0, Qt::UserRole).toString());
+
+  stream << REJECT_CREDIT << SP << id << NL;
+}
+
+bool	Client::_acceptRejectCredit()
+{
+  if (!this->adminCreditList->currentItem())
+    return (false);
+
+  if (QMessageBox::question(this, tr("are_you_sure"), tr("are_you_sure_txt"),
+			    QMessageBox::Ok | QMessageBox::Cancel)
+      != QMessageBox::Ok)
+    return (false);
+
+  return (true);
 }
 
 void	Client::on_serverHalt_clicked()
@@ -655,11 +664,11 @@ void	Client::loadOffers(int idx)
     return;
 
   QTextStream	stream(Socket::getInstance()->socket());
-  Service*	service = Service::getInstance(this);
+  State*	state = State::getInstance();
 
   if (idx == 0)
     {
-      if (service->offerWebList->count())
+      if (state->getOfferWebList() == State::DONE)
 	return;
 
       stream << OFFER_WEB << NL;
@@ -667,7 +676,7 @@ void	Client::loadOffers(int idx)
       return;
     }
 
-  if (service->offerStreamList->count())
+  if (state->getOfferStreamList() == State::DONE)
     return;
 
   stream << OFFER_STREAM << NL;
@@ -678,7 +687,7 @@ void	Client::loadPages(int idx)
   QTextStream	stream(Socket::getInstance()->socket());
 
   if (idx == 0) // news
-    {}
+    this->loadNews();
   else if (idx == 1) // services
     this->loadServices(0);
   else if (idx == 2) // credit
@@ -686,7 +695,7 @@ void	Client::loadPages(int idx)
   else if (idx == 3) // talk
     this->loadClients();
   else if (idx == 4) // admin
-    this->loadAccounts();
+    this->loadAdmin(0);
 }
 
 void	Client::loadServices(int idx)
@@ -712,11 +721,7 @@ void	Client::loadServices(int idx)
       if (state->getWebList() == State::DONE)
 	return;
 
-      this->serviceWebList->clear();
-
       stream << WEB << NL;
-
-      state->setWebList(State::DONE);
 
       return;
     }
@@ -724,11 +729,7 @@ void	Client::loadServices(int idx)
   if (state->getStreamList() == State::DONE)
     return;
 
-  this->serviceStreamList->clear();
-
   stream << STREAM << NL;
-
-  state->setStreamList(State::DONE);
 }
 
 void	Client::loadClients()
@@ -741,10 +742,12 @@ void	Client::loadClients()
   if (!right)
     return;
 
-  QTextStream	stream(Socket::getInstance()->socket());
+  State*	state = State::getInstance();
 
-  this->talkAllContactsList->clear();
-  this->talkMyContactsList->clear();
+  if (state->getClientsList() == State::DONE)
+    return;
+
+  QTextStream	stream(Socket::getInstance()->socket());
 
   stream << CLIENTS << NL;
 }
@@ -793,29 +796,50 @@ void	Client::loadAllContact(const QString& contact,
   this->talkAllContactsList->addItem(item);
 }
 
-void	Client::loadAccounts()
+void	Client::loadAdmin(int idx)
 {
   bool	rightAdmin = ((this->getRight() & RIGHT_ADMIN) == RIGHT_ADMIN);
   bool	rightServer = ((this->getRight() & RIGHT_SERVER) == RIGHT_SERVER);
 
   this->adminBox->setEnabled(rightAdmin || rightServer);
 
-  this->adminAccountList->setEnabled(rightAdmin);
-  this->adminModify->setEnabled(rightAdmin);
-
-  this->serverHalt->setEnabled(rightServer);
-  this->serverReload->setEnabled(rightServer);
-  this->serverPlay->setEnabled(rightServer);
-  this->serverBreak->setEnabled(rightServer);
-
-  if (!rightAdmin)
-    return;
-
   QTextStream	stream(Socket::getInstance()->socket());
+  State*	state = State::getInstance();
 
-  this->adminAccountList->clear();
+  if (idx == 0)
+    {
+      this->adminAccountList->setEnabled(rightAdmin);
+      this->adminModify->setEnabled(rightAdmin);
 
-  stream << ACCOUNTS << NL;
+      if (!rightAdmin)
+	return;
+
+      if (state->getAccountsList() == State::DONE)
+	return;
+
+      stream << ACCOUNTS << NL;
+    }
+  else if (idx == 1)
+    {
+      this->adminCreditList->setEnabled(rightAdmin);
+      this->adminCreditAccept->setEnabled(rightAdmin);
+      this->adminCreditReject->setEnabled(rightAdmin);
+
+      if (!rightAdmin)
+	return;
+
+      if (state->getCreditList() == State::DONE)
+	return;
+
+      stream << LIST_CREDIT << NL;
+    }
+  else if (idx == 2)
+    {
+      this->serverHalt->setEnabled(rightServer);
+      this->serverReload->setEnabled(rightServer);
+      this->serverPlay->setEnabled(rightServer);
+      this->serverBreak->setEnabled(rightServer);
+    }
 }
 
 void	Client::loadHistory(int idx)

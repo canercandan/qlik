@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 09:14:21 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 09:14:24 2008 (+0200)
+// Last-Updated: Wed Dec  3 02:28:27 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 12
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -98,6 +98,22 @@ Client*	Server::findClient(const std::string& login)
   return (NULL);
 }
 
+Client*	Server::findClient(const int id)
+{
+  for (listClients::const_iterator
+	 it = _clients.begin(),
+	 end = _clients.end();
+       it != end; ++it)
+    {
+      Client*	client = *it;
+
+      if (client->isConnected())
+	if (client->getId() == id)
+	  return (client);
+    }
+  return (NULL);
+}
+
 Server::listClients&	Server::getListClients()
 {
   return (_clients);
@@ -115,11 +131,13 @@ void	Server::_destroyListClients()
 	 end = _clients.end();
        it != end; ++it)
     {
-      if (*it)
-	{
-	  delete *it;
-	  *it = NULL;
-	}
+      Client*	client = *it;
+
+      if (!client)
+	continue;
+
+      delete client;
+      *it = NULL;
     }
 }
 

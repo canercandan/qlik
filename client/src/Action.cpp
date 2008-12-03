@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:37:41 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 17:46:52 2008 (+0200)
+// Last-Updated: Thu Dec  4 00:26:17 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 39
+//     Update #: 217
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -61,6 +61,7 @@
 #include "State.h"
 #include "News.h"
 #include "AccountsAdmin.h"
+#include "Credit.h"
 
 Action::Action(Client* client, const QString& userCreated)
   : _client(client), _userCreated(userCreated)
@@ -100,7 +101,7 @@ void	Action::execute()
 	  if (_mapAction.find(action) == _mapAction.end())
 	    return;
 
-	  pairCallback	pairCallback = _mapAction[action];
+	  pairCallback	pairCallback(_mapAction[action]);
 	  callback	callback = pairCallback.first;
 	  int		right = pairCallback.second;
 
@@ -117,13 +118,13 @@ void	Action::execute()
 	    }
 
 	  resList.erase(resList.begin());
-	  action = resList.at(0);
 
-	  if (action == BEGIN)
+	  if (resList.at(0) == BEGIN)
 	    {
 	      qDebug() << "i start";
 	      resList.erase(resList.begin());
 	      func = callback;
+	      _initialize(action);
 	    }
 	  else
 	    {
@@ -143,6 +144,14 @@ void	Action::_fillMapAction()
   _mapAction[CREATE] = pairCallback(&Action::_actCreate, RIGHT_NONE);
 
   _mapAction[CREDIT] = pairCallback(&Action::_actCredit, RIGHT_NONE);
+
+  _mapAction[ADD_CREDIT] = pairCallback(&Action::_actAddCredit, RIGHT_NONE);
+  _mapAction[LIST_CREDIT] = pairCallback(&Action::_actListCredit, RIGHT_NONE);
+  _mapAction[ACCEPT_CREDIT] =
+    pairCallback(&Action::_actAcceptCredit, RIGHT_NONE);
+  _mapAction[REJECT_CREDIT] =
+    pairCallback(&Action::_actRejectCredit, RIGHT_NONE);
+
   _mapAction[STATUS] = pairCallback(&Action::_actStatus, RIGHT_NONE);
   _mapAction[RIGHT] = pairCallback(&Action::_actRight, RIGHT_NONE);
 
@@ -200,6 +209,58 @@ void	Action::_fillMapAction()
   _mapAction[BREAK] = pairCallback(&Action::_actBreak, RIGHT_SERVER);
 }
 
+void	Action::_initialize(const QString& action)
+{
+  State*	state = State::getInstance();
+
+  if (action == NEWS)
+    {
+      state->setNewsList(State::DONE);
+      _client->newsList->clear();
+    }
+  else if (action == CLIENTS)
+    {
+      state->setClientsList(State::DONE);
+      _client->talkMyContactsList->clear();
+      _client->talkAllContactsList->clear();
+    }
+  else if (action == ACCOUNTS)
+    {
+      state->setAccountsList(State::DONE);
+      _client->adminAccountList->clear();
+    }
+  else if (action == LIST_CREDIT)
+    {
+      state->setCreditList(State::DONE);
+      _client->adminCreditList->clear();
+    }
+  else if (action == WEB)
+    {
+      state->setWebList(State::DONE);
+      _client->serviceWebList->clear();
+    }
+  else if (action == STREAM)
+    {
+      state->setStreamList(State::DONE);
+      _client->serviceStreamList->clear();
+    }
+  else if (action == OFFER_WEB || action == OFFER_STREAM)
+    {
+      Service*	service = Service::getInstance(_client);
+
+      if (action == OFFER_WEB)
+	{
+	  state->setOfferWebList(State::DONE);
+	  service->offerWebList->clear();
+	}
+      else
+	{
+	  state->setOfferStreamList(State::DONE);
+	  service->offerStreamList->clear();
+	}
+    }
+}
+
 void	Action::_actWelcome()
 {
   _client->statusbar->showMessage(tr("welcome"));
@@ -214,10 +275,8 @@ void	Action::_actLogin()
       return;
     }
 
-  _actCredit();
-
-  _resList.erase(_resList.begin());
-  _actRight();
+  _client->setCredit(_resList.at(0).toInt());
+  _client->setRight(_resList.at(1).toInt());
 
   _client->login();
 }
@@ -262,7 +321,90 @@ void	Action::_actCredit()
   if (_resList.at(0) == KO)
     return;
 
-  _client->setCredit(_resList.at(0).toInt());
+  int	credit = _resList.at(0).toInt();
+
+  if (credit == _client->getCredit())
+    return;
+
+  _client->setCredit(credit);
+
+  QMessageBox::information(_client, tr("credit"), tr("credit_txt"));
+}
+
+void	Action::_actAddCredit()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client,
+			    tr("add_credit_err"),
+			    tr("add_credit_err_txt"));
+      return;
+    }
+
+  QMessageBox::information(_client,
+			   tr("add_credit"),
+			   tr("add_credit_txt"));
+
+  Credit::getInstance()->hide();
+}
+
+void	Action::_actListCredit()
+{
+  if (_resList.count() < 1)
+    return;
+
+  const QString	id(_resList.at(0));
+  const QString	username(_resList.at(1));
+  const QString	currentCredit(_resList.at(2));
+  const QString	addCredit(_resList.at(3));
+
+  QDateTime	date;
+
+  date.setTime_t(_resList.at(4).toInt());
+
+  qDebug() << "add in list credit" << id;
+
+  QTreeWidgetItem*	item = new QTreeWidgetItem;
+
+  item->setIcon(0, QIcon(":/admin/images/user.png"));
+  item->setData(0, Qt::UserRole, id);
+
+  item->setText(0, username);
+  item->setText(1, currentCredit);
+  item->setText(2, addCredit);
+  item->setText(3, date.toString());
+
+  _client->adminCreditList->addTopLevelItem(item);
+}
+
+void	Action::_actAcceptCredit()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client,
+			    tr("accept_credit_err"),
+			    tr("accept_credit_err_txt"));
+      return;
+    }
+
+  QMessageBox::information(_client,
+			   tr("accept_credit"),
+			   tr("accept_credit_txt"));
+}
+
+void	Action::_actRejectCredit()
+{
+  if (_resList.at(0) == KO)
+    {
+      QMessageBox::critical(_client,
+			    tr("reject_credit_err"),
+			    tr("reject_credit_err_txt"));
+      return;
+    }
+
+  QMessageBox::information(_client,
+			   tr("reject_credit"),
+			   tr("reject_credit_txt"));
 }
 
 void	Action::_actStatus()
@@ -273,7 +415,14 @@ void	Action::_actRight()
   if (_resList.at(0) == KO)
     return;
 
-  _client->setRight(_resList.at(0).toInt());
+  int	right = _resList.at(0).toInt();
+
+  if (right == _client->getRight())
+    return;
+
+  _client->setRight(right);
+
+  QMessageBox::information(_client, tr("right"), tr("right_txt"));
 }
 
 void	Action::_actClients()
@@ -282,7 +431,7 @@ void	Action::_actClients()
     return;
 
   const QString	name(_resList.at(0));
-  const int	right(_resList.at(1).toInt());
+  const int	right = _resList.at(1).toInt();
 
   if (name == _client->infoAccount->text())
     return;
@@ -341,8 +490,6 @@ void	Action::_actAccountsModify()
       return;
     }
 
-  _client->refreshList();
-
   AccountsAdmin*	aa = AccountsAdmin::getInstance(_client);
 
   aa->hide();
@@ -376,8 +523,8 @@ void	Action::_actWeb()
 
   qDebug() << "add service web" << name;
 
-  _client->serviceWebList->addItem(new QListWidgetItem
-				   (QIcon(":/services/images/bricks.png"), name));
+  _client->serviceWebList->addItem
+    (new QListWidgetItem(QIcon(":/services/images/bricks.png"), name));
 }
 
 void	Action::_actStream()
@@ -389,8 +536,8 @@ void	Action::_actStream()
 
   qDebug() << "add service stream" << name;
 
-  _client->serviceStreamList->addItem(new QListWidgetItem
-				      (QIcon(":/services/images/bricks.png"), name));
+  _client->serviceStreamList->addItem
+    (new QListWidgetItem(QIcon(":/services/images/bricks.png"), name));
 }
 
 void	Action::_actWebDetail()
@@ -514,10 +661,6 @@ void	Action::_actCreateOfferWeb()
   _client->addHistory(Client::TYPE_WEB, tr("history_create_offer_web"),
 		      (int)time(0));
 
-  State::getInstance()->setWebList(State::WAIT);
-
-  _client->refreshList();
-
   Service::getInstance(_client)->hide();
 }
 
@@ -540,10 +683,6 @@ void	Action::_actCreateOfferStream()
   _client->addHistory(Client::TYPE_STREAM, tr("history_create_offer_stream"),
 		      (int)time(0));
 
-  State::getInstance()->setStreamList(State::WAIT);
-
-  _client->refreshList();
-
   Service::getInstance(_client)->hide();
 }
 
@@ -562,10 +701,6 @@ void	Action::_actCreateWeb()
 
   _client->addHistory(Client::TYPE_WEB, tr("history_create_web"),
 		      (int)time(0));
-
-  State::getInstance()->setWebList(State::WAIT);
-
-  _client->refreshList();
 
   Service::getInstance(_client)->hide();
 }
@@ -587,10 +722,6 @@ void	Action::_actCreateStream()
 
   _client->addHistory(Client::TYPE_STREAM, tr("history_create_stream"),
 		      (int)time(0));
-
-  State::getInstance()->setStreamList(State::WAIT);
-
-  _client->refreshList();
 
   Service::getInstance(_client)->hide();
 }
@@ -661,8 +792,6 @@ void	Action::_actNews()
   item->setText(2, date.toString());
 
   _client->newsList->addTopLevelItem(item);
-
-  _client->actionRefresh->setEnabled(true);
 }
 
 void	Action::_actNewsDetail()
@@ -696,8 +825,6 @@ void	Action::_actNewsAdd()
 			   tr("news_add"),
 			   tr("news_add_txt"));
 
-  _client->refreshList();
-
   News*	news = News::getInstance(_client);
 
   news->hide();
@@ -712,8 +839,6 @@ void	Action::_actNewsDelete()
 			    tr("news_delete_err_txt"));
       return;
     }
-
-  _client->refreshList();
 }
 
 void	Action::_actStreamStatus()

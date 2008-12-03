@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:05:09 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:05:11 2008 (+0200)
+// Last-Updated: Wed Dec  3 01:32:44 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 2
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -49,7 +49,9 @@
 #include "State.h"
 
 State::State()
-  : _weblist(WAIT), _streamlist(WAIT)
+  : _weblist(WAIT), _streamlist(WAIT), _clientslist(WAIT),
+    _accountslist(WAIT), _creditlist(WAIT), _offerweblist(WAIT),
+    _offerstreamlist(WAIT), _newslist(WAIT)
 {}
 
 // 

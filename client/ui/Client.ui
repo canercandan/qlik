@@ -143,8 +143,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>182</width>
-         <height>232</height>
+         <width>313</width>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label" >
@@ -296,8 +296,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>206</width>
-         <height>229</height>
+         <width>313</width>
+         <height>236</height>
         </rect>
        </property>
        <attribute name="label" >
@@ -459,6 +459,65 @@
               </item>
              </layout>
             </widget>
+            <widget class="QWidget" name="tab_5" >
+             <attribute name="title" >
+              <string>credits</string>
+             </attribute>
+             <layout class="QGridLayout" >
+              <item row="0" column="0" >
+               <layout class="QVBoxLayout" >
+                <item>
+                 <widget class="QTreeWidget" name="adminCreditList" >
+                  <column>
+                   <property name="text" >
+                    <string>username</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text" >
+                    <string>current_credit</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text" >
+                    <string>add_credit</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text" >
+                    <string>date</string>
+                   </property>
+                  </column>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" >
+                  <item>
+                   <widget class="QPushButton" name="adminCreditAccept" >
+                    <property name="text" >
+                     <string>accept</string>
+                    </property>
+                    <property name="icon" >
+                     <iconset resource="../resources/resources.qrc" >:/admin/images/coins_add.png</iconset>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="adminCreditReject" >
+                    <property name="text" >
+                     <string>reject</string>
+                    </property>
+                    <property name="icon" >
+                     <iconset resource="../resources/resources.qrc" >:/admin/images/coins_delete.png</iconset>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
             <widget class="QWidget" name="tab_4" >
              <attribute name="title" >
               <string>server</string>
@@ -565,7 +624,6 @@
     <addaction name="actionSignOut" />
     <addaction name="separator" />
     <addaction name="actionSignUp" />
-    <addaction name="actionRefresh" />
     <addaction name="separator" />
     <addaction name="actionQuit" />
    </widget>
@@ -602,7 +660,6 @@
    <addaction name="actionSignOut" />
    <addaction name="separator" />
    <addaction name="actionSignUp" />
-   <addaction name="actionRefresh" />
    <addaction name="separator" />
    <addaction name="actionQuit" />
   </widget>
@@ -694,7 +751,6 @@
  </widget>
  <layoutdefault spacing="6" margin="9" />
  <resources>
-  <include location="../resources/resources.qrc" />
   <include location="../resources/resources.qrc" />
  </resources>
  <connections>

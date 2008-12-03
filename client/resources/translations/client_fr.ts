@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="fr">
+<!DOCTYPE TS><TS version="1.1">
 <context>
     <name>About</name>
     <message>
@@ -26,54 +26,54 @@ pour les utilisateurs.</translation>
         <translation>L&apos;equipe</translation>
     </message>
     <message>
-        <location filename="../../ui/About.ui" line="121"/>
+        <location filename="../../ui/About.ui" line="96"/>
         <source>Caner Candan</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../ui/About.ui" line="131"/>
-        <source>caner.candan@localhost</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../ui/About.ui" line="136"/>
+        <location filename="../../ui/About.ui" line="107"/>
         <source>Geraldine Starke</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../ui/About.ui" line="146"/>
-        <source>geraldine.starke@localhost</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../ui/About.ui" line="106"/>
+        <location filename="../../ui/About.ui" line="81"/>
         <source>name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="../../ui/About.ui" line="111"/>
+        <location filename="../../ui/About.ui" line="86"/>
         <source>job</source>
         <translation>Metier</translation>
     </message>
     <message>
-        <location filename="../../ui/About.ui" line="116"/>
+        <location filename="../../ui/About.ui" line="91"/>
         <source>email</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../../ui/About.ui" line="169"/>
+        <location filename="../../ui/About.ui" line="136"/>
         <source>close</source>
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="../../ui/About.ui" line="126"/>
-        <source>developper</source>
-        <translation>Developpeur</translation>
-    </message>
-    <message>
-        <location filename="../../ui/About.ui" line="141"/>
+        <location filename="../../ui/About.ui" line="110"/>
         <source>translator</source>
         <translation>Traducteur</translation>
+    </message>
+    <message>
+        <location filename="../../ui/About.ui" line="99"/>
+        <source>developer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../ui/About.ui" line="102"/>
+        <source>candanc42@gmail.com</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../ui/About.ui" line="113"/>
+        <source>geraldine.starke@yahoo.fr</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -260,371 +260,451 @@ pour les utilisateurs.</translation>
 <context>
     <name>Action</name>
     <message>
-        <location filename="../../src/Action.cpp" line="114"/>
+        <location filename="../../src/Action.cpp" line="115"/>
         <source>action_forbidden</source>
         <translation>Action non autorisee</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="115"/>
+        <location filename="../../src/Action.cpp" line="116"/>
         <source>action_forbidden_txt</source>
         <translation>Cette action n&apos;est pas autorisee.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="205"/>
+        <location filename="../../src/Action.cpp" line="266"/>
         <source>welcome</source>
         <translation>Bienvenue</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="212"/>
+        <location filename="../../src/Action.cpp" line="273"/>
         <source>login_inc</source>
         <translation>Authentification incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="212"/>
+        <location filename="../../src/Action.cpp" line="273"/>
         <source>login_inc_txt</source>
         <translation>Le nom d&apos;utilisateur ou le mot de passe est incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="229"/>
+        <location filename="../../src/Action.cpp" line="288"/>
         <source>logout_err</source>
         <translation>Erreur de deconnexion</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="229"/>
+        <location filename="../../src/Action.cpp" line="288"/>
         <source>logout_err_txt</source>
         <translation>Une erreur a ete envoye lors de la deconnexion</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="239"/>
+        <location filename="../../src/Action.cpp" line="298"/>
         <source>create_inc</source>
         <translation>Creation de compte incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="239"/>
+        <location filename="../../src/Action.cpp" line="298"/>
         <source>create_inc_txt</source>
         <translation>Le nom d&apos;utilisateur est deja utilise ou il est incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="242"/>
+        <location filename="../../src/Action.cpp" line="301"/>
         <source>created</source>
         <translation>Compte cree</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="243"/>
+        <location filename="../../src/Action.cpp" line="302"/>
         <source>created_txt</source>
         <translation>Votre compte a ete cree correctement, le mot de passe est le suivant </translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="244"/>
+        <location filename="../../src/Action.cpp" line="303"/>
         <source>created_txt2</source>
         <translation>
 
 Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="257"/>
+        <location filename="../../src/Action.cpp" line="316"/>
         <source>bar_created</source>
         <translation>J&apos;ai cree mon compte</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="306"/>
+        <location filename="../../src/Action.cpp" line="455"/>
         <source>accounts_err</source>
         <translation>Liste des comptes utilisateurs erronée</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="307"/>
+        <location filename="../../src/Action.cpp" line="456"/>
         <source>accounts_err_txt</source>
         <translation>L&apos;affichage de la liste des comptes utilisateurs a echoue.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="339"/>
+        <location filename="../../src/Action.cpp" line="488"/>
         <source>accounts_modify</source>
         <translation>Modification d&apos;un compte utilisateur reussi</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="340"/>
+        <location filename="../../src/Action.cpp" line="489"/>
         <source>accounts_modify_txt</source>
         <translation>Ce compte utilisateur a ete modifie avec succes.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="357"/>
+        <location filename="../../src/Action.cpp" line="504"/>
         <source>message_err</source>
         <translation>Message erroné</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="357"/>
+        <location filename="../../src/Action.cpp" line="504"/>
         <source>message_err_txt</source>
         <translation>Une erreur a ete envoye lors de l&apos;envoi de votre message.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="401"/>
+        <location filename="../../src/Action.cpp" line="548"/>
         <source>web_service_inc</source>
         <translation>Service web incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="401"/>
+        <location filename="../../src/Action.cpp" line="548"/>
         <source>web_service_inc_txt</source>
         <translation>Le service web est incorrect.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="426"/>
+        <location filename="../../src/Action.cpp" line="573"/>
         <source>stream_service_inc</source>
         <translation>Service stream incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="427"/>
+        <location filename="../../src/Action.cpp" line="574"/>
         <source>stream_service_inc_txt</source>
         <translation>Le service stream est incorrect.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="503"/>
+        <location filename="../../src/Action.cpp" line="650"/>
         <source>create_offer_web_err</source>
         <translation>Erreur dans la creation d&apos;offre web</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="504"/>
+        <location filename="../../src/Action.cpp" line="651"/>
         <source>create_offer_web_err_txt</source>
         <translation>Une erreur a ete envoye lors de la creation de l&apos;offre web.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="511"/>
+        <location filename="../../src/Action.cpp" line="658"/>
         <source>create_offer_web</source>
         <translation>Offre web creee</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="512"/>
+        <location filename="../../src/Action.cpp" line="659"/>
         <source>create_offer_web_txt</source>
         <translation>Votre offre web a bien ete creee.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="514"/>
+        <location filename="../../src/Action.cpp" line="661"/>
         <source>history_create_offer_web</source>
         <translation>Creation d&apos;une offre web</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="529"/>
+        <location filename="../../src/Action.cpp" line="672"/>
         <source>create_offer_stream_err</source>
         <translation>Erreur de creation d&apos;offre stream</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="530"/>
+        <location filename="../../src/Action.cpp" line="673"/>
         <source>create_offer_stream_err_txt</source>
         <translation>Une erreur a ete envoyee lors de la creation d&apos;offre stream.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="537"/>
+        <location filename="../../src/Action.cpp" line="680"/>
         <source>create_offer_stream</source>
         <translation>Offre stream creee</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="538"/>
+        <location filename="../../src/Action.cpp" line="681"/>
         <source>create_offer_stream_txt</source>
         <translation>Votre offre stream a ete creee.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="540"/>
+        <location filename="../../src/Action.cpp" line="683"/>
         <source>history_create_offer_stream</source>
         <translation>Creation d&apos;offre stream</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="555"/>
+        <location filename="../../src/Action.cpp" line="694"/>
         <source>create_web_err</source>
         <translation>Erreur dans la creation de service web</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="555"/>
+        <location filename="../../src/Action.cpp" line="694"/>
         <source>create_web_err_txt</source>
         <translation>Une erreur a ete envoye lors de la creation d&apos;un service web.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="561"/>
+        <location filename="../../src/Action.cpp" line="700"/>
         <source>create_web</source>
         <translation>Service web cree</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="561"/>
+        <location filename="../../src/Action.cpp" line="700"/>
         <source>create_web_txt</source>
         <translation>Votre service web a ete cree.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="563"/>
+        <location filename="../../src/Action.cpp" line="702"/>
         <source>history_create_web</source>
         <translation>Creation d&apos;un service web</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="578"/>
+        <location filename="../../src/Action.cpp" line="713"/>
         <source>create_stream_err</source>
         <translation>Erreur dans la creation d&apos;un service stream</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="579"/>
+        <location filename="../../src/Action.cpp" line="714"/>
         <source>create_stream_err_txt</source>
         <translation>Une erreur a ete envoye lors de la creation d&apos;un service stream.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="586"/>
+        <location filename="../../src/Action.cpp" line="721"/>
         <source>create_stream</source>
         <translation>Service stream cree</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="586"/>
+        <location filename="../../src/Action.cpp" line="721"/>
         <source>create_stream_txt</source>
         <translation>Votre service stream a ete cree.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="588"/>
+        <location filename="../../src/Action.cpp" line="723"/>
         <source>history_create_stream</source>
         <translation>Creation d&apos;un service stream</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="690"/>
+        <location filename="../../src/Action.cpp" line="819"/>
         <source>news_add_err</source>
         <translation>Erreur lors de l&apos;ajout d&apos;une nouvelle</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="691"/>
+        <location filename="../../src/Action.cpp" line="820"/>
         <source>news_add_err_txt</source>
         <translation>Une erreur a ete envoye lors de l&apos;ajout d&apos;une nouvelle.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="711"/>
+        <location filename="../../src/Action.cpp" line="838"/>
         <source>news_delete_err</source>
         <translation>Erreur lors de la suppression d&apos;une nouvelle</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="712"/>
+        <location filename="../../src/Action.cpp" line="839"/>
         <source>news_delete_err_txt</source>
         <translation>Une erreur a ete envoye lors de la suppression d&apos;une nouvelle.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="750"/>
+        <location filename="../../src/Action.cpp" line="875"/>
         <source>halt_err</source>
         <translation>Erreur lors de la demande d&apos;arret du serveur</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="750"/>
+        <location filename="../../src/Action.cpp" line="875"/>
         <source>halt_err_txt</source>
         <translation>Une erreur a ete envoye lors de la demande d&apos;arret du serveur.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="754"/>
+        <location filename="../../src/Action.cpp" line="879"/>
         <source>halt_info</source>
         <translation>Arret reussi</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="754"/>
+        <location filename="../../src/Action.cpp" line="879"/>
         <source>halt_info_txt</source>
         <translation>L&apos;arret du serveur a ete reussi.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="761"/>
+        <location filename="../../src/Action.cpp" line="886"/>
         <source>reload_err</source>
         <translation>Erreur lors de la demande de rechargement du serveur</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="761"/>
+        <location filename="../../src/Action.cpp" line="886"/>
         <source>reload_err_txt</source>
         <translation>Une erreur a ete envoye lors de la demande de rechargement du serveur.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="765"/>
+        <location filename="../../src/Action.cpp" line="890"/>
         <source>reload_info</source>
         <translation>Rechargement du serveur reussi</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="765"/>
+        <location filename="../../src/Action.cpp" line="890"/>
         <source>reload_info_txt</source>
         <translation>Le rechargement du serveur a ete reussi.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="772"/>
+        <location filename="../../src/Action.cpp" line="897"/>
         <source>play_err</source>
         <translation>Erreur lors de la demande de lecture du serveur</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="772"/>
+        <location filename="../../src/Action.cpp" line="897"/>
         <source>play_err_txt</source>
         <translation>Une erreur a ete envoye lors de la demande de lecture du serveur.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="776"/>
+        <location filename="../../src/Action.cpp" line="901"/>
         <source>play_info</source>
         <translation>Lecture reussi</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="776"/>
+        <location filename="../../src/Action.cpp" line="901"/>
         <source>play_info_txt</source>
         <translation>La demande de lecture a ete reussi.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="783"/>
+        <location filename="../../src/Action.cpp" line="908"/>
         <source>break_err</source>
         <translation>Erreur lors de la demande de pause du serveur</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="783"/>
+        <location filename="../../src/Action.cpp" line="908"/>
         <source>break_err_txt</source>
         <translation>Une erreur a ete envoye lors de la demande de pause du serveur.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="787"/>
+        <location filename="../../src/Action.cpp" line="912"/>
         <source>break_info</source>
         <translation>Pause reussi</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="787"/>
+        <location filename="../../src/Action.cpp" line="912"/>
         <source>break_info_txt</source>
         <translation>La pause du serveur a ete reussi.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="603"/>
+        <location filename="../../src/Action.cpp" line="734"/>
         <source>renew_web_err</source>
         <translation>Renouvellement du service web echoue</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="604"/>
+        <location filename="../../src/Action.cpp" line="735"/>
         <source>renew_web_err_txt</source>
         <translation>Le renouvellement du service web a echoue.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="610"/>
+        <location filename="../../src/Action.cpp" line="741"/>
         <source>renew_web</source>
         <translation>Renouvellement du service web reussi</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="610"/>
+        <location filename="../../src/Action.cpp" line="741"/>
         <source>renew_web_txt</source>
         <translation>Le renouvellement du service web a ete reussi.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="620"/>
+        <location filename="../../src/Action.cpp" line="751"/>
         <source>renew_stream_err</source>
         <translation>Renouvellement du service stream echoue</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="621"/>
+        <location filename="../../src/Action.cpp" line="752"/>
         <source>renew_stream_err_txt</source>
         <translation>Le renouvellement du service stream a echoue.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="628"/>
+        <location filename="../../src/Action.cpp" line="759"/>
         <source>renew_stream</source>
         <translation>Renouvellement du service stream reussi</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="629"/>
+        <location filename="../../src/Action.cpp" line="760"/>
         <source>renew_stream_txt</source>
         <translation>Le renouvellement du service stream a ete reussi.</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="696"/>
+        <location filename="../../src/Action.cpp" line="825"/>
         <source>news_add</source>
         <translation>Ajout de nouvelle reussi</translation>
     </message>
     <message>
-        <location filename="../../src/Action.cpp" line="697"/>
+        <location filename="../../src/Action.cpp" line="826"/>
         <source>news_add_txt</source>
         <translation>L&apos;ajout d&apos;une nouvelle a ete reussi.</translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="331"/>
+        <source>credit</source>
+        <translation type="unfinished">Crediter</translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="331"/>
+        <source>credit_txt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="339"/>
+        <source>add_credit_err</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="340"/>
+        <source>add_credit_err_txt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="345"/>
+        <source>add_credit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="346"/>
+        <source>add_credit_txt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="385"/>
+        <source>accept_credit_err</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="386"/>
+        <source>accept_credit_err_txt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="391"/>
+        <source>accept_credit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="392"/>
+        <source>accept_credit_txt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="400"/>
+        <source>reject_credit_err</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="401"/>
+        <source>reject_credit_err_txt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="406"/>
+        <source>reject_credit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="407"/>
+        <source>reject_credit_txt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="425"/>
+        <source>right</source>
+        <translation type="unfinished">Droits</translation>
+    </message>
+    <message>
+        <location filename="../../src/Action.cpp" line="425"/>
+        <source>right_txt</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -730,52 +810,52 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
         <translation>Hors-ligne</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="562"/>
+        <location filename="../../ui/Client.ui" line="621"/>
         <source>file</source>
         <translation>Fichier</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="683"/>
+        <location filename="../../ui/Client.ui" line="740"/>
         <source>about</source>
         <translation>A propos</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="574"/>
+        <location filename="../../ui/Client.ui" line="632"/>
         <source>edit</source>
         <translation>Editer</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="627"/>
+        <location filename="../../ui/Client.ui" line="684"/>
         <source>sign_in</source>
         <translation>S&apos;authentifier</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="635"/>
+        <location filename="../../ui/Client.ui" line="692"/>
         <source>sign_out</source>
         <translation>Se deconnecter</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="643"/>
+        <location filename="../../ui/Client.ui" line="700"/>
         <source>quit</source>
         <translation>Quitter</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="651"/>
+        <location filename="../../ui/Client.ui" line="708"/>
         <source>sign_up</source>
         <translation>S&apos;inscire</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="659"/>
+        <location filename="../../ui/Client.ui" line="716"/>
         <source>refresh</source>
         <translation>Rafraichir</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="667"/>
+        <location filename="../../ui/Client.ui" line="724"/>
         <source>options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="675"/>
+        <location filename="../../ui/Client.ui" line="732"/>
         <source>accounts</source>
         <translation>Gestionnaire de comptes</translation>
     </message>
@@ -790,32 +870,32 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
         <translation>Je suis authentifie</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="266"/>
+        <location filename="../../src/Client.cpp" line="265"/>
         <source>bar_logout</source>
         <translation>Je suis deconnecte</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="526"/>
+        <location filename="../../src/Client.cpp" line="594"/>
         <source>are_you_sure</source>
         <translation>Etes vous sure ?</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="526"/>
+        <location filename="../../src/Client.cpp" line="594"/>
         <source>are_you_sure_txt</source>
         <translation>Etes vous sure de vouloir effectuer cette action ?</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="623"/>
+        <location filename="../../src/Client.cpp" line="632"/>
         <source>bar_connected</source>
         <translation>Je suis connecte au server</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="643"/>
+        <location filename="../../src/Client.cpp" line="652"/>
         <source>not_connected</source>
         <translation>Pas connecte</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="644"/>
+        <location filename="../../src/Client.cpp" line="653"/>
         <source>not_connected_txt</source>
         <translation>L&apos;adresse du server est incorrect</translation>
     </message>
@@ -825,17 +905,17 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
         <translation>Client</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="593"/>
+        <location filename="../../ui/Client.ui" line="651"/>
         <source>action</source>
         <translation>Action</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="582"/>
+        <location filename="../../ui/Client.ui" line="640"/>
         <source>?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="611"/>
+        <location filename="../../ui/Client.ui" line="668"/>
         <source>toolBar</source>
         <translation>Bar d&apos;outil</translation>
     </message>
@@ -850,7 +930,7 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
         <translation>Auteur</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="98"/>
+        <location filename="../../ui/Client.ui" line="488"/>
         <source>date</source>
         <translation>Date</translation>
     </message>
@@ -870,58 +950,88 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
         <translation>Modification</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="464"/>
+        <location filename="../../ui/Client.ui" line="523"/>
         <source>server</source>
         <translation>Serveur</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="472"/>
+        <location filename="../../ui/Client.ui" line="531"/>
         <source>halt_txt</source>
         <translation>Cliquer sur Arret si vous souhaitez 
 arreter le serveur.</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="479"/>
+        <location filename="../../ui/Client.ui" line="538"/>
         <source>halt</source>
         <translation>Arret</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="489"/>
+        <location filename="../../ui/Client.ui" line="548"/>
         <source>reload_txt</source>
         <translation>Cliquer sur Rechargement si vous 
 souhaitez recharger le serveur.</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="496"/>
+        <location filename="../../ui/Client.ui" line="555"/>
         <source>reload</source>
         <translation>Rechargement</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="506"/>
+        <location filename="../../ui/Client.ui" line="565"/>
         <source>play_txt</source>
         <translation>Cliquer sur Lecture si vous souhaitez 
 mettre en lecture le serveur.</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="513"/>
+        <location filename="../../ui/Client.ui" line="572"/>
         <source>play</source>
         <translation>Lecture</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="523"/>
+        <location filename="../../ui/Client.ui" line="582"/>
         <source>break_txt</source>
         <translation>Cliquer sur Pause si vous souhaitez 
 mettre en pause le serveur.</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="530"/>
+        <location filename="../../ui/Client.ui" line="589"/>
         <source>break</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="../../ui/Client.ui" line="691"/>
+        <location filename="../../ui/Client.ui" line="748"/>
         <source>logo</source>
         <translation>Logo</translation>
+    </message>
+    <message>
+        <location filename="../../ui/Client.ui" line="464"/>
+        <source>credits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../ui/Client.ui" line="473"/>
+        <source>username</source>
+        <translation type="unfinished">Nom d&apos;utilisateur</translation>
+    </message>
+    <message>
+        <location filename="../../ui/Client.ui" line="478"/>
+        <source>current_credit</source>
+        <translation type="unfinished">Credit actuel</translation>
+    </message>
+    <message>
+        <location filename="../../ui/Client.ui" line="483"/>
+        <source>add_credit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../ui/Client.ui" line="498"/>
+        <source>accept</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../ui/Client.ui" line="508"/>
+        <source>reject</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1042,32 +1152,32 @@ vous connecter a un autre compte.</translation>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../../src/Contact.cpp" line="63"/>
+        <location filename="../../src/Contact.cpp" line="64"/>
         <source>no_username</source>
         <translation>Aucun nom d&apos;utilisateur</translation>
     </message>
     <message>
-        <location filename="../../src/Contact.cpp" line="63"/>
+        <location filename="../../src/Contact.cpp" line="64"/>
         <source>no_username_txt</source>
         <translation>Aucun nom d&apos;utilisateur a ete insere</translation>
     </message>
     <message>
-        <location filename="../../src/Contact.cpp" line="73"/>
+        <location filename="../../src/Contact.cpp" line="74"/>
         <source>username_inc</source>
         <translation>Nom d&apos;utilisateur incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Contact.cpp" line="74"/>
+        <location filename="../../src/Contact.cpp" line="75"/>
         <source>username_inc_txt</source>
         <translation>Le nom d&apos;utilisateur est incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Contact.cpp" line="83"/>
+        <location filename="../../src/Contact.cpp" line="84"/>
         <source>alias_inc</source>
         <translation>Alias incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Contact.cpp" line="83"/>
+        <location filename="../../src/Contact.cpp" line="84"/>
         <source>alias_inc_txt</source>
         <translation>L&apos;alias est incorrect</translation>
     </message>
@@ -1221,30 +1331,9 @@ vous connecter a un autre compte.</translation>
         <location filename="../../src/Credit.cpp" line="70"/>
         <source>buy_txt</source>
         <translation>Allez sur ce lien:
-http://www.paypal.com
-Quand vous avez finit le paiement, cliquez sur Ok pour confirmer cela
-ou si vous souhaitez annuler, cliquez sur Annuler</translation>
-    </message>
-    <message>
-        <location filename="../../src/Credit.cpp" line="79"/>
-        <source>notice_add_txt</source>
-        <translation>Confirmation: ajout </translation>
-    </message>
-    <message>
-        <location filename="../../src/Credit.cpp" line="81"/>
-        <source>notice_add_txt2</source>
-        <translation>pieces</translation>
-    </message>
-    <message>
-        <location filename="../../src/Credit.cpp" line="83"/>
-        <source>notification</source>
-        <translation>Confirmation</translation>
-    </message>
-    <message>
-        <location filename="../../src/Credit.cpp" line="83"/>
-        <source>notification_txt</source>
-        <translation>Votre confirmation a bien ete envoyee.
-Apres verification, vous allez recevoir vos pieces sur votre compte</translation>
+http://qlik.candan.fr/dokuwiki/fr:credit
+Quand vous avez finit le paiement, cliquez sur Ok pour confirmer
+ou si vous souhaitez annuler, cliquez sur Annuler.</translation>
     </message>
     <message>
         <location filename="../../ui/Credit.ui" line="13"/>
@@ -1762,132 +1851,132 @@ Apres verification, vous allez recevoir vos pieces sur votre compte</translation
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="197"/>
+        <location filename="../../src/Service.cpp" line="205"/>
         <source>no_name</source>
         <translation>Aucun nom</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="197"/>
+        <location filename="../../src/Service.cpp" line="205"/>
         <source>no_name_txt</source>
         <translation>Aucun nom a ete insere</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="204"/>
+        <location filename="../../src/Service.cpp" line="212"/>
         <source>name_inc</source>
         <translation>Nom incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="204"/>
+        <location filename="../../src/Service.cpp" line="212"/>
         <source>name_inc_txt</source>
         <translation>Le nom est incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="121"/>
+        <location filename="../../src/Service.cpp" line="129"/>
         <source>no_offer</source>
         <translation>Aucune offre</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="121"/>
+        <location filename="../../src/Service.cpp" line="129"/>
         <source>no_offer_txt</source>
         <translation>Aucune offre a ete choisie</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="174"/>
+        <location filename="../../src/Service.cpp" line="182"/>
         <source>no_domain</source>
         <translation>Aucun nom de domaine</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="174"/>
+        <location filename="../../src/Service.cpp" line="182"/>
         <source>no_domain_txt</source>
         <translation>Aucun nom de domaine a ete insere</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="181"/>
+        <location filename="../../src/Service.cpp" line="189"/>
         <source>domain_inc</source>
         <translation>Nom de domaine incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="181"/>
+        <location filename="../../src/Service.cpp" line="189"/>
         <source>domain_inc_txt</source>
         <translation>Le nom de domaine est incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="222"/>
+        <location filename="../../src/Service.cpp" line="230"/>
         <source>no_title</source>
         <translation>Aucun titre</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="222"/>
+        <location filename="../../src/Service.cpp" line="230"/>
         <source>no_title_txt</source>
         <translation>Aucun titre a ete insere</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="229"/>
+        <location filename="../../src/Service.cpp" line="237"/>
         <source>title_inc</source>
         <translation>Titre incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="229"/>
+        <location filename="../../src/Service.cpp" line="237"/>
         <source>title_inc_txt</source>
         <translation>Le titre est incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="162"/>
+        <location filename="../../src/Service.cpp" line="170"/>
         <source>no_space</source>
         <translation>Aucun espace web</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="162"/>
+        <location filename="../../src/Service.cpp" line="170"/>
         <source>no_space_txt</source>
         <translation>Aucun espace web a ete choisit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="168"/>
+        <location filename="../../src/Service.cpp" line="176"/>
         <source>no_nbr_db</source>
         <translation>Aucun nombre de base de donnees</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="168"/>
+        <location filename="../../src/Service.cpp" line="176"/>
         <source>no_nbr_db_txt</source>
         <translation>Aucun nombre de base de donnees a ete choisit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="210"/>
+        <location filename="../../src/Service.cpp" line="218"/>
         <source>no_slots</source>
         <translation>Aucun auditeur</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="210"/>
+        <location filename="../../src/Service.cpp" line="218"/>
         <source>no_slots_txt</source>
         <translation>Aucun auditeur a ete choisit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="216"/>
+        <location filename="../../src/Service.cpp" line="224"/>
         <source>no_bits</source>
         <translation>Aucun debit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="216"/>
+        <location filename="../../src/Service.cpp" line="224"/>
         <source>no_bits_txt</source>
         <translation>Aucun debit a ete choisit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="284"/>
+        <location filename="../../src/Service.cpp" line="292"/>
         <source>not_enough_credit</source>
         <translation>Pas assez de credit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="285"/>
+        <location filename="../../src/Service.cpp" line="293"/>
         <source>not_enough_credit_txt</source>
         <translation>Vous n&apos;avez pas assez de crediter pour acheter ceci</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="288"/>
+        <location filename="../../src/Service.cpp" line="296"/>
         <source>are_you_sure</source>
         <translation>Etes vous sure ?</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="289"/>
+        <location filename="../../src/Service.cpp" line="297"/>
         <source>are_you_sure_txt</source>
         <translation>Etes vous sure de vouloir effectuer cette action ?</translation>
     </message>

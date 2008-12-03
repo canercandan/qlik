@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:43:46 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 13:14:33 2008 (+0200)
+// Last-Updated: Wed Dec  3 00:33:29 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 3
+//     Update #: 9
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -80,8 +80,6 @@ public:
   void	loadAllContact(const QString& contact,
 		       const int& right);
 
-  void	loadAccounts();
-
   void	createOfferWeb();
   void	createOfferStream();
   void	createWeb();
@@ -100,15 +98,11 @@ public:
   void	addCredit(const int&);
   void	subCredit(const int&);
 
-  void	refreshList();
-
   void	showServiceSelected();
 private slots:
   void	on_actionSignUp_triggered();
   void	on_actionSignIn_triggered();
   void	on_actionSignOut_triggered();
-
-  void	on_actionRefresh_triggered();
 
   void	on_actionQuit_triggered();
   void	on_actionAbout_triggered();
@@ -130,6 +124,9 @@ private slots:
 
   void	on_adminModify_clicked();
 
+  void	on_adminCreditAccept_clicked();
+  void	on_adminCreditReject_clicked();
+
   void	on_serverHalt_clicked();
   void	on_serverReload_clicked();
   void	on_serverPlay_clicked();
@@ -144,10 +141,13 @@ private slots:
   void	loadPages(int);
   void	loadServices(int);
   void	loadHistory(int);
+  void	loadAdmin(int);
 private:
   QVariant	_getKeyValue(const QString& key);
   bool		_keyExist(const QString&);
   void		_saveKey(const QString& key, const QVariant& value);
+
+  bool	_acceptRejectCredit();
 private:
   MessageMap	_mm;
   QString	_userCreated;

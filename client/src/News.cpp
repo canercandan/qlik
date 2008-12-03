@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:57:34 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 00:57:38 2008 (+0200)
+// Last-Updated: Thu Dec  4 00:21:57 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 4
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -57,7 +57,8 @@ News::News(QWidget* parent /*= NULL*/)
   setupUi(this);
 
   Client*	client = static_cast<Client*>(parent);
-  bool		rightAdmin = (client->getRight() & RIGHT_ADMIN);
+  bool		rightAdmin =
+    ((client->getRight() & RIGHT_ADMIN) == RIGHT_ADMIN);
 
   addSubject->setEnabled(rightAdmin);
   addBody->setEnabled(rightAdmin);

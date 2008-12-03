@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:51:30 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 00:51:34 2008 (+0200)
+// Last-Updated: Wed Dec  3 20:09:58 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 3
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -49,6 +49,7 @@
 #include <QWidget>
 #include <QMessageBox>
 #include "Contact.h"
+#include "Protocole.h"
 
 Contact::Contact(QWidget* parent /*= NULL*/)
   : QDialog(parent)
@@ -67,7 +68,7 @@ void	Contact::on_ok_clicked()
 
   QRegExp	rx;
 
-  rx.setPattern("^[a-zA-Z][a-zA-Z0-9-_]{3,19}$");
+  rx.setPattern(PATTERN_USERNAME);
   if (rx.indexIn(this->username->text()) < 0)
     {
       QMessageBox::information(this, tr("username_inc"),
@@ -77,7 +78,7 @@ void	Contact::on_ok_clicked()
     }
   if (!this->alias->text().isEmpty())
     {
-      rx.setPattern("^[a-zA-Z0-9-_ ]{4,20}$");
+      rx.setPattern(PATTERN_USERNAME);
       if (rx.indexIn(this->alias->text()) < 0)
 	{
 	  QMessageBox::information(this, tr("alias_inc"), tr("alias_inc_txt"));

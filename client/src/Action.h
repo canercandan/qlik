@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:39:24 2008 (+0200)
 // Version: 
-// Last-Updated: Sat Nov 29 13:01:03 2008 (+0200)
+// Last-Updated: Thu Dec  4 00:26:24 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 3
+//     Update #: 9
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -57,6 +57,8 @@
 
 class	Action : public QObject
 {
+  Q_OBJECT
+
 public:
   typedef void	(Action::*callback)();
 
@@ -68,6 +70,7 @@ public:
   void	execute();
 private:
   void	_fillMapAction();
+  void	_initialize(const QString& action);
 
   void	_actWelcome();
 
@@ -76,6 +79,12 @@ private:
   void	_actCreate();
 
   void	_actCredit();
+
+  void	_actAddCredit();
+  void	_actListCredit();
+  void	_actAcceptCredit();
+  void	_actRejectCredit();
+
   void	_actStatus();
   void	_actRight();
 

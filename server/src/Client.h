@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:46:02 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:46:05 2008 (+0200)
+// Last-Updated: Wed Dec  3 02:07:49 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 3
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -95,6 +95,7 @@ private:
 public:
   const int&	getRight(void){return (_right);}
   void	setRight(const int& right){_right = right;}
+  void	syncRight();
 private:
   int	_right;
 
@@ -113,6 +114,7 @@ private:
 public:
   const int&	getCredit(void){return (_credit);}
   void	setCredit(const int& credit){_credit = credit;}
+  void	syncCredit();
 private:
   int	_credit;
 };

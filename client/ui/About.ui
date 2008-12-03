@@ -75,32 +75,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidget" >
-       <property name="enabled" >
-        <bool>true</bool>
-       </property>
-       <property name="editTriggers" >
-        <set>QAbstractItemView::NoEditTriggers</set>
-       </property>
-       <property name="tabKeyNavigation" >
-        <bool>false</bool>
-       </property>
-       <row>
-        <property name="text" >
-         <string/>
-        </property>
-        <property name="icon" >
-         <iconset resource="../resources/resources.qrc" >:/about/images/user.png</iconset>
-        </property>
-       </row>
-       <row>
-        <property name="text" >
-         <string/>
-        </property>
-        <property name="icon" >
-         <iconset resource="../resources/resources.qrc" >:/about/images/user.png</iconset>
-        </property>
-       </row>
+      <widget class="QTreeWidget" name="treeWidget" >
        <column>
         <property name="text" >
          <string>name</string>
@@ -116,34 +91,26 @@
          <string>email</string>
         </property>
        </column>
-       <item row="0" column="0" >
+       <item>
         <property name="text" >
          <string>Caner Candan</string>
         </property>
-       </item>
-       <item row="0" column="1" >
         <property name="text" >
-         <string>developper</string>
+         <string>developer</string>
+        </property>
+        <property name="text" >
+         <string>candanc42@gmail.com</string>
         </property>
        </item>
-       <item row="0" column="2" >
-        <property name="text" >
-         <string>caner.candan@localhost</string>
-        </property>
-       </item>
-       <item row="1" column="0" >
+       <item>
         <property name="text" >
          <string>Geraldine Starke</string>
         </property>
-       </item>
-       <item row="1" column="1" >
         <property name="text" >
          <string>translator</string>
         </property>
-       </item>
-       <item row="1" column="2" >
         <property name="text" >
-         <string>geraldine.starke@localhost</string>
+         <string>geraldine.starke@yahoo.fr</string>
         </property>
        </item>
       </widget>

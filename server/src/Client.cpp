@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:45:57 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:45:59 2008 (+0200)
+// Last-Updated: Wed Dec  3 17:53:53 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 21
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -48,6 +48,7 @@
 
 #include <sstream>
 #include "Client.h"
+#include "Database.h"
 
 Client::Client(Socket* socket /*= NULL*/,
 	       Type type /*= SERVER*/)
@@ -102,6 +103,58 @@ void	Client::appendBufWrite(const int& bufwrite)
 
   ss << bufwrite;
   this->appendBufWrite(ss.str());
+}
+
+void	Client::syncCredit()
+{
+  Database*		database = Database::getInstance();
+  SQLiteStatement*	stmt =
+    database->database().Statement("select credit "
+				   "from users "
+				   "where id = ?;");
+
+  stmt->Bind(0, this->getId());
+
+  if (!stmt->NextRow())
+    {
+      stmt->End();
+      return;
+    }
+
+  int	credit = stmt->ValueInt(0);
+
+  stmt->End();
+
+  if (this->getCredit() == credit)
+    return;
+
+  this->setCredit(credit);
+}
+
+void	Client::syncRight()
+{
+  Database*		database = Database::getInstance();
+  SQLiteStatement*	stmt =
+    database->database().Statement("select right "
+				   "from users "
+				   "where id = ?;");
+
+  stmt->Bind(0, this->getId());
+
+  if (!stmt->NextRow())
+    {
+      stmt->End();
+      return;
+    }
+
+  int	right = stmt->ValueInt(0);
+
+  stmt->End();
+
+  if (this->getRight() == right)
+    return;
+
+  this->setRight(right);
 }
 
 // 

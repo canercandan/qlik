@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:44:10 2008 (+0200)
 // Version: 
-// Last-Updated: Sun Nov 30 04:15:53 2008 (+0200)
+// Last-Updated: Thu Dec  4 01:18:34 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 27
+//     Update #: 38
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -146,8 +146,17 @@ private:
   void	_createStream(Stream&);
   void	_createWeb(Web&);
   void	_renewExpiredDate(Service&);
-  void	_acceptCredit(int idUser, int credit);
-  void	_rejectCredit(int id);
+  void	_acceptCredit(const int idUser, const int credit);
+  void	_rejectCredit(const int id);
+
+  void	_reloadCredit(Client*);
+  void	_reloadRight(Client*);
+  void	_reloadClientsList();
+  void	_reloadAccountsList();
+  void	_reloadCreditList();
+  void	_reloadWebList();
+  void	_reloadStreamList();
+  void	_reloadNewsList();
 private:
   Server*	_server;
   Client*	_client;

@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:03:26 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 01:03:30 2008 (+0200)
+// Last-Updated: Thu Dec  4 00:24:04 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 5
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -56,6 +56,14 @@ Service::Service(QWidget* parent /*= NULL*/)
   : QDialog(parent)
 {
   setupUi(this);
+
+  Client*	client = static_cast<Client*>(parent);
+  bool		rightWeb = ((client->getRight() & RIGHT_WEB) == RIGHT_WEB);
+  bool		rightStream =
+    ((client->getRight() & RIGHT_STREAM) == RIGHT_STREAM);
+
+  webType->setEnabled(rightWeb);
+  streamType->setEnabled(rightStream);
 }
 
 void	Service::createWebOffer()

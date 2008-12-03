@@ -12,6 +12,8 @@
         <file>images/user_red.png</file>
     </qresource>
     <qresource prefix="/admin" >
+        <file>images/coins_add.png</file>
+        <file>images/coins_delete.png</file>
         <file>images/control_pause_blue.png</file>
         <file>images/control_play_blue.png</file>
         <file>images/control_repeat_blue.png</file>

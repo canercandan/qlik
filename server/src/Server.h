@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 09:15:48 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 09:15:52 2008 (+0200)
+// Last-Updated: Wed Dec  3 02:28:17 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 4
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -70,6 +70,7 @@ public:
   void	start();
 
   Client*	findClient(const std::string& login);
+  Client*	findClient(const int id);
 
   listClients&	getListClients();
   mapStreamPid&	getMapStreamPid();
