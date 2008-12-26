@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:43:46 2008 (+0200)
 // Version: 
-// Last-Updated: Wed Dec  3 00:33:29 2008 (+0200)
+// Last-Updated: Tue Dec  9 12:03:55 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 9
+//     Update #: 19
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -95,8 +95,6 @@ public:
 
   int	getCredit() const;
   void	setCredit(const int&);
-  void	addCredit(const int&);
-  void	subCredit(const int&);
 
   void	showServiceSelected();
 private slots:
@@ -104,14 +102,8 @@ private slots:
   void	on_actionSignIn_triggered();
   void	on_actionSignOut_triggered();
 
-  void	on_actionQuit_triggered();
-  void	on_actionAbout_triggered();
-  void	on_actionOptions_triggered();
-  void	on_actionAccounts_triggered();
-
   void	on_serviceAdd_clicked();
   void	on_serviceManage_clicked();
-  void	on_serviceCredit_clicked();
 
   void	on_newsRead_clicked();
   void	on_newsAdd_clicked();
@@ -132,22 +124,27 @@ private slots:
   void	on_serverPlay_clicked();
   void	on_serverBreak_clicked();
 
-  void	connectedToServer();
-  void	readAction();
-  void	sendAction();
-  void	displayError(QAbstractSocket::SocketError);
+  void	_connectedToServer();
+  void	_readAction();
+  void	_sendAction();
+  void	_displayError(QAbstractSocket::SocketError);
 
   void	loadOffers(int);
-  void	loadPages(int);
-  void	loadServices(int);
-  void	loadHistory(int);
-  void	loadAdmin(int);
+  void	_loadPages(int);
+  void	_loadServices(int);
+  void	_loadHistory(int);
+  void	_loadAdmin(int);
+
+  void	_beforeClose(QObject*);
 private:
+  void		_loadOptions();
+
   QVariant	_getKeyValue(const QString& key);
   bool		_keyExist(const QString&);
   void		_saveKey(const QString& key, const QVariant& value);
 
   bool	_acceptRejectCredit();
+
 private:
   MessageMap	_mm;
   QString	_userCreated;

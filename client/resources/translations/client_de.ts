@@ -705,12 +705,12 @@
 <context>
     <name>Client</name>
     <message>
-        <location filename="../../src/Client.cpp" line="252"/>
+        <location filename="../../src/Client.cpp" line="285"/>
         <source>online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="253"/>
+        <location filename="../../src/Client.cpp" line="286"/>
         <source>bar_login</source>
         <translation type="unfinished"></translation>
     </message>
@@ -725,32 +725,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="265"/>
+        <location filename="../../src/Client.cpp" line="298"/>
         <source>bar_logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="594"/>
+        <location filename="../../src/Client.cpp" line="596"/>
         <source>are_you_sure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="594"/>
+        <location filename="../../src/Client.cpp" line="596"/>
         <source>are_you_sure_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="632"/>
+        <location filename="../../src/Client.cpp" line="634"/>
         <source>bar_connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="652"/>
+        <location filename="../../src/Client.cpp" line="654"/>
         <source>not_connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="653"/>
+        <location filename="../../src/Client.cpp" line="655"/>
         <source>not_connected_txt</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1247,7 +1247,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Credit.cpp" line="70"/>
+        <location filename="../../src/Credit.cpp" line="63"/>
         <source>buy_txt</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1502,132 +1502,132 @@
 <context>
     <name>Service</name>
     <message>
-        <location filename="../../src/Service.cpp" line="205"/>
+        <location filename="../../src/Service.cpp" line="228"/>
         <source>no_name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="205"/>
+        <location filename="../../src/Service.cpp" line="228"/>
         <source>no_name_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="212"/>
+        <location filename="../../src/Service.cpp" line="235"/>
         <source>name_inc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="212"/>
+        <location filename="../../src/Service.cpp" line="235"/>
         <source>name_inc_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="129"/>
+        <location filename="../../src/Service.cpp" line="137"/>
         <source>no_offer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="129"/>
+        <location filename="../../src/Service.cpp" line="137"/>
         <source>no_offer_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="182"/>
+        <location filename="../../src/Service.cpp" line="197"/>
         <source>no_domain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="182"/>
+        <location filename="../../src/Service.cpp" line="197"/>
         <source>no_domain_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="189"/>
+        <location filename="../../src/Service.cpp" line="204"/>
         <source>domain_inc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="189"/>
+        <location filename="../../src/Service.cpp" line="204"/>
         <source>domain_inc_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="230"/>
+        <location filename="../../src/Service.cpp" line="253"/>
         <source>no_title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="230"/>
+        <location filename="../../src/Service.cpp" line="253"/>
         <source>no_title_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="237"/>
+        <location filename="../../src/Service.cpp" line="260"/>
         <source>title_inc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="237"/>
+        <location filename="../../src/Service.cpp" line="260"/>
         <source>title_inc_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="170"/>
+        <location filename="../../src/Service.cpp" line="185"/>
         <source>no_space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="170"/>
+        <location filename="../../src/Service.cpp" line="185"/>
         <source>no_space_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="176"/>
+        <location filename="../../src/Service.cpp" line="191"/>
         <source>no_nbr_db</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="176"/>
+        <location filename="../../src/Service.cpp" line="191"/>
         <source>no_nbr_db_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="218"/>
+        <location filename="../../src/Service.cpp" line="241"/>
         <source>no_slots</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="218"/>
+        <location filename="../../src/Service.cpp" line="241"/>
         <source>no_slots_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="224"/>
+        <location filename="../../src/Service.cpp" line="247"/>
         <source>no_bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="224"/>
+        <location filename="../../src/Service.cpp" line="247"/>
         <source>no_bits_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="292"/>
+        <location filename="../../src/Service.cpp" line="327"/>
         <source>not_enough_credit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="293"/>
+        <location filename="../../src/Service.cpp" line="328"/>
         <source>not_enough_credit_txt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="296"/>
+        <location filename="../../src/Service.cpp" line="331"/>
         <source>are_you_sure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="297"/>
+        <location filename="../../src/Service.cpp" line="332"/>
         <source>are_you_sure_txt</source>
         <translation type="unfinished"></translation>
     </message>

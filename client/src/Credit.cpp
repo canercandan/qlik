@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:53:31 2008 (+0200)
 // Version: 
-// Last-Updated: Wed Dec  3 19:16:04 2008 (+0200)
+// Last-Updated: Mon Dec  8 14:07:39 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 11
+//     Update #: 19
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -56,13 +56,6 @@ Credit::Credit(QWidget* parent /*= NULL*/)
   : QDialog(parent)
 {
   setupUi(this);
-  reset();
-}
-
-void	Credit::reset()
-{
-  this->currently->setText(static_cast<Client*>
-			   (this->parent())->creditCurrently->text());
 }
 
 void	Credit::on_buy_clicked()

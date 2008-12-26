@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:55:24 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Nov 27 00:55:27 2008 (+0200)
+// Last-Updated: Mon Dec  8 14:03:49 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 2
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -59,8 +59,6 @@ class	Credit : public QDialog, public Singleton<Credit>,
   Q_OBJECT
 
   friend class	Singleton<Credit>;
-public:
-  void	reset();
 private slots:
   void	on_buy_clicked();
   void	on_cancel_clicked();

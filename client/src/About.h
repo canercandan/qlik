@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Wed Nov 26 23:21:38 2008 (+0200)
 // Version: 
-// Last-Updated: Wed Nov 26 23:21:49 2008 (+0200)
+// Last-Updated: Mon Dec  8 18:18:59 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 1
+//     Update #: 7
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -50,16 +50,19 @@
 # define __ABOUT_H__
 
 # include <QDialog>
+# include "Singleton.hpp"
 # include "ui_About.h"
 
-class	About : public QDialog, public Ui::About
+class	About : public QDialog, public Singleton<About>,
+		public Ui::About
 {
   Q_OBJECT
 
-  public:
-  About(QWidget* parent = NULL);
+  friend class	Singleton<About>;
 private slots:
   void	on_close_clicked();
+private:
+  About(QWidget* parent = NULL);
 };
 
 #endif // !__ABOUT_H__

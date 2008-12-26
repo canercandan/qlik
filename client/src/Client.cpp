@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 00:43:31 2008 (+0200)
 // Version: 
-// Last-Updated: Wed Dec  3 21:08:47 2008 (+0200)
+// Last-Updated: Tue Dec  9 12:34:04 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 131
+//     Update #: 189
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -70,8 +70,6 @@
 Client::Client(QWidget *parent /*= NULL*/)
   : QMainWindow(parent)
 {
-  Socket*	socket = Socket::getInstance();
-
   setupUi(this);
 
   actionSignUp->setEnabled(false);
@@ -81,58 +79,50 @@ Client::Client(QWidget *parent /*= NULL*/)
   pageBox->setEnabled(false);
   pageBox->setCurrentIndex(0);
 
+  connect(this, SIGNAL(destroyed(QObject*)),
+	  this, SLOT(_beforeClose(QObject*)));
+
+  Socket*	socket = Socket::getInstance();
+
   connect(socket->socket(), SIGNAL(connected()),
-	  this, SLOT(connectedToServer()));
+	  this, SLOT(_connectedToServer()));
   connect(socket->socket(), SIGNAL(readyRead()),
-	  this, SLOT(readAction()));
+	  this, SLOT(_readAction()));
   connect(socket->socket(), SIGNAL(bytesWritten(qint64)),
-	  this, SLOT(sendAction()));
+	  this, SLOT(_sendAction()));
   connect(socket->socket(), SIGNAL(error(QAbstractSocket::SocketError)),
-	  this, SLOT(displayError(QAbstractSocket::SocketError)));
+	  this, SLOT(_displayError(QAbstractSocket::SocketError)));
+
   connect(pageBox, SIGNAL(currentChanged(int)),
-	  this, SLOT(loadPages(int)));
+	  this, SLOT(_loadPages(int)));
   connect(serviceBox, SIGNAL(currentChanged(int)),
-	  this, SLOT(loadServices(int)));
+	  this, SLOT(_loadServices(int)));
   connect(creditBox, SIGNAL(currentChanged(int)),
-	  this, SLOT(loadHistory(int)));
+	  this, SLOT(_loadHistory(int)));
   connect(adminBox, SIGNAL(currentChanged(int)),
-	  this, SLOT(loadAdmin(int)));
+	  this, SLOT(_loadAdmin(int)));
 
-  Options::getInstance(this);
+  Credit*	credit = Credit::getInstance(this);
 
-  if (_keyExist("sizeX") && _keyExist("sizeY"))
-    {
-      int	x = _getKeyValue("sizeX").toInt();
-      int	y = _getKeyValue("sizeY").toInt();
+  connect(creditCurrently, SIGNAL(textChanged(const QString&)),
+	  credit->currently, SLOT(setText(const QString&)));
+  connect(serviceCredit, SIGNAL(clicked()),
+	  credit, SLOT(show()));
 
-      resize(x, y);
-    }
+  Options*	options = Options::getInstance(this);
+  Accounts*	accounts = Accounts::getInstance(this);
+  About*	about = About::getInstance(this);
 
-  if (_keyExist("posX") && _keyExist("posY"))
-    {
-      int	x = _getKeyValue("posX").toInt();
-      int	y = _getKeyValue("posY").toInt();
+  connect(actionQuit, SIGNAL(triggered()),
+	  this, SLOT(close()));
+  connect(actionOptions, SIGNAL(triggered()),
+	  options, SLOT(show()));
+  connect(actionAccounts, SIGNAL(triggered()),
+	  accounts, SLOT(show()));
+  connect(actionAbout, SIGNAL(triggered()),
+	  about, SLOT(show()));
 
-      move(x, y);
-    }
-
-  if (_keyExist("mask"))
-    {
-      QVariant	value = _getKeyValue("mask");
-
-      if (value.toInt() & OPT_SPLASH)
-	{
-	  QSqlQuery	q(Database::getInstance()->database());
-
-	  q.prepare("select username from users;");
-	  q.exec();
-
-	  if (q.next())
-	    on_actionSignIn_triggered();
-	  else
-	    on_actionSignUp_triggered();
-	}
-    }
+  _loadOptions();
 }
 
 Client::~Client()
@@ -152,8 +142,51 @@ Client::~Client()
   Credit::kill();
   State::kill();
   AccountsAdmin::kill();
+  About::kill();
 
   destroyMessages();
+}
+
+void	Client::_beforeClose(QObject*)
+{
+  qDebug() << __FUNCTION__;
+}
+
+void	Client::_loadOptions()
+{
+  if (_keyExist("sizeX") && _keyExist("sizeY"))
+    {
+      int	x = _getKeyValue("sizeX").toInt();
+      int	y = _getKeyValue("sizeY").toInt();
+
+      this->resize(x, y);
+    }
+
+  if (_keyExist("posX") && _keyExist("posY"))
+    {
+      int	x = _getKeyValue("posX").toInt();
+      int	y = _getKeyValue("posY").toInt();
+
+      this->move(x, y);
+    }
+
+  if (_keyExist("mask"))
+    {
+      QVariant	value = _getKeyValue("mask");
+
+      if (value.toInt() & OPT_SPLASH)
+	{
+	  QSqlQuery	q(Database::getInstance()->database());
+
+	  q.prepare("select username from users;");
+	  q.exec();
+
+	  if (q.next())
+	    this->on_actionSignIn_triggered();
+	  else
+	    this->on_actionSignUp_triggered();
+	}
+    }
 }
 
 QVariant	Client::_getKeyValue(const QString& key)
@@ -251,7 +284,7 @@ void	Client::login()
   this->pageBox->setEnabled(true);
   this->infoStatus->setText(tr("online"));
   this->statusbar->showMessage(tr("bar_login"));
-  this->loadPages(0);
+  this->_loadPages(0);
 }
 
 void	Client::logout()
@@ -343,36 +376,10 @@ void	Client::loadNews()
   stream << NEWS << NL;
 }
 
-void	Client::on_actionAbout_triggered()
-{
-  About	about(this);
-
-  about.exec();
-}
-
-void	Client::on_actionQuit_triggered()
-{
-  this->close();
-}
-
-void	Client::on_actionOptions_triggered()
-{
-  Options::getInstance()->show();
-}
-
-void	Client::on_actionAccounts_triggered()
-{
-  Accounts::getInstance()->show();
-}
-
 void	Client::on_serviceAdd_clicked()
 {
   Service*	service = Service::getInstance(this);
-
-  connect(service->serviceBox, SIGNAL(currentChanged(int)),
-	  this, SLOT(loadOffers(int)));
-
-  int	idx = this->serviceBox->currentIndex();
+  int		idx = this->serviceBox->currentIndex();
 
   this->loadOffers(idx);
   service->serviceBox->setCurrentIndex(idx);
@@ -417,11 +424,6 @@ void	Client::showServiceSelected()
 void	Client::on_serviceManage_clicked()
 {
   showServiceSelected();
-}
-
-void	Client::on_serviceCredit_clicked()
-{
-  Credit::getInstance(this)->show();
 }
 
 void	Client::on_newsRead_clicked()
@@ -627,7 +629,7 @@ void	Client::on_serverBreak_clicked()
   stream << BREAK << NL;
 }
 
-void	Client::connectedToServer()
+void	Client::_connectedToServer()
 {
   this->statusbar->showMessage(tr("bar_connected"));
   this->setEnabled(true);
@@ -635,17 +637,17 @@ void	Client::connectedToServer()
   this->actionSignIn->setEnabled(true);
 }
 
-void	Client::readAction()
+void	Client::_readAction()
 {
   Action	action(this, _userCreated);
 
   action.execute();
 }
 
-void	Client::sendAction()
+void	Client::_sendAction()
 {}
 
-void	Client::displayError(QAbstractSocket::SocketError)
+void	Client::_displayError(QAbstractSocket::SocketError)
 {
   Options*	options = Options::getInstance(this);
 
@@ -682,23 +684,23 @@ void	Client::loadOffers(int idx)
   stream << OFFER_STREAM << NL;
 }
 
-void	Client::loadPages(int idx)
+void	Client::_loadPages(int idx)
 {
   QTextStream	stream(Socket::getInstance()->socket());
 
   if (idx == 0) // news
     this->loadNews();
   else if (idx == 1) // services
-    this->loadServices(0);
+    this->_loadServices(0);
   else if (idx == 2) // credit
-    this->loadHistory(0);
+    this->_loadHistory(0);
   else if (idx == 3) // talk
     this->loadClients();
   else if (idx == 4) // admin
-    this->loadAdmin(0);
+    this->_loadAdmin(0);
 }
 
-void	Client::loadServices(int idx)
+void	Client::_loadServices(int idx)
 {
   bool	rightAll = (this->getRight() & (RIGHT_WEB | RIGHT_STREAM));
   bool	rightWeb = (this->getRight() & RIGHT_WEB);
@@ -796,7 +798,7 @@ void	Client::loadAllContact(const QString& contact,
   this->talkAllContactsList->addItem(item);
 }
 
-void	Client::loadAdmin(int idx)
+void	Client::_loadAdmin(int idx)
 {
   bool	rightAdmin = ((this->getRight() & RIGHT_ADMIN) == RIGHT_ADMIN);
   bool	rightServer = ((this->getRight() & RIGHT_SERVER) == RIGHT_SERVER);
@@ -842,7 +844,7 @@ void	Client::loadAdmin(int idx)
     }
 }
 
-void	Client::loadHistory(int idx)
+void	Client::_loadHistory(int idx)
 {
   QSqlQuery	q(Database::getInstance()->database());
   QListWidget*	list;
@@ -872,56 +874,6 @@ void	Client::loadHistory(int idx)
 		   q.value(0).toString()));
 }
 
-void	Client::createOfferWeb()
-{
-  QTextStream	stream(Socket::getInstance()->socket());
-  Service*	service = Service::getInstance(this);
-
-  stream << CREATE_OFFER_WEB
-	 << SP << service->offerWebName->text()
-	 << SP << service->offerWebList->currentItem()->text()
-	 << SP << service->offerWebDomain->text()
-	 << NL;
-}
-
-void	Client::createOfferStream()
-{
-  QTextStream	stream(Socket::getInstance()->socket());
-  Service*	service = Service::getInstance(this);
-
-  stream << CREATE_OFFER_STREAM
-	 << SP << service->offerStreamName->text()
-	 << SP << service->offerStreamList->currentItem()->text()
-	 << SP << service->offerStreamTitle->text()
-	 << NL;
-}
-
-void	Client::createWeb()
-{
-  QTextStream	stream(Socket::getInstance()->socket());
-  Service*	service = Service::getInstance(this);
-
-  stream << CREATE_WEB
-	 << SP << service->webName->text()
-	 << SP << service->webSpace->currentText()
-	 << SP << service->webNbDb->currentText()
-	 << SP << service->webDomain->text()
-	 << NL;
-}
-
-void	Client::createStream()
-{
-  QTextStream	stream(Socket::getInstance()->socket());
-  Service*	service = Service::getInstance(this);
-
-  stream << CREATE_STREAM
-	 << SP << service->streamName->text()
-	 << SP << service->streamSlots->currentText()
-	 << SP << service->streamBits->currentText()
-	 << SP << service->streamTitle->text()
-	 << NL;
-}
-
 void	Client::addHistory(const Client::ServiceType& type,
 			   const QString& describe,
 			   const int& price)
@@ -944,22 +896,6 @@ int	Client::getCredit() const
 
 void	Client::setCredit(const int& credit)
 {
-  this->creditCurrently->setText(QVariant(credit).toString());
-}
-
-void	Client::addCredit(const int& value)
-{
-  int	credit = QVariant(this->creditCurrently->text()).toInt();
-
-  credit += value;
-  this->creditCurrently->setText(QVariant(credit).toString());
-}
-
-void	Client::subCredit(const int& value)
-{
-  int	credit = QVariant(this->creditCurrently->text()).toInt();
-
-  credit -= value;
   this->creditCurrently->setText(QVariant(credit).toString());
 }
 

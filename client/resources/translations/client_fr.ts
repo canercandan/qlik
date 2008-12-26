@@ -860,42 +860,42 @@ Voulez vous enregistrer votre compte dans le gestionnaire de comptes ?</translat
         <translation>Gestionnaire de comptes</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="252"/>
+        <location filename="../../src/Client.cpp" line="285"/>
         <source>online</source>
         <translation>En-ligne</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="253"/>
+        <location filename="../../src/Client.cpp" line="286"/>
         <source>bar_login</source>
         <translation>Je suis authentifie</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="265"/>
+        <location filename="../../src/Client.cpp" line="298"/>
         <source>bar_logout</source>
         <translation>Je suis deconnecte</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="594"/>
+        <location filename="../../src/Client.cpp" line="596"/>
         <source>are_you_sure</source>
         <translation>Etes vous sure ?</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="594"/>
+        <location filename="../../src/Client.cpp" line="596"/>
         <source>are_you_sure_txt</source>
         <translation>Etes vous sure de vouloir effectuer cette action ?</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="632"/>
+        <location filename="../../src/Client.cpp" line="634"/>
         <source>bar_connected</source>
         <translation>Je suis connecte au server</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="652"/>
+        <location filename="../../src/Client.cpp" line="654"/>
         <source>not_connected</source>
         <translation>Pas connecte</translation>
     </message>
     <message>
-        <location filename="../../src/Client.cpp" line="653"/>
+        <location filename="../../src/Client.cpp" line="655"/>
         <source>not_connected_txt</source>
         <translation>L&apos;adresse du server est incorrect</translation>
     </message>
@@ -1328,7 +1328,7 @@ vous connecter a un autre compte.</translation>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../../src/Credit.cpp" line="70"/>
+        <location filename="../../src/Credit.cpp" line="63"/>
         <source>buy_txt</source>
         <translation>Allez sur ce lien:
 http://qlik.candan.fr/dokuwiki/fr:credit
@@ -1851,132 +1851,132 @@ ou si vous souhaitez annuler, cliquez sur Annuler.</translation>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="205"/>
+        <location filename="../../src/Service.cpp" line="228"/>
         <source>no_name</source>
         <translation>Aucun nom</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="205"/>
+        <location filename="../../src/Service.cpp" line="228"/>
         <source>no_name_txt</source>
         <translation>Aucun nom a ete insere</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="212"/>
+        <location filename="../../src/Service.cpp" line="235"/>
         <source>name_inc</source>
         <translation>Nom incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="212"/>
+        <location filename="../../src/Service.cpp" line="235"/>
         <source>name_inc_txt</source>
         <translation>Le nom est incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="129"/>
+        <location filename="../../src/Service.cpp" line="137"/>
         <source>no_offer</source>
         <translation>Aucune offre</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="129"/>
+        <location filename="../../src/Service.cpp" line="137"/>
         <source>no_offer_txt</source>
         <translation>Aucune offre a ete choisie</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="182"/>
+        <location filename="../../src/Service.cpp" line="197"/>
         <source>no_domain</source>
         <translation>Aucun nom de domaine</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="182"/>
+        <location filename="../../src/Service.cpp" line="197"/>
         <source>no_domain_txt</source>
         <translation>Aucun nom de domaine a ete insere</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="189"/>
+        <location filename="../../src/Service.cpp" line="204"/>
         <source>domain_inc</source>
         <translation>Nom de domaine incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="189"/>
+        <location filename="../../src/Service.cpp" line="204"/>
         <source>domain_inc_txt</source>
         <translation>Le nom de domaine est incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="230"/>
+        <location filename="../../src/Service.cpp" line="253"/>
         <source>no_title</source>
         <translation>Aucun titre</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="230"/>
+        <location filename="../../src/Service.cpp" line="253"/>
         <source>no_title_txt</source>
         <translation>Aucun titre a ete insere</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="237"/>
+        <location filename="../../src/Service.cpp" line="260"/>
         <source>title_inc</source>
         <translation>Titre incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="237"/>
+        <location filename="../../src/Service.cpp" line="260"/>
         <source>title_inc_txt</source>
         <translation>Le titre est incorrect</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="170"/>
+        <location filename="../../src/Service.cpp" line="185"/>
         <source>no_space</source>
         <translation>Aucun espace web</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="170"/>
+        <location filename="../../src/Service.cpp" line="185"/>
         <source>no_space_txt</source>
         <translation>Aucun espace web a ete choisit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="176"/>
+        <location filename="../../src/Service.cpp" line="191"/>
         <source>no_nbr_db</source>
         <translation>Aucun nombre de base de donnees</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="176"/>
+        <location filename="../../src/Service.cpp" line="191"/>
         <source>no_nbr_db_txt</source>
         <translation>Aucun nombre de base de donnees a ete choisit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="218"/>
+        <location filename="../../src/Service.cpp" line="241"/>
         <source>no_slots</source>
         <translation>Aucun auditeur</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="218"/>
+        <location filename="../../src/Service.cpp" line="241"/>
         <source>no_slots_txt</source>
         <translation>Aucun auditeur a ete choisit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="224"/>
+        <location filename="../../src/Service.cpp" line="247"/>
         <source>no_bits</source>
         <translation>Aucun debit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="224"/>
+        <location filename="../../src/Service.cpp" line="247"/>
         <source>no_bits_txt</source>
         <translation>Aucun debit a ete choisit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="292"/>
+        <location filename="../../src/Service.cpp" line="327"/>
         <source>not_enough_credit</source>
         <translation>Pas assez de credit</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="293"/>
+        <location filename="../../src/Service.cpp" line="328"/>
         <source>not_enough_credit_txt</source>
         <translation>Vous n&apos;avez pas assez de crediter pour acheter ceci</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="296"/>
+        <location filename="../../src/Service.cpp" line="331"/>
         <source>are_you_sure</source>
         <translation>Etes vous sure ?</translation>
     </message>
     <message>
-        <location filename="../../src/Service.cpp" line="297"/>
+        <location filename="../../src/Service.cpp" line="332"/>
         <source>are_you_sure_txt</source>
         <translation>Etes vous sure de vouloir effectuer cette action ?</translation>
     </message>

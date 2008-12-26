@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 01:03:26 2008 (+0200)
 // Version: 
-// Last-Updated: Thu Dec  4 00:24:04 2008 (+0200)
+// Last-Updated: Mon Dec  8 14:30:30 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 5
+//     Update #: 21
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -51,6 +51,7 @@
 #include "Service.h"
 #include "Client.h"
 #include "Protocole.h"
+#include "Socket.h"
 
 Service::Service(QWidget* parent /*= NULL*/)
   : QDialog(parent)
@@ -104,7 +105,14 @@ void	Service::createWebOffer()
     }
   if (!this->_confirmOffer(this->offerWebList))
     return;
-  static_cast<Client*>(this->parent())->createOfferWeb();
+
+  QTextStream	stream(Socket::getInstance()->socket());
+
+  stream << CREATE_OFFER_WEB
+	 << SP << this->offerWebName->text()
+	 << SP << this->offerWebList->currentItem()->text()
+	 << SP << this->offerWebDomain->text()
+	 << NL;
 }
 
 void	Service::createStreamOffer()
@@ -145,7 +153,14 @@ void	Service::createStreamOffer()
     }
   if (!this->_confirmOffer(this->offerStreamList))
     return;
-  static_cast<Client*>(this->parent())->createOfferStream();
+
+  QTextStream	stream(Socket::getInstance()->socket());
+
+  stream << CREATE_OFFER_STREAM
+	 << SP << this->offerStreamName->text()
+	 << SP << this->offerStreamList->currentItem()->text()
+	 << SP << this->offerStreamTitle->text()
+	 << NL;
 }
 
 void	Service::createWebMore()
@@ -193,7 +208,15 @@ void	Service::createWebMore()
   if (!this->_confirmMore(this->webSpace, RATIO_WEB_SPACE,
 			  this->webNbDb, RATIO_WEB_DB))
     return;
-  static_cast<Client*>(this->parent())->createWeb();
+
+  QTextStream	stream(Socket::getInstance()->socket());
+
+  stream << CREATE_WEB
+	 << SP << this->webName->text()
+	 << SP << this->webSpace->currentText()
+	 << SP << this->webNbDb->currentText()
+	 << SP << this->webDomain->text()
+	 << NL;
 }
 
 void	Service::createStreamMore()
@@ -241,21 +264,33 @@ void	Service::createStreamMore()
   if (!this->_confirmMore(this->streamSlots, RATIO_STREAM_SLOT,
 			  this->streamBits, RATIO_STREAM_BITS))
     return;
-  static_cast<Client*>(this->parent())->createStream();
+
+  QTextStream	stream(Socket::getInstance()->socket());
+
+  stream << CREATE_STREAM
+	 << SP << this->streamName->text()
+	 << SP << this->streamSlots->currentText()
+	 << SP << this->streamBits->currentText()
+	 << SP << this->streamTitle->text()
+	 << NL;
 }
 
 void	Service::on_ok_clicked()
 {
-  if (!this->serviceBox->currentIndex())
-    if (!this->webType->currentIndex())
-      this->createWebOffer();
-    else
-      this->createWebMore();
+  if (this->serviceBox->currentIndex() == 0)
+    {
+      if (this->webType->currentIndex() == 0)
+	this->createWebOffer();
+      else
+	this->createWebMore();
+    }
   else
-    if (!this->streamType->currentIndex())
-      this->createStreamOffer();
-    else
-      this->createStreamMore();
+    {
+      if (this->streamType->currentIndex() == 0)
+	this->createStreamOffer();
+      else
+	this->createStreamMore();
+    }
 }
 
 void	Service::on_cancel_clicked()
