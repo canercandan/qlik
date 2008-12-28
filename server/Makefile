@@ -6,9 +6,9 @@
 ## Maintainer: 
 ## Created: Sun Dec 28 11:58:17 2008 (+0200)
 ## Version: 
-## Last-Updated: Sun Dec 28 12:21:23 2008 (+0200)
+## Last-Updated: Sun Dec 28 12:44:37 2008 (+0200)
 ##           By: Caner Candan
-##     Update #: 27
+##     Update #: 48
 ## URL: 
 ## Keywords: 
 ## Compatibility: 
@@ -138,7 +138,7 @@ $(PATH_SRC)/main.o	:	\
 				$(PATH_SRC)/main.cpp	\
 				$(PATH_SRC)/Server.h	\
 				$(PATH_SRC)/Config.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/main.cpp to $@ "
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/main.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/main.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Action.o	:	\
@@ -148,66 +148,83 @@ $(PATH_SRC)/Action.o	:	\
 				$(PATH_SRC)/Database.h		\
 				$(PATH_SRC)/Credit.h		\
 				$(PATH_SRC)/Apache.h		\
-				$(PATH_SRC)/IceCast.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Action.cpp to $@ "
+				$(PATH_SRC)/IceCast.h		\
+				$(PATH_SRC)/Server.h		\
+				$(PATH_SRC)/Client.h		\
+				$(PATH_SRC)/Service.h		\
+				$(PATH_SRC)/Stream.h		\
+				$(PATH_SRC)/Web.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Action.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Action.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Apache.o	:	\
-				$(PATH_SRC)/Apache.cpp	\
-				$(PATH_SRC)/Apache.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Apache.cpp to $@ "
+				$(PATH_SRC)/Apache.cpp		\
+				$(PATH_SRC)/Apache.h		\
+				$(PATH_SRC)/IServerWeb.h	\
+				$(PATH_SRC)/Client.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Apache.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Apache.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Client.o	:	\
 				$(PATH_SRC)/Client.cpp	\
 				$(PATH_SRC)/Client.h	\
-				$(PATH_SRC)/Database.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Client.cpp to $@ "
+				$(PATH_SRC)/Database.h	\
+				$(PATH_SRC)/Socket.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Client.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Client.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Config.o	:	\
-				$(PATH_SRC)/Config.cpp	\
-				$(PATH_SRC)/Config.h	\
-				$(PATH_SRC)/XmlParser.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Config.cpp to $@ "
+				$(PATH_SRC)/Config.cpp		\
+				$(PATH_SRC)/Config.h		\
+				$(PATH_SRC)/XmlParser.h		\
+				$(PATH_SRC)/Singleton.hpp
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Config.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Config.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Credit.o	:	\
 				$(PATH_SRC)/Credit.cpp	\
 				$(PATH_SRC)/Credit.h	\
-				$(PATH_SRC)/Database.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Credit.cpp to $@ "
+				$(PATH_SRC)/Database.h	\
+				$(PATH_SRC)/Client.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Credit.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Credit.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Database.o	:	\
 				$(PATH_SRC)/Database.cpp	\
 				$(PATH_SRC)/Database.h		\
-				$(PATH_SRC)/Config.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Database.cpp to $@ "
+				$(PATH_SRC)/Config.h		\
+				$(PATH_SRC)/Singleton.hpp	\
+				$(PATH_SRC)/SQLiteWrapper.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Database.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Database.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/IceCast.o	:	\
-				$(PATH_SRC)/IceCast.cpp	\
-				$(PATH_SRC)/IceCast.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/IceCast.cpp to $@ "
+				$(PATH_SRC)/IceCast.cpp		\
+				$(PATH_SRC)/IceCast.h		\
+				$(PATH_SRC)/IServerStream.h	\
+				$(PATH_SRC)/Stream.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/IceCast.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/IceCast.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Mysql.o	:	\
-				$(PATH_SRC)/Mysql.cpp	\
-				$(PATH_SRC)/Mysql.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Mysql.cpp to $@ "
+				$(PATH_SRC)/Mysql.cpp		\
+				$(PATH_SRC)/Mysql.h		\
+				$(PATH_SRC)/IServerSql.h	\
+				$(PATH_SRC)/Client.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Mysql.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Mysql.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Proftpd.o	:	\
-				$(PATH_SRC)/Proftpd.cpp	\
-				$(PATH_SRC)/Proftpd.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Proftpd.cpp to $@ "
+				$(PATH_SRC)/Proftpd.cpp		\
+				$(PATH_SRC)/Proftpd.h		\
+				$(PATH_SRC)/IServerFtp.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Proftpd.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Proftpd.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/SQLiteWrapper.o	:	\
 				$(PATH_SRC)/SQLiteWrapper.cpp	\
 				$(PATH_SRC)/SQLiteWrapper.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/SQLiteWrapper.cpp to $@ "
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/SQLiteWrapper.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/SQLiteWrapper.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Select.o	:	\
@@ -219,77 +236,88 @@ $(PATH_SRC)/Select.o	:	\
 				$(PATH_SRC)/State.h		\
 				$(PATH_COMMON)/Protocole.h	\
 				$(PATH_SRC)/Action.h		\
-				$(PATH_SRC)/Signal.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Select.cpp to $@ "
+				$(PATH_SRC)/Signal.h		\
+				$(PATH_SRC)/Client.h		\
+				$(PATH_SRC)/Server.h		\
+				$(PATH_SRC)/ISignalManager.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Select.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Select.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Server.o	:	\
-				$(PATH_SRC)/Server.cpp	\
-				$(PATH_SRC)/Server.h	\
-				$(PATH_SRC)/Client.h	\
-				$(PATH_SRC)/Signal.h	\
-				$(PATH_SRC)/Config.h	\
-				$(PATH_SRC)/Select.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Server.cpp to $@ "
+				$(PATH_SRC)/Server.cpp		\
+				$(PATH_SRC)/Server.h		\
+				$(PATH_SRC)/Signal.h		\
+				$(PATH_SRC)/Config.h		\
+				$(PATH_SRC)/Select.h		\
+				$(PATH_SRC)/Client.h		\
+				$(PATH_SRC)/ISignalManager.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Server.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Server.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Service.o	:	\
 				$(PATH_SRC)/Service.cpp	\
 				$(PATH_SRC)/Service.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Service.cpp to $@ "
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Service.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Service.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Signal.o	:	\
-				$(PATH_SRC)/Signal.cpp	\
-				$(PATH_SRC)/Signal.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Signal.cpp to $@ "
+				$(PATH_SRC)/Signal.cpp		\
+				$(PATH_SRC)/Signal.h		\
+				$(PATH_SRC)/Singleton.hpp	\
+				$(PATH_SRC)/ISignalManager.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Signal.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Signal.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Socket.o	:	\
 				$(PATH_SRC)/Socket.cpp	\
 				$(PATH_SRC)/Socket.h	\
 				$(PATH_SRC)/Config.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Socket.cpp to $@ "
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Socket.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Socket.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/SocketClient.o	:	\
 				$(PATH_SRC)/SocketClient.cpp	\
 				$(PATH_SRC)/SocketClient.h	\
 				$(PATH_SRC)/State.h		\
-				$(PATH_SRC)/Config.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/SocketClient.cpp to $@ "
+				$(PATH_SRC)/Config.h		\
+				$(PATH_SRC)/Socket.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/SocketClient.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/SocketClient.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/SocketServer.o	:	\
 				$(PATH_SRC)/SocketServer.cpp	\
 				$(PATH_SRC)/SocketServer.h	\
 				$(PATH_SRC)/State.h		\
-				$(PATH_SRC)/Config.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/SocketServer.cpp to $@ "
+				$(PATH_SRC)/Config.h		\
+				$(PATH_SRC)/Socket.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/SocketServer.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/SocketServer.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/State.o	:	\
-				$(PATH_SRC)/State.cpp	\
-				$(PATH_SRC)/State.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/State.cpp to $@ "
+				$(PATH_SRC)/State.cpp		\
+				$(PATH_SRC)/State.h		\
+				$(PATH_SRC)/Singleton.hpp
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/State.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/State.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Stream.o	:	\
 				$(PATH_SRC)/Stream.cpp	\
-				$(PATH_SRC)/Stream.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Stream.cpp to $@ "
+				$(PATH_SRC)/Stream.h	\
+				$(PATH_SRC)/Service.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Stream.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Stream.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/Web.o	:	\
 				$(PATH_SRC)/Web.cpp	\
-				$(PATH_SRC)/Web.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/Web.cpp to $@ "
+				$(PATH_SRC)/Web.h	\
+				$(PATH_SRC)/Service.h
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/Web.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/Web.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 $(PATH_SRC)/XmlParser.o	:	\
 				$(PATH_SRC)/XmlParser.cpp	\
 				$(PATH_SRC)/XmlParser.h
-				-@$(ECHON) "*** Compiling $(PATH_SRC)/XmlParser.cpp to $@ "
+				-@$(ECHON) "*** Recompiling $(PATH_SRC)/XmlParser.cpp to $@ "
 				-@$(CXX) $(CFLAGS) -c $(PATH_SRC)/XmlParser.cpp -o $@ && $(SUCCESS) || $(FAILED)
 
 ######################################################################

@@ -6,9 +6,9 @@
 // Maintainer: 
 // Created: Thu Nov 27 09:14:21 2008 (+0200)
 // Version: 
-// Last-Updated: Wed Dec  3 02:28:27 2008 (+0200)
+// Last-Updated: Sun Dec 28 12:42:03 2008 (+0200)
 //           By: Caner Candan
-//     Update #: 12
+//     Update #: 13
 // URL: 
 // Keywords: 
 // Compatibility: 
@@ -49,7 +49,6 @@
 #include <string>
 #include <iostream>
 #include "Server.h"
-#include "Client.h"
 #include "Signal.h"
 #include "Config.h"
 #include "Select.h"
