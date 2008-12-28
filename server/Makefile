@@ -4,11 +4,11 @@
 ## Description: 
 ## Author: Caner Candan
 ## Maintainer: 
-## Created: Thu Nov 27 01:43:52 2008 (+0200)
+## Created: Sun Dec 28 10:33:20 2008 (+0200)
 ## Version: 
-## Last-Updated: Sat Nov 29 12:33:27 2008 (+0200)
+## Last-Updated: Sun Dec 28 10:33:50 2008 (+0200)
 ##           By: Caner Candan
-##     Update #: 18
+##     Update #: 4
 ## URL: 
 ## Keywords: 
 ## Compatibility: 
@@ -22,9 +22,6 @@
 ######################################################################
 ## 
 ### Change log:
-## 27-Nov-2008    Caner Candan  
-##    Last-Updated: Thu Nov 27 12:02:36 2008 (+0200) #5 (Caner Candan)
-##    ../src -> src, . -> bin, mkdir bin if not exist
 ## 
 ## 
 ######################################################################
@@ -43,7 +40,6 @@
 ## along with this program; see the file COPYING.  If not, write to
 ## the Free Software Foundation, Inc., 51 Franklin Street, Fifth
 ## Floor, Boston, MA 02110-1301, USA.
-
 ## 
 ######################################################################
 ## 
@@ -85,6 +81,12 @@ OBJS		=	$(SRCS:.cpp=.o)
 CXX		=	g++
 RM		=	rm -f
 MKDIR		=	mkdir -p
+ECHO		=	echo
+ECHOE		=	echo -e
+ECHON		=	echo -n
+
+SUCCESS		=	$(ECHOE) "[\033[32mSUCCESS\033[0m] "
+FAILED		=	$(ECHOE) "[\033[31mFAILED\033[0m] "
 
 INCLUDES	+=	-I$(PATH_INCLUDE) -I$(PATH_COMMON)
 INCLUDES	+=	`pkg-config sqlite3 --cflags`
@@ -94,7 +96,7 @@ LIBRARIES	+=	-L$(PATH_LIBRARY)
 LIBRARIES	+=	`pkg-config sqlite3 --libs`
 LIBRARIES	+=	`xml2-config --libs`
 
-DEBUG_42	=	-g -DDEBUG
+DEBUG_TRUE	=	-g -DDEBUG
 COMPAT		+=	-D__BSD_VISIBLE
 WARNINGS	+=	-W -Wall -Werror
 
@@ -104,26 +106,32 @@ LDFLAGS		+=	$(LIBRARIES)
 .SUFFIXES	:	.cpp.o
 
 $(NAME)		:	$(OBJS)
-			-@$(MKDIR) $(PATH_BIN)
-			$(CXX) -o $@ $(OBJS) $(LDFLAGS)
+			-@$(ECHON) "*** Making directory $(PATH_BIN) "
+			-@$(MKDIR) $(PATH_BIN) && $(SUCCESS) || $(FAILED)
+			-@$(ECHON) "*** Compiling $(OBJS) to $@ "
+			-@$(CXX) -o $@ $(OBJS) $(LDFLAGS) && $(SUCCESS) || $(FAILED)
 
 all		:	$(NAME)
 
 clean		:
-			-$(RM) $(PATH_SRC)/*~
-			-$(RM) $(PATH_SRC)/*.o
-			-$(RM) *.core
+			-@$(ECHON) "*** Removing $(PATH_SRC)/*~ "
+			-@$(RM) $(PATH_SRC)/*~ && $(SUCCESS) || $(FAILED)
+			-@$(ECHON) "*** Removing $(PATH_SRC)/*.o "
+			-@$(RM) $(PATH_SRC)/*.o && $(SUCCESS) || $(FAILED)
+			-@$(ECHON) "*** Removing $(PATH_BIN)/*.core "
+			-@$(RM) $(PATH_BIN)/*.core && $(SUCCESS) || $(FAILED)
 
 fclean		:	clean
-			-$(RM) $(NAME)
-			-$(RM) -r $(PATH_BIN)
+			-@$(ECHON) "*** Removing $(NAME) "
+			-@$(RM) $(NAME) && $(SUCCESS) || $(FAILED)
 
 re		:	fclean all
 
 .PHONY		:	all clean fclean re
 
 .cpp.o		:
-			$(CXX) $(CFLAGS) -c $< -o $@
+			-@$(ECHON) "*** Compiling $< to $@ "
+			-@$(CXX) $(CFLAGS) -c $< -o $@ && $(SUCCESS) || $(FAILED)
 
 ######################################################################
 ### Makefile ends here
