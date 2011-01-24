@@ -1,0 +1,410 @@
+<ui version="4.0" >
+ <class>Web</class>
+ <widget class="QDialog" name="Web" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>319</width>
+    <height>319</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>web</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QTabWidget" name="tabWidget" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="main" >
+      <attribute name="title" >
+       <string>main</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="groupBox" >
+         <property name="title" >
+          <string>web_settings</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <layout class="QVBoxLayout" >
+            <item>
+             <layout class="QGridLayout" >
+              <item row="0" column="0" >
+               <widget class="QLabel" name="label" >
+                <property name="text" >
+                 <string>name</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" >
+               <widget class="QLineEdit" name="name" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" >
+               <widget class="QLabel" name="label_2" >
+                <property name="text" >
+                 <string>space</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1" >
+               <widget class="QLineEdit" name="space" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" >
+               <widget class="QLabel" name="label_3" >
+                <property name="text" >
+                 <string>nbr_of_db</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1" >
+               <widget class="QLineEdit" name="nbDb" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0" >
+               <widget class="QLabel" name="label_4" >
+                <property name="text" >
+                 <string>domain</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1" >
+               <widget class="QLineEdit" name="domain" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0" >
+               <widget class="QLabel" name="label_10" >
+                <property name="text" >
+                 <string>created</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0" >
+               <widget class="QLabel" name="label_11" >
+                <property name="text" >
+                 <string>expired</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1" >
+               <widget class="QLineEdit" name="created" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1" >
+               <widget class="QLineEdit" name="expired" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" >
+              <item>
+               <widget class="QPushButton" name="start" >
+                <property name="enabled" >
+                 <bool>false</bool>
+                </property>
+                <property name="text" >
+                 <string>start</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="stop" >
+                <property name="enabled" >
+                 <bool>false</bool>
+                </property>
+                <property name="text" >
+                 <string>stop</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="format" >
+                <property name="text" >
+                 <string>format</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="renew" >
+              <property name="text" >
+               <string>renew</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="ftp" >
+      <attribute name="title" >
+       <string>ftp</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="groupBox_2" >
+         <property name="title" >
+          <string>ftp_settings</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <layout class="QVBoxLayout" >
+            <item>
+             <layout class="QGridLayout" >
+              <item row="0" column="0" >
+               <widget class="QLabel" name="label_6" >
+                <property name="text" >
+                 <string>host</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" >
+               <widget class="QLineEdit" name="ftpHost" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" >
+               <widget class="QLabel" name="label_7" >
+                <property name="text" >
+                 <string>username</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1" colspan="3" >
+               <widget class="QLineEdit" name="ftpUsername" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1" colspan="3" >
+               <widget class="QLineEdit" name="ftpPasswd" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2" >
+               <widget class="QLabel" name="label_9" >
+                <property name="text" >
+                 <string>port</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3" >
+               <widget class="QLineEdit" name="ftpPort" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" >
+               <widget class="QLabel" name="label_8" >
+                <property name="text" >
+                 <string>password</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="db" >
+      <attribute name="title" >
+       <string>db</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="groupBox_3" >
+         <property name="title" >
+          <string>db_settings</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <layout class="QVBoxLayout" >
+            <item>
+             <layout class="QGridLayout" >
+              <item row="1" column="0" >
+               <widget class="QLabel" name="label_18" >
+                <property name="text" >
+                 <string>host</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1" >
+               <widget class="QLineEdit" name="dbHost" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" >
+               <widget class="QLabel" name="label_19" >
+                <property name="text" >
+                 <string>username</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1" colspan="3" >
+               <widget class="QLineEdit" name="dbUsername" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1" colspan="3" >
+               <widget class="QLineEdit" name="dbPasswd" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2" >
+               <widget class="QLabel" name="label_20" >
+                <property name="text" >
+                 <string>port</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3" >
+               <widget class="QLineEdit" name="dbPort" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0" >
+               <widget class="QLabel" name="label_21" >
+                <property name="text" >
+                 <string>password</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0" >
+               <widget class="QLabel" name="label_22" >
+                <property name="text" >
+                 <string>type</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" colspan="3" >
+               <widget class="QLineEdit" name="dbType" >
+                <property name="readOnly" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="software" >
+      <attribute name="title" >
+       <string>software</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <layout class="QVBoxLayout" >
+         <item>
+          <widget class="QLabel" name="label_5" >
+           <property name="text" >
+            <string>software_txt</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_2" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="softwareList" />
+         </item>
+         <item>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="QPushButton" name="softwareInstall" >
+             <property name="text" >
+              <string>install</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>name</tabstop>
+  <tabstop>space</tabstop>
+  <tabstop>nbDb</tabstop>
+  <tabstop>domain</tabstop>
+  <tabstop>created</tabstop>
+  <tabstop>expired</tabstop>
+  <tabstop>start</tabstop>
+  <tabstop>stop</tabstop>
+  <tabstop>format</tabstop>
+  <tabstop>renew</tabstop>
+  <tabstop>ftpHost</tabstop>
+  <tabstop>ftpPort</tabstop>
+  <tabstop>ftpUsername</tabstop>
+  <tabstop>ftpPasswd</tabstop>
+  <tabstop>dbType</tabstop>
+  <tabstop>dbHost</tabstop>
+  <tabstop>dbPort</tabstop>
+  <tabstop>dbUsername</tabstop>
+  <tabstop>dbPasswd</tabstop>
+  <tabstop>softwareList</tabstop>
+  <tabstop>softwareInstall</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

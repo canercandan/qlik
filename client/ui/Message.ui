@@ -1,0 +1,119 @@
+<ui version="4.0" >
+ <class>Message</class>
+ <widget class="QDialog" name="Message" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>345</width>
+    <height>253</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>message</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <layout class="QVBoxLayout" >
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QLabel" name="label_2" >
+         <property name="text" >
+          <string>from</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="from" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label" >
+         <property name="text" >
+          <string>to</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="to" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="list" >
+       <property name="autoFormatting" >
+        <set>QTextEdit::AutoAll</set>
+       </property>
+       <property name="readOnly" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QLineEdit" name="edit" />
+       </item>
+       <item>
+        <widget class="QPushButton" name="send" >
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="icon" >
+          <iconset resource="../resources/resources.qrc" >:/talk/images/email_go.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="add" >
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="icon" >
+          <iconset resource="../resources/resources.qrc" >:/talk/images/user_add.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>edit</tabstop>
+  <tabstop>send</tabstop>
+  <tabstop>from</tabstop>
+  <tabstop>to</tabstop>
+  <tabstop>list</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../resources/resources.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>edit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>send</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>220</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>276</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

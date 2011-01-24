@@ -1,0 +1,41 @@
+<ui version="4.0" >
+ <class>Lang</class>
+ <widget class="QWidget" name="Lang" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>273</width>
+    <height>97</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Language Settings</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <layout class="QVBoxLayout" >
+     <item>
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>Please insert your language (for example : en_US)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="language" />
+     </item>
+     <item>
+      <widget class="QPushButton" name="save" >
+       <property name="text" >
+        <string>Save</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

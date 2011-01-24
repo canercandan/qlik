@@ -1,0 +1,178 @@
+<ui version="4.0" >
+ <class>Stream</class>
+ <widget class="QDialog" name="Stream" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>319</width>
+    <height>303</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>stream</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>stream_settings</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <layout class="QVBoxLayout" >
+        <item>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="QLabel" name="label" >
+            <property name="text" >
+             <string>name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QLineEdit" name="name" >
+            <property name="readOnly" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="label_2" >
+            <property name="text" >
+             <string>slots</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QLineEdit" name="slotss" >
+            <property name="readOnly" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" >
+           <widget class="QLabel" name="label_3" >
+            <property name="text" >
+             <string>bits</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" >
+           <widget class="QLineEdit" name="bits" >
+            <property name="readOnly" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" >
+           <widget class="QLabel" name="label_4" >
+            <property name="text" >
+             <string>title</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1" >
+           <widget class="QLineEdit" name="title" >
+            <property name="readOnly" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" >
+           <widget class="QLabel" name="label_5" >
+            <property name="text" >
+             <string>port</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1" >
+           <widget class="QLineEdit" name="port" >
+            <property name="readOnly" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" >
+           <widget class="QLabel" name="label_6" >
+            <property name="text" >
+             <string>created</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0" >
+           <widget class="QLabel" name="label_7" >
+            <property name="text" >
+             <string>expired</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1" >
+           <widget class="QLineEdit" name="created" >
+            <property name="readOnly" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1" >
+           <widget class="QLineEdit" name="expired" >
+            <property name="readOnly" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" >
+          <item>
+           <widget class="QPushButton" name="start" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="text" >
+             <string>start</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="stop" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="text" >
+             <string>stop</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="renew" >
+          <property name="text" >
+           <string>renew</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>name</tabstop>
+  <tabstop>slotss</tabstop>
+  <tabstop>bits</tabstop>
+  <tabstop>title</tabstop>
+  <tabstop>port</tabstop>
+  <tabstop>created</tabstop>
+  <tabstop>expired</tabstop>
+  <tabstop>start</tabstop>
+  <tabstop>stop</tabstop>
+  <tabstop>renew</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
